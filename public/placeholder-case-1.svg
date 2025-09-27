@@ -1,0 +1,33 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Achtergrond -->
+  <rect width="400" height="300" fill="#0d1a26"/>
+  
+  <!-- Main panel met gradient -->
+  <rect x="10" y="10" width="380" height="280" rx="8" fill="rgba(255,255,255,0.03)"/>
+  
+  <!-- Sidebar -->
+  <rect x="10" y="10" width="80" height="280" rx="8" fill="rgba(0, 242, 161, 0.05)"/>
+  <rect x="25" y="30" width="50" height="8" rx="4" fill="rgba(0, 242, 161, 0.4)"/>
+  <rect x="25" y="50" width="50" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+  <rect x="25" y="60" width="35" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+  <rect x="25" y="70" width="45" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- Header -->
+  <rect x="100" y="10" width="290" height="40" fill="rgba(0, 201, 255, 0.05)"/>
+  <rect x="350" y="22" width="24" height="16" rx="8" fill="rgba(0, 201, 255, 0.4)"/>
+  <rect x="115" y="26" width="100" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- Content Area - Grafiek -->
+  <g>
+    <path d="M120 150 C 160 100, 200 180, 240 140 S 320 80, 360 120" stroke="#00f2a1" stroke-width="2" fill="none"/>
+    <path d="M120 200 L 360 200" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2 2"/>
+    <path d="M120 150 L 360 150" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2 2"/>
+    <path d="M120 100 L 360 100" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="2 2"/>
+  </g>
+
+  <!-- Content Area - Kaarten -->
+  <rect x="120" y="220" width="110" height="50" rx="4" fill="rgba(0, 201, 255, 0.1)"/>
+  <rect x="250" y="220" width="110" height="50" rx="4" fill="rgba(0, 201, 255, 0.1)"/>
+  <rect x="130" y="230" width="60" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+  <rect x="260" y="230" width="60" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+</svg>
