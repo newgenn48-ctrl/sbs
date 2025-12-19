@@ -42,9 +42,9 @@ export default function Footer() {
               <Image
                 src="/sbs.webp"
                 alt="Start Beheer Solutions"
-                width={160}
-                height={46}
-                className="h-12 w-auto"
+                width={200}
+                height={58}
+                className="h-16 w-auto"
               />
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">

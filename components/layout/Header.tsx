@@ -98,9 +98,9 @@ export default function Header() {
               <Image
                 src="/sbs.webp"
                 alt="Start Beheer Solutions"
-                width={140}
-                height={40}
-                className="h-10 w-auto"
+                width={180}
+                height={52}
+                className="h-14 w-auto"
                 priority
               />
             </motion.div>
