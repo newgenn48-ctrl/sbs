@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import CursorGlow from '@/components/effects/CursorGlow'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -121,6 +122,7 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        <CursorGlow />
         <div className="relative flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>
