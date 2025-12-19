@@ -1,32 +1,47 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState, useCallback } from 'react'
+import { motion, useSpring, useMotionValue } from 'framer-motion'
 
 export default function CursorGlow() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isVisible, setIsVisible] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  const cursorX = useMotionValue(0)
+  const cursorY = useMotionValue(0)
+
+  // Smooth spring for outer circle
+  const springConfig = { damping: 25, stiffness: 250, mass: 0.5 }
+  const outerX = useSpring(cursorX, springConfig)
+  const outerY = useSpring(cursorY, springConfig)
+
+  // Faster spring for inner dot
+  const dotSpringConfig = { damping: 35, stiffness: 400, mass: 0.3 }
+  const dotX = useSpring(cursorX, dotSpringConfig)
+  const dotY = useSpring(cursorY, dotSpringConfig)
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    cursorX.set(e.clientX)
+    cursorY.set(e.clientY)
+    if (!isVisible) setIsVisible(true)
+  }, [cursorX, cursorY, isVisible])
 
   useEffect(() => {
+    setIsMounted(true)
+
     // Check for touch device
     if (window.matchMedia('(pointer: coarse)').matches) return
 
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-      if (!isVisible) setIsVisible(true)
-    }
-
-    const handleMouseLeave = () => setIsVisible(false)
-    const handleMouseEnter = () => setIsVisible(true)
     const handleMouseDown = () => setIsClicking(true)
     const handleMouseUp = () => setIsClicking(false)
+    const handleMouseLeave = () => setIsVisible(false)
+    const handleMouseEnter = () => setIsVisible(true)
 
-    // Detect hoverable elements
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-hover]')
+      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, label, [data-cursor-hover]')
       setIsHovering(!!isHoverable)
     }
 
@@ -37,9 +52,6 @@ export default function CursorGlow() {
     document.body.addEventListener('mouseleave', handleMouseLeave)
     document.body.addEventListener('mouseenter', handleMouseEnter)
 
-    // Hide default cursor
-    document.body.style.cursor = 'none'
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mousemove', handleElementHover)
@@ -47,70 +59,71 @@ export default function CursorGlow() {
       window.removeEventListener('mouseup', handleMouseUp)
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
-      document.body.style.cursor = 'auto'
     }
-  }, [isVisible])
+  }, [handleMouseMove])
 
-  // Don't render on touch devices
+  if (!isMounted) return null
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
     return null
   }
 
   return (
     <>
-      {/* Outer ring */}
+      {/* Outer circle - follows with delay */}
       <motion.div
-        className="fixed pointer-events-none z-[9999]"
-        animate={{
-          x: mousePosition.x - (isHovering ? 24 : 16),
-          y: mousePosition.y - (isHovering ? 24 : 16),
-          opacity: isVisible ? 1 : 0,
-          scale: isClicking ? 0.8 : 1,
-        }}
-        transition={{
-          type: 'spring',
-          damping: 25,
-          stiffness: 300,
-          mass: 0.5,
+        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        style={{
+          x: outerX,
+          y: outerY,
+          translateX: '-50%',
+          translateY: '-50%',
         }}
       >
-        <div
-          className="rounded-full border-2 transition-all duration-200"
-          style={{
-            width: isHovering ? 48 : 32,
-            height: isHovering ? 48 : 32,
-            borderColor: isHovering ? '#8338EC' : '#00D9FF',
-            backgroundColor: isHovering ? 'rgba(131, 56, 236, 0.1)' : 'transparent',
-            boxShadow: isHovering
-              ? '0 0 20px rgba(131, 56, 236, 0.5)'
-              : '0 0 15px rgba(0, 217, 255, 0.3)',
+        <motion.div
+          className="rounded-full bg-white"
+          animate={{
+            width: isHovering ? 60 : 40,
+            height: isHovering ? 60 : 40,
+            opacity: isVisible ? (isHovering ? 0.9 : 0.6) : 0,
+            scale: isClicking ? 0.85 : 1,
+          }}
+          transition={{
+            width: { duration: 0.2, ease: 'easeOut' },
+            height: { duration: 0.2, ease: 'easeOut' },
+            opacity: { duration: 0.15 },
+            scale: { duration: 0.1 },
           }}
         />
       </motion.div>
 
-      {/* Inner dot */}
+      {/* Inner dot - follows cursor directly */}
       <motion.div
-        className="fixed pointer-events-none z-[9999]"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-          opacity: isVisible ? 1 : 0,
-          scale: isClicking ? 1.5 : 1,
-        }}
-        transition={{
-          type: 'spring',
-          damping: 50,
-          stiffness: 500,
-          mass: 0.2,
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+        style={{
+          x: dotX,
+          y: dotY,
+          translateX: '-50%',
+          translateY: '-50%',
         }}
       >
-        <div
-          className="w-2 h-2 rounded-full transition-colors duration-200"
-          style={{
+        <motion.div
+          className="rounded-full"
+          animate={{
+            width: isHovering ? 6 : 5,
+            height: isHovering ? 6 : 5,
+            opacity: isVisible ? 1 : 0,
+            scale: isClicking ? 0.5 : 1,
             backgroundColor: isHovering ? '#8338EC' : '#00D9FF',
+          }}
+          transition={{
+            scale: { duration: 0.1 },
+            opacity: { duration: 0.15 },
+            backgroundColor: { duration: 0.2 },
+          }}
+          style={{
             boxShadow: isHovering
-              ? '0 0 10px #8338EC'
-              : '0 0 10px #00D9FF',
+              ? '0 0 12px 2px rgba(131, 56, 236, 0.6)'
+              : '0 0 8px 1px rgba(0, 217, 255, 0.5)',
           }}
         />
       </motion.div>
