@@ -1,66 +1,88 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { motion, useSpring, useMotionValue } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+interface SmokeParticle {
+  id: number
+  x: number
+  y: number
+  size: number
+  opacity: number
+}
 
 export default function CursorGlow() {
-  const [isHovering, setIsHovering] = useState(false)
-  const [isClicking, setIsClicking] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+  const [particles, setParticles] = useState<SmokeParticle[]>([])
   const [isMounted, setIsMounted] = useState(false)
-
-  const cursorX = useMotionValue(0)
-  const cursorY = useMotionValue(0)
-
-  // Smooth spring for outer circle
-  const springConfig = { damping: 25, stiffness: 250, mass: 0.5 }
-  const outerX = useSpring(cursorX, springConfig)
-  const outerY = useSpring(cursorY, springConfig)
-
-  // Faster spring for inner dot
-  const dotSpringConfig = { damping: 35, stiffness: 400, mass: 0.3 }
-  const dotX = useSpring(cursorX, dotSpringConfig)
-  const dotY = useSpring(cursorY, dotSpringConfig)
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    cursorX.set(e.clientX)
-    cursorY.set(e.clientY)
-    if (!isVisible) setIsVisible(true)
-  }, [cursorX, cursorY, isVisible])
+  const particleId = useRef(0)
+  const lastPosition = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsMounted(true)
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
 
-    // Check for touch device
-    if (window.matchMedia('(pointer: coarse)').matches) return
+    const handleMouseMove = (e: MouseEvent) => {
+      const newX = e.clientX
+      const newY = e.clientY
 
-    const handleMouseDown = () => setIsClicking(true)
-    const handleMouseUp = () => setIsClicking(false)
+      setMousePosition({ x: newX, y: newY })
+      if (!isVisible) setIsVisible(true)
+
+      // Calculate distance moved
+      const dx = newX - lastPosition.current.x
+      const dy = newY - lastPosition.current.y
+      const distance = Math.sqrt(dx * dx + dy * dy)
+
+      // Create smoke particles based on movement
+      if (distance > 8) {
+        const newParticles: SmokeParticle[] = []
+        const particleCount = Math.min(Math.floor(distance / 10), 3)
+
+        for (let i = 0; i < particleCount; i++) {
+          newParticles.push({
+            id: particleId.current++,
+            x: newX + (Math.random() - 0.5) * 20,
+            y: newY + (Math.random() - 0.5) * 20,
+            size: 15 + Math.random() * 25,
+            opacity: 0.4 + Math.random() * 0.3,
+          })
+        }
+
+        setParticles(prev => [...prev.slice(-20), ...newParticles])
+        lastPosition.current = { x: newX, y: newY }
+      }
+    }
+
     const handleMouseLeave = () => setIsVisible(false)
     const handleMouseEnter = () => setIsVisible(true)
 
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, label, [data-cursor-hover]')
+      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')
       setIsHovering(!!isHoverable)
     }
 
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('mousemove', handleElementHover)
-    window.addEventListener('mousedown', handleMouseDown)
-    window.addEventListener('mouseup', handleMouseUp)
     document.body.addEventListener('mouseleave', handleMouseLeave)
     document.body.addEventListener('mouseenter', handleMouseEnter)
+
+    // Cleanup old particles
+    const cleanup = setInterval(() => {
+      setParticles(prev => prev.slice(-15))
+    }, 100)
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mousemove', handleElementHover)
-      window.removeEventListener('mousedown', handleMouseDown)
-      window.removeEventListener('mouseup', handleMouseUp)
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
+      clearInterval(cleanup)
     }
-  }, [handleMouseMove])
+  }, [isVisible])
 
   if (!isMounted) return null
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
@@ -69,61 +91,98 @@ export default function CursorGlow() {
 
   return (
     <>
-      {/* Outer circle - follows with delay */}
+      {/* Smoke trail particles */}
+      <AnimatePresence>
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="fixed pointer-events-none z-[9998]"
+            initial={{
+              x: particle.x,
+              y: particle.y,
+              scale: 0.5,
+              opacity: particle.opacity,
+            }}
+            animate={{
+              y: particle.y - 30,
+              scale: 1.5,
+              opacity: 0,
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 1.2,
+              ease: 'easeOut',
+            }}
+            style={{
+              translateX: '-50%',
+              translateY: '-50%',
+            }}
+          >
+            <div
+              className="rounded-full"
+              style={{
+                width: particle.size,
+                height: particle.size,
+                background: `radial-gradient(circle, ${isHovering ? 'rgba(131,56,236,0.4)' : 'rgba(0,217,255,0.4)'} 0%, transparent 70%)`,
+                filter: 'blur(8px)',
+              }}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {/* Main cursor glow */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed pointer-events-none z-[9999]"
+        animate={{
+          x: mousePosition.x,
+          y: mousePosition.y,
+          opacity: isVisible ? 1 : 0,
+        }}
+        transition={{
+          type: 'spring',
+          damping: 30,
+          stiffness: 400,
+          mass: 0.3,
+        }}
         style={{
-          x: outerX,
-          y: outerY,
           translateX: '-50%',
           translateY: '-50%',
         }}
       >
+        {/* Outer glow */}
         <motion.div
-          className="rounded-full bg-white"
+          className="absolute rounded-full"
           animate={{
-            width: isHovering ? 60 : 40,
-            height: isHovering ? 60 : 40,
-            opacity: isVisible ? (isHovering ? 0.9 : 0.6) : 0,
-            scale: isClicking ? 0.85 : 1,
+            width: isHovering ? 50 : 35,
+            height: isHovering ? 50 : 35,
           }}
-          transition={{
-            width: { duration: 0.2, ease: 'easeOut' },
-            height: { duration: 0.2, ease: 'easeOut' },
-            opacity: { duration: 0.15 },
-            scale: { duration: 0.1 },
+          transition={{ duration: 0.2 }}
+          style={{
+            translateX: '-50%',
+            translateY: '-50%',
+            left: '50%',
+            top: '50%',
+            background: isHovering
+              ? 'radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)',
+            filter: 'blur(4px)',
           }}
         />
-      </motion.div>
 
-      {/* Inner dot - follows cursor directly */}
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999]"
-        style={{
-          x: dotX,
-          y: dotY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      >
+        {/* Inner dot */}
         <motion.div
           className="rounded-full"
           animate={{
-            width: isHovering ? 6 : 5,
-            height: isHovering ? 6 : 5,
-            opacity: isVisible ? 1 : 0,
-            scale: isClicking ? 0.5 : 1,
+            width: isHovering ? 10 : 8,
+            height: isHovering ? 10 : 8,
             backgroundColor: isHovering ? '#8338EC' : '#00D9FF',
           }}
-          transition={{
-            scale: { duration: 0.1 },
-            opacity: { duration: 0.15 },
-            backgroundColor: { duration: 0.2 },
-          }}
+          transition={{ duration: 0.15 }}
           style={{
             boxShadow: isHovering
-              ? '0 0 12px 2px rgba(131, 56, 236, 0.6)'
-              : '0 0 8px 1px rgba(0, 217, 255, 0.5)',
+              ? '0 0 15px 5px rgba(131,56,236,0.5)'
+              : '0 0 12px 4px rgba(0,217,255,0.5)',
           }}
         />
       </motion.div>
