@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
@@ -87,17 +88,21 @@ export default function Header() {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
               className="relative"
             >
-              <span className="text-2xl font-display font-bold text-gradient">
-                START
-              </span>
-              <div className="absolute -inset-1 bg-gradient-to-r from-quantum-blue to-quantum-purple opacity-30 blur-lg -z-10" />
+              <Image
+                src="/sbs.webp"
+                alt="Start Beheer Solutions"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
             </motion.div>
           </Link>
 

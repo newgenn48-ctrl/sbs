@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Globe, Mail, Phone, Linkedin, Twitter } from 'lucide-react'
 
@@ -38,9 +39,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="text-3xl font-display font-bold text-gradient">
-                START
-              </span>
+              <Image
+                src="/sbs.webp"
+                alt="Start Beheer Solutions"
+                width={160}
+                height={46}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
               Next-gen digital infrastructure voor ambitieuze Nederlandse
