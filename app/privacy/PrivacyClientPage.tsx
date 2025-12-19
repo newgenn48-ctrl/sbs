@@ -1,0 +1,222 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Badge } from '@/components/ui/badge'
+import { Shield, Lock, Eye, FileText, Mail, Calendar } from 'lucide-react'
+import Link from 'next/link'
+
+const sections = [
+  {
+    title: '1. Wie zijn wij?',
+    content: `Start Beheer Solutions is een IT-dienstverlener gevestigd in Utrecht, Nederland. Wij bieden IT-beheer, websiteontwikkeling, AI-oplossingen en online marketing aan ZZP'ers en het MKB.
+
+Contactgegevens:
+- Bedrijfsnaam: Start Beheer Solutions
+- E-mail: info@staartbeheer.nl
+- Telefoon: 030-123 4567
+- KvK-nummer: [Uw KvK-nummer]`
+  },
+  {
+    title: '2. Welke gegevens verzamelen wij?',
+    content: `Wij verzamelen de volgende persoonsgegevens:
+
+Contactgegevens:
+- Naam
+- E-mailadres
+- Telefoonnummer
+- Bedrijfsnaam
+
+Automatisch verzamelde gegevens:
+- IP-adres
+- Browsertype en -versie
+- Bezochte pagina's
+- Datum en tijd van bezoek
+- Verwijzende website
+
+Gegevens voor dienstverlening:
+- Communicatiegeschiedenis
+- Projectgerelateerde informatie
+- Factuurgegevens`
+  },
+  {
+    title: '3. Waarvoor gebruiken wij uw gegevens?',
+    content: `Wij gebruiken uw persoonsgegevens voor:
+
+- Contact opnemen naar aanleiding van uw aanvraag
+- Uitvoeren van onze diensten
+- Facturatie en administratie
+- Verbetering van onze website en diensten
+- Verzenden van relevante informatie (met uw toestemming)
+- Voldoen aan wettelijke verplichtingen`
+  },
+  {
+    title: '4. Rechtsgrond voor verwerking',
+    content: `Wij verwerken uw gegevens op basis van:
+
+- Uitvoering van een overeenkomst: voor het leveren van onze diensten
+- Gerechtvaardigd belang: voor het verbeteren van onze diensten en marketing
+- Toestemming: voor het verzenden van nieuwsbrieven en marketingcommunicatie
+- Wettelijke verplichting: voor fiscale en administratieve verplichtingen`
+  },
+  {
+    title: '5. Hoe lang bewaren wij uw gegevens?',
+    content: `Wij bewaren uw persoonsgegevens niet langer dan noodzakelijk:
+
+- Contactformuliergegevens: maximaal 2 jaar na laatste contact
+- Klantgegevens: 7 jaar na beëindiging dienstverlening (wettelijke bewaarplicht)
+- Websitestatistieken: maximaal 26 maanden
+- E-mail marketinglijsten: tot intrekking toestemming`
+  },
+  {
+    title: '6. Delen met derden',
+    content: `Wij delen uw gegevens alleen met:
+
+- Hostingproviders (voor het draaien van onze website)
+- E-mail dienstverleners (voor communicatie)
+- Boekhoudsoftware (voor facturatie)
+- Google Analytics (geanonimiseerd, voor websitestatistieken)
+
+Wij verkopen nooit uw gegevens aan derden. Alle verwerkers waarmee wij werken hebben een verwerkersovereenkomst getekend.`
+  },
+  {
+    title: '7. Uw rechten',
+    content: `U heeft de volgende rechten:
+
+- Recht op inzage: u kunt opvragen welke gegevens wij van u hebben
+- Recht op rectificatie: u kunt onjuiste gegevens laten corrigeren
+- Recht op vergetelheid: u kunt verzoeken uw gegevens te verwijderen
+- Recht op beperking: u kunt verwerking tijdelijk laten stopzetten
+- Recht op dataportabiliteit: u kunt uw gegevens opvragen in een gangbaar formaat
+- Recht van bezwaar: u kunt bezwaar maken tegen bepaalde verwerkingen
+
+Neem contact op via info@staartbeheer.nl om uw rechten uit te oefenen.`
+  },
+  {
+    title: '8. Beveiliging',
+    content: `Wij nemen de bescherming van uw gegevens serieus en nemen passende maatregelen:
+
+- SSL/TLS-versleuteling op onze website
+- Beveiligde servers met regelmatige updates
+- Beperkte toegang tot persoonsgegevens
+- Sterke wachtwoorden en twee-factor authenticatie
+- Regelmatige back-ups`
+  },
+  {
+    title: '9. Cookies',
+    content: `Onze website maakt gebruik van cookies. Voor meer informatie over welke cookies wij gebruiken en hoe u deze kunt beheren, verwijzen wij naar onze Cookie Policy.`
+  },
+  {
+    title: '10. Wijzigingen',
+    content: `Wij kunnen dit privacybeleid van tijd tot tijd aanpassen. De meest recente versie is altijd beschikbaar op deze pagina. Bij belangrijke wijzigingen informeren wij u via e-mail of een melding op onze website.`
+  },
+  {
+    title: '11. Klachten',
+    content: `Heeft u een klacht over hoe wij met uw gegevens omgaan? Neem dan eerst contact met ons op. Komen wij er samen niet uit, dan kunt u een klacht indienen bij de Autoriteit Persoonsgegevens.
+
+Autoriteit Persoonsgegevens
+www.autoriteitpersoonsgegevens.nl`
+  },
+]
+
+export default function PrivacyClientPage() {
+  return (
+    <main className="min-h-screen bg-cyber-darker">
+      {/* Hero Section */}
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-blue/20 via-transparent to-transparent" />
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Badge className="mb-6 px-4 py-2 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30">
+                <Shield className="w-4 h-4 mr-2 inline" />
+                Privacy Policy
+              </Badge>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
+                <span className="text-white">Privacy </span>
+                <span className="text-gradient">Beleid</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                Bij Start Beheer nemen wij uw privacy serieus. In dit beleid leggen wij
+                uit hoe wij omgaan met uw persoonsgegevens.
+              </p>
+
+              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
+                <span className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Laatst bijgewerkt: december 2024
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="py-16 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="glass-effect rounded-3xl border border-white/10 overflow-hidden"
+            >
+              <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
+
+              <div className="p-8 sm:p-12">
+                <div className="space-y-10">
+                  {sections.map((section, index) => (
+                    <motion.div
+                      key={section.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      viewport={{ once: true }}
+                    >
+                      <h2 className="text-xl font-display font-bold text-white mb-4">
+                        {section.title}
+                      </h2>
+                      <div className="text-gray-400 leading-relaxed whitespace-pre-line">
+                        {section.content}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Contact CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mt-12 pt-8 border-t border-white/10"
+                >
+                  <h3 className="text-lg font-display font-bold text-white mb-4">
+                    Vragen over uw privacy?
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    Neem gerust contact met ons op als u vragen heeft over dit privacybeleid
+                    of hoe wij met uw gegevens omgaan.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-quantum-blue hover:text-quantum-blue/80 transition-colors"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Contact opnemen
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
