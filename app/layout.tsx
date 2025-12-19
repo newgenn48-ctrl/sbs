@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'Start Beheer Solutions',
     images: [
       {
-        url: '/og-image.png',
+        url: '/sbs.webp',
         width: 1200,
         height: 630,
         alt: 'Start Beheer Solutions',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Start Beheer Solutions - Next-Gen Digital Infrastructure",
     description:
       'Revolutionaire IT-infrastructuur, AI automation, growth marketing en digital experiences.',
-    images: ['/og-image.png'],
+    images: ['/sbs.webp'],
   },
   robots: {
     index: true,
@@ -69,9 +69,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/sbs.webp',
+    shortcut: '/sbs.webp',
+    apple: '/sbs.webp',
   },
 }
 
@@ -86,7 +86,7 @@ export default function RootLayout({
     name: 'Start Beheer Solutions',
     alternateName: 'Start Beheer',
     url: 'https://staartbeheer.nl',
-    logo: 'https://staartbeheer.nl/logo.png',
+    logo: 'https://staartbeheer.nl/sbs.webp',
     description:
       'Pioniers in next-gen digitale infrastructuur. Wij bouwen de toekomst met AI automation, growth marketing en revolutionaire digital experiences.',
     contactPoint: {
