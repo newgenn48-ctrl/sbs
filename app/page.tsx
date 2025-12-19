@@ -8,17 +8,15 @@ import OurApproach from '@/components/sections/OurApproach'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import CTASection from '@/components/sections/CTASection'
 
-const ParticleField = dynamic(() => import('@/components/3d/ParticleField'), {
+const BackgroundScene = dynamic(() => import('@/components/3d/BackgroundScene'), {
   ssr: false,
 })
 
 export default function HomePage() {
   return (
     <>
-      {/* Background Particle Field */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-        <ParticleField />
-      </div>
+      {/* Animated Background */}
+      <BackgroundScene />
 
       {/* Main Content */}
       <main className="relative z-10">

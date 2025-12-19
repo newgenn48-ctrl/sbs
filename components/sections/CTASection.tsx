@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Calendar, CheckCircle2, Clock, Shield, Users } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { ArrowRight, Calendar, CheckCircle2, Clock, Shield, Users, Phone } from 'lucide-react'
 import Link from 'next/link'
-import SectionContainer, { PremiumCard } from '@/components/ui/SectionContainer'
 
 const benefits = [
   { icon: Clock, text: 'Binnen 24 uur reactie' },
@@ -23,8 +23,11 @@ const services = [
 
 export default function CTASection() {
   return (
-    <SectionContainer variant="gradient" withGlow glowColor="blue">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 relative overflow-hidden">
+      {/* Subtle color accent only */}
+      <div className="absolute inset-0 bg-gradient-to-br from-quantum-blue/10 via-transparent to-quantum-purple/10" />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +35,7 @@ export default function CTASection() {
           className="max-w-5xl mx-auto"
         >
           {/* Main CTA Card */}
-          <PremiumCard hoverable={false} className="overflow-hidden">
+          <div className="glass-effect rounded-3xl overflow-hidden border border-quantum-blue/20">
             {/* Gradient top border */}
             <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
 
@@ -40,15 +43,10 @@ export default function CTASection() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Column - Content */}
                 <div className="text-center lg:text-left">
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-quantum-blue/10 border border-quantum-blue/20 rounded-full mb-6"
-                  >
-                    <Calendar className="w-4 h-4 text-quantum-blue" />
-                    <span className="text-sm font-medium text-quantum-blue">Gratis Adviesgesprek</span>
-                  </motion.div>
+                  <Badge className="mb-6 px-4 py-2 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
+                    <Calendar className="w-4 h-4 mr-2 inline" />
+                    Gratis & Vrijblijvend
+                  </Badge>
 
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
                     <span className="text-white">Klaar voor </span>
@@ -74,22 +72,23 @@ export default function CTASection() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:shadow-lg hover:shadow-quantum-blue/25 transition-all duration-300 px-8 py-6 text-base sm:text-lg group"
+                      className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 px-8"
                       asChild
                     >
                       <Link href="/contact">
-                        Plan Kennismaking
-                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        Plan Gratis Adviesgesprek
+                        <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
                     <Button
                       variant="outline"
                       size="lg"
-                      className="border-white/20 text-white hover:bg-white/5 hover:border-white/40 px-8 py-6 text-base sm:text-lg transition-all duration-300"
+                      className="border-white/20 hover:bg-white/5"
                       asChild
                     >
-                      <Link href="/oplossingen">
-                        Bekijk Diensten
+                      <Link href="tel:+31301234567">
+                        <Phone className="mr-2 w-5 h-5" />
+                        030-123 4567
                       </Link>
                     </Button>
                   </div>
@@ -97,7 +96,7 @@ export default function CTASection() {
 
                 {/* Right Column - Service Tags */}
                 <div className="hidden lg:block">
-                  <div className="bg-cyber-darker/50 rounded-2xl p-8 border border-gray-800/50">
+                  <div className="glass-effect rounded-2xl p-8 border border-white/10">
                     <h3 className="text-lg font-semibold text-white mb-6 text-center">
                       Waar kunnen we u mee helpen?
                     </h3>
@@ -106,7 +105,7 @@ export default function CTASection() {
                       {services.map((service) => (
                         <div
                           key={service}
-                          className="flex items-center gap-2 p-3 bg-cyber-dark/50 rounded-xl border border-gray-800/50 hover:border-quantum-blue/30 transition-colors"
+                          className="flex items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-quantum-blue/30 transition-all"
                         >
                           <CheckCircle2 className="w-4 h-4 text-quantum-blue flex-shrink-0" />
                           <span className="text-sm text-gray-300">{service}</span>
@@ -121,22 +120,31 @@ export default function CTASection() {
                 </div>
               </div>
             </div>
-          </PremiumCard>
+          </div>
 
-          {/* Bottom Note */}
+          {/* Bottom trust indicators */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-8 text-center"
+            className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-400"
           >
-            <p className="text-gray-500 text-sm">
-              Geen verplichtingen - gewoon een goed gesprek
-            </p>
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+              Geen verplichtingen
+            </span>
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+              Advies op maat
+            </span>
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+              Reactie binnen 24 uur
+            </span>
           </motion.div>
         </motion.div>
       </div>
-    </SectionContainer>
+    </section>
   )
 }

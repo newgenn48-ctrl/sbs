@@ -3,8 +3,7 @@
 import { motion } from 'framer-motion'
 import { Building2, User, Briefcase, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import SectionContainer, { SectionHeader, PremiumCard } from '@/components/ui/SectionContainer'
-import IconBox from '@/components/ui/IconBox'
+import { Badge } from '@/components/ui/badge'
 
 const clientTypes = [
   {
@@ -16,7 +15,7 @@ const clientTypes = [
       'Professionele website',
       'Meer zichtbaarheid online',
     ],
-    color: 'blue' as const,
+    color: 'quantum-blue',
   },
   {
     icon: Building2,
@@ -27,7 +26,7 @@ const clientTypes = [
       'Microsoft 365 implementatie',
       'Cybersecurity versterken',
     ],
-    color: 'purple' as const,
+    color: 'quantum-purple',
   },
   {
     icon: Briefcase,
@@ -38,7 +37,7 @@ const clientTypes = [
       'Webapplicatie ontwikkeling',
       'AI & automatisering',
     ],
-    color: 'green' as const,
+    color: 'quantum-green',
   },
 ]
 
@@ -51,53 +50,62 @@ const idealFit = [
 
 export default function IdealClientProfile() {
   return (
-    <SectionContainer variant="dark" withGlow glowColor="purple">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Voor Wie"
-          badgeColor="purple"
-          title="Wij Helpen"
-          titleHighlight="Ondernemers Zoals U"
-          description="Onze diensten zijn specifiek afgestemd op zelfstandigen en het midden- en kleinbedrijf."
-        />
+    <section className="py-24 relative overflow-hidden">
+      {/* Subtle color accent only */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-quantum-purple/10 via-transparent to-transparent" />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <Badge className="mb-4 px-4 py-2 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+            Voor Wie
+          </Badge>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4">
+            Wij Helpen{' '}
+            <span className="text-gradient">Ondernemers Zoals U</span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            Onze diensten zijn specifiek afgestemd op zelfstandigen en het midden- en kleinbedrijf.
+          </p>
+        </motion.header>
 
         {/* Client Types Grid */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto mb-16">
           {clientTypes.map((client, index) => (
-            <motion.div
+            <motion.article
               key={client.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
+              className={`glass-effect p-6 sm:p-8 rounded-2xl border border-${client.color}/20 hover:border-${client.color}/40 transition-all group h-full`}
             >
-              <PremiumCard className="p-6 sm:p-8 h-full">
-                <IconBox
-                  icon={client.icon}
-                  color={client.color}
-                  size="lg"
-                  variant="solid"
-                  className="mb-6"
-                />
+              <div className={`w-14 h-14 rounded-xl bg-${client.color}/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <client.icon className={`w-7 h-7 text-${client.color}`} />
+              </div>
 
-                <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-3">
-                  {client.title}
-                </h3>
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-3">
+                {client.title}
+              </h3>
 
-                <p className="text-gray-400 mb-6 leading-relaxed">
-                  {client.description}
-                </p>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                {client.description}
+              </p>
 
-                <div className="space-y-3">
-                  {client.needs.map((need) => (
-                    <div key={need} className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle2 className="w-4 h-4 text-quantum-green flex-shrink-0" />
-                      <span>{need}</span>
-                    </div>
-                  ))}
-                </div>
-              </PremiumCard>
-            </motion.div>
+              <div className="space-y-3">
+                {client.needs.map((need) => (
+                  <div key={need} className="flex items-center gap-2 text-sm text-gray-300">
+                    <CheckCircle2 className={`w-4 h-4 text-${client.color} flex-shrink-0`} />
+                    <span>{need}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.article>
           ))}
         </div>
 
@@ -107,14 +115,15 @@ export default function IdealClientProfile() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <PremiumCard hoverable={false} className="p-8 sm:p-10 max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto relative p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-quantum-green/5 via-transparent to-quantum-blue/5 border border-white/10">
+            {/* Decorative corners */}
+            <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-quantum-green/30 rounded-tl-3xl" />
+            <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-quantum-blue/30 rounded-br-3xl" />
+
             <div className="flex items-center gap-3 mb-6">
-              <IconBox
-                icon={TrendingUp}
-                color="green"
-                size="md"
-                variant="solid"
-              />
+              <div className="w-12 h-12 rounded-xl bg-quantum-green/10 flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-quantum-green" />
+              </div>
               <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
                 U bent bij ons aan het juiste adres als:
               </h3>
@@ -128,7 +137,7 @@ export default function IdealClientProfile() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-quantum-green/20 transition-all"
                 >
                   <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
                   <span className="text-gray-300">{item}</span>
@@ -145,9 +154,9 @@ export default function IdealClientProfile() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-          </PremiumCard>
+          </div>
         </motion.div>
       </div>
-    </SectionContainer>
+    </section>
   )
 }
