@@ -28,7 +28,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-cyber-darker/70 via-transparent to-cyber-darker/80" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-cyber-darker/60 via-transparent to-cyber-darker/60" />
 
-      <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
+      <div className="container relative z-10 mx-auto px-4 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
 
           <motion.div
