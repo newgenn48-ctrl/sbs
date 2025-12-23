@@ -457,8 +457,10 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== SEO INTRO SECTIE ==================== */}
-      <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-16 relative" aria-labelledby="seo-intro-title">
+        <div className="absolute inset-0 bg-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-4xl mx-auto">
             <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-quantum-blue/5 via-transparent to-quantum-purple/5 border border-white/10">
               {/* Decorative corner accents */}
@@ -481,8 +483,14 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== IT DIENSTEN ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative overflow-hidden" aria-labelledby="diensten-title">
+        {/* Modern mesh gradient background */}
+        <div className="absolute inset-0 bg-cyber-dark/80" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-quantum-blue/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-quantum-purple/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-green/5 rounded-full blur-[150px]" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Onze IT Diensten</Badge>
@@ -518,8 +526,10 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== VEELVOORKOMENDE KLANTSITUATIES ==================== */}
-      <section className="py-24" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative" aria-labelledby="situaties-title">
+        <div className="absolute inset-0 bg-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
             {/* Container met gradient border effect */}
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
@@ -583,8 +593,13 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== SUPPORT MODELLEN ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="support-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative overflow-hidden" aria-labelledby="support-title">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-quantum-green/8 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-quantum-blue/8 rounded-full blur-[100px]" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Flexibele Ondersteuning</Badge>
@@ -606,8 +621,13 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== TRUST / BETROUWBAARHEID ==================== */}
-      <section className="py-24" aria-labelledby="trust-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative" aria-labelledby="trust-title">
+        {/* Subtle accent */}
+        <div className="absolute inset-0 bg-cyber-darker" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-quantum-green/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-quantum-green/20 to-transparent" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <ScrollTrigger>
@@ -673,8 +693,13 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative overflow-hidden" aria-labelledby="proces-title">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-cyber-dark/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-quantum-blue/5 via-transparent to-transparent" />
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-quantum-blue/20 to-transparent" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             {/* Container met top border accent */}
             <div className="relative">
@@ -706,8 +731,12 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== WAAROM WIJ ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative overflow-hidden" aria-labelledby="waarom-title">
+        {/* Modern glow background */}
+        <div className="absolute inset-0 bg-cyber-darker" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-quantum-blue/5 rounded-full blur-[100px]" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             {/* Container met side accents */}
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-blue/10 bg-gradient-to-b from-quantum-blue/5 to-transparent">
@@ -738,8 +767,13 @@ export default function ITSupportPageClient() {
       </section>
 
       {/* ==================== SLA & MAATWERK ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="sla-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <section className="py-24 relative overflow-hidden" aria-labelledby="sla-title">
+        {/* Premium gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-cyber-darker via-cyber-dark to-cyber-darker" />
+        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-quantum-purple/8 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-1/3 w-[500px] h-[500px] bg-quantum-blue/8 rounded-full blur-[120px]" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <ScrollTrigger>
