@@ -310,7 +310,7 @@ export default function Microsoft365PageClient() {
         <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0078D4]/10 via-transparent to-transparent" />
 
-        <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
@@ -444,7 +444,7 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== M365 APPS ==================== */}
       <section className="py-24 bg-cyber-dark/50">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
               <Badge className="mb-4">Microsoft 365 Apps</Badge>
@@ -467,7 +467,7 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== SERVICES ==================== */}
       <section className="py-24">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
               <Badge className="mb-4">Onze Diensten</Badge>
@@ -490,7 +490,7 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== BENEFITS ==================== */}
       <section className="py-24 bg-cyber-dark/50">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <ScrollTrigger>
               <div>
@@ -521,7 +521,7 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== PROCESS ==================== */}
       <section className="py-24">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
               <Badge className="mb-4">Ons Proces</Badge>
@@ -544,7 +544,7 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== WHY US ==================== */}
       <section className="py-24 bg-cyber-dark/50">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
               <Badge className="mb-4">Waarom Start Beheer</Badge>

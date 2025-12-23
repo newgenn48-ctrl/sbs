@@ -85,7 +85,7 @@ export default function Header() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto px-4">
+      <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -107,7 +107,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center">
             <Navigation />
           </div>
 

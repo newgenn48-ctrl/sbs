@@ -135,7 +135,7 @@ export default function CookiesClientPage() {
 
       {/* Cookie Types Section */}
       <section className="py-16 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -201,7 +201,7 @@ export default function CookiesClientPage() {
 
       {/* Content Section */}
       <section className="py-16 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

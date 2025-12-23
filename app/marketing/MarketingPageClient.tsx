@@ -329,7 +329,7 @@ export default function MarketingPageClient() {
         <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-purple/10 via-transparent to-transparent" />
 
-        <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
@@ -467,7 +467,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== SEO INTRO SECTIE ==================== */}
       <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-4xl mx-auto">
             <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-quantum-purple/5 via-transparent to-quantum-blue/5 border border-white/10">
               <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-quantum-purple/30 rounded-tl-2xl" />
@@ -491,7 +491,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== DIENSTEN OVERZICHT ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Onze Marketing Diensten</Badge>
@@ -528,7 +528,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== VEELVOORKOMENDE SITUATIES ==================== */}
       <section className="py-24" aria-labelledby="situaties-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
@@ -591,7 +591,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== GEÏNTEGREERDE AANPAK ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="integrated-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
             <ScrollTrigger>
               <header className="text-center mb-12">
@@ -624,7 +624,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== WERKWIJZE/PROCES ==================== */}
       <section className="py-24" aria-labelledby="proces-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-quantum-purple to-transparent rounded-full" />
@@ -655,7 +655,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== WAAROM START BEHEER ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="waarom-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-green/10 bg-gradient-to-b from-quantum-green/5 to-transparent">
               <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-quantum-purple/50 to-transparent rounded-full" />
@@ -685,7 +685,7 @@ export default function MarketingPageClient() {
 
       {/* ==================== FAQ ==================== */}
       <section className="py-24" aria-labelledby="faq-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-12">
               <Badge className="mb-4">Veelgestelde Vragen</Badge>

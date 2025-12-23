@@ -321,14 +321,15 @@ export default function ITSupportPageClient() {
         <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-blue/10 via-transparent to-transparent" />
 
-        <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
 
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
+              className="max-w-2xl"
             >
               <Badge className="mb-6 px-4 py-2 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
                 <Server className="w-4 h-4 mr-2 inline" />
@@ -403,7 +404,7 @@ export default function ITSupportPageClient() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
+              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] xl:h-[600px] lg:-mr-8 xl:-mr-12 2xl:-mr-20"
               aria-hidden="true"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
@@ -457,7 +458,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== SEO INTRO SECTIE ==================== */}
       <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-4xl mx-auto">
             <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-quantum-blue/5 via-transparent to-quantum-purple/5 border border-white/10">
               {/* Decorative corner accents */}
@@ -481,7 +482,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== IT DIENSTEN ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Onze IT Diensten</Badge>
@@ -518,7 +519,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== VEELVOORKOMENDE KLANTSITUATIES ==================== */}
       <section className="py-24" aria-labelledby="situaties-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
             {/* Container met gradient border effect */}
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
@@ -583,7 +584,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== SUPPORT MODELLEN ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="support-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Flexibele Ondersteuning</Badge>
@@ -606,7 +607,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== TRUST / BETROUWBAARHEID ==================== */}
       <section className="py-24" aria-labelledby="trust-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <ScrollTrigger>
@@ -673,7 +674,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== HOE HET WERKT ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="proces-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             {/* Container met top border accent */}
             <div className="relative">
@@ -706,7 +707,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== WAAROM WIJ ==================== */}
       <section className="py-24" aria-labelledby="waarom-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             {/* Container met side accents */}
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-blue/10 bg-gradient-to-b from-quantum-blue/5 to-transparent">
@@ -738,7 +739,7 @@ export default function ITSupportPageClient() {
 
       {/* ==================== SLA & MAATWERK ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="sla-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <ScrollTrigger>

@@ -72,7 +72,7 @@ export default function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="hidden lg:flex items-center space-x-8">
+    <nav className="hidden lg:flex items-center space-x-3 xl:space-x-4 2xl:space-x-6">
       {navigation.map((item) => (
         <div
           key={item.name}
@@ -83,7 +83,7 @@ export default function Navigation() {
           <Link
             href={item.href}
             onClick={(e) => item.href === '#' && e.preventDefault()}
-            className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-quantum-blue ${
+            className={`flex items-center gap-1 text-xs 2xl:text-sm font-medium transition-colors hover:text-quantum-blue whitespace-nowrap ${
               pathname && pathname.startsWith(item.href) && item.href !== '#'
                 ? 'text-quantum-blue'
                 : 'text-gray-300'
@@ -100,7 +100,7 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 mt-2 w-64 rounded-xl glass-effect border border-cyber-light overflow-hidden z-50"
+                className="absolute top-full left-0 mt-2 w-64 rounded-xl bg-cyber-darker border border-cyber-light overflow-hidden z-50 shadow-xl shadow-black/50"
               >
                 {item.submenu.map((subitem) => (
                   <Link

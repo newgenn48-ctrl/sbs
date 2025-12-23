@@ -333,7 +333,7 @@ export default function WebapplicatiePageClient() {
         <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-blue/10 via-transparent to-transparent" />
 
-        <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
@@ -460,7 +460,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== DIENSTEN ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
               <Badge className="mb-4">Onze Diensten</Badge>
@@ -483,7 +483,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== VOORBEELDEN ==================== */}
       <section className="py-24" aria-labelledby="voorbeelden-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-12">
               <Badge className="mb-4">Toepassingen</Badge>
@@ -511,7 +511,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== KLANTSITUATIES ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-blue/20 overflow-hidden">
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
@@ -571,7 +571,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== WAAROM WIJ ==================== */}
       <section className="py-24" aria-labelledby="waarom-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-blue/10 bg-gradient-to-b from-quantum-blue/5 to-transparent">
               <ScrollTrigger>
@@ -595,7 +595,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== HOE HET WERKT ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="proces-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <ScrollTrigger>
               <header className="text-center mb-16">
@@ -617,7 +617,7 @@ export default function WebapplicatiePageClient() {
 
       {/* ==================== FAQ ==================== */}
       <section className="py-24" aria-labelledby="faq-title">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-12">
               <Badge className="mb-4">Veelgestelde Vragen</Badge>

@@ -94,7 +94,7 @@ export default function ContactClientPage() {
   return (
     <main className="min-h-screen bg-cyber-darker">
       {/* Hero Section */}
-      <section className="relative py-24 lg:py-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-blue/20 via-transparent to-transparent" />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +125,7 @@ export default function ContactClientPage() {
 
       {/* Contact Info Cards */}
       <section className="py-8 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {contactInfo.map((info, index) => (
               <motion.div

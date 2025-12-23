@@ -295,7 +295,7 @@ export default function WebsitesPageClient() {
             <DigitalNetwork />
           </Canvas>
         </div>
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -336,7 +336,7 @@ export default function WebsitesPageClient() {
       <div className="relative z-10">
         {/* Features Grid */}
         <section className="py-20 relative">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -367,7 +367,7 @@ export default function WebsitesPageClient() {
 
         {/* Problem & Solution */}
         <section className="py-20 relative bg-cyber-dark">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
               <ScrollTrigger>
                 <InfoCard title="Herkent u dit?" items={problemItems} variant="problem" />
@@ -381,7 +381,7 @@ export default function WebsitesPageClient() {
 
         {/* Comparison Section */}
         <section className="py-20 relative">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -426,7 +426,7 @@ export default function WebsitesPageClient() {
 
         {/* Packages */}
         <section className="py-20 relative bg-cyber-dark">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -450,7 +450,7 @@ export default function WebsitesPageClient() {
 
         {/* Our Promise Section */}
         <section className="py-20">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
               <ScrollTrigger>
                   <div className="text-center mb-12">
                       <h2 className="text-4xl md:text-5xl font-display font-bold mb-4"><span className="text-gradient">Onze Website Belofte</span></h2>
@@ -475,7 +475,7 @@ export default function WebsitesPageClient() {
 
         {/* FAQ Section */}
         <section className="py-20 relative bg-cyber-dark">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -502,7 +502,7 @@ export default function WebsitesPageClient() {
 
         {/* CTA Section */}
         <section className="py-20 relative">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="max-w-4xl mx-auto text-center glass-effect p-12 rounded-3xl border border-quantum-green/20">
                 <Globe className="h-16 w-16 text-quantum-green mx-auto mb-6" />
