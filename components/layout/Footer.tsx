@@ -158,7 +158,7 @@ export default function Footer() {
               reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-500">
-              <span>Made with ♥ in Nederland</span>
+              <span>Made with ♥ by Start Beheer Solutions</span>
             </div>
           </div>
         </div>

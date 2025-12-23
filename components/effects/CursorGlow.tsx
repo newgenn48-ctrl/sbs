@@ -37,21 +37,21 @@ export default function CursorGlow() {
       const distance = Math.sqrt(dx * dx + dy * dy)
 
       // Create smoke particles based on movement
-      if (distance > 8) {
+      if (distance > 12) {
         const newParticles: SmokeParticle[] = []
-        const particleCount = Math.min(Math.floor(distance / 10), 3)
+        const particleCount = Math.min(Math.floor(distance / 15), 2)
 
         for (let i = 0; i < particleCount; i++) {
           newParticles.push({
             id: particleId.current++,
-            x: newX + (Math.random() - 0.5) * 20,
-            y: newY + (Math.random() - 0.5) * 20,
-            size: 15 + Math.random() * 25,
-            opacity: 0.4 + Math.random() * 0.3,
+            x: newX + (Math.random() - 0.5) * 15,
+            y: newY + (Math.random() - 0.5) * 15,
+            size: 12 + Math.random() * 18,
+            opacity: 0.3 + Math.random() * 0.2,
           })
         }
 
-        setParticles(prev => [...prev.slice(-20), ...newParticles])
+        setParticles(prev => [...prev.slice(-12), ...newParticles])
         lastPosition.current = { x: newX, y: newY }
       }
     }
@@ -72,8 +72,8 @@ export default function CursorGlow() {
 
     // Cleanup old particles
     const cleanup = setInterval(() => {
-      setParticles(prev => prev.slice(-15))
-    }, 100)
+      setParticles(prev => prev.slice(-8))
+    }, 80)
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
@@ -104,13 +104,13 @@ export default function CursorGlow() {
               opacity: particle.opacity,
             }}
             animate={{
-              y: particle.y - 30,
-              scale: 1.5,
+              y: particle.y - 25,
+              scale: 1.3,
               opacity: 0,
             }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 1.2,
+              duration: 0.6,
               ease: 'easeOut',
             }}
             style={{
@@ -141,9 +141,9 @@ export default function CursorGlow() {
         }}
         transition={{
           type: 'spring',
-          damping: 30,
-          stiffness: 400,
-          mass: 0.3,
+          damping: 50,
+          stiffness: 800,
+          mass: 0.1,
         }}
         style={{
           translateX: '-50%',

@@ -40,7 +40,7 @@ export default function CTASection() {
             <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
 
             <div className="p-8 sm:p-12 lg:p-16">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="grid lg:grid-cols-2 gap-12 items-start">
                 {/* Left Column - Content */}
                 <div className="text-center lg:text-left">
                   <Badge className="mb-6 px-4 py-2 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
