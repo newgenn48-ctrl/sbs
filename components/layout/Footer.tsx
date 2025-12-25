@@ -48,8 +48,8 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
-              Next-gen digital infrastructure voor ambitieuze Nederlandse
-              bedrijven. Van IT tot AI, wij transformeren uw business.
+              Uw IT-partner voor ZZP en MKB. Van systeembeheer tot websites
+              en AI - alles onder een dak met persoonlijke service.
             </p>
 
             {/* Contact Info */}

@@ -17,11 +17,11 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Start Beheer Solutions - Next-Gen Digital Infrastructure",
+  title: "Start Beheer Solutions - IT Beheer, Websites & AI voor ZZP en MKB",
   description:
-    'Pioniers in next-gen digitale infrastructuur. Wij bouwen de toekomst met AI automation, growth marketing en revolutionaire digital experiences.',
+    'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
   keywords:
-    'IT solutions, AI automation, growth marketing, website development, digital infrastructure, tech startup, Office 365, Google Ads',
+    'IT beheer, systeembeheer, website laten maken, AI automatisering, online marketing, ZZP IT, MKB IT, Microsoft 365',
   authors: [{ name: 'Start Beheer Solutions' }],
   creator: 'Start Beheer Solutions',
   publisher: 'Start Beheer Solutions',
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Start Beheer Solutions - Next-Gen Digital Infrastructure",
+    title: "Start Beheer Solutions - IT Beheer, Websites & AI voor ZZP en MKB",
     description:
-      'Revolutionaire IT-infrastructuur, AI automation, growth marketing en digital experiences.',
+      'Betrouwbare IT-oplossingen voor ZZP en MKB. Systeembeheer, websites, AI en marketing onder een dak.',
     url: 'https://staartbeheer.nl',
     siteName: 'Start Beheer Solutions',
     images: [
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Start Beheer Solutions - Next-Gen Digital Infrastructure",
+    title: "Start Beheer Solutions - IT Beheer, Websites & AI voor ZZP en MKB",
     description:
-      'Revolutionaire IT-infrastructuur, AI automation, growth marketing en digital experiences.',
+      'Betrouwbare IT-oplossingen voor ZZP en MKB. Systeembeheer, websites, AI en marketing onder een dak.',
     images: ['/sbs.webp'],
   },
   robots: {
@@ -89,7 +89,7 @@ export default function RootLayout({
     url: 'https://staartbeheer.nl',
     logo: 'https://staartbeheer.nl/sbs.webp',
     description:
-      'Pioniers in next-gen digitale infrastructuur. Wij bouwen de toekomst met AI automation, growth marketing en revolutionaire digital experiences.',
+      'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+31-30-123-4567',
