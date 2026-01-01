@@ -80,17 +80,7 @@ export default function CTASection() {
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="border-white/20 hover:bg-white/5"
-                      asChild
-                    >
-                      <Link href="tel:+31301234567">
-                        <Phone className="mr-2 w-5 h-5" />
-                        030-123 4567
-                      </Link>
-                    </Button>
+                    
                   </div>
                 </div>
 

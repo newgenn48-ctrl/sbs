@@ -1,191 +1,132 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-interface SmokeParticle {
-  id: number
-  x: number
-  y: number
-  size: number
-  opacity: number
-}
+import { useEffect, useRef, useCallback } from 'react'
 
 export default function CursorGlow() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isVisible, setIsVisible] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
-  const [particles, setParticles] = useState<SmokeParticle[]>([])
-  const [isMounted, setIsMounted] = useState(false)
-  const particleId = useRef(0)
-  const lastPosition = useRef({ x: 0, y: 0 })
+  const cursorRef = useRef<HTMLDivElement>(null)
+  const glowRef = useRef<HTMLDivElement>(null)
+  const dotRef = useRef<HTMLDivElement>(null)
+  const isHoveringRef = useRef(false)
+  const positionRef = useRef({ x: 0, y: 0 })
+  const targetRef = useRef({ x: 0, y: 0 })
+  const rafRef = useRef<number>(0)
+
+  const updateCursor = useCallback(() => {
+    // Fast lerp for smooth but responsive movement
+    const lerp = 0.35
+    positionRef.current.x += (targetRef.current.x - positionRef.current.x) * lerp
+    positionRef.current.y += (targetRef.current.y - positionRef.current.y) * lerp
+
+    if (cursorRef.current) {
+      cursorRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0) translate(-50%, -50%)`
+    }
+
+    rafRef.current = requestAnimationFrame(updateCursor)
+  }, [])
 
   useEffect(() => {
-    setIsMounted(true)
+    // Skip on touch devices
     if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
 
     const handleMouseMove = (e: MouseEvent) => {
-      const newX = e.clientX
-      const newY = e.clientY
+      targetRef.current.x = e.clientX
+      targetRef.current.y = e.clientY
 
-      setMousePosition({ x: newX, y: newY })
-      if (!isVisible) setIsVisible(true)
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '1'
+      }
 
-      // Calculate distance moved
-      const dx = newX - lastPosition.current.x
-      const dy = newY - lastPosition.current.y
-      const distance = Math.sqrt(dx * dx + dy * dy)
+      // Check for hoverable elements
+      const target = e.target as HTMLElement
+      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')
 
-      // Create smoke particles based on movement
-      if (distance > 12) {
-        const newParticles: SmokeParticle[] = []
-        const particleCount = Math.min(Math.floor(distance / 15), 2)
+      if (!!isHoverable !== isHoveringRef.current) {
+        isHoveringRef.current = !!isHoverable
 
-        for (let i = 0; i < particleCount; i++) {
-          newParticles.push({
-            id: particleId.current++,
-            x: newX + (Math.random() - 0.5) * 15,
-            y: newY + (Math.random() - 0.5) * 15,
-            size: 12 + Math.random() * 18,
-            opacity: 0.3 + Math.random() * 0.2,
-          })
+        if (glowRef.current && dotRef.current) {
+          if (isHoveringRef.current) {
+            glowRef.current.style.width = '50px'
+            glowRef.current.style.height = '50px'
+            glowRef.current.style.background = 'radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%)'
+            dotRef.current.style.width = '10px'
+            dotRef.current.style.height = '10px'
+            dotRef.current.style.backgroundColor = '#8338EC'
+            dotRef.current.style.boxShadow = '0 0 15px 5px rgba(131,56,236,0.5)'
+          } else {
+            glowRef.current.style.width = '35px'
+            glowRef.current.style.height = '35px'
+            glowRef.current.style.background = 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)'
+            dotRef.current.style.width = '8px'
+            dotRef.current.style.height = '8px'
+            dotRef.current.style.backgroundColor = '#00D9FF'
+            dotRef.current.style.boxShadow = '0 0 12px 4px rgba(0,217,255,0.5)'
+          }
         }
-
-        setParticles(prev => [...prev.slice(-12), ...newParticles])
-        lastPosition.current = { x: newX, y: newY }
       }
     }
 
-    const handleMouseLeave = () => setIsVisible(false)
-    const handleMouseEnter = () => setIsVisible(true)
-
-    const handleElementHover = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')
-      setIsHovering(!!isHoverable)
+    const handleMouseLeave = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '0'
+      }
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mousemove', handleElementHover)
+    const handleMouseEnter = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '1'
+      }
+    }
+
+    // Start animation loop
+    rafRef.current = requestAnimationFrame(updateCursor)
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     document.body.addEventListener('mouseleave', handleMouseLeave)
     document.body.addEventListener('mouseenter', handleMouseEnter)
 
-    // Cleanup old particles
-    const cleanup = setInterval(() => {
-      setParticles(prev => prev.slice(-8))
-    }, 80)
-
     return () => {
+      cancelAnimationFrame(rafRef.current)
       window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mousemove', handleElementHover)
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
-      clearInterval(cleanup)
     }
-  }, [isVisible])
+  }, [updateCursor])
 
-  if (!isMounted) return null
+  // Skip render on touch devices
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
     return null
   }
 
   return (
-    <>
-      {/* Smoke trail particles */}
-      <AnimatePresence>
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="fixed pointer-events-none z-[9998]"
-            initial={{
-              x: particle.x,
-              y: particle.y,
-              scale: 0.5,
-              opacity: particle.opacity,
-            }}
-            animate={{
-              y: particle.y - 25,
-              scale: 1.3,
-              opacity: 0,
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.6,
-              ease: 'easeOut',
-            }}
-            style={{
-              translateX: '-50%',
-              translateY: '-50%',
-            }}
-          >
-            <div
-              className="rounded-full"
-              style={{
-                width: particle.size,
-                height: particle.size,
-                background: `radial-gradient(circle, ${isHovering ? 'rgba(131,56,236,0.4)' : 'rgba(0,217,255,0.4)'} 0%, transparent 70%)`,
-                filter: 'blur(8px)',
-              }}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
-
-      {/* Main cursor glow */}
-      <motion.div
-        className="fixed pointer-events-none z-[9999]"
-        animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{
-          type: 'spring',
-          damping: 50,
-          stiffness: 800,
-          mass: 0.1,
-        }}
+    <div
+      ref={cursorRef}
+      className="fixed pointer-events-none z-[9999] will-change-transform"
+      style={{ opacity: 0 }}
+    >
+      {/* Outer glow */}
+      <div
+        ref={glowRef}
+        className="absolute rounded-full transition-all duration-150"
         style={{
-          translateX: '-50%',
-          translateY: '-50%',
+          width: 35,
+          height: 35,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)',
         }}
-      >
-        {/* Outer glow */}
-        <motion.div
-          className="absolute rounded-full"
-          animate={{
-            width: isHovering ? 50 : 35,
-            height: isHovering ? 50 : 35,
-          }}
-          transition={{ duration: 0.2 }}
-          style={{
-            translateX: '-50%',
-            translateY: '-50%',
-            left: '50%',
-            top: '50%',
-            background: isHovering
-              ? 'radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)',
-            filter: 'blur(4px)',
-          }}
-        />
-
-        {/* Inner dot */}
-        <motion.div
-          className="rounded-full"
-          animate={{
-            width: isHovering ? 10 : 8,
-            height: isHovering ? 10 : 8,
-            backgroundColor: isHovering ? '#8338EC' : '#00D9FF',
-          }}
-          transition={{ duration: 0.15 }}
-          style={{
-            boxShadow: isHovering
-              ? '0 0 15px 5px rgba(131,56,236,0.5)'
-              : '0 0 12px 4px rgba(0,217,255,0.5)',
-          }}
-        />
-      </motion.div>
-    </>
+      />
+      {/* Inner dot */}
+      <div
+        ref={dotRef}
+        className="rounded-full transition-all duration-150"
+        style={{
+          width: 8,
+          height: 8,
+          backgroundColor: '#00D9FF',
+          boxShadow: '0 0 12px 4px rgba(0,217,255,0.5)',
+        }}
+      />
+    </div>
   )
 }

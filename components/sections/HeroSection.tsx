@@ -101,17 +101,7 @@ export default function HeroSection() {
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/20 hover:bg-white/10 backdrop-blur-sm"
-                asChild
-              >
-                <Link href="tel:+31301234567">
-                  <Phone className="mr-2 w-5 h-5" />
-                  Bel: 030-123 4567
-                </Link>
-              </Button>
+              
             </motion.div>
           </motion.div>
         </div>

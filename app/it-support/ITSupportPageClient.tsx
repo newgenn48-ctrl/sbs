@@ -385,18 +385,7 @@ export default function ITSupportPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/20 hover:bg-white/5"
-                  asChild
-                >
-                  <Link href="tel:+31301234567">
-                    <Phone className="mr-2 w-5 h-5" />
-                    Bel: 030-123 4567
-                  </Link>
-                </Button>
-              </div>
+                </div>
             </motion.div>
 
             {/* 3D Visualization */}
@@ -420,7 +409,7 @@ export default function ITSupportPageClient() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="absolute bottom-8 left-4 glass-effect px-4 py-3 rounded-xl border border-quantum-green/30"
+                className="hidden lg:block absolute bottom-8 left-4 glass-effect px-4 py-3 rounded-xl border border-quantum-green/30"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-quantum-green/20 flex items-center justify-center">
@@ -437,7 +426,7 @@ export default function ITSupportPageClient() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-quantum-blue/30"
+                className="hidden lg:block absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-quantum-blue/30"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-quantum-blue/20 flex items-center justify-center">
@@ -898,18 +887,7 @@ export default function ITSupportPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/20 hover:bg-white/5 text-lg px-8"
-                  asChild
-                >
-                  <Link href="tel:+31301234567">
-                    <Phone className="mr-2 w-5 h-5" />
-                    030-123 4567
-                  </Link>
-                </Button>
-              </div>
+                </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

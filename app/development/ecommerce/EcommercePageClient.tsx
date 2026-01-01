@@ -416,18 +416,7 @@ export default function EcommercePageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/20 hover:bg-white/5"
-                  asChild
-                >
-                  <Link href="tel:+31301234567">
-                    <Phone className="mr-2 w-5 h-5" />
-                    Bel: 030-123 4567
-                  </Link>
-                </Button>
-              </div>
+                </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -691,18 +680,7 @@ export default function EcommercePageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/20 hover:bg-white/5 text-lg px-8"
-                  asChild
-                >
-                  <Link href="tel:+31301234567">
-                    <Phone className="mr-2 w-5 h-5" />
-                    030-123 4567
-                  </Link>
-                </Button>
-              </div>
+                </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
