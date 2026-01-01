@@ -16,7 +16,6 @@ import {
   Clock,
   CheckCircle2,
   ArrowRight,
-  Phone,
   Lightbulb,
   Handshake,
   Award,
@@ -126,8 +125,7 @@ export default function AboutClientPage() {
                 Geen complexe systemen, maar praktische oplossingen die werken.
               </p>
 
-              <div className="flex flex-wrap gap-4">
-                <Button
+              <Button
                   size="lg"
                   className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 px-8 py-6 text-lg"
                   asChild
@@ -137,18 +135,6 @@ export default function AboutClientPage() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white/20 hover:bg-white/5 px-8 py-6 text-lg"
-                  asChild
-                >
-                  <Link href="/contact">
-                    Contact
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -418,8 +404,7 @@ export default function AboutClientPage() {
               bedrijf kunnen helpen groeien met de juiste IT-oplossingen.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
+            <Button
                 size="lg"
                 className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 px-10 py-6 text-lg"
                 asChild
@@ -429,18 +414,6 @@ export default function AboutClientPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/20 hover:bg-white/5 px-10 py-6 text-lg"
-                asChild
-              >
-                <Link href="tel:+31301234567">
-                  <Phone className="mr-2 w-5 h-5" />
-                  Bel Direct
-                </Link>
-              </Button>
-            </div>
 
             {/* Trust indicators */}
             <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-500">
