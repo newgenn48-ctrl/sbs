@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 
 export default function CursorGlow() {
+  const [isTouchDevice, setIsTouchDevice] = useState(true) // Default to true to avoid flash
   const cursorRef = useRef<HTMLDivElement>(null)
   const glowRef = useRef<HTMLDivElement>(null)
   const dotRef = useRef<HTMLDivElement>(null)
@@ -10,6 +11,11 @@ export default function CursorGlow() {
   const positionRef = useRef({ x: 0, y: 0 })
   const targetRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number>(0)
+
+  // Check for touch device on mount (client-side only)
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches)
+  }, [])
 
   const updateCursor = useCallback(() => {
     // Fast lerp for smooth but responsive movement
@@ -26,7 +32,7 @@ export default function CursorGlow() {
 
   useEffect(() => {
     // Skip on touch devices
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
+    if (isTouchDevice) return
 
     const handleMouseMove = (e: MouseEvent) => {
       targetRef.current.x = e.clientX
@@ -90,10 +96,10 @@ export default function CursorGlow() {
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
     }
-  }, [updateCursor])
+  }, [updateCursor, isTouchDevice])
 
-  // Skip render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+  // Don't render on touch devices
+  if (isTouchDevice) {
     return null
   }
 
