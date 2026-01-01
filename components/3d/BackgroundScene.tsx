@@ -1,7 +1,7 @@
 'use client'
 
 import * as THREE from 'three'
-import { useRef, useMemo, useEffect, useState } from 'react'
+import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
 // Floating orbs spread across entire page height
@@ -43,7 +43,7 @@ function FloatingOrbs() {
     <group ref={groupRef}>
       {orbs.map((orb, i) => (
         <mesh key={i} position={orb.position as [number, number, number]}>
-          <sphereGeometry args={[orb.size, 32, 32]} />
+          <sphereGeometry args={[orb.size, 16, 16]} />
           <meshBasicMaterial
             color={orb.color}
             transparent
@@ -55,10 +55,10 @@ function FloatingOrbs() {
   )
 }
 
-// Particles spread across full page
+// Particles spread across full page - optimized count
 function Particles() {
   const particlesRef = useRef<THREE.Points>(null)
-  const count = 150
+  const count = 80
 
   const geometry = useMemo(() => {
     const geo = new THREE.BufferGeometry()
@@ -108,12 +108,17 @@ function Particles() {
   )
 }
 
-// Animated grids at different heights
+// Animated grids at different heights - optimized with reduced segments and throttling
 function AnimatedGrids() {
   const topGridRef = useRef<THREE.PlaneGeometry>(null)
   const bottomGridRef = useRef<THREE.PlaneGeometry>(null)
+  const frameCount = useRef(0)
 
   useFrame(({ clock }) => {
+    // Only update every 3rd frame for better performance
+    frameCount.current++
+    if (frameCount.current % 3 !== 0) return
+
     const time = clock.getElapsedTime() * 0.3
 
     if (topGridRef.current) {
@@ -139,27 +144,27 @@ function AnimatedGrids() {
 
   return (
     <>
-      {/* Top grid */}
+      {/* Top grid - reduced segments for performance */}
       <mesh rotation={[-Math.PI / 2.5, 0, 0]} position={[0, 50, -40]}>
-        <planeGeometry ref={topGridRef} args={[120, 120, 40, 40]} />
+        <planeGeometry ref={topGridRef} args={[120, 120, 25, 25]} />
         <meshBasicMaterial color="#00D9FF" wireframe transparent opacity={0.06} />
       </mesh>
-      {/* Bottom grid */}
+      {/* Bottom grid - reduced segments for performance */}
       <mesh rotation={[-Math.PI / 2.5, 0, 0.2]} position={[0, -200, -35]}>
-        <planeGeometry ref={bottomGridRef} args={[140, 140, 45, 45]} />
+        <planeGeometry ref={bottomGridRef} args={[140, 140, 30, 30]} />
         <meshBasicMaterial color="#8338EC" wireframe transparent opacity={0.06} />
       </mesh>
     </>
   )
 }
 
-// Camera that follows scroll
+// Camera that follows scroll - optimized with useRef to avoid re-renders
 function ScrollCamera() {
-  const [scrollY, setScrollY] = useState(0)
+  const scrollRef = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
+      scrollRef.current = window.scrollY
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -167,7 +172,7 @@ function ScrollCamera() {
 
   useFrame(({ camera }) => {
     // Move camera down as user scrolls (scaled down for 3D space)
-    const targetY = -scrollY * 0.08
+    const targetY = -scrollRef.current * 0.08
     camera.position.y += (targetY - camera.position.y) * 0.05
   })
 

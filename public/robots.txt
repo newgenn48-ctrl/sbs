@@ -1,0 +1,14 @@
+# Robots.txt for Start Beheer
+# https://startbeheer.nl
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://startbeheer.nl/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

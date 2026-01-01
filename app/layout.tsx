@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://staartbeheer.nl'),
+  metadataBase: new URL('https://startbeheer.nl'),
   alternates: {
     canonical: '/',
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Start Beheer Solutions - IT Beheer, Websites & AI voor ZZP en MKB",
     description:
       'Betrouwbare IT-oplossingen voor ZZP en MKB. Systeembeheer, websites, AI en marketing onder een dak.',
-    url: 'https://staartbeheer.nl',
+    url: 'https://startbeheer.nl',
     siteName: 'Start Beheer Solutions',
     images: [
       {
@@ -86,14 +86,14 @@ export default function RootLayout({
     '@type': 'Organization',
     name: 'Start Beheer Solutions',
     alternateName: 'Start Beheer',
-    url: 'https://staartbeheer.nl',
-    logo: 'https://staartbeheer.nl/sbs.webp',
+    url: 'https://startbeheer.nl',
+    logo: 'https://startbeheer.nl/sbs.webp',
     description:
       'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+31-30-123-4567',
-      email: 'info@staartbeheer.nl',
+      telephone: '+31-85-080-5905',
+      email: 'info@startbeheer.nl',
       contactType: 'customer service',
       availableLanguage: ['Dutch', 'English'],
     },
@@ -110,6 +110,73 @@ export default function RootLayout({
     slogan: 'Uw Complete Digitale Partner',
   }
 
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://startbeheer.nl/#localbusiness',
+    name: 'Start Beheer Solutions',
+    image: 'https://startbeheer.nl/sbs.webp',
+    url: 'https://startbeheer.nl',
+    telephone: '+31-85-080-5905',
+    email: 'info@startbeheer.nl',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Utrecht',
+      addressCountry: 'NL',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 52.0907,
+      longitude: 5.1214,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '17:00',
+    },
+    priceRange: '€€',
+    servesCuisine: undefined,
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'IT Diensten',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'IT Beheer & Support',
+            description: 'Complete IT ondersteuning voor uw bedrijf',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Website Development',
+            description: 'Professionele websites en webapplicaties',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI & Automatisering',
+            description: 'AI-oplossingen en procesautomatisering',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Online Marketing',
+            description: 'SEO, Google Ads en social media marketing',
+          },
+        },
+      ],
+    },
+  }
+
   return (
     <html
       lang="nl"
@@ -120,6 +187,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema),
           }}
         />
         <CursorGlow />

@@ -12,24 +12,25 @@ import {
   Send,
   MessageSquare,
   CheckCircle2,
-  ArrowRight,
+  AlertCircle,
   Loader2
 } from 'lucide-react'
+import { services } from '@/lib/navigation'
 
 const contactInfo = [
   {
     icon: Phone,
     title: 'Telefoon',
-    value: '030-123 4567',
-    href: 'tel:+31301234567',
+    value: '085 080 5905',
+    href: 'tel:+31850805905',
     description: 'Ma-Vr 09:00 - 17:00',
     color: 'quantum-blue'
   },
   {
     icon: Mail,
     title: 'E-mail',
-    value: 'info@staartbeheer.nl',
-    href: 'mailto:info@staartbeheer.nl',
+    value: 'info@startbeheer.nl',
+    href: 'mailto:info@startbeheer.nl',
     description: 'Reactie binnen 24 uur',
     color: 'quantum-green'
   },
@@ -51,15 +52,13 @@ const contactInfo = [
   },
 ]
 
-const services = [
-  'IT Beheer & Support',
-  'Website Development',
-  'AI & Automatisering',
-  'Online Marketing',
-  'Microsoft 365',
-  'Cybersecurity',
-  'Anders / Weet ik niet',
-]
+interface FormErrors {
+  name?: string
+  email?: string
+  phone?: string
+  message?: string
+  general?: string
+}
 
 export default function ContactClientPage() {
   const [formState, setFormState] = useState({
@@ -72,23 +71,92 @@ export default function ContactClientPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errors, setErrors] = useState<FormErrors>({})
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {}
+
+    // Validate name
+    if (!formState.name.trim()) {
+      newErrors.name = 'Naam is verplicht'
+    } else if (formState.name.trim().length < 2) {
+      newErrors.name = 'Naam moet minimaal 2 tekens bevatten'
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!formState.email.trim()) {
+      newErrors.email = 'E-mail is verplicht'
+    } else if (!emailRegex.test(formState.email)) {
+      newErrors.email = 'Ongeldig e-mailadres'
+    }
+
+    // Validate phone (optional but must be valid if provided)
+    if (formState.phone.trim()) {
+      const phoneRegex = /^(\+31|0031|0)[1-9][0-9]{8}$/
+      const cleanPhone = formState.phone.replace(/[\s\-]/g, '')
+      if (!phoneRegex.test(cleanPhone)) {
+        newErrors.phone = 'Ongeldig telefoonnummer (bijv. 06-12345678)'
+      }
+    }
+
+    // Validate message
+    if (!formState.message.trim()) {
+      newErrors.message = 'Bericht is verplicht'
+    } else if (formState.message.trim().length < 10) {
+      newErrors.message = 'Bericht moet minimaal 10 tekens bevatten'
+    } else if (formState.message.length > 5000) {
+      newErrors.message = 'Bericht mag maximaal 5000 tekens bevatten'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrors({})
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      const data = await response.json()
+
+      if (!response.ok) {
+        setErrors({ general: data.error || 'Er is een fout opgetreden' })
+        return
+      }
+
+      setIsSubmitted(true)
+    } catch {
+      setErrors({ general: 'Er is een fout opgetreden. Probeer het later opnieuw.' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
     setFormState(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }))
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }))
+    }
   }
 
   return (
@@ -208,6 +276,7 @@ export default function ContactClientPage() {
                     <Button
                       onClick={() => {
                         setIsSubmitted(false)
+                        setErrors({})
                         setFormState({
                           name: '',
                           email: '',
@@ -235,6 +304,13 @@ export default function ContactClientPage() {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {errors.general && (
+                        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
+                          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                          <p className="text-red-400 text-sm">{errors.general}</p>
+                        </div>
+                      )}
+
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -244,12 +320,20 @@ export default function ContactClientPage() {
                             type="text"
                             id="name"
                             name="name"
-                            required
                             value={formState.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all"
+                            aria-invalid={!!errors.name}
+                            aria-describedby={errors.name ? 'name-error' : undefined}
+                            className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all ${
+                              errors.name
+                                ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
+                                : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            }`}
                             placeholder="Uw naam"
                           />
+                          {errors.name && (
+                            <p id="name-error" className="mt-1 text-sm text-red-400">{errors.name}</p>
+                          )}
                         </div>
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
@@ -259,12 +343,20 @@ export default function ContactClientPage() {
                             type="email"
                             id="email"
                             name="email"
-                            required
                             value={formState.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all"
+                            aria-invalid={!!errors.email}
+                            aria-describedby={errors.email ? 'email-error' : undefined}
+                            className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all ${
+                              errors.email
+                                ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
+                                : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            }`}
                             placeholder="uw@email.nl"
                           />
+                          {errors.email && (
+                            <p id="email-error" className="mt-1 text-sm text-red-400">{errors.email}</p>
+                          )}
                         </div>
                       </div>
 
@@ -279,9 +371,18 @@ export default function ContactClientPage() {
                             name="phone"
                             value={formState.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all"
+                            aria-invalid={!!errors.phone}
+                            aria-describedby={errors.phone ? 'phone-error' : undefined}
+                            className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all ${
+                              errors.phone
+                                ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
+                                : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            }`}
                             placeholder="06-12345678"
                           />
+                          {errors.phone && (
+                            <p id="phone-error" className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                          )}
                         </div>
                         <div>
                           <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
@@ -326,13 +427,21 @@ export default function ContactClientPage() {
                         <textarea
                           id="message"
                           name="message"
-                          required
                           rows={5}
                           value={formState.message}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all resize-none"
+                          aria-invalid={!!errors.message}
+                          aria-describedby={errors.message ? 'message-error' : undefined}
+                          className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-1 transition-all resize-none ${
+                            errors.message
+                              ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
+                              : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                          }`}
                           placeholder="Vertel ons over uw vraag of project..."
                         />
+                        {errors.message && (
+                          <p id="message-error" className="mt-1 text-sm text-red-400">{errors.message}</p>
+                        )}
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-4">
@@ -381,9 +490,9 @@ export default function ContactClientPage() {
                   className="border-white/20 hover:bg-white/5"
                   asChild
                 >
-                  <a href="tel:+31301234567">
+                  <a href="tel:+31850805905">
                     <Phone className="mr-2 w-4 h-4" />
-                    030-123 4567
+                    085 080 5905
                   </a>
                 </Button>
                 <Button
@@ -391,9 +500,9 @@ export default function ContactClientPage() {
                   className="border-white/20 hover:bg-white/5"
                   asChild
                 >
-                  <a href="mailto:info@staartbeheer.nl">
+                  <a href="mailto:info@startbeheer.nl">
                     <Mail className="mr-2 w-4 h-4" />
-                    info@staartbeheer.nl
+                    info@startbeheer.nl
                   </a>
                 </Button>
               </div>

@@ -86,13 +86,6 @@
     color: var(--color-foreground);
   }
 
-  /* Custom cursor - hide default on desktop */
-  @media (pointer: fine) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
-  }
-
   /* Typography */
   .font-display {
     line-height: 1.2;

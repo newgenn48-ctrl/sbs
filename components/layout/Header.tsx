@@ -9,55 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import Navigation from './Navigation'
-
-const mobileNavigation = [
-  {
-    name: 'IT Services',
-    href: '#',
-    submenu: [
-      { name: 'IT Support', href: '/it-support' },
-      { name: 'Systeembeheer Uitbesteden', href: '/systeembeheer-uitbesteden' },
-      { name: 'Werkplekbeheer Uitbesteden', href: '/werkplekbeheer-uitbesteden' },
-      { name: 'Microsoft 365 Beheer', href: '/microsoft-365-beheer' },
-      { name: 'Cybersecurity', href: '/cybersecurity' },
-    ],
-  },
-  {
-    name: 'Development',
-    href: '#',
-    submenu: [
-      { name: 'Development Overzicht', href: '/development' },
-      { name: 'Website Laten Maken', href: '/development/website-laten-maken' },
-      { name: 'Webapplicatie Ontwikkeling', href: '/development/webapplicatie-ontwikkeling' },
-      { name: 'E-commerce Oplossingen', href: '/development/ecommerce' },
-    ],
-  },
-  {
-    name: 'AI & Automatisering',
-    href: '#',
-    submenu: [
-      { name: 'AI Overzicht', href: '/ai' },
-      { name: 'AI Chatbots', href: '/ai/chatbots' },
-      { name: 'Proces Automatisering', href: '/ai/process-automation' },
-      { name: 'AI Analytics', href: '/ai/analytics' },
-      { name: 'Virtuele Assistent', href: '/ai/virtual-assistant' },
-    ],
-  },
-  {
-    name: 'Marketing',
-    href: '#',
-    submenu: [
-      { name: 'Marketing Overzicht', href: '/marketing' },
-      { name: 'Google Ads Beheer', href: '/marketing/google-ads-beheer' },
-      { name: 'SEO Services', href: '/marketing/seo-services' },
-      { name: 'Social Media', href: '/marketing/social-media' },
-      { name: 'Marketing Automation', href: '/marketing/marketing-automation' },
-    ],
-  },
-  { name: 'Oplossingen', href: '/oplossingen' },
-  { name: 'Over Ons', href: '/about' },
-  { name: 'Contact', href: '/contact' },
-]
+import { navigation } from '@/lib/navigation'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -142,7 +94,7 @@ export default function Header() {
                 className="w-80 bg-cyber-darker border-cyber-light"
               >
                 <div className="flex flex-col space-y-2 mt-8">
-                  {mobileNavigation.map((item) => (
+                  {navigation.map((item) => (
                     <div key={item.name}>
                       {item.submenu ? (
                         <>
