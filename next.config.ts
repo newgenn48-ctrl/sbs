@@ -2,15 +2,22 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+
+  // Experimental optimizations
+  experimental: {
+    optimizeCss: true,
+  },
+
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'staartbeheer.nl',
+        hostname: 'startbeheer.nl',
       },
     ],
     formats: ['image/avif', 'image/webp'],
   },
+
   async headers() {
     return [
       {

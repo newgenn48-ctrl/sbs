@@ -1,9 +1,8 @@
 'use client'
 
 import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -27,10 +26,8 @@ import {
   Megaphone,
 } from 'lucide-react'
 
-// 3D Components
-import CompanyDNA3D from '@/components/3d/CompanyDNA3D'
-import FounderShowcase3D from '@/components/3d/FounderShowcase3D'
-import ValuesCubes3D from '@/components/3d/ValuesCubes3D'
+// 3D Components - dynamically imported to reduce initial bundle
+const About3DScene = dynamic(() => import('@/components/3d/About3DScene'), { ssr: false })
 
 const values = [
   {
@@ -81,18 +78,9 @@ export default function AboutClientPage() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0">
-          <Canvas>
-            <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
-            <ambientLight intensity={0.3} />
-            <Suspense fallback={null}>
-              <CompanyDNA3D />
-            </Suspense>
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              enableRotate={false}
-            />
-          </Canvas>
+          <Suspense fallback={null}>
+            <About3DScene scene="hero" />
+          </Suspense>
         </div>
 
         {/* Gradient overlays */}
@@ -206,14 +194,9 @@ export default function AboutClientPage() {
       <section className="relative py-32 overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0 opacity-40">
-          <Canvas>
-            <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
-            <ambientLight intensity={0.3} />
-            <Suspense fallback={null}>
-              <FounderShowcase3D />
-            </Suspense>
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
-          </Canvas>
+          <Suspense fallback={null}>
+            <About3DScene scene="founder" />
+          </Suspense>
         </div>
 
         {/* Gradient overlay */}
@@ -319,14 +302,9 @@ export default function AboutClientPage() {
       <section className="relative py-32 overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0 opacity-40">
-          <Canvas>
-            <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
-            <ambientLight intensity={0.3} />
-            <Suspense fallback={null}>
-              <ValuesCubes3D />
-            </Suspense>
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.25} />
-          </Canvas>
+          <Suspense fallback={null}>
+            <About3DScene scene="values" />
+          </Suspense>
         </div>
 
         {/* Gradient overlay */}

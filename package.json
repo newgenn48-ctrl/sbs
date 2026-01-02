@@ -8,6 +8,12 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-scroll-area": "^1.2.10",
@@ -16,7 +22,6 @@
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
-    "@react-three/postprocessing": "^3.0.4",
     "@tailwindcss/postcss": "^4.1.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
