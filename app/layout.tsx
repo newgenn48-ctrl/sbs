@@ -92,7 +92,7 @@ export default function RootLayout({
       'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+31-85-080-5905',
+      telephone: '+31-6-87-874-001',
       email: 'info@startbeheer.nl',
       contactType: 'customer service',
       availableLanguage: ['Dutch', 'English'],
@@ -117,7 +117,7 @@ export default function RootLayout({
     name: 'Start Beheer Solutions',
     image: 'https://startbeheer.nl/sbs.webp',
     url: 'https://startbeheer.nl',
-    telephone: '+31-85-080-5905',
+    telephone: '+31-6-87-874-001',
     email: 'info@startbeheer.nl',
     address: {
       '@type': 'PostalAddress',

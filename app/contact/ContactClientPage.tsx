@@ -21,8 +21,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Telefoon',
-    value: '085 080 5905',
-    href: 'tel:+31850805905',
+    value: '06 87 87 40 01',
+    href: 'tel:+31687874001',
     description: 'Ma-Vr 09:00 - 17:00',
     color: 'quantum-blue'
   },
@@ -490,9 +490,9 @@ export default function ContactClientPage() {
                   className="border-white/20 hover:bg-white/5"
                   asChild
                 >
-                  <a href="tel:+31850805905">
+                  <a href="tel:+31687874001">
                     <Phone className="mr-2 w-4 h-4" />
-                    085 080 5905
+                    06 87 87 40 01
                   </a>
                 </Button>
                 <Button

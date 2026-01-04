@@ -188,7 +188,7 @@ Dit bericht is verzonden via het contactformulier op startbeheer.nl
             <p style="white-space: pre-wrap; margin-top: 10px;">${sanitizedData.message}</p>
           </div>
 
-          <p>Heeft u een dringende vraag? Bel ons gerust op <a href="tel:+31850805905">085 080 5905</a>.</p>
+          <p>Heeft u een dringende vraag? Bel ons gerust op <a href="tel:+31687874001">06 87 87 40 01</a>.</p>
 
           <p>Met vriendelijke groet,<br>
           <strong>Team Start Beheer</strong></p>

@@ -55,18 +55,18 @@ export default function Footer() {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="tel:+31301234567"
+                href="tel:+31687874001"
                 className="flex items-center gap-3 text-gray-400 hover:text-quantum-blue transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                <span>030-123 45 67</span>
+                <span>06 87 87 40 01</span>
               </a>
               <a
-                href="mailto:info@staartbeheer.nl"
+                href="mailto:info@startbeheer.nl"
                 className="flex items-center gap-3 text-gray-400 hover:text-quantum-blue transition-colors"
               >
                 <Mail className="h-4 w-4" />
-                <span>info@staartbeheer.nl</span>
+                <span>info@startbeheer.nl</span>
               </a>
               <div className="flex items-center gap-3 text-gray-400">
                 <Globe className="h-4 w-4" />
