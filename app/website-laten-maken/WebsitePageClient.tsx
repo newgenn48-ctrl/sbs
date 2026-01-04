@@ -1,21 +1,20 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Globe, CheckCircle2, ArrowRight, Phone,
-  Zap, Palette, Gauge, Lock, Search,
-  Smartphone, Monitor, Code2, FileText,
-  Users, Quote, ChevronDown, Settings,
-  RefreshCw, Rocket, Eye, Target
+  Globe, CheckCircle2, ArrowRight,
+  Zap, Palette, Lock, Search,
+  Smartphone, Code2, FileText,
+  Users, ChevronDown,
+  Rocket, Target
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
 const Scene3DLoader = () => (
@@ -109,59 +108,35 @@ const priceInfo = {
   ],
 }
 
-// Veelvoorkomende situaties
-const customerSituations = [
-  {
-    quote: 'Mijn huidige website is traag en ziet er gedateerd uit.',
-    context: 'Website redesign',
-    icon: Monitor
-  },
-  {
-    quote: 'Ik word niet gevonden in Google en krijg geen leads via mijn website.',
-    context: 'SEO website',
-    icon: Search
-  },
-  {
-    quote: 'Mijn website is niet goed te gebruiken op mobiel.',
-    context: 'Responsive redesign',
-    icon: Smartphone
-  },
-  {
-    quote: 'Ik wil een professionele website maar heb geen technische kennis.',
-    context: 'Full-service website',
-    icon: Users
-  },
-]
-
-// Waarom wij
+// Waarom wij - focus op bedrijf/samenwerking, niet product (dat staat bij Diensten)
 const whyChooseUs = [
   {
-    icon: Zap,
-    title: 'Razendsnelle Websites',
-    description: 'Gegarandeerd onder 2 seconden laadtijd. Cruciaal voor SEO en gebruikerservaring.',
-    stat: '<2s',
-    statLabel: 'laadtijd'
-  },
-  {
-    icon: Palette,
-    title: 'Uniek Design',
-    description: 'Geen templates. Elk ontwerp is op maat gemaakt voor uw merk en doelgroep.',
-    stat: '100%',
-    statLabel: 'custom'
-  },
-  {
     icon: Lock,
-    title: 'Eigendom van Code',
-    description: 'U bent volledig eigenaar. Geen lock-in, geen doorlopende licentiekosten.',
-    stat: '0',
-    statLabel: 'lock-in'
+    title: 'Volledig Eigendom',
+    description: 'U bent 100% eigenaar van uw website. Geen lock-in, geen doorlopende licentiekosten.',
+    stat: '100%',
+    statLabel: 'van u'
   },
   {
-    icon: Target,
-    title: 'Resultaatgericht',
-    description: 'Websites die converteren. Design en techniek in dienst van uw doelen.',
-    stat: 'ROI',
-    statLabel: 'focused'
+    icon: Users,
+    title: 'Directe Lijnen',
+    description: 'Eén vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
+    stat: '1',
+    statLabel: 'contactpersoon'
+  },
+  {
+    icon: FileText,
+    title: 'Vaste Prijs',
+    description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf, geen uurtje-factuurtje.',
+    stat: '€',
+    statLabel: 'vast'
+  },
+  {
+    icon: Rocket,
+    title: 'Nazorg Inbegrepen',
+    description: 'Na oplevering staan wij voor u klaar. Updates, kleine aanpassingen en technische support.',
+    stat: '∞',
+    statLabel: 'support'
   },
 ]
 
@@ -197,11 +172,15 @@ const processSteps = [
 const faqs = [
   {
     q: 'Hoe lang duurt het om een website te maken?',
-    a: 'Een standaard website is meestal binnen 4-6 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 8-12 weken duren.'
+    a: 'Een standaard website is meestal binnen 1-3 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 4-6 weken duren.'
+  },
+  {
+    q: 'Waarom geen WordPress of Wix?',
+    a: 'WordPress en Wix zijn prima voor eenvoudige websites, maar hebben nadelen: tragere laadtijden, beveiligingsrisico\'s door plugins, en beperkte flexibiliteit. Onze websites zijn sneller, veiliger en volledig op maat - zonder maandelijkse licentiekosten.'
   },
   {
     q: 'Kan ik zelf content aanpassen na oplevering?',
-    a: 'Ja, bij onze Business en Enterprise pakketten krijgt u een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training.'
+    a: 'Ja, u krijgt een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training zodat u direct aan de slag kunt.'
   },
   {
     q: 'Wat als ik later meer pagina\'s of functies wil?',
@@ -210,6 +189,10 @@ const faqs = [
   {
     q: 'Regelen jullie ook hosting en domein?',
     a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
+  },
+  {
+    q: 'Wat voor support krijg ik na oplevering?',
+    a: 'Na oplevering blijven wij beschikbaar voor vragen, kleine aanpassingen en technische ondersteuning. Voor grotere wijzigingen maken we een offerte op maat. Zo bent u nooit alleen.'
   },
 ]
 
@@ -411,11 +394,11 @@ export default function WebsitePageClient() {
                   asChild
                 >
                   <Link href="/contact?service=website">
-                    Gratis Offerte
+                    Offerte Aanvragen
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -487,15 +470,239 @@ export default function WebsitePageClient() {
 
               <div className="text-center">
                 <h2 id="seo-intro-title" className="text-2xl md:text-3xl font-bold mb-6">
-                  Waarom uw <span className="text-gradient">website laten maken</span> bij Start Beheer?
+                  Uw <span className="text-gradient">digitale visitekaartje</span>
                 </h2>
                 <p className="text-lg text-gray-400 leading-relaxed">
-                  Een website laten maken is een belangrijke investering. Bij Start Beheer krijgt u geen standaard template,
-                  maar een <strong className="text-gray-300">op maat gemaakte website</strong> die perfect aansluit bij uw merk en doelgroep.
-                  Onze websites zijn <strong className="text-gray-300">razendsnel</strong>, <strong className="text-gray-300">SEO-geoptimaliseerd</strong> en
-                  gebouwd met de nieuwste technologieën. Het resultaat? Een professionele website die bezoekers omzet in klanten.
+                  In een wereld waar de eerste indruk vaak online plaatsvindt, is uw website cruciaal.
+                  Wij bouwen geen standaard websites - wij creëren <strong className="text-gray-300">digitale ervaringen</strong> die
+                  uw bezoekers overtuigen en converteren. Met oog voor detail, technische perfectie en uw unieke verhaal.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== VIDEO SECTIE ==================== */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Video */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative"
+              >
+                <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-purple/10">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/20 to-quantum-green/20 rounded-2xl blur-xl opacity-50" />
+                  <div className="relative bg-cyber-dark rounded-2xl overflow-hidden">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-auto"
+                      aria-label="Website laten maken - professioneel webdesign proces"
+                      title="Website laten maken bij Start Beheer"
+                    >
+                      <source src="/website-laten-maken.mp4" type="video/mp4" />
+                      Uw browser ondersteunt geen video. Bekijk onze website laten maken diensten.
+                    </video>
+                  </div>
+                </div>
+
+                {/* Floating badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="absolute -bottom-4 -right-4 lg:-right-8"
+                >
+                  <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-green/30 rounded-xl px-4 py-3 shadow-lg">
+                    <p className="text-quantum-green font-semibold text-lg">1-3 weken</p>
+                    <p className="text-gray-400 text-sm">Oplevering</p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Badge className="mb-4 px-4 py-2 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+                  <Target className="w-4 h-4 mr-2 inline" />
+                  Resultaatgericht
+                </Badge>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
+                  <span className="text-white">Website laten maken die </span>
+                  <span className="text-gradient">klanten oplevert</span>
+                </h2>
+
+                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                  Een mooie website is niet genoeg. Uw website moet werken als een 24/7 verkoper
+                  die bezoekers overtuigt en omzet in leads of klanten.
+                </p>
+
+                <p className="text-gray-400 mb-8 leading-relaxed">
+                  Daarom focussen wij op conversie-optimalisatie: strategische call-to-actions,
+                  overtuigende content en een gebruikerservaring die vertrouwen wekt.
+                </p>
+
+                {/* Conversion highlights */}
+                <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                  {[
+                    { icon: Target, text: 'Conversie-geoptimaliseerd' },
+                    { icon: Users, text: 'Gebruiksvriendelijk design' },
+                    { icon: Search, text: 'Vindbaar in Google' },
+                    { icon: Zap, text: 'Snelle laadtijden' },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.text}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-center gap-3"
+                    >
+                      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-quantum-green/10 flex items-center justify-center">
+                        <item.icon className="w-4 h-4 text-quantum-green" />
+                      </div>
+                      <span className="text-gray-300 text-sm">{item.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                  asChild
+                >
+                  <a href="#proces-title">
+                    Bekijk Ons Proces
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== MAATWERK SECTIE ==================== */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Badge className="mb-4 px-4 py-2 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+                  <Palette className="w-4 h-4 mr-2 inline" />
+                  Maatwerk Design
+                </Badge>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
+                  <span className="text-white">Geen templates, </span>
+                  <span className="text-gradient">alleen maatwerk</span>
+                </h2>
+
+                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                  Elke website die wij bouwen is uniek. Wij beginnen met een blanco canvas
+                  en ontwerpen specifiek voor uw merk, doelgroep en doelstellingen.
+                </p>
+
+                <p className="text-gray-400 mb-8 leading-relaxed">
+                  Het resultaat is een website die er niet alleen professioneel uitziet,
+                  maar ook perfect aansluit bij uw bedrijfsidentiteit en uw bezoekers aanspreekt.
+                </p>
+
+                {/* Features */}
+                <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                  {[
+                    { icon: Palette, text: 'Uniek visueel ontwerp' },
+                    { icon: Users, text: 'Merkidentiteit verwerkt' },
+                    { icon: Smartphone, text: 'Responsive op alle apparaten' },
+                    { icon: Globe, text: 'Klaar voor groei' },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.text}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-center gap-3"
+                    >
+                      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-quantum-purple/10 flex items-center justify-center">
+                        <item.icon className="w-4 h-4 text-quantum-purple" />
+                      </div>
+                      <span className="text-gray-300 text-sm">{item.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:scale-105 transition-transform"
+                  asChild
+                >
+                  <Link href="/contact?service=website">
+                    Vraag Offerte Aan
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+              </motion.div>
+
+              {/* Afbeelding */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative"
+              >
+                <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-purple/20">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/20 to-quantum-green/20 rounded-2xl blur-xl opacity-50" />
+                  <div className="relative">
+                    <img
+                      src="/website-laten-maken.webp"
+                      alt="Website laten maken - professioneel maatwerk webdesign"
+                      title="Website laten maken bij Start Beheer"
+                      className="w-full h-auto"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                {/* Floating badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  className="absolute -bottom-4 -left-4 lg:-left-8"
+                >
+                  <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-purple/30 rounded-xl px-4 py-3 shadow-lg">
+                    <p className="text-quantum-purple font-semibold text-lg">100%</p>
+                    <p className="text-gray-400 text-sm">Op Maat</p>
+                  </div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -508,10 +715,10 @@ export default function WebsitePageClient() {
             <header className="text-center mb-16">
               <Badge className="mb-4">Wat U Krijgt</Badge>
               <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Website laten maken: <span className="text-gradient">dit krijgt u</span>
+                Uw website laten maken? <span className="text-gradient">Dit krijgt u</span>
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
-                Van design tot SEO, van snelheid tot veiligheid - bij ons website laten maken betekent een compleet pakket zonder zorgen.
+                Van design tot SEO, van snelheid tot veiligheid - een compleet pakket zodat u zich kunt focussen op uw bedrijf.
               </p>
             </header>
           </ScrollTrigger>
@@ -520,85 +727,6 @@ export default function WebsitePageClient() {
             {services.map((service, index) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== PRIJS ==================== */}
-      <section className="py-24" aria-labelledby="prijs-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Investering</Badge>
-              <h2 id="prijs-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Website laten maken: <span className="text-gradient">wat kost het?</span>
-              </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Transparante prijzen, geen verrassingen achteraf. U ontvangt altijd een offerte op maat.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <PriceCard />
-        </div>
-      </section>
-
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">situaties</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-purple/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-purple" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-purple/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-purple font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=website">
-                      Ja, dit herken ik
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
           </div>
         </div>
       </section>
@@ -612,7 +740,7 @@ export default function WebsitePageClient() {
                 <header className="text-center mb-12">
                   <Badge className="mb-4">Waarom Start Beheer</Badge>
                   <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Websites die <span className="text-gradient">resultaat opleveren</span>
+                    Waarom klanten voor <span className="text-gradient">ons kiezen</span>
                   </h2>
                 </header>
               </ScrollTrigger>
@@ -649,6 +777,25 @@ export default function WebsitePageClient() {
         </div>
       </section>
 
+      {/* ==================== PRIJS ==================== */}
+      <section className="py-24" aria-labelledby="prijs-title">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <ScrollTrigger>
+            <header className="text-center mb-12">
+              <Badge className="mb-4">Investering</Badge>
+              <h2 id="prijs-title" className="text-3xl md:text-4xl font-bold mb-4">
+                Transparante <span className="text-gradient">prijzen</span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Geen verrassingen achteraf. U ontvangt altijd een vrijblijvende offerte op maat.
+              </p>
+            </header>
+          </ScrollTrigger>
+
+          <PriceCard />
+        </div>
+      </section>
+
       {/* ==================== FAQ ==================== */}
       <section className="py-24" aria-labelledby="faq-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
@@ -656,7 +803,7 @@ export default function WebsitePageClient() {
             <header className="text-center mb-12">
               <Badge className="mb-4">Veelgestelde Vragen</Badge>
               <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">website laten maken</span>?
+                Veelgestelde <span className="text-gradient">vragen</span>
               </h2>
             </header>
           </ScrollTrigger>

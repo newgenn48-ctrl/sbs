@@ -27,9 +27,9 @@ export const navigation: NavigationItem[] = [
     href: '/development',
     submenu: [
       { name: 'Development Overzicht', href: '/development' },
-      { name: 'Website Laten Maken', href: '/development/website-laten-maken', isSub: true },
-      { name: 'Webapplicatie Ontwikkeling', href: '/development/webapplicatie-ontwikkeling', isSub: true },
-      { name: 'E-commerce Oplossingen', href: '/development/ecommerce', isSub: true },
+      { name: 'Website Laten Maken', href: '/website-laten-maken', isSub: true },
+      { name: 'Webapplicatie Laten Maken', href: '/webapplicatie-laten-maken', isSub: true },
+      { name: 'Webshop Laten Maken', href: '/webshop-laten-maken', isSub: true },
     ],
   },
   {
@@ -37,10 +37,10 @@ export const navigation: NavigationItem[] = [
     href: '/ai',
     submenu: [
       { name: 'AI Overzicht', href: '/ai' },
-      { name: 'AI Chatbots', href: '/ai/chatbots', isSub: true },
-      { name: 'Proces Automatisering', href: '/ai/process-automation', isSub: true },
-      { name: 'AI Analytics', href: '/ai/analytics', isSub: true },
-      { name: 'Virtuele Assistent', href: '/ai/virtual-assistant', isSub: true },
+      { name: 'AI Chatbots', href: '/ai-chatbots', isSub: true },
+      { name: 'Proces Automatisering', href: '/proces-automatisering', isSub: true },
+      { name: 'AI Analytics', href: '/ai-analytics', isSub: true },
+      { name: 'Virtuele Assistent', href: '/virtuele-assistent', isSub: true },
     ],
   },
   {
@@ -48,10 +48,10 @@ export const navigation: NavigationItem[] = [
     href: '/marketing',
     submenu: [
       { name: 'Marketing Overzicht', href: '/marketing' },
-      { name: 'Google Ads Beheer', href: '/marketing/google-ads-beheer', isSub: true },
-      { name: 'SEO Services', href: '/marketing/seo-services', isSub: true },
-      { name: 'Social Media', href: '/marketing/social-media', isSub: true },
-      { name: 'Marketing Automation', href: '/marketing/marketing-automation', isSub: true },
+      { name: 'Google Ads Beheer', href: '/google-ads-beheer', isSub: true },
+      { name: 'SEO Specialist', href: '/seo-specialist', isSub: true },
+      { name: 'Social Media Marketing', href: '/social-media-marketing', isSub: true },
+      { name: 'Marketing Automatisering', href: '/marketing-automatisering', isSub: true },
     ],
   },
   { name: 'Oplossingen', href: '/oplossingen' },

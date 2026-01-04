@@ -471,14 +471,57 @@ export default function ITSupportPageClient() {
         </div>
       </section>
 
+      {/* ==================== IT DIENSTEN ==================== */}
+      <section className="py-24 relative overflow-hidden" aria-labelledby="diensten-title">
+        {/* Modern mesh gradient background */}
+        <div className="absolute inset-0 bg-cyber-dark/80" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-quantum-blue/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-quantum-purple/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-green/5 rounded-full blur-[150px]" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <ScrollTrigger>
+            <header className="text-center mb-16">
+              <Badge className="mb-4">Onze IT Diensten</Badge>
+              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
+                Complete <span className="text-gradient">IT-ondersteuning</span> voor uw bedrijf
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Van werkplekbeheer tot cybersecurity. Kies de dienst die past bij uw behoefte, of combineer ze voor totale IT-ontzorging.
+              </p>
+            </header>
+          </ScrollTrigger>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {itCategories.map((category, index) => (
+              <CategoryCard key={index} category={category} index={index} />
+            ))}
+          </div>
+
+          <ScrollTrigger>
+            <div className="text-center mt-12">
+              <p className="text-gray-400 mb-4">
+                Niet zeker welke combinatie? Wij adviseren u graag.
+              </p>
+              <Button variant="outline" className="border-white/20 hover:bg-white/5" asChild>
+                <Link href="/contact?service=it-advies">
+                  Vraag Gratis Advies
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollTrigger>
+        </div>
+      </section>
+
       {/* ==================== VISUAL SECTIE MET FOTO ==================== */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-dark via-cyber-darker to-cyber-darker" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Image */}
+              {/* Image - volledig zichtbaar */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -488,13 +531,12 @@ export default function ITSupportPageClient() {
               >
                 <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-blue/10">
                   <div className="absolute -inset-1 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/20 to-quantum-green/20 rounded-2xl blur-xl opacity-50" />
-                  <div className="relative aspect-[4/3] bg-cyber-dark rounded-2xl overflow-hidden">
+                  <div className="relative bg-cyber-dark rounded-2xl overflow-hidden">
                     <img
                       src="/IT Support.webp"
                       alt="IT Support team aan het werk"
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
                   </div>
                 </div>
 
@@ -507,8 +549,8 @@ export default function ITSupportPageClient() {
                   className="absolute -bottom-4 -right-4 lg:-right-8"
                 >
                   <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-green/30 rounded-xl px-4 py-3 shadow-lg">
-                    <p className="text-quantum-green font-semibold text-lg">24/7</p>
-                    <p className="text-gray-400 text-sm">Monitoring</p>
+                    <p className="text-quantum-green font-semibold text-lg">On-site</p>
+                    <p className="text-gray-400 text-sm">& Remote</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -577,49 +619,6 @@ export default function ITSupportPageClient() {
               </motion.div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ==================== IT DIENSTEN ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="diensten-title">
-        {/* Modern mesh gradient background */}
-        <div className="absolute inset-0 bg-cyber-dark/80" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-quantum-blue/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-quantum-purple/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-green/5 rounded-full blur-[150px]" />
-
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Onze IT Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Complete <span className="text-gradient">IT-ondersteuning</span> voor uw bedrijf
-              </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Van werkplekbeheer tot cybersecurity. Kies de dienst die past bij uw behoefte, of combineer ze voor totale IT-ontzorging.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {itCategories.map((category, index) => (
-              <CategoryCard key={index} category={category} index={index} />
-            ))}
-          </div>
-
-          <ScrollTrigger>
-            <div className="text-center mt-12">
-              <p className="text-gray-400 mb-4">
-                Niet zeker welke combinatie? Wij adviseren u graag.
-              </p>
-              <Button variant="outline" className="border-white/20 hover:bg-white/5" asChild>
-                <Link href="/contact?service=it-advies">
-                  Vraag Gratis Advies
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollTrigger>
         </div>
       </section>
 

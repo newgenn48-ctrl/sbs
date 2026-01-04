@@ -1,0 +1,154 @@
+import { Metadata } from 'next'
+import WebsitePageClient from './WebsitePageClient'
+
+export const metadata: Metadata = {
+  title: 'Website Laten Maken | Professionele Websites op Maat | Start Beheer',
+  description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first. Vraag vrijblijvend een offerte aan.',
+  keywords: [
+    'website laten maken',
+    'professionele website',
+    'website op maat',
+    'custom website',
+    'website ontwikkeling',
+    'webdesign',
+    'responsive website',
+    'SEO website',
+    'website MKB',
+    'zakelijke website',
+    'website laten bouwen',
+    'website maken kosten'
+  ],
+  openGraph: {
+    title: 'Website Laten Maken | Professionele Websites op Maat',
+    description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first.',
+    type: 'website',
+    locale: 'nl_NL',
+    url: 'https://startbeheer.nl/website-laten-maken',
+  },
+  alternates: {
+    canonical: '/website-laten-maken'
+  }
+}
+
+// FAQ Schema data
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Hoe lang duurt het om een website te maken?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Een standaard website is meestal binnen 1-3 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 4-6 weken duren.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Waarom geen WordPress of Wix?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'WordPress en Wix zijn prima voor eenvoudige websites, maar hebben nadelen: tragere laadtijden, beveiligingsrisico\'s door plugins, en beperkte flexibiliteit. Onze websites zijn sneller, veiliger en volledig op maat - zonder maandelijkse licentiekosten.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Kan ik zelf content aanpassen na oplevering?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja, u krijgt een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training zodat u direct aan de slag kunt.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Wat als ik later meer pagina\'s of functies wil?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Geen probleem. Onze websites zijn gebouwd om te groeien. U kunt altijd uitbreiden met extra pagina\'s, blog, webshop of andere functionaliteit.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Regelen jullie ook hosting en domein?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Wat voor support krijg ik na oplevering?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Na oplevering blijven wij beschikbaar voor vragen, kleine aanpassingen en technische ondersteuning. Voor grotere wijzigingen maken we een offerte op maat. Zo bent u nooit alleen.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Wat kost een website laten maken?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Een professionele website op maat begint vanaf €785. De exacte prijs hangt af van uw wensen, het aantal pagina\'s en de gewenste functionaliteiten. U ontvangt altijd een vrijblijvende offerte op maat.'
+      }
+    }
+  ]
+}
+
+// Service Schema data
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Website Laten Maken',
+  description: 'Professionele website laten maken op maat. Custom design, SEO-geoptimaliseerd, mobile-first en razendsnelle laadtijden.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Start Beheer Solutions',
+    url: 'https://startbeheer.nl'
+  },
+  serviceType: 'Web Development',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '785',
+    priceCurrency: 'EUR',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      price: '785',
+      priceCurrency: 'EUR',
+      valueAddedTaxIncluded: false
+    }
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Website Pakketten',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Custom Website',
+          description: 'Professionele website volledig op maat met custom design, SEO-optimalisatie en CMS'
+        }
+      }
+    ]
+  }
+}
+
+export default function WebsitePage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <WebsitePageClient />
+    </>
+  )
+}

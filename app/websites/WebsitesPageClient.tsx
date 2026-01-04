@@ -27,8 +27,13 @@ import {
   Scale,
   Puzzle,
   ThumbsDown,
-  ThumbsUp
+  ThumbsUp,
+  Sparkles,
+  Target,
+  Clock,
+  Award
 } from 'lucide-react'
+import Link from 'next/link'
 
 const DigitalNetwork = dynamic(() => import('@/components/3d/DigitalNetwork'), {
   ssr: false,
@@ -361,6 +366,119 @@ export default function WebsitesPageClient() {
                   </motion.div>
                 </ScrollTrigger>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Video Sectie */}
+        <section className="py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+
+          <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                {/* Video */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="relative"
+                >
+                  <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-green/10">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-quantum-green/20 via-quantum-blue/20 to-quantum-purple/20 rounded-2xl blur-xl opacity-50" />
+                    <div className="relative bg-cyber-dark rounded-2xl overflow-hidden">
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-auto"
+                      >
+                        <source src="/website-laten-maken.mp4" type="video/mp4" />
+                      </video>
+                    </div>
+                  </div>
+
+                  {/* Floating badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="absolute -bottom-4 -right-4 lg:-right-8"
+                  >
+                    <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-green/30 rounded-xl px-4 py-3 shadow-lg">
+                      <p className="text-quantum-green font-semibold text-lg">100%</p>
+                      <p className="text-gray-400 text-sm">Maatwerk</p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <Badge className="mb-4 px-4 py-2 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+                    <Sparkles className="w-4 h-4 mr-2 inline" />
+                    Website Laten Maken
+                  </Badge>
+
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
+                    <span className="text-white">Uw Visie, </span>
+                    <span className="text-gradient">Onze Code</span>
+                  </h2>
+
+                  <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                    Een website die niet alleen mooi is, maar ook écht werkt. Geen templates,
+                    geen compromissen - puur maatwerk dat uw bedrijf laat groeien.
+                  </p>
+
+                  <p className="text-gray-400 mb-8 leading-relaxed">
+                    Van strategie tot livegang begeleiden wij u door het hele proces.
+                    Het resultaat? Een razendsnelle, conversiegerichte website die uw
+                    concurrentie ver achter zich laat.
+                  </p>
+
+                  {/* Quick features */}
+                  <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                    {[
+                      { icon: Zap, text: 'Laadtijd onder 2 seconden' },
+                      { icon: Target, text: 'Conversie geoptimaliseerd' },
+                      { icon: Clock, text: 'Oplevering binnen 4 weken' },
+                      { icon: Award, text: 'SEO-proof fundament' },
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.text}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 + index * 0.1 }}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-quantum-green/10 flex items-center justify-center">
+                          <item.icon className="w-4 h-4 text-quantum-green" />
+                        </div>
+                        <span className="text-gray-300 text-sm">{item.text}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                    asChild
+                  >
+                    <Link href="/contact?service=website">
+                      Start Uw Project
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>

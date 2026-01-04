@@ -18,6 +18,28 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
+  // SEO Redirects - oude URLs naar nieuwe URLs
+  async redirects() {
+    return [
+      // Development pagina's
+      { source: '/development/website-laten-maken', destination: '/website-laten-maken', permanent: true },
+      { source: '/development/webapplicatie-ontwikkeling', destination: '/webapplicatie-laten-maken', permanent: true },
+      { source: '/development/ecommerce', destination: '/webshop-laten-maken', permanent: true },
+      // Marketing pagina's
+      { source: '/marketing/google-ads-beheer', destination: '/google-ads-beheer', permanent: true },
+      { source: '/marketing/seo-services', destination: '/seo-specialist', permanent: true },
+      { source: '/marketing/social-media', destination: '/social-media-marketing', permanent: true },
+      { source: '/marketing/marketing-automation', destination: '/marketing-automatisering', permanent: true },
+      // AI pagina's
+      { source: '/ai/analytics', destination: '/ai-analytics', permanent: true },
+      { source: '/ai/chatbots', destination: '/ai-chatbots', permanent: true },
+      { source: '/ai/process-automation', destination: '/proces-automatisering', permanent: true },
+      { source: '/ai/virtual-assistant', destination: '/virtuele-assistent', permanent: true },
+      // Solutions
+      { source: '/solutions/zzp', destination: '/zzp-oplossingen', permanent: true },
+    ]
+  },
+
   async headers() {
     return [
       {
