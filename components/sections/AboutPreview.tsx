@@ -59,8 +59,8 @@ export default function AboutPreview() {
                 className="absolute -bottom-4 -right-4 lg:-right-8"
               >
                 <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-blue/30 rounded-xl px-4 py-3 shadow-lg">
-                  <p className="text-quantum-blue font-semibold text-lg">100+</p>
-                  <p className="text-gray-400 text-sm">Tevreden klanten</p>
+                  <p className="text-quantum-blue font-semibold text-lg">ZZP & MKB</p>
+                  <p className="text-gray-400 text-sm">Specialist</p>
                 </div>
               </motion.div>
             </motion.div>
