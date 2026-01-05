@@ -42,10 +42,11 @@ export const metadata: Metadata = {
     siteName: 'Start Beheer Solutions',
     images: [
       {
-        url: '/sbs.webp',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Start Beheer Solutions',
+        alt: 'Start Beheer Solutions - IT Beheer, Websites & AI',
+        type: 'image/jpeg',
       },
     ],
     locale: 'nl_NL',
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     title: "Start Beheer Solutions - IT Beheer, Websites & AI voor ZZP en MKB",
     description:
       'Betrouwbare IT-oplossingen voor ZZP en MKB. Systeembeheer, websites, AI en marketing onder een dak.',
-    images: ['/sbs.webp'],
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -70,9 +71,15 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/sbs.webp',
-    shortcut: '/sbs.webp',
-    apple: '/sbs.webp',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
 }
 
