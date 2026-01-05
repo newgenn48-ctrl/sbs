@@ -69,7 +69,7 @@ export default function IdealClientProfile() {
             Wij Helpen{' '}
             <span className="text-gradient">Ondernemers Zoals U</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Onze diensten zijn specifiek afgestemd op zelfstandigen en het midden- en kleinbedrijf.
           </p>
         </motion.header>
@@ -93,7 +93,7 @@ export default function IdealClientProfile() {
                 {client.title}
               </h3>
 
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 {client.description}
               </p>
 

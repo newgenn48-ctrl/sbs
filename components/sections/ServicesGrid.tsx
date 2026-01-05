@@ -86,7 +86,7 @@ export default function ServicesGrid() {
             Complete IT-Diensten voor{' '}
             <span className="text-gradient">ZZP & MKB</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Van IT beheer uitbesteden tot website laten maken. Wij zijn uw centrale partner voor alle digitale oplossingen.
           </p>
         </motion.header>
@@ -118,7 +118,7 @@ export default function ServicesGrid() {
               </div>
 
               {/* Description */}
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 {service.description}
               </p>
 
@@ -158,7 +158,7 @@ export default function ServicesGrid() {
           className="mt-16 text-center"
         >
           <div className="inline-block glass-effect px-8 py-6 rounded-2xl border border-white/10">
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-300 mb-4">
               Niet zeker welke diensten u nodig heeft?
             </p>
             <Link

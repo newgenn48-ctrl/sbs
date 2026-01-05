@@ -21,12 +21,38 @@ export const metadata: Metadata = {
     description: 'AI-gedreven virtuele assistent voor MKB. Automatische telefoonbeantwoording en afspraakplanning.',
     type: 'website',
     locale: 'nl_NL',
+    url: 'https://startbeheer.nl/virtuele-assistent',
   },
   alternates: {
-    canonical: '/ai/virtual-assistant'
+    canonical: '/virtuele-assistent'
+  }
+}
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Virtuele Assistent',
+  description: 'AI-gedreven virtuele assistent voor MKB. Automatische telefoonbeantwoording, afspraakplanning en agenda beheer.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Start Beheer Solutions',
+    url: 'https://startbeheer.nl'
+  },
+  serviceType: 'Virtual Assistant',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
   }
 }
 
 export default function VirtualAssistantPage() {
-  return <VirtualAssistantPageClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <VirtualAssistantPageClient />
+    </>
+  )
 }

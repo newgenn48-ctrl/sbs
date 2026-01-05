@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: 'Professionele cybersecurity voor het MKB. Bescherm uw bedrijf tegen hackers en ransomware.',
   },
   alternates: {
-    canonical: 'https://startbeheer.nl/cybersecurity'
+    canonical: '/cybersecurity'
   },
   robots: {
     index: true,
@@ -50,7 +50,7 @@ const jsonLd = {
   description: 'Professionele cybersecurity diensten voor MKB bedrijven. Security audits, awareness training, endpoint security en ransomware bescherming.',
   provider: {
     '@type': 'Organization',
-    name: 'Start Beheer',
+    name: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl'
   },
   serviceType: 'Cybersecurity',

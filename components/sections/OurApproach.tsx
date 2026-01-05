@@ -68,7 +68,7 @@ export default function OurApproach() {
             Van Eerste Contact tot{' '}
             <span className="text-gradient">Langdurig Partnerschap</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Een transparant proces waarbij u altijd weet waar u aan toe bent. Geen verrassingen, wel resultaat.
           </p>
         </motion.header>
@@ -105,12 +105,12 @@ export default function OurApproach() {
                     <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-gray-400">{step.subtitle}</p>
+                    <p className="text-sm text-gray-300">{step.subtitle}</p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-400 mb-6 leading-relaxed relative z-10">
+                <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
                   {step.description}
                 </p>
 
@@ -143,7 +143,7 @@ export default function OurApproach() {
             <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
               Klaar om te starten?
             </h3>
-            <p className="text-gray-400 mb-6 max-w-xl mx-auto">
+            <p className="text-gray-300 mb-6 max-w-xl mx-auto">
               Plan een vrijblijvend kennismakingsgesprek en ontdek hoe wij uw bedrijf kunnen helpen groeien.
             </p>
             <Link

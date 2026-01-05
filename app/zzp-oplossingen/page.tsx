@@ -9,7 +9,12 @@ export const metadata: Metadata = {
     title: 'ZZP Oplossingen | Website, E-mail & SEO | Start Beheer',
     description: 'Complete digitale oplossingen voor ZZP\'ers. Website, e-mail, SEO en IT-support in één pakket. Vanaf €99/mnd, maandelijks opzegbaar.',
     type: 'website',
+    locale: 'nl_NL',
+    url: 'https://startbeheer.nl/zzp-oplossingen',
   },
+  alternates: {
+    canonical: '/zzp-oplossingen'
+  }
 }
 
 export default function ZZPPage() {

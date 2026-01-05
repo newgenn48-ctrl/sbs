@@ -47,7 +47,7 @@ export default function Footer() {
                 className="h-16 w-auto"
               />
             </Link>
-            <p className="text-gray-400 mb-6 max-w-sm">
+            <p className="text-gray-300 mb-6 max-w-sm">
               Uw IT-partner voor ZZP en MKB. Van systeembeheer tot websites
               en AI - alles onder een dak met persoonlijke service.
             </p>
@@ -56,19 +56,19 @@ export default function Footer() {
             <div className="space-y-3">
               <a
                 href="tel:+31687874001"
-                className="flex items-center gap-3 text-gray-400 hover:text-quantum-blue transition-colors"
+                className="flex items-center gap-3 text-gray-300 hover:text-quantum-blue transition-colors"
               >
                 <Phone className="h-4 w-4" />
                 <span>06 87 87 40 01</span>
               </a>
               <a
                 href="mailto:info@startbeheer.nl"
-                className="flex items-center gap-3 text-gray-400 hover:text-quantum-blue transition-colors"
+                className="flex items-center gap-3 text-gray-300 hover:text-quantum-blue transition-colors"
               >
                 <Mail className="h-4 w-4" />
                 <span>info@startbeheer.nl</span>
               </a>
-              <div className="flex items-center gap-3 text-gray-400">
+              <div className="flex items-center gap-3 text-gray-300">
                 <Globe className="h-4 w-4" />
                 <span>Digital-First Operations</span>
               </div>
@@ -86,7 +86,7 @@ export default function Footer() {
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="w-10 h-10 rounded-lg bg-cyber-light flex items-center justify-center hover:bg-quantum-blue/20 transition-colors"
                 >
-                  <social.icon className="h-5 w-5 text-gray-400" />
+                  <social.icon className="h-5 w-5 text-gray-300" />
                 </motion.a>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-quantum-blue transition-colors text-sm"
+                    className="text-gray-300 hover:text-quantum-blue transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -121,7 +121,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-quantum-blue transition-colors text-sm"
+                    className="text-gray-300 hover:text-quantum-blue transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -140,7 +140,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-quantum-blue transition-colors text-sm"
+                    className="text-gray-300 hover:text-quantum-blue transition-colors text-sm"
                   >
                     {link.name}
                   </Link>

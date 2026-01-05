@@ -1,6 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
+// Simple in-memory rate limiter
+const rateLimit = new Map<string, { count: number; resetTime: number }>()
+
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000 // 15 minutes
+const RATE_LIMIT_MAX = 5 // Max 5 requests per window
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
+  const now = Date.now()
+  const record = rateLimit.get(ip)
+
+  // Clean up old entries periodically
+  if (rateLimit.size > 10000) {
+    for (const [key, value] of rateLimit.entries()) {
+      if (value.resetTime < now) {
+        rateLimit.delete(key)
+      }
+    }
+  }
+
+  if (!record || record.resetTime < now) {
+    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
+    return { allowed: true, remaining: RATE_LIMIT_MAX - 1, resetIn: RATE_LIMIT_WINDOW }
+  }
+
+  if (record.count >= RATE_LIMIT_MAX) {
+    return { allowed: false, remaining: 0, resetIn: record.resetTime - now }
+  }
+
+  record.count++
+  return { allowed: true, remaining: RATE_LIMIT_MAX - record.count, resetIn: record.resetTime - now }
+}
+
 interface ContactFormData {
   name: string
   email: string
@@ -34,6 +66,28 @@ function sanitize(input: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Get client IP for rate limiting
+    const forwarded = request.headers.get('x-forwarded-for')
+    const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown'
+
+    // Check rate limit
+    const rateLimitResult = checkRateLimit(ip)
+    if (!rateLimitResult.allowed) {
+      const retryAfter = Math.ceil(rateLimitResult.resetIn / 1000)
+      return NextResponse.json(
+        { error: 'Te veel verzoeken. Probeer het later opnieuw.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': retryAfter.toString(),
+            'X-RateLimit-Limit': RATE_LIMIT_MAX.toString(),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': Math.ceil((Date.now() + rateLimitResult.resetIn) / 1000).toString(),
+          }
+        }
+      )
+    }
+
     const body: ContactFormData = await request.json()
 
     // Validate required fields

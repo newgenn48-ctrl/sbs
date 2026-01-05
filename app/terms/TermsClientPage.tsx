@@ -10,7 +10,7 @@ const sections = [
     title: 'Artikel 1 - Definities',
     content: `In deze algemene voorwaarden wordt verstaan onder:
 
-1.1 Start Beheer: Start Beheer Solutions, gevestigd te Utrecht, ingeschreven bij de Kamer van Koophandel onder nummer [KvK-nummer].
+1.1 Start Beheer: Start Beheer Solutions, ingeschreven bij de Kamer van Koophandel onder nummer [KvK-nummer].
 
 1.2 Opdrachtgever: de natuurlijke persoon of rechtspersoon die aan Start Beheer opdracht heeft gegeven tot het verrichten van werkzaamheden.
 
@@ -112,7 +112,7 @@ const sections = [
     title: 'Artikel 12 - Toepasselijk Recht en Geschillen',
     content: `12.1 Op alle overeenkomsten tussen Start Beheer en Opdrachtgever is Nederlands recht van toepassing.
 
-12.2 Geschillen zullen in eerste instantie worden voorgelegd aan de bevoegde rechter in het arrondissement Utrecht.
+12.2 Geschillen zullen in eerste instantie worden voorgelegd aan de bevoegde rechter in Nederland.
 
 12.3 Partijen zullen eerst proberen geschillen in onderling overleg op te lossen alvorens een beroep te doen op de rechter.`
   },

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
@@ -427,8 +428,73 @@ export default function MarketingAutomationClientPage() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
       </section>
 
+      {/* ==================== AFBEELDING SECTIE ==================== */}
+      <section className="py-24 bg-cyber-dark/30">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <ScrollTrigger>
+                <div className="relative rounded-2xl overflow-hidden border border-quantum-blue/20 shadow-2xl">
+                  <Image
+                    src="/marketing-automatisering.webp"
+                    alt="Marketing automatisering workflow"
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </ScrollTrigger>
+
+              <ScrollTrigger delay={0.2}>
+                <div>
+                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
+                    <Workflow className="w-4 h-4 mr-2" />
+                    Slimmer Werken
+                  </Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                    Marketing op <span className="text-gradient">autopilot</span>
+                  </h2>
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    Automatiseer repetitieve taken en laat uw marketing 24/7 doorwerken. Van lead nurturing tot e-mail campagnes - alles zonder handmatige tussenkomst.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-5 h-5 text-quantum-blue" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">Email workflows</p>
+                        <p className="text-sm text-gray-400">Automatische follow-ups</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
+                        <Target className="w-5 h-5 text-quantum-green" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">Lead scoring</p>
+                        <p className="text-sm text-gray-400">Prioriteer de beste leads</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
+                        <BarChart3 className="w-5 h-5 text-quantum-purple" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">ROI inzicht</p>
+                        <p className="text-sm text-gray-400">Meet wat werkt</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollTrigger>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
+      <section className="py-24" aria-labelledby="diensten-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">

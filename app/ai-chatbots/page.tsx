@@ -21,12 +21,38 @@ export const metadata: Metadata = {
     description: 'AI chatbots voor MKB. Automatiseer uw klantenservice met intelligente chatbots.',
     type: 'website',
     locale: 'nl_NL',
+    url: 'https://startbeheer.nl/ai-chatbots',
   },
   alternates: {
-    canonical: '/ai/chatbots'
+    canonical: '/ai-chatbots'
+  }
+}
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'AI Chatbots',
+  description: 'AI chatbots voor MKB. Automatiseer uw klantenservice met intelligente chatbots die 24/7 vragen beantwoorden.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Start Beheer Solutions',
+    url: 'https://startbeheer.nl'
+  },
+  serviceType: 'AI Chatbot Implementation',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
   }
 }
 
 export default function ChatbotsPage() {
-  return <ChatbotsPageClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <ChatbotsPageClient />
+    </>
+  )
 }

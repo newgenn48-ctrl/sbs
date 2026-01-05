@@ -21,12 +21,38 @@ export const metadata: Metadata = {
     description: 'Automatiseer repetitieve taken en workflows. RPA en AI-gedreven proces automatisering voor MKB.',
     type: 'website',
     locale: 'nl_NL',
+    url: 'https://startbeheer.nl/proces-automatisering',
   },
   alternates: {
-    canonical: '/ai/process-automation'
+    canonical: '/proces-automatisering'
+  }
+}
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Proces Automatisering',
+  description: 'Automatiseer repetitieve taken en workflows. RPA en AI-gedreven proces automatisering voor MKB.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Start Beheer Solutions',
+    url: 'https://startbeheer.nl'
+  },
+  serviceType: 'Process Automation',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
   }
 }
 
 export default function ProcessAutomationPage() {
-  return <ProcessAutomationPageClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <ProcessAutomationPageClient />
+    </>
+  )
 }

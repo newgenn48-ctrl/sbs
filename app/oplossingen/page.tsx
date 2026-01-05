@@ -9,7 +9,12 @@ export const metadata: Metadata = {
     title: 'IT Oplossingen voor ZZP & MKB | Start Beheer',
     description: 'Complete IT-oplossingen voor ZZP\'ers en MKB. Website, e-mail, IT-support en marketing in één pakket.',
     type: 'website',
+    locale: 'nl_NL',
+    url: 'https://startbeheer.nl/oplossingen',
   },
+  alternates: {
+    canonical: '/oplossingen'
+  }
 }
 
 export default function OplossingenPage() {

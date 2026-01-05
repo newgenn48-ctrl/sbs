@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
@@ -653,26 +654,36 @@ export default function WerkplekbeheerClientPage() {
               </ScrollTrigger>
 
               <ScrollTrigger delay={0.2}>
-                <div className="glass-effect p-8 rounded-2xl border border-quantum-green/20">
-                  <h3 className="text-xl font-bold mb-6 text-center">Geen gedoe</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Eén vast aanspreekpunt - geen wisselende technici</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Maandelijks opzegbaar - geen jarenlange contracten</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Transparante prijzen - geen verrassingen</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Heldere communicatie - u weet wat we doen</span>
-                    </li>
-                  </ul>
+                <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/werkplekbeheer-uitbesteden.webp"
+                    alt="Professioneel werkplekbeheer - IT support voor MKB"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker/80 via-cyber-darker/20 to-transparent rounded-2xl" />
+
+                  {/* Overlay content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="glass-effect p-4 rounded-xl border border-quantum-green/20">
+                      <h3 className="text-lg font-bold mb-3">Geen gedoe</h3>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-quantum-green flex-shrink-0" />
+                          <span className="text-gray-300">Eén vast aanspreekpunt</span>
+                        </li>
+                        <li className="flex items-center gap-2 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-quantum-green flex-shrink-0" />
+                          <span className="text-gray-300">Maandelijks opzegbaar</span>
+                        </li>
+                        <li className="flex items-center gap-2 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-quantum-green flex-shrink-0" />
+                          <span className="text-gray-300">Transparante prijzen</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </ScrollTrigger>
             </div>

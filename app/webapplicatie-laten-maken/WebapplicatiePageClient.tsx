@@ -7,11 +7,11 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Layers, CheckCircle2, ArrowRight, Phone,
+  Layers, CheckCircle2, ArrowRight,
   Zap, Database, Lock, RefreshCw, Code2,
-  Users, FileCheck, Settings, Cloud,
+  Users, FileCheck, Settings,
   BarChart3, Plug, Workflow, Shield,
-  Quote, ChevronDown, Rocket, Target
+  ChevronDown, Rocket, Target
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -117,59 +117,35 @@ const examples = [
   },
 ]
 
-// Veelvoorkomende situaties
-const customerSituations = [
-  {
-    quote: 'We werken met Excel en losse systemen die niet met elkaar praten.',
-    context: 'Geïntegreerde oplossing',
-    icon: Database
-  },
-  {
-    quote: 'We willen klanten toegang geven tot hun gegevens via een portaal.',
-    context: 'Klantportaal',
-    icon: Users
-  },
-  {
-    quote: 'Onze processen zijn handmatig en foutgevoelig.',
-    context: 'Proces automatisering',
-    icon: Workflow
-  },
-  {
-    quote: 'We missen inzicht in onze bedrijfsdata en KPIs.',
-    context: 'Dashboard ontwikkeling',
-    icon: BarChart3
-  },
-]
-
-// Waarom wij
+// Waarom wij - focus op bedrijf/samenwerking
 const whyChooseUs = [
   {
-    icon: Code2,
-    title: 'Ervaren Developers',
-    description: 'Ons team heeft jarenlange ervaring met complexe webapplicaties.',
-    stat: '10+',
-    statLabel: 'jaar ervaring'
+    icon: Lock,
+    title: 'Volledig Eigendom',
+    description: 'U bent 100% eigenaar van de broncode. Geen lock-in, geen licentiekosten.',
+    stat: '100%',
+    statLabel: 'van u'
   },
   {
-    icon: Zap,
-    title: 'Moderne Stack',
-    description: 'We bouwen met de nieuwste technologieën voor optimale performance.',
-    stat: 'Next.js',
-    statLabel: 'React & Node'
+    icon: Users,
+    title: 'Directe Lijnen',
+    description: 'Eén vast aanspreekpunt. Direct contact met uw developer, geen helpdesk.',
+    stat: '1',
+    statLabel: 'contactpersoon'
   },
   {
     icon: RefreshCw,
     title: 'Agile Werkwijze',
-    description: 'Regelmatige demos en feedback zodat u altijd ziet wat we bouwen.',
+    description: 'Regelmatige demos en feedback. U ziet altijd wat we bouwen.',
     stat: '2 weken',
-    statLabel: 'sprint cycli'
+    statLabel: 'sprints'
   },
   {
-    icon: Target,
-    title: 'Resultaatgericht',
-    description: 'We focussen op oplossingen die echt waarde toevoegen aan uw bedrijf.',
-    stat: 'ROI',
-    statLabel: 'focused'
+    icon: Rocket,
+    title: 'Nazorg Inbegrepen',
+    description: 'Na oplevering staan wij klaar voor support, updates en doorontwikkeling.',
+    stat: '∞',
+    statLabel: 'support'
   },
 ]
 
@@ -206,6 +182,10 @@ const faqs = [
   {
     q: 'Hoe lang duurt het om een webapplicatie te bouwen?',
     a: 'Dit hangt sterk af van de complexiteit. Een eenvoudige applicatie kan in 2-3 maanden klaar zijn. Complexere projecten kunnen 6-12 maanden duren. Na de discovery fase geven we een realistische planning.'
+  },
+  {
+    q: 'Waarom geen standaard software zoals Salesforce of HubSpot?',
+    a: 'Standaard software is prima voor standaard processen. Maar als uw werkwijze uniek is, betaalt u voor functies die u niet gebruikt en mist u functies die u wel nodig heeft. Maatwerk past exact bij uw proces, zonder maandelijkse licentiekosten per gebruiker.'
   },
   {
     q: 'Kunnen jullie integreren met onze bestaande systemen?',
@@ -348,9 +328,9 @@ export default function WebapplicatiePageClient() {
               </Badge>
 
               <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Webapplicaties{' '}
+                Webapplicatie Laten Maken?{' '}
                 <span className="block text-gradient mt-2">
-                  op Maat
+                  100% op Maat
                 </span>
               </h1>
 
@@ -381,11 +361,11 @@ export default function WebapplicatiePageClient() {
                   asChild
                 >
                   <Link href="/contact?service=webapplicatie">
-                    Plan een Gesprek
+                    Offerte Aanvragen
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -447,6 +427,103 @@ export default function WebapplicatiePageClient() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
       </section>
 
+      {/* ==================== VIDEO SECTIE ==================== */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Video */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="relative aspect-video rounded-2xl overflow-hidden border border-quantum-blue/20 shadow-2xl shadow-quantum-blue/10"
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                  title="Webapplicatie ontwikkeling demo"
+                  aria-label="Video demonstratie van onze webapplicatie ontwikkeling"
+                >
+                  <source src="/website-laten-maken.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
+
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+                  <Badge className="bg-quantum-blue/90 text-white border-0">
+                    <Zap className="w-3 h-3 mr-1" />
+                    Schaalbaar
+                  </Badge>
+                  <Badge className="bg-quantum-green/90 text-white border-0">
+                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                    100% Maatwerk
+                  </Badge>
+                </div>
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
+                  <Target className="w-4 h-4 mr-2 inline" />
+                  Resultaatgericht
+                </Badge>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
+                  <span className="text-white">Applicaties die </span>
+                  <span className="text-gradient">echt werken</span>
+                </h2>
+
+                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                  Geen standaard software met overbodige functies. Wij bouwen exact wat u nodig heeft -
+                  niet meer, niet minder. Resultaat: efficiëntere processen en tevreden gebruikers.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {[
+                    { icon: Zap, text: 'Snelle performance' },
+                    { icon: Lock, text: 'Veilig & AVG-proof' },
+                    { icon: Plug, text: 'Integraties mogelijk' },
+                    { icon: RefreshCw, text: 'Schaalbaar platform' },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center gap-2 text-gray-300"
+                    >
+                      <item.icon className="w-5 h-5 text-quantum-blue" />
+                      <span className="text-sm">{item.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:scale-105 transition-transform"
+                  asChild
+                >
+                  <a href="#proces-title">
+                    Bekijk Ons Proces
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== DIENSTEN ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
@@ -494,66 +571,6 @@ export default function WebapplicatiePageClient() {
                 </div>
               </ScrollTrigger>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-blue/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">situaties</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-blue" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-blue/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-blue font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=webapplicatie">
-                      Bespreek uw situatie
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
           </div>
         </div>
       </section>
@@ -636,12 +653,12 @@ export default function WebapplicatiePageClient() {
               </Badge>
 
               <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om uw processen te{' '}
-                <span className="text-gradient">digitaliseren?</span>
+                Webapplicatie laten maken?{' '}
+                <span className="text-gradient">Start vandaag!</span>
               </h2>
 
               <p className="text-lg sm:text-xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Plan een vrijblijvend gesprek. We bespreken uw situatie en verkennen de mogelijkheden.
+                Vraag een vrijblijvende offerte aan. We bespreken uw situatie en verkennen de mogelijkheden.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -651,11 +668,11 @@ export default function WebapplicatiePageClient() {
                   asChild
                 >
                   <Link href="/contact?service=webapplicatie">
-                    Plan een Gesprek
+                    Vraag Offerte Aan
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

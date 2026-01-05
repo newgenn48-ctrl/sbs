@@ -48,7 +48,7 @@ Start Beheer is niet aansprakelijk voor de onjuiste of onvolledige overbrenging 
   },
   {
     title: 'Toepasselijk recht',
-    content: `Op deze disclaimer is Nederlands recht van toepassing. Alle geschillen die voortvloeien uit of verband houden met deze disclaimer zullen worden voorgelegd aan de bevoegde rechter in het arrondissement Utrecht.`
+    content: `Op deze disclaimer is Nederlands recht van toepassing. Alle geschillen die voortvloeien uit of verband houden met deze disclaimer zullen worden voorgelegd aan de bevoegde rechter in Nederland.`
   },
   {
     title: 'Contact',

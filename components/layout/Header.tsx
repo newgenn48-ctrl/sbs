@@ -30,14 +30,22 @@ export default function Header() {
   }
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-cyber-darker/95 backdrop-blur-xl border-b border-cyber-light'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+    <>
+      {/* Skip link voor accessibility - zichtbaar bij focus */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-quantum-blue focus:text-black focus:px-4 focus:py-2 focus:rounded-lg focus:z-[9999] focus:font-medium focus:outline-none"
+      >
+        Skip naar hoofdinhoud
+      </a>
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-cyber-darker/95 backdrop-blur-xl border-b border-cyber-light'
+            : 'bg-transparent'
+        }`}
+      >
+        <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -100,7 +108,7 @@ export default function Header() {
                         <>
                           <button
                             onClick={() => handleSubmenuToggle(item.name)}
-                            className="w-full flex justify-between items-center text-lg font-medium text-gray-300 hover:text-quantum-blue py-2"
+                            className="w-full flex justify-between items-center text-lg font-medium text-gray-300 hover:text-quantum-blue py-3 min-h-[44px]"
                           >
                             {item.name}
                             <ChevronDown
@@ -124,10 +132,10 @@ export default function Header() {
                                     key={subitem.name}
                                     href={subitem.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`text-base font-medium transition-colors hover:text-quantum-blue py-1 ${
+                                    className={`text-base font-medium transition-colors hover:text-quantum-blue py-2 min-h-[44px] flex items-center ${
                                       pathname === subitem.href
                                         ? 'text-quantum-blue'
-                                        : 'text-gray-400'
+                                        : 'text-gray-300'
                                     }`}
                                   >
                                     {subitem.name}
@@ -141,7 +149,7 @@ export default function Header() {
                         <Link
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`block text-lg font-medium transition-colors hover:text-quantum-blue py-2 ${
+                          className={`block text-lg font-medium transition-colors hover:text-quantum-blue py-3 min-h-[44px] flex items-center ${
                             pathname === item.href
                               ? 'text-quantum-blue'
                               : 'text-gray-300'
@@ -162,7 +170,8 @@ export default function Header() {
             </Sheet>
           </div>
         </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   )
 }

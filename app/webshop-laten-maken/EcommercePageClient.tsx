@@ -7,10 +7,10 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  ShoppingCart, CheckCircle2, ArrowRight, Phone,
+  ShoppingCart, CheckCircle2, ArrowRight,
   CreditCard, Package, Truck, BarChart3,
   Palette, Zap, Lock, RefreshCw,
-  Users, Quote, ChevronDown, Settings,
+  Users, ChevronDown, Settings,
   Rocket, Target, TrendingUp, Globe
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
@@ -109,59 +109,35 @@ const priceInfo = {
   ],
 }
 
-// Veelvoorkomende situaties
-const customerSituations = [
-  {
-    quote: 'Ik wil beginnen met online verkopen maar weet niet waar te beginnen.',
-    context: 'Nieuwe webshop',
-    icon: ShoppingCart
-  },
-  {
-    quote: 'Mijn huidige webshop is traag en levert weinig conversie op.',
-    context: 'Webshop optimalisatie',
-    icon: TrendingUp
-  },
-  {
-    quote: 'Ik wil via meerdere kanalen verkopen: webshop, Bol.com, Instagram.',
-    context: 'Multi-channel verkoop',
-    icon: Globe
-  },
-  {
-    quote: 'Het beheren van mijn voorraad en bestellingen kost te veel tijd.',
-    context: 'Automatisering',
-    icon: Package
-  },
-]
-
-// Waarom onze platformen
-const whyPlatforms = [
-  {
-    icon: Zap,
-    title: 'Betrouwbaar & Snel',
-    description: 'Bewezen platformen met uitstekende uptime en snelle laadtijden.',
-    stat: '99.9%',
-    statLabel: 'uptime'
-  },
+// Waarom wij - focus op bedrijf/samenwerking
+const whyChooseUs = [
   {
     icon: Lock,
-    title: 'Veilig & PCI Compliant',
-    description: 'Enterprise-grade beveiliging voor veilige transacties.',
-    stat: 'PCI',
-    statLabel: 'compliant'
+    title: 'Vaste Prijs',
+    description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf.',
+    stat: '€',
+    statLabel: 'vast'
+  },
+  {
+    icon: Users,
+    title: 'Directe Lijnen',
+    description: 'Eén vast aanspreekpunt. Direct contact, geen helpdesk.',
+    stat: '1',
+    statLabel: 'contactpersoon'
   },
   {
     icon: RefreshCw,
-    title: 'Schaalbaar',
-    description: 'Van 10 naar 10.000 bestellingen per dag - uw webshop groeit mee.',
-    stat: '∞',
-    statLabel: 'schaalbaarheid'
+    title: 'Training Inbegrepen',
+    description: 'Na oplevering krijgt u een training zodat u zelf de webshop kunt beheren.',
+    stat: '✓',
+    statLabel: 'training'
   },
   {
-    icon: Settings,
-    title: 'Eenvoudig Beheer',
-    description: 'Intuïtief dashboard. Beheer producten, bestellingen en klanten met gemak.',
-    stat: 'Easy',
-    statLabel: 'to use'
+    icon: Rocket,
+    title: 'Nazorg & Support',
+    description: 'Na oplevering staan wij klaar voor vragen en aanpassingen.',
+    stat: '∞',
+    statLabel: 'support'
   },
 ]
 
@@ -310,7 +286,7 @@ const PriceCard = () => (
   </ScrollTrigger>
 )
 
-const WhyPlatformCard = ({ item, index }: { item: typeof whyPlatforms[0], index: number }) => (
+const WhyUsCard = ({ item, index }: { item: typeof whyChooseUs[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
     <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-quantum-green/30 transition-all h-full">
       <div className="flex items-start justify-between mb-3 sm:mb-4">
@@ -379,9 +355,9 @@ export default function EcommercePageClient() {
               </Badge>
 
               <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Webshop Laten{' '}
+                Webshop Laten Maken?{' '}
                 <span className="block text-gradient mt-2">
-                  Maken
+                  Shopify & WooCommerce
                 </span>
               </h1>
 
@@ -412,11 +388,11 @@ export default function EcommercePageClient() {
                   asChild
                 >
                   <Link href="/contact?service=ecommerce">
-                    Gratis Adviesgesprek
+                    Offerte Aanvragen
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -478,6 +454,103 @@ export default function EcommercePageClient() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
       </section>
 
+      {/* ==================== VIDEO SECTIE ==================== */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Video */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="relative aspect-video rounded-2xl overflow-hidden border border-quantum-green/20 shadow-2xl shadow-quantum-green/10"
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                  title="Webshop ontwikkeling demo"
+                  aria-label="Video demonstratie van onze webshop ontwikkeling"
+                >
+                  <source src="/website-laten-maken.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker/60 via-transparent to-transparent" />
+
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
+                  <Badge className="bg-quantum-green/90 text-white border-0">
+                    <Zap className="w-3 h-3 mr-1" />
+                    Snel Laden
+                  </Badge>
+                  <Badge className="bg-quantum-blue/90 text-white border-0">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    Conversie Geoptimaliseerd
+                  </Badge>
+                </div>
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <Badge className="mb-4 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+                  <Target className="w-4 h-4 mr-2 inline" />
+                  Resultaatgericht
+                </Badge>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
+                  <span className="text-white">Webshop die </span>
+                  <span className="text-gradient">verkoopt</span>
+                </h2>
+
+                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                  Een mooie webshop is niet genoeg. Uw webshop moet bezoekers omzetten in klanten.
+                  Daarom focussen wij op conversie: snelle laadtijden, intuïtieve checkout en vertrouwen.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {[
+                    { icon: Zap, text: 'Snelle laadtijden' },
+                    { icon: Lock, text: 'Veilig betalen' },
+                    { icon: TrendingUp, text: 'Conversie geoptimaliseerd' },
+                    { icon: Globe, text: 'SEO-vriendelijk' },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center gap-2 text-gray-300"
+                    >
+                      <item.icon className="w-5 h-5 text-quantum-green" />
+                      <span className="text-sm">{item.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                  asChild
+                >
+                  <a href="#proces-title">
+                    Bekijk Ons Proces
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== DIENSTEN ==================== */}
       <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
@@ -520,86 +593,23 @@ export default function EcommercePageClient() {
         </div>
       </section>
 
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-green/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-green/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">situaties</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-green/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-green" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-green/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-green font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=ecommerce">
-                      Start met verkopen
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM ONZE PLATFORMEN ==================== */}
-      <section className="py-24" aria-labelledby="platforms-title">
+      {/* ==================== WAAROM WIJ ==================== */}
+      <section className="py-24" aria-labelledby="waarom-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-green/10 bg-gradient-to-b from-quantum-green/5 to-transparent">
               <ScrollTrigger>
                 <header className="text-center mb-12">
-                  <Badge className="mb-4">Bewezen Platformen</Badge>
-                  <h2 id="platforms-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Shopify & WooCommerce: <span className="text-gradient">de beste keuze</span>
+                  <Badge className="mb-4">Waarom Start Beheer</Badge>
+                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
+                    Waarom klanten voor <span className="text-gradient">ons kiezen</span>
                   </h2>
-                  <p className="text-gray-400 max-w-2xl mx-auto">
-                    Beide platformen drijven miljoenen webshops aan. Wij helpen u kiezen wat het beste past bij uw situatie.
-                  </p>
                 </header>
               </ScrollTrigger>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyPlatforms.map((item, index) => (
-                  <WhyPlatformCard key={index} item={item} index={index} />
+                {whyChooseUs.map((item, index) => (
+                  <WhyUsCard key={index} item={item} index={index} />
                 ))}
               </div>
             </div>
@@ -661,12 +671,12 @@ export default function EcommercePageClient() {
               </Badge>
 
               <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om online te{' '}
-                <span className="text-gradient">verkopen?</span>
+                Webshop laten maken?{' '}
+                <span className="text-gradient">Start vandaag!</span>
               </h2>
 
               <p className="text-lg sm:text-xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Plan een gratis adviesgesprek. We bespreken uw producten en maken een plan voor uw webshop.
+                Vraag een vrijblijvende offerte aan. We bespreken uw producten en maken een plan voor uw webshop.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -676,11 +686,11 @@ export default function EcommercePageClient() {
                   asChild
                 >
                   <Link href="/contact?service=ecommerce">
-                    Start Uw Webshop
+                    Vraag Offerte Aan
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

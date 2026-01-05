@@ -82,7 +82,7 @@ export default function TestimonialsSection() {
                 <span className="text-gradient">Écht Luistert</span>
               </h2>
 
-              <p className="text-lg text-gray-400 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Geen grote organisatie waar u een nummer bent. Bij ons krijgt u persoonlijke aandacht en oplossingen die passen bij uw bedrijf.
               </p>
             </motion.div>
@@ -116,7 +116,7 @@ export default function TestimonialsSection() {
                   <h3 className="text-lg font-display font-bold text-white mb-2">
                     {reason.title}
                   </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     {reason.description}
                   </p>
                 </motion.article>
@@ -156,7 +156,7 @@ export default function TestimonialsSection() {
                         <div className={`w-10 h-10 rounded-xl bg-${benefit.color}/10 flex items-center justify-center`}>
                           <benefit.icon className={`w-5 h-5 text-${benefit.color}`} />
                         </div>
-                        <span className="text-xs text-gray-400">{benefit.text}</span>
+                        <span className="text-xs text-gray-300">{benefit.text}</span>
                       </motion.div>
                     ))}
                   </div>

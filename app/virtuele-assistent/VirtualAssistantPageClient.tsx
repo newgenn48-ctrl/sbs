@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
@@ -423,6 +424,111 @@ export default function VirtualAssistantPageClient() {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
+      </section>
+
+      {/* ==================== VIDEO SECTIE ==================== */}
+      <section className="py-24 bg-cyber-dark/30">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <ScrollTrigger>
+                <div className="relative rounded-2xl overflow-hidden border border-quantum-purple/20 shadow-2xl">
+                  <video
+                    className="w-full h-auto"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src="/virtuele-assistent.mp4" type="video/mp4" />
+                    Uw browser ondersteunt geen video.
+                  </video>
+                </div>
+              </ScrollTrigger>
+
+              <ScrollTrigger delay={0.2}>
+                <div>
+                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+                    <Mic className="w-4 h-4 mr-2" />
+                    AI Voice Technology
+                  </Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                    Natuurlijke <span className="text-gradient">gesprekken</span>
+                  </h2>
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    Onze virtuele assistent voert natuurlijke gesprekken die niet van een mens te onderscheiden zijn.
+                    Met geavanceerde spraaktechnologie begrijpt de assistent uw bellers en reageert gepast.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Natuurlijke AI-stem in meerdere talen</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Begrijpt context en nuance in gesprekken</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Escalatie naar medewerker wanneer nodig</span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollTrigger>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== AFBEELDING SECTIE ==================== */}
+      <section className="py-24">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <ScrollTrigger delay={0.2}>
+                <div>
+                  <Badge className="mb-4 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+                    <Clock className="w-4 h-4 mr-2" />
+                    24/7 Beschikbaar
+                  </Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                    Altijd <span className="text-gradient">bereikbaar</span>
+                  </h2>
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    Mis nooit meer een belangrijk telefoontje. Uw virtuele assistent staat 24 uur per dag,
+                    7 dagen per week klaar om uw bellers te woord te staan en afspraken in te plannen.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Geen gemiste oproepen meer</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Automatische afspraakplanning in uw agenda</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-quantum-green mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">Directe notificaties bij urgente oproepen</span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollTrigger>
+
+              <ScrollTrigger>
+                <div className="relative rounded-2xl overflow-hidden border border-quantum-green/20 shadow-2xl">
+                  <Image
+                    src="/virtuele-assistent.webp"
+                    alt="Virtuele assistent - 24/7 telefonische bereikbaarheid"
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </ScrollTrigger>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ==================== DIENSTEN ==================== */}

@@ -16,14 +16,15 @@ import {
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
 const Scene3DLoader = () => (
   <div className="absolute inset-0 flex items-center justify-center">
     <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-red-500/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-red-500/30 animate-ping" style={{ animationDuration: '2s' }} />
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
     </div>
   </div>
 )
@@ -55,7 +56,7 @@ const services = [
     title: 'Security Audit',
     description: 'Een grondige analyse van uw IT-beveiliging. We identificeren kwetsbaarheden en geven concrete aanbevelingen.',
     features: ['Netwerk scan', 'Configuratie check', 'Rapport met prioriteiten', 'Actieplan'],
-    color: 'red-500'
+    color: 'quantum-blue'
   },
   {
     icon: ShieldCheck,
@@ -90,7 +91,7 @@ const services = [
     title: 'Monitoring & Response',
     description: 'We houden uw systemen in de gaten en reageren snel bij verdachte activiteit.',
     features: ['Log monitoring', 'Alerting', 'Incident response', 'Forensisch onderzoek'],
-    color: 'red-500'
+    color: 'quantum-blue'
   },
 ]
 
@@ -155,7 +156,7 @@ const processSteps = [
   {
     step: '01',
     title: 'Assessment',
-    description: 'We brengen uw huidige beveiliging in kaart en identificeren de belangrijkste risicos.',
+    description: 'We brengen uw huidige beveiliging in kaart en identificeren de belangrijkste risico\'s.',
     icon: Scan
   },
   {
@@ -190,7 +191,7 @@ const faqs = [
   },
   {
     q: 'Waarom is security awareness training belangrijk?',
-    a: '90% van alle cyberaanvallen begint met een menselijke fout, zoals het klikken op een phishing link. Goed getrainde medewerkers herkennen bedreigingen en weten hoe ze moeten handelen. Dit is vaak uw beste verdediging.'
+    a: '85% van alle cyberaanvallen begint met een menselijke fout, zoals het klikken op een phishing link. Goed getrainde medewerkers herkennen bedreigingen en weten hoe ze moeten handelen. Dit is vaak uw beste verdediging.'
   },
   {
     q: 'Wat kost een ransomware aanval?',
@@ -214,7 +215,7 @@ const FAQItem = ({ q, a }: { q: string; a: string }) => {
       >
         <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
         <ChevronDown
-          className={`w-5 h-5 text-red-500 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-quantum-blue transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
       <AnimatePresence>
@@ -262,10 +263,10 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
 
 const WhyUsCard = ({ item, index }: { item: typeof whyChooseUs[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-red-500/30 transition-all h-full">
+    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
       <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center">
+          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-blue" />
         </div>
         <div className="text-right">
           <p className="text-xl sm:text-2xl font-bold text-quantum-blue">{item.stat}</p>
@@ -282,13 +283,13 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
   <ScrollTrigger delay={index * 0.1}>
     <div className="relative">
       {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-red-500/30 to-transparent z-0" />
+        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-quantum-blue/30 to-transparent z-0" />
       )}
 
       <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-red-500/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-red-500" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-red-500 text-sm font-bold flex items-center justify-center text-white">
+        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-blue/30 flex items-center justify-center mx-auto mb-4 relative">
+          <step.icon className="w-8 h-8 text-quantum-blue" />
+          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-blue text-sm font-bold flex items-center justify-center text-white">
             {step.step}
           </span>
         </div>
@@ -307,12 +308,12 @@ export default function CybersecurityPageClient() {
   const isMobile = useIsMobile()
 
   return (
-    <div className="min-h-screen bg-cyber-darker text-white overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-cyber-dark to-cyber-darker text-white overflow-x-hidden">
 
       {/* ==================== HERO ==================== */}
       <section className="relative min-h-screen flex items-center" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-500/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark/80 via-cyber-darker/90 to-cyber-dark" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-blue/15 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -322,7 +323,7 @@ export default function CybersecurityPageClient() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-red-500/10 text-red-500 border-red-500/30">
+              <Badge className="mb-6 px-4 py-2 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
                 <Shield className="w-4 h-4 mr-2 inline" />
                 Cybersecurity voor MKB
               </Badge>
@@ -335,21 +336,21 @@ export default function CybersecurityPageClient() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
-                <strong className="text-white">Ransomware</strong>, <strong className="text-white">phishing</strong> en <strong className="text-white">datalekken</strong> vormen een reeel risico voor elk bedrijf.
+                <strong className="text-white">Ransomware</strong>, <strong className="text-white">phishing</strong> en <strong className="text-white">datalekken</strong> vormen een reëel risico voor elk bedrijf.
                 Wij helpen u de juiste beveiligingsmaatregelen te nemen - praktisch en betaalbaar.
               </p>
 
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-quantum-blue flex-shrink-0" />
                   <span>Security audit om kwetsbaarheden te vinden</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-quantum-blue flex-shrink-0" />
                   <span>MFA, endpoint security en veilige backups</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-quantum-blue flex-shrink-0" />
                   <span>Security awareness training voor medewerkers</span>
                 </li>
               </ul>
@@ -357,7 +358,7 @@ export default function CybersecurityPageClient() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:opacity-90 shadow-lg shadow-red-500/25"
+                  className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25"
                   asChild
                 >
                   <Link href="/contact?service=cybersecurity">
@@ -386,15 +387,15 @@ export default function CybersecurityPageClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="hidden md:block absolute bottom-8 right-4 glass-effect rounded-xl p-4 border border-red-500/20 max-w-[240px]"
+                className="hidden md:block absolute bottom-8 right-4 glass-effect rounded-xl p-4 border border-quantum-purple/20 max-w-[240px]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-red-500" />
+                  <div className="w-10 h-10 rounded-lg bg-quantum-purple/20 flex items-center justify-center">
+                    <Scan className="w-5 h-5 text-quantum-purple" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Bedreigingen</p>
-                    <p className="text-lg font-bold text-white">Geblokkeerd</p>
+                    <p className="text-xs text-gray-400">Security</p>
+                    <p className="text-lg font-bold text-white">Audit</p>
                   </div>
                 </div>
               </motion.div>
@@ -407,11 +408,11 @@ export default function CybersecurityPageClient() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-quantum-green/20 flex items-center justify-center">
-                    <Lock className="w-5 h-5 text-quantum-green" />
+                    <HardDrive className="w-5 h-5 text-quantum-green" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Data</p>
-                    <p className="text-sm font-bold text-white">Beveiligd</p>
+                    <p className="text-xs text-gray-400">Backup &</p>
+                    <p className="text-sm font-bold text-white">Recovery</p>
                   </div>
                 </div>
               </motion.div>
@@ -426,8 +427,8 @@ export default function CybersecurityPageClient() {
       <section className="py-16" aria-labelledby="seo-intro-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-4xl mx-auto">
-            <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-red-500/5 via-transparent to-quantum-blue/5 border border-white/10">
-              <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-red-500/30 rounded-tl-2xl" />
+            <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-quantum-blue/5 via-transparent to-quantum-blue/5 border border-white/10">
+              <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-quantum-blue/30 rounded-tl-2xl" />
               <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-quantum-blue/30 rounded-br-2xl" />
 
               <div className="text-center">
@@ -445,12 +446,82 @@ export default function CybersecurityPageClient() {
         </div>
       </section>
 
+      {/* ==================== VIDEO SECTIE ==================== */}
+      <section className="py-24 bg-cyber-dark/30" aria-labelledby="video-title">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Video */}
+              <ScrollTrigger>
+                <div className="relative rounded-2xl overflow-hidden border border-quantum-blue/20 shadow-2xl shadow-quantum-blue/10">
+                  <video
+                    className="w-full h-auto"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src="/cybersecurity.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </ScrollTrigger>
+
+              {/* Content */}
+              <ScrollTrigger delay={0.2}>
+                <div>
+                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
+                    <Shield className="w-4 h-4 mr-2" />
+                    Uw Digitale Veiligheid
+                  </Badge>
+                  <h2 id="video-title" className="text-3xl md:text-4xl font-bold mb-6">
+                    Voorkom dat uw bedrijf <span className="text-gradient">het volgende slachtoffer</span> wordt
+                  </h2>
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    Cybercriminelen worden steeds slimmer. Elke dag worden Nederlandse bedrijven getroffen door ransomware, phishing en datalekken. De vraag is niet óf, maar wanneer u doelwit wordt.
+                  </p>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
+                        <AlertTriangle className="w-5 h-5 text-quantum-blue" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">Ransomware aanvallen</p>
+                        <p className="text-sm text-gray-400">Uw data gegijzeld, bedrijf stilgelegd</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-5 h-5 text-quantum-purple" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">Phishing e-mails</p>
+                        <p className="text-sm text-gray-400">Eén klik kan alles kosten</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
+                        <Lock className="w-5 h-5 text-quantum-green" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">Wij beschermen u</p>
+                        <p className="text-sm text-gray-400">Proactieve beveiliging op maat</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollTrigger>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="diensten-title">
+      <section className="py-24" aria-labelledby="diensten-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <header className="text-center mb-16">
-              <Badge className="mb-4 bg-red-500/10 text-red-500 border-red-500/30">Onze Diensten</Badge>
+              <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">Onze Diensten</Badge>
               <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
                 Volledige <span className="text-gradient">cybersecurity</span>
               </h2>
@@ -464,6 +535,87 @@ export default function CybersecurityPageClient() {
             {services.map((service, index) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== STATISTIEKEN MET FOTO ==================== */}
+      <section className="py-24 bg-cyber-dark/30" aria-labelledby="stats-title">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Foto */}
+              <ScrollTrigger>
+                <div className="relative">
+                  <div className="relative rounded-2xl overflow-hidden border border-quantum-blue/20">
+                    <Image
+                      src="/beveiliging-v2.webp"
+                      alt="Cybersecurity professionals aan het werk"
+                      width={1200}
+                      height={559}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 glass-effect rounded-xl p-3 border border-quantum-blue/30 shadow-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-quantum-blue/20 flex items-center justify-center">
+                        <Shield className="w-5 h-5 text-quantum-blue" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-white">MKB</p>
+                        <p className="text-xs text-gray-400">Security Partner</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollTrigger>
+
+              {/* Stats */}
+              <ScrollTrigger delay={0.2}>
+                <div>
+                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
+                    <ShieldAlert className="w-4 h-4 mr-2" />
+                    De Feiten
+                  </Badge>
+                  <h2 id="stats-title" className="text-3xl md:text-4xl font-bold mb-6">
+                    Cybercrime in <span className="text-gradient">Nederland</span>
+                  </h2>
+                  <p className="text-gray-300 mb-8 leading-relaxed">
+                    Elk jaar worden duizenden Nederlandse bedrijven slachtoffer van cybercriminaliteit. Met de juiste maatregelen voorkomt u dat uw bedrijf het volgende doelwit wordt.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="glass-effect p-4 rounded-xl border border-white/10">
+                      <p className="text-3xl font-bold text-quantum-blue mb-1">77%</p>
+                      <p className="text-sm text-gray-400">van MKB was al doelwit</p>
+                    </div>
+                    <div className="glass-effect p-4 rounded-xl border border-white/10">
+                      <p className="text-3xl font-bold text-quantum-blue mb-1">€67K</p>
+                      <p className="text-sm text-gray-400">gemiddelde schade</p>
+                    </div>
+                    <div className="glass-effect p-4 rounded-xl border border-white/10">
+                      <p className="text-3xl font-bold text-quantum-purple mb-1">85%</p>
+                      <p className="text-sm text-gray-400">menselijke fouten</p>
+                    </div>
+                    <div className="glass-effect p-4 rounded-xl border border-white/10">
+                      <p className="text-3xl font-bold text-quantum-green mb-1">60%</p>
+                      <p className="text-sm text-gray-400">failliet na hack</p>
+                    </div>
+                  </div>
+
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90"
+                    asChild
+                  >
+                    <Link href="/contact?service=cybersecurity">
+                      Bescherm Uw Bedrijf
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Link>
+                  </Button>
+                </div>
+              </ScrollTrigger>
+            </div>
           </div>
         </div>
       </section>
@@ -483,7 +635,7 @@ export default function CybersecurityPageClient() {
                     Uw medewerkers als <span className="text-gradient">eerste verdedigingslinie</span>
                   </h2>
                   <p className="text-gray-400 mb-6 leading-relaxed">
-                    90% van alle cyberaanvallen begint met een menselijke fout. Een verkeerde klik op een phishing mail of een zwak wachtwoord kan uw hele organisatie in gevaar brengen.
+                    85% van alle cyberaanvallen begint met een menselijke fout. Een verkeerde klik op een phishing mail of een zwak wachtwoord kan uw hele organisatie in gevaar brengen.
                     Daarom is <strong className="text-white">security awareness training</strong> essentieel.
                   </p>
                   <p className="text-gray-400 mb-8 leading-relaxed">
@@ -527,10 +679,10 @@ export default function CybersecurityPageClient() {
                     </div>
                   </div>
 
-                  <div className="glass-effect p-5 rounded-xl border border-red-500/20 hover:border-red-500/40 transition-all">
+                  <div className="glass-effect p-5 rounded-xl border border-quantum-blue/20 hover:border-quantum-blue/40 transition-all">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                        <AlertTriangle className="w-6 h-6 text-red-500" />
+                      <div className="w-12 h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
+                        <AlertTriangle className="w-6 h-6 text-quantum-blue" />
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Social Engineering</h3>
@@ -586,16 +738,16 @@ export default function CybersecurityPageClient() {
       </section>
 
       {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
+      <section className="py-24 bg-cyber-dark/30" aria-labelledby="situaties-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-red-500/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl" />
+            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-blue/20 overflow-hidden">
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
               <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
 
               <ScrollTrigger>
                 <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-red-500/10 text-red-500 border-red-500/30">
+                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
                     <AlertTriangle className="w-3 h-3 mr-2" />
                     Herkenbaar?
                   </Badge>
@@ -611,17 +763,17 @@ export default function CybersecurityPageClient() {
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
                 {customerSituations.map((situation, index) => (
                   <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-all h-full">
+                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
                       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
+                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-blue" />
                         </div>
                         <div>
                           <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-red-500/50 flex-shrink-0 mt-0.5" />
+                            <Quote className="w-4 h-4 text-quantum-blue/50 flex-shrink-0 mt-0.5" />
                             <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
                           </div>
-                          <p className="text-sm text-red-500 font-medium">{situation.context}</p>
+                          <p className="text-sm text-quantum-blue font-medium">{situation.context}</p>
                         </div>
                       </div>
                     </div>
@@ -633,7 +785,7 @@ export default function CybersecurityPageClient() {
                 <div className="text-center mt-10 relative z-10">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-red-500 to-red-600 hover:opacity-90"
+                    className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90"
                     asChild
                   >
                     <Link href="/contact?service=cybersecurity">
@@ -649,11 +801,11 @@ export default function CybersecurityPageClient() {
       </section>
 
       {/* ==================== WAAROM WIJ ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="waarom-title">
+      <section className="py-24" aria-labelledby="waarom-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-red-500/10 bg-gradient-to-b from-red-500/5 to-transparent">
-              <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-red-500/50 to-transparent rounded-full" />
+            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-blue/10 bg-gradient-to-b from-quantum-blue/5 to-transparent">
+              <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-quantum-blue/50 to-transparent rounded-full" />
               <div className="absolute right-0 bottom-1/4 w-1 h-24 bg-gradient-to-t from-quantum-blue/50 to-transparent rounded-full" />
 
               <ScrollTrigger>
@@ -679,11 +831,11 @@ export default function CybersecurityPageClient() {
       </section>
 
       {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24" aria-labelledby="proces-title">
+      <section className="py-24 bg-cyber-dark/30" aria-labelledby="proces-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-quantum-blue to-transparent rounded-full" />
 
               <div className="pt-8">
                 <ScrollTrigger>
@@ -704,84 +856,6 @@ export default function CybersecurityPageClient() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== TRUST INDICATORS ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="trust-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <ScrollTrigger>
-                <div>
-                  <Badge className="mb-4 bg-red-500/10 text-red-500 border-red-500/30">
-                    <Lock className="w-3 h-3 mr-2" />
-                    Bescherming
-                  </Badge>
-                  <h2 id="trust-title" className="text-3xl md:text-4xl font-bold mb-6">
-                    Wat goede beveiliging u <span className="text-gradient">oplevert</span>
-                  </h2>
-                  <p className="text-gray-400 mb-8 leading-relaxed">
-                    Cybersecurity is niet alleen bescherming tegen risicos. Het is ook gemoedsrust en zakelijke continuiteit.
-                  </p>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                        <ShieldAlert className="w-5 h-5 text-red-500" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Bescherming tegen aanvallen</h3>
-                        <p className="text-sm text-gray-400">Ransomware, phishing en malware worden geblokkeerd</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-lg bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
-                        <HardDrive className="w-5 h-5 text-quantum-green" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Snel herstel na incidenten</h3>
-                        <p className="text-sm text-gray-400">Met goede backups bent u snel weer operationeel</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-lg bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
-                        <FileCheck className="w-5 h-5 text-quantum-blue" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Voldoen aan regelgeving</h3>
-                        <p className="text-sm text-gray-400">AVG, NIS2 en andere compliance eisen</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div className="glass-effect p-8 rounded-2xl border border-red-500/20">
-                  <h3 className="text-xl font-bold mb-6 text-center">Onze aanpak</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Eerlijk advies - geen angstmarketing</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Focus op wat echt risico vermindert</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Maatregelen passend bij uw budget</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Helder uitgelegd, geen technisch jargon</span>
-                    </li>
-                  </ul>
-                </div>
-              </ScrollTrigger>
             </div>
           </div>
         </div>
@@ -809,12 +883,12 @@ export default function CybersecurityPageClient() {
 
       {/* ==================== CTA ==================== */}
       <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-quantum-blue/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-quantum-blue/10 via-transparent to-quantum-blue/10" />
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-red-500/20">
-              <Badge className="mb-4 sm:mb-6 bg-red-500/20 text-red-500 border-red-500/30">
+            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-quantum-blue/20">
+              <Badge className="mb-4 sm:mb-6 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30">
                 Gratis Security Check
               </Badge>
 
@@ -830,7 +904,7 @@ export default function CybersecurityPageClient() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:opacity-90 shadow-lg shadow-red-500/25 text-lg px-8"
+                  className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 text-lg px-8"
                   asChild
                 >
                   <Link href="/contact?service=cybersecurity">
@@ -842,15 +916,15 @@ export default function CybersecurityPageClient() {
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-red-500" />
+                  <CheckCircle2 className="w-4 h-4 text-quantum-blue" />
                   Geen verplichtingen
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-red-500" />
+                  <CheckCircle2 className="w-4 h-4 text-quantum-blue" />
                   Eerlijk advies
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-red-500" />
+                  <CheckCircle2 className="w-4 h-4 text-quantum-blue" />
                   Reactie binnen 24 uur
                 </span>
               </div>

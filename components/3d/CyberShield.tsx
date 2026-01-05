@@ -40,10 +40,10 @@ const Shield = ({ position }: { position: [number, number, number] }) => {
         <mesh rotation={[0, 0, 0]}>
           <extrudeGeometry args={[shieldShape, extrudeSettings]} />
           <meshStandardMaterial
-            color="#dc2626"
+            color="#00D9FF"
             metalness={0.8}
             roughness={0.2}
-            emissive="#dc2626"
+            emissive="#00D9FF"
             emissiveIntensity={0.1}
           />
         </mesh>
@@ -51,7 +51,7 @@ const Shield = ({ position }: { position: [number, number, number] }) => {
         {/* Inner shield detail */}
         <mesh position={[0, -0.05, 0.1]} scale={0.7}>
           <extrudeGeometry args={[shieldShape, { depth: 0.08, bevelEnabled: false }]} />
-          <meshStandardMaterial color="#7f1d1d" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color="#0891b2" metalness={0.9} roughness={0.15} />
         </mesh>
 
         {/* Checkmark on shield */}
@@ -69,7 +69,7 @@ const Shield = ({ position }: { position: [number, number, number] }) => {
         {/* Glow effect */}
         <mesh ref={glowRef} position={[0, -0.1, -0.1]} scale={1.2}>
           <extrudeGeometry args={[shieldShape, { depth: 0.01, bevelEnabled: false }]} />
-          <meshBasicMaterial color="#ef4444" transparent opacity={0.3} toneMapped={false} />
+          <meshBasicMaterial color="#00D9FF" transparent opacity={0.3} toneMapped={false} />
         </mesh>
       </group>
     </Float>
@@ -136,7 +136,7 @@ const ScanRing = ({ position, delay = 0 }: { position: [number, number, number],
   return (
     <mesh ref={ringRef} position={position} rotation={[Math.PI / 2, 0, 0]}>
       <ringGeometry args={[0.8, 0.85, 64]} />
-      <meshBasicMaterial color="#dc2626" transparent opacity={0.6} side={THREE.DoubleSide} toneMapped={false} />
+      <meshBasicMaterial color="#8338EC" transparent opacity={0.6} side={THREE.DoubleSide} toneMapped={false} />
     </mesh>
   )
 }
@@ -228,13 +228,13 @@ const Firewall = ({ position }: { position: [number, number, number] }) => {
           ref={(el) => { if (el) barsRef.current[i] = el }}
         >
           <boxGeometry args={[0.04, 0.8, 0.02]} />
-          <meshBasicMaterial color="#f97316" transparent opacity={0.6} toneMapped={false} />
+          <meshBasicMaterial color="#00D9FF" transparent opacity={0.6} toneMapped={false} />
         </mesh>
       ))}
       {/* Firewall base */}
       <mesh position={[0, -0.45, 0]}>
         <boxGeometry args={[0.8, 0.05, 0.08]} />
-        <meshStandardMaterial color="#ea580c" metalness={0.7} roughness={0.3} />
+        <meshStandardMaterial color="#0891b2" metalness={0.7} roughness={0.3} />
       </mesh>
     </group>
   )
@@ -289,7 +289,7 @@ const CyberShield = () => {
       {/* Lighting */}
       <ambientLight intensity={0.4} />
       <pointLight position={[3, 3, 4]} intensity={0.8} color="#ffffff" />
-      <pointLight position={[-3, 2, 3]} intensity={0.4} color="#dc2626" />
+      <pointLight position={[-3, 2, 3]} intensity={0.4} color="#8338EC" />
       <pointLight position={[0, -2, 2]} intensity={0.3} color="#00D9FF" />
 
       {/* Central shield */}

@@ -21,12 +21,38 @@ export const metadata: Metadata = {
     description: 'AI-gedreven analytics voor MKB. Voorspellende analyses, klantinzichten en business intelligence.',
     type: 'website',
     locale: 'nl_NL',
+    url: 'https://startbeheer.nl/ai-analytics',
   },
   alternates: {
-    canonical: '/ai/analytics'
+    canonical: '/ai-analytics'
+  }
+}
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'AI Analytics',
+  description: 'AI-gedreven analytics voor MKB. Voorspellende analyses, klantinzichten en business intelligence.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Start Beheer Solutions',
+    url: 'https://startbeheer.nl'
+  },
+  serviceType: 'AI Analytics',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
   }
 }
 
 export default function AnalyticsPage() {
-  return <AnalyticsPageClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <AnalyticsPageClient />
+    </>
+  )
 }

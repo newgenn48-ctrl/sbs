@@ -8,7 +8,7 @@ import Link from 'next/link'
 const sections = [
   {
     title: '1. Wie zijn wij?',
-    content: `Start Beheer Solutions is een IT-dienstverlener gevestigd in Utrecht, Nederland. Wij bieden IT-beheer, websiteontwikkeling, AI-oplossingen en online marketing aan ZZP'ers en het MKB.
+    content: `Start Beheer Solutions is een IT-dienstverlener in Nederland. Wij bieden IT-beheer, websiteontwikkeling, AI-oplossingen en online marketing aan ZZP'ers en het MKB.
 
 Contactgegevens:
 - Bedrijfsnaam: Start Beheer Solutions

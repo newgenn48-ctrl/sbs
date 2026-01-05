@@ -121,13 +121,7 @@ export default function RootLayout({
     email: 'info@startbeheer.nl',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Utrecht',
       addressCountry: 'NL',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 52.0907,
-      longitude: 5.1214,
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -198,7 +192,7 @@ export default function RootLayout({
         <CursorGlow />
         <div className="relative flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
         </div>
       </body>

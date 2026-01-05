@@ -53,7 +53,7 @@ export default function CTASection() {
                     <span className="text-gradient">Digitale Groei?</span>
                   </h2>
 
-                  <p className="text-lg text-gray-400 mb-8 leading-relaxed">
+                  <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                     Plan een vrijblijvend gesprek en ontdek hoe wij uw bedrijf kunnen helpen met
                     IT-beheer, websites, AI-oplossingen en online marketing.
                   </p>
@@ -118,7 +118,7 @@ export default function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-400"
+            className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-300"
           >
             <span className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-quantum-green" />

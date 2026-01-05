@@ -12,34 +12,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/oplossingen',
   ]
 
-  // Service pages
-  const servicePages = [
-    // IT Services
+  // IT Services
+  const itPages = [
     '/it-support',
     '/microsoft-365-beheer',
     '/cybersecurity',
     '/systeembeheer-uitbesteden',
     '/werkplekbeheer-uitbesteden',
-    // Development
+  ]
+
+  // Development pages
+  const developmentPages = [
     '/development',
-    '/development/website-laten-maken',
-    '/development/webapplicatie-ontwikkeling',
-    '/development/ecommerce',
     '/websites',
-    // AI
+    '/website-laten-maken',
+    '/webapplicatie-laten-maken',
+    '/webshop-laten-maken',
+  ]
+
+  // AI pages
+  const aiPages = [
     '/ai',
-    '/ai/chatbots',
-    '/ai/analytics',
-    '/ai/process-automation',
-    '/ai/virtual-assistant',
-    // Marketing
+    '/ai-chatbots',
+    '/ai-analytics',
+    '/proces-automatisering',
+    '/virtuele-assistent',
+  ]
+
+  // Marketing pages
+  const marketingPages = [
     '/marketing',
-    '/marketing/google-ads-beheer',
-    '/marketing/seo-services',
-    '/marketing/social-media',
-    '/marketing/marketing-automation',
-    // Solutions
-    '/solutions/zzp',
+    '/google-ads-beheer',
+    '/seo-specialist',
+    '/social-media-marketing',
+    '/marketing-automatisering',
+  ]
+
+  // Solutions pages
+  const solutionPages = [
+    '/zzp-oplossingen',
   ]
 
   // Legal pages
@@ -50,7 +61,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ]
 
-  const allPages = [...mainPages, ...servicePages, ...legalPages]
+  const allPages = [
+    ...mainPages,
+    ...itPages,
+    ...developmentPages,
+    ...aiPages,
+    ...marketingPages,
+    ...solutionPages,
+    ...legalPages,
+  ]
 
   return allPages.map((route) => ({
     url: `${baseUrl}${route}`,

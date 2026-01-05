@@ -60,7 +60,7 @@ export default function AboutPreview() {
               >
                 <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-blue/30 rounded-xl px-4 py-3 shadow-lg">
                   <p className="text-quantum-blue font-semibold text-lg">ZZP & MKB</p>
-                  <p className="text-gray-400 text-sm">Specialist</p>
+                  <p className="text-gray-300 text-sm">Specialist</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -82,13 +82,13 @@ export default function AboutPreview() {
                 <span className="text-gradient">Start Beheer</span>
               </h2>
 
-              <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
                 Als uw digitale partner nemen wij de complete IT-zorg uit handen.
                 Van systeembeheer tot websites, van AI-automatisering tot online marketing.
                 Zodat u zich kunt focussen op wat echt belangrijk is: uw business.
               </p>
 
-              <p className="text-gray-400 mb-8 leading-relaxed">
+              <p className="text-gray-300 mb-8 leading-relaxed">
                 Geen ingewikkelde contracten, geen verborgen kosten. Gewoon eerlijke IT-ondersteuning
                 met een persoonlijke touch. Wij geloven dat technologie moet werken voor u, niet andersom.
               </p>
