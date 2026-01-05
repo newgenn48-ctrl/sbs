@@ -19,14 +19,24 @@ export const metadata: Metadata = {
     'website maken kosten'
   ],
   openGraph: {
-    title: 'Website Laten Maken | Professionele Websites op Maat',
+    title: 'Website Laten Maken | Professionele Websites op Maat | Start Beheer',
     description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first.',
     type: 'website',
     locale: 'nl_NL',
+    siteName: 'Start Beheer',
     url: 'https://startbeheer.nl/website-laten-maken',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Website Laten Maken | Start Beheer',
+    description: 'Professionele website laten maken? Snelle, moderne websites die converteren met custom design en SEO.',
   },
   alternates: {
     canonical: '/website-laten-maken'
+  },
+  robots: {
+    index: true,
+    follow: true,
   }
 }
 
@@ -72,7 +82,7 @@ const faqSchema = {
       name: 'Regelen jullie ook hosting en domein?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
+        text: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u een aanspreekpunt voor alles.'
       }
     },
     {
@@ -88,14 +98,14 @@ const faqSchema = {
       name: 'Wat kost een website laten maken?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Een professionele website op maat begint vanaf €785. De exacte prijs hangt af van uw wensen, het aantal pagina\'s en de gewenste functionaliteiten. U ontvangt altijd een vrijblijvende offerte op maat.'
+        text: 'Een professionele website op maat begint vanaf 785 euro. De exacte prijs hangt af van uw wensen, het aantal pagina\'s en de gewenste functionaliteiten. U ontvangt altijd een vrijblijvende offerte op maat.'
       }
     }
   ]
 }
 
-// Service Schema data
-const serviceSchema = {
+// JSON-LD Structured Data voor SEO
+const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Website Laten Maken',
@@ -123,14 +133,38 @@ const serviceSchema = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Website Pakketten',
+    name: 'Website Diensten',
     itemListElement: [
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Custom Website',
-          description: 'Professionele website volledig op maat met custom design, SEO-optimalisatie en CMS'
+          name: 'Custom Website Design',
+          description: 'Uniek maatwerk design dat perfect past bij uw merk en doelgroep'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'SEO Optimalisatie',
+          description: 'Technische en content SEO voor betere vindbaarheid in Google'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Responsive Development',
+          description: 'Mobile-first websites die perfect werken op elk apparaat'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'CMS Integratie',
+          description: 'Gebruiksvriendelijk content management systeem voor eenvoudig beheer'
         }
       }
     ]
@@ -146,7 +180,7 @@ export default function WebsitePage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <WebsitePageClient />
     </>

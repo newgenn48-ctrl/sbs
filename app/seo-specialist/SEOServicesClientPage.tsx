@@ -93,30 +93,6 @@ const services = [
   },
 ]
 
-// Veelvoorkomende situaties
-const customerSituations = [
-  {
-    quote: 'We zijn onzichtbaar in Google voor onze belangrijkste zoekwoorden.',
-    context: 'Zichtbaarheid probleem',
-    icon: Eye
-  },
-  {
-    quote: 'Concurrenten met mindere producten domineren onze markt online.',
-    context: 'Concurrentie dominantie',
-    icon: TrendingUp
-  },
-  {
-    quote: 'We investeren in content maar het levert geen organisch verkeer op.',
-    context: 'Content strategie',
-    icon: FileText
-  },
-  {
-    quote: 'Onze website heeft technische problemen die rankings saboteren.',
-    context: 'Technische SEO',
-    icon: Zap
-  },
-]
-
 // Waarom SEO
 const whySEO = [
   {
@@ -507,63 +483,6 @@ export default function SEOServicesClientPage() {
             {services.map((service, index) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-blue/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
-                    <Eye className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">situaties</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-blue" />
-                        </div>
-                        <div>
-                          <p className="text-base sm:text-lg text-gray-200 mb-2">{situation.quote}</p>
-                          <p className="text-sm text-quantum-blue font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=seo">
-                      Bespreek uw situatie
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
           </div>
         </div>
       </section>

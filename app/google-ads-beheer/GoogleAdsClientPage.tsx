@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import {
   BarChart3, CheckCircle2, ArrowRight, Phone,
   Target, TrendingUp, Search, Filter,
-  Quote, ChevronDown, Zap, LineChart,
+  ChevronDown, Zap, LineChart,
   Users, DollarSign, MousePointer, Eye
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
@@ -89,29 +89,6 @@ const services = [
     description: 'Real-time inzicht in uw campagne prestaties via ons dashboard.',
     features: ['Live dashboard', 'ROI rapportage', 'Conversie attributie', 'Maandelijkse reviews'],
     color: 'quantum-blue'
-  },
-]
-
-const customerSituations = [
-  {
-    quote: 'We geven veel uit aan advertenties maar zien geen duidelijke ROI.',
-    context: 'ROAS Optimalisatie',
-    icon: DollarSign
-  },
-  {
-    quote: 'Onze concurrenten staan altijd boven ons in Google.',
-    context: 'Concurrentie Strategie',
-    icon: TrendingUp
-  },
-  {
-    quote: 'We krijgen wel klikken maar nauwelijks leads of verkopen.',
-    context: 'Conversie Focus',
-    icon: Target
-  },
-  {
-    quote: 'We weten niet welke campagnes echt bijdragen aan omzet.',
-    context: 'Conversie Tracking',
-    icon: LineChart
   },
 ]
 
@@ -502,66 +479,6 @@ export default function GoogleAdsClientPage() {
             {services.map((service, index) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-green/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-green/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">situaties</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-green/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-green" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-green/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-green font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=google-ads">
-                      Bespreek uw situatie
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
           </div>
         </div>
       </section>

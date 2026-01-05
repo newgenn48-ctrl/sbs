@@ -12,7 +12,7 @@ import {
   CalendarCheck, MessageSquare, ThumbsUp, Target,
   Gauge, HeartHandshake, Award, HardHat,
   Headphones, MapPin, Star, Activity, Search, Cloud, Shield, Monitor,
-  Building2, Laptop, Users, FileCheck, ShieldCheck, BookOpen, Quote
+  Building2, Laptop, Users, FileCheck, ShieldCheck, BookOpen
 } from 'lucide-react'
 import React, { Suspense } from 'react'
 import Link from 'next/link'
@@ -101,30 +101,6 @@ const supportModels = [
     description: 'Een vaste IT\'er op uw locatie, bijvoorbeeld één dag per week. Uw eigen "IT-afdeling" zonder vast dienstverband.',
     features: ['Vaste IT\'er die uw omgeving kent', 'Structurele ondersteuning', 'Direct aanspreekpunt voor medewerkers', 'Preventief onderhoud inbegrepen'],
     color: 'quantum-purple'
-  },
-]
-
-// Veelvoorkomende klantsituaties (Social Proof alternatief)
-const customerSituations = [
-  {
-    quote: 'Wij hebben geen interne IT-afdeling en willen alles uitbesteden.',
-    context: 'Volledige IT-uitbesteding',
-    icon: Building2
-  },
-  {
-    quote: 'Onze medewerkers hebben regelmatig problemen met laptops en software.',
-    context: 'Werkplekbeheer & Helpdesk',
-    icon: Laptop
-  },
-  {
-    quote: 'We willen overstappen naar Microsoft 365 maar weten niet hoe.',
-    context: 'Cloud migratie',
-    icon: Cloud
-  },
-  {
-    quote: 'We zoeken een partij die sneller reageert dan onze huidige IT-leverancier.',
-    context: 'Betere IT-partner',
-    icon: Clock
   },
 ]
 
@@ -683,73 +659,6 @@ export default function ITSupportPageClient() {
                   </Link>
                 </Button>
               </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== VEELVOORKOMENDE KLANTSITUATIES ==================== */}
-      <section className="py-24 relative" aria-labelledby="situaties-title">
-        <div className="absolute inset-0 bg-cyber-darker" />
-
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            {/* Container met gradient border effect */}
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
-              {/* Background glow */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">klantsituaties</span>
-                  </h2>
-                  <p className="text-gray-400 max-w-2xl mx-auto">
-                    Herkent u één van deze situaties? Dan kunnen wij u helpen met professionele IT-ondersteuning.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-purple/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-purple" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-purple/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-purple font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=it-support">
-                      Ja, dit herken ik - neem contact op
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
             </div>
           </div>
         </div>

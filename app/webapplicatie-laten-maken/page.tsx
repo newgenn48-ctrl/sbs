@@ -21,10 +21,20 @@ export const metadata: Metadata = {
     description: 'Webapplicatie laten maken? Wij bouwen op maat gemaakte webapplicaties die uw bedrijfsprocessen stroomlijnen.',
     type: 'website',
     locale: 'nl_NL',
+    siteName: 'Start Beheer',
     url: 'https://startbeheer.nl/webapplicatie-laten-maken',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Webapplicatie Laten Maken | Custom Web Apps op Maat | Start Beheer',
+    description: 'Webapplicatie laten maken? Wij bouwen op maat gemaakte webapplicaties die uw bedrijfsprocessen stroomlijnen.',
   },
   alternates: {
     canonical: '/webapplicatie-laten-maken'
+  },
+  robots: {
+    index: true,
+    follow: true,
   }
 }
 
@@ -91,6 +101,44 @@ const serviceSchema = {
   areaServed: {
     '@type': 'Country',
     name: 'Nederland'
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Webapplicatie Ontwikkeling Diensten',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Custom Dashboard Ontwikkeling',
+          description: 'Op maat gemaakte dashboards voor real-time inzicht in uw bedrijfsdata en KPIs'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Klantportaal Ontwikkeling',
+          description: 'Self-service portalen waar klanten hun gegevens, bestellingen en documenten beheren'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'API Integraties & Koppelingen',
+          description: 'Naadloze integraties met bestaande systemen zoals CRM, boekhouding en voorraadbeheer'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'SaaS Applicatie Ontwikkeling',
+          description: 'Schaalbare cloud-based applicaties met multi-tenant architectuur'
+        }
+      }
+    ]
   }
 }
 

@@ -3,7 +3,7 @@ import EcommercePageClient from './EcommercePageClient'
 
 export const metadata: Metadata = {
   title: 'Webshop Laten Maken | Shopify & WooCommerce | Start Beheer',
-  description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen. Betalingsintegraties en conversie optimalisatie.',
+  description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen. Betalingsintegraties, voorraadbeheer en conversie optimalisatie.',
   keywords: [
     'webshop laten maken',
     'e-commerce ontwikkeling',
@@ -14,17 +14,31 @@ export const metadata: Metadata = {
     'e-commerce oplossingen',
     'betalingsintegraties',
     'conversie optimalisatie',
-    'webshop bouwen'
+    'webshop bouwen',
+    'online verkopen',
+    'webshop op maat',
+    'professionele webshop',
+    'webshop MKB'
   ],
   openGraph: {
-    title: 'Webshop Laten Maken | Shopify & WooCommerce',
-    description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen.',
+    title: 'Webshop Laten Maken | Shopify & WooCommerce | Start Beheer',
+    description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen. Betalingsintegraties en conversie optimalisatie.',
     type: 'website',
     locale: 'nl_NL',
+    siteName: 'Start Beheer',
     url: 'https://startbeheer.nl/webshop-laten-maken',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Webshop Laten Maken | Start Beheer',
+    description: 'Webshop laten maken? E-commerce oplossingen op Shopify en WooCommerce die verkopen.',
   },
   alternates: {
     canonical: '/webshop-laten-maken'
+  },
+  robots: {
+    index: true,
+    follow: true,
   }
 }
 
@@ -54,7 +68,7 @@ const faqSchema = {
       name: 'Wat zijn de maandelijkse kosten?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Shopify kost vanaf €36/maand. WooCommerce is gratis, maar u betaalt voor hosting (vanaf €15/maand). Beide hebben transactiekosten voor betalingen. Wij adviseren u over de totale kosten.'
+        text: 'Shopify kost vanaf 36 euro per maand. WooCommerce is gratis, maar u betaalt voor hosting (vanaf 15 euro per maand). Beide hebben transactiekosten voor betalingen. Wij adviseren u over de totale kosten.'
       }
     },
     {
@@ -70,18 +84,18 @@ const faqSchema = {
       name: 'Wat kost een webshop laten maken?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Een professionele webshop op Shopify of WooCommerce begint vanaf €785. De exacte prijs hangt af van uw wensen, aantal producten en gewenste integraties.'
+        text: 'Een professionele webshop op Shopify of WooCommerce begint vanaf 785 euro. De exacte prijs hangt af van uw wensen, aantal producten en gewenste integraties.'
       }
     }
   ]
 }
 
-// Service Schema
-const serviceSchema = {
+// JSON-LD Structured Data voor SEO
+const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Webshop Laten Maken',
-  description: 'Professionele webshops op Shopify en WooCommerce. Betalingsintegraties, voorraadbeheer en conversie optimalisatie.',
+  description: 'Professionele webshops op Shopify en WooCommerce. Betalingsintegraties, voorraadbeheer en conversie optimalisatie voor maximale omzet.',
   provider: {
     '@type': 'Organization',
     name: 'Start Beheer Solutions',
@@ -95,7 +109,51 @@ const serviceSchema = {
   offers: {
     '@type': 'Offer',
     price: '785',
-    priceCurrency: 'EUR'
+    priceCurrency: 'EUR',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      price: '785',
+      priceCurrency: 'EUR',
+      valueAddedTaxIncluded: false
+    }
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Webshop Diensten',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Shopify Webshop',
+          description: 'Complete webshop op Shopify met professioneel design en alle essentials'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'WooCommerce Webshop',
+          description: 'Flexibele WordPress webshop met WooCommerce voor volledige controle'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Betalingsintegraties',
+          description: 'Koppeling met iDEAL, creditcards, Klarna, PayPal en andere betaalmethoden'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'ERP/Boekhouding Koppelingen',
+          description: 'Integratie met Exact, Moneybird, Afas, Picqer en andere bedrijfssoftware'
+        }
+      }
+    ]
   }
 }
 
@@ -108,7 +166,7 @@ export default function EcommercePage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <EcommercePageClient />
     </>

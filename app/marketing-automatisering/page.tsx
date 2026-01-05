@@ -21,18 +21,29 @@ export const metadata: Metadata = {
     description: 'Intelligente systemen die uw marketing- en salesprocessen automatiseren voor maximale efficiëntie en ROI.',
     type: 'website',
     locale: 'nl_NL',
+    siteName: 'Start Beheer',
     url: 'https://startbeheer.nl/marketing-automatisering',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Marketing Automatisering | Start Beheer',
+    description: 'Automatiseer uw marketing- en salesprocessen voor maximale efficiëntie en ROI.',
   },
   alternates: {
     canonical: '/marketing-automatisering'
+  },
+  robots: {
+    index: true,
+    follow: true,
   }
 }
 
-const serviceSchema = {
+// JSON-LD Structured Data voor SEO
+const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Marketing Automatisering',
-  description: 'Intelligente systemen die uw marketing- en salesprocessen automatiseren voor maximale efficiëntie en ROI.',
+  description: 'Intelligente marketing automation systemen voor MKB bedrijven. Lead nurturing, e-mail automation, CRM integratie en sales automation voor maximale ROI.',
   provider: {
     '@type': 'Organization',
     name: 'Start Beheer Solutions',
@@ -42,6 +53,44 @@ const serviceSchema = {
   areaServed: {
     '@type': 'Country',
     name: 'Nederland'
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Marketing Automation Diensten',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'E-mail Marketing Automation',
+          description: 'Geautomatiseerde e-mail flows voor lead nurturing en klantbehoud'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Lead Scoring & Nurturing',
+          description: 'Automatische lead scoring en gepersonaliseerde nurturing journeys'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'CRM Integratie',
+          description: 'Koppeling van marketing automation met uw CRM systeem voor naadloze dataflow'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Marketing Funnel Optimalisatie',
+          description: 'Analyse en optimalisatie van uw complete marketing funnel voor hogere conversies'
+        }
+      }
+    ]
   }
 }
 
@@ -50,7 +99,7 @@ export default function MarketingAutomationPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <MarketingAutomationClientPage />
     </>

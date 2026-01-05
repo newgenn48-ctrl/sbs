@@ -12,7 +12,7 @@ import {
   Mail, Users, FileCheck, Key,
   Settings, Headphones, RefreshCw, HardDrive,
   ShieldCheck, ShieldAlert, Fingerprint, Scan,
-  Quote, ChevronDown
+  ChevronDown
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -92,30 +92,6 @@ const services = [
     description: 'We houden uw systemen in de gaten en reageren snel bij verdachte activiteit.',
     features: ['Log monitoring', 'Alerting', 'Incident response', 'Forensisch onderzoek'],
     color: 'quantum-blue'
-  },
-]
-
-// Veelvoorkomende klantsituaties
-const customerSituations = [
-  {
-    quote: 'We hebben geen idee hoe veilig onze systemen eigenlijk zijn.',
-    context: 'Security audit',
-    icon: AlertTriangle
-  },
-  {
-    quote: 'Medewerkers klikken op verdachte links in e-mails.',
-    context: 'Security awareness',
-    icon: Mail
-  },
-  {
-    quote: 'We weten niet of onze backups echt werken bij een ransomware aanval.',
-    context: 'Backup & recovery',
-    icon: HardDrive
-  },
-  {
-    quote: 'We hebben geen MFA maar weten dat het belangrijk is.',
-    context: 'Toegangsbeheer',
-    icon: Key
   },
 ]
 
@@ -733,69 +709,6 @@ export default function CybersecurityPageClient() {
                 </Button>
               </div>
             </ScrollTrigger>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== KLANTSITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/30" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-blue/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-blue/10 text-quantum-blue border-quantum-blue/30">
-                    <AlertTriangle className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Veelvoorkomende <span className="text-gradient">zorgen</span>
-                  </h2>
-                  <p className="text-gray-400 max-w-2xl mx-auto">
-                    Herkent u een van deze situaties? Dan wordt het tijd om actie te ondernemen.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-blue" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-blue/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-quantum-blue font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=cybersecurity">
-                      Ja, ik wil mijn beveiliging verbeteren
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
-            </div>
           </div>
         </div>
       </section>

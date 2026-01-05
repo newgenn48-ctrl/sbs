@@ -11,8 +11,8 @@ import Link from 'next/link'
 import {
   ArrowRight, CheckCircle2, ChevronDown, Phone,
   Globe, ShieldCheck, BarChart3, Mail, Search, Zap,
-  Clock, Target, Users, Quote, TrendingUp, TrendingDown,
-  EyeOff, ServerCrash, Award, Briefcase, Rocket, FileSearch
+  Clock, Target, Users, TrendingUp,
+  Award, Briefcase, Rocket, FileSearch
 } from 'lucide-react'
 
 // Loading skeleton voor 3D component
@@ -74,30 +74,6 @@ const services = [
     description: 'Technische ondersteuning wanneer u het nodig heeft. Altijd bereikbaar.',
     features: ['Helpdesk support', 'Beveiligingsmonitoring', 'Software updates', 'Probleemoplossing'],
     color: '#FF6B6B'
-  },
-]
-
-// Veelvoorkomende klantsituaties
-const customerSituations = [
-  {
-    quote: 'Ik ben uren kwijt aan mijn website en e-mail terwijl ik zou moeten factureren.',
-    context: 'Tijdverspilling',
-    icon: Clock
-  },
-  {
-    quote: 'Potentiële klanten kunnen me niet vinden op Google.',
-    context: 'Onzichtbaarheid',
-    icon: EyeOff
-  },
-  {
-    quote: 'Ik maak me zorgen over beveiliging maar weet niet waar te beginnen.',
-    context: 'Technostress',
-    icon: ServerCrash
-  },
-  {
-    quote: 'Mijn concurrenten zien er online veel professioneler uit dan ik.',
-    context: 'Achterstand',
-    icon: TrendingDown
   },
 ]
 
@@ -445,69 +421,6 @@ export default function ZZPClientPage() {
                   Alles wat u nodig heeft om online professioneel over te komen en gevonden te worden door klanten.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== VEELVOORKOMENDE SITUATIES ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="situaties-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-cyber-dark/80 border border-quantum-purple/20 overflow-hidden">
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-quantum-purple/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-quantum-blue/10 rounded-full blur-3xl" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-10 relative z-10">
-                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
-                    <Users className="w-3 h-3 mr-2" />
-                    Herkenbaar?
-                  </Badge>
-                  <h2 id="situaties-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    De uitdagingen van een <span className="text-gradient">ZZP'er</span>
-                  </h2>
-                  <p className="text-gray-400 max-w-2xl mx-auto">
-                    Herkent u één van deze situaties? Dan kunnen wij u helpen.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-                {customerSituations.map((situation, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="p-4 sm:p-5 rounded-xl bg-white/5 border border-white/10 hover:border-quantum-purple/30 transition-all h-full">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                          <situation.icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />
-                        </div>
-                        <div>
-                          <div className="flex items-start gap-2 mb-2">
-                            <Quote className="w-4 h-4 text-quantum-purple/50 flex-shrink-0 mt-0.5" />
-                            <p className="text-base sm:text-lg text-gray-200 italic">{situation.quote}</p>
-                          </div>
-                          <p className="text-sm text-red-400 font-medium">{situation.context}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-
-              <ScrollTrigger>
-                <div className="text-center mt-10 relative z-10">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90"
-                    asChild
-                  >
-                    <Link href="/contact?service=zzp">
-                      Ja, dit herken ik – help mij
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollTrigger>
             </div>
           </div>
         </div>
