@@ -7,7 +7,7 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Bot, CheckCircle2, ArrowRight, Phone,
+  Bot, CheckCircle2, ArrowRight,
   MessageSquare, Clock, Users, Zap,
   Target, TrendingUp, Settings, Globe,
   ChevronDown, Headphones, Sparkles
@@ -170,6 +170,10 @@ const faqs = [
   {
     q: 'Hoe zit het met privacy en data?',
     a: 'Alle data wordt verwerkt conform AVG. Gesprekken worden veilig opgeslagen in Europa. U kunt zelf bepalen welke data wordt bewaard en voor hoe lang.'
+  },
+  {
+    q: 'Hoe lang duurt het om een chatbot te implementeren?',
+    a: 'Een basis chatbot kan binnen 2-3 weken live staan. Voor complexere implementaties met meerdere integraties en uitgebreide kennisbanken rekenen we 4-6 weken. Na de livegang blijven we de chatbot optimaliseren op basis van echte gesprekken.'
   },
 ]
 
@@ -338,7 +342,7 @@ export default function ChatbotsPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -586,7 +590,7 @@ export default function ChatbotsPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

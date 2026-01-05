@@ -7,10 +7,10 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  BarChart3, CheckCircle2, ArrowRight, Phone,
+  BarChart3, CheckCircle2, ArrowRight,
   Target, TrendingUp, Search, Filter,
   ChevronDown, Zap, LineChart,
-  Users, DollarSign, MousePointer, Eye
+  DollarSign, MousePointer, Eye
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -255,7 +255,7 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
       <div className="relative z-10 text-center">
         <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-green/30 flex items-center justify-center mx-auto mb-4 relative">
           <step.icon className="w-8 h-8 text-quantum-green" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-green text-sm font-bold flex items-center justify-center text-black">
+          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-green text-sm font-bold flex items-center justify-center text-white">
             {step.step}
           </span>
         </div>
@@ -333,7 +333,7 @@ export default function GoogleAdsClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization */}
@@ -580,7 +580,7 @@ export default function GoogleAdsClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

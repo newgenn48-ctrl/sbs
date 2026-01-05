@@ -1,22 +1,36 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Server, CheckCircle2, ArrowRight, Phone,
+  Server, CheckCircle2, ArrowRight,
   Clock, Wrench, UserCheck,
   CalendarCheck, MessageSquare, ThumbsUp, Target,
   Gauge, HeartHandshake, Award, HardHat,
   Headphones, MapPin, Star, Activity, Search, Cloud, Shield, Monitor,
-  Building2, Laptop, Users, FileCheck, ShieldCheck, BookOpen
+  FileCheck, ShieldCheck, BookOpen, ChevronDown
 } from 'lucide-react'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+
+// Hook for mobile detection
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  return isMobile
+}
 
 // Loading skeleton voor 3D component (buiten Canvas)
 const Scene3DLoader = () => (
@@ -188,9 +202,65 @@ const processSteps = [
   },
 ]
 
+// FAQ
+const faqs = [
+  {
+    q: 'Hoe snel kunnen jullie reageren bij een storing?',
+    a: 'Dat hangt af van uw SLA. Bij kritieke storingen reageren we meestal binnen 30 minuten. Voor minder urgente zaken hanteren we responstijden van 4 uur tot next-business-day, afhankelijk van uw afspraken.'
+  },
+  {
+    q: 'Kunnen jullie ook op locatie komen?',
+    a: 'Ja, wij bieden zowel remote support als on-site ondersteuning. Voor hardwareproblemen, installaties of complexe netwerkissues komen we naar uw locatie. Remote support is vaak sneller en wordt daarom als eerste optie ingezet.'
+  },
+  {
+    q: 'Wat kost IT support bij jullie?',
+    a: 'Wij werken met flexibele tariefmodellen: strippenkaart, vast uurtarief of een vast maandbedrag. De kosten hangen af van het aantal werkplekken, de gewenste responstijd en de scope van het beheer. Vraag een vrijblijvende offerte aan voor een prijs op maat.'
+  },
+  {
+    q: 'Nemen jullie bestaande IT-omgevingen over?',
+    a: 'Ja, wij nemen regelmatig IT-omgevingen over van andere partijen of interne IT-ers. We beginnen met een grondige inventarisatie, documenteren alles en zorgen voor een soepele transitie zonder onderbreking van uw bedrijfsvoering.'
+  },
+  {
+    q: 'Werken jullie ook voor kleine bedrijven of ZZP\'ers?',
+    a: 'Zeker. Wij ondersteunen bedrijven van ZZP tot 150+ medewerkers. Voor kleinere bedrijven is een strippenkaart vaak de beste optie - u betaalt alleen voor de support die u daadwerkelijk gebruikt.'
+  },
+]
+
 // ============================================================================
 // COMPONENTS
 // ============================================================================
+
+// FAQ Component
+const FAQItem = ({ q, a }: { q: string; a: string }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="border-b border-white/10">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex justify-between items-center text-left py-5"
+      >
+        <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
+        <ChevronDown
+          className={`w-5 h-5 text-quantum-blue transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const CategoryCard = ({ category, index }: { category: typeof itCategories[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
@@ -290,6 +360,8 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
 // ============================================================================
 
 export default function ITSupportPageClient() {
+  const isMobile = useIsMobile()
+
   return (
     <div className="min-h-screen bg-cyber-darker text-white overflow-x-hidden">
 
@@ -362,7 +434,7 @@ export default function ITSupportPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization */}
@@ -376,7 +448,7 @@ export default function ITSupportPageClient() {
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
               <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0.5, 6], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
+                <Canvas camera={{ position: isMobile ? [0, 0.5, 8] : [0, 0.5, 6], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
                   <ITInfrastructure />
                 </Canvas>
               </Suspense>
@@ -509,9 +581,11 @@ export default function ITSupportPageClient() {
                 <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-blue/10">
                   <div className="absolute -inset-1 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/20 to-quantum-green/20 rounded-2xl blur-xl opacity-50" />
                   <div className="relative bg-cyber-dark rounded-2xl overflow-hidden">
-                    <img
+                    <Image
                       src="/IT Support.webp"
                       alt="IT Support team aan het werk"
+                      width={1200}
+                      height={800}
                       className="w-full h-auto"
                     />
                   </div>
@@ -874,6 +948,26 @@ export default function ITSupportPageClient() {
         </div>
       </section>
 
+      {/* ==================== FAQ ==================== */}
+      <section className="py-24" aria-labelledby="faq-title">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+          <ScrollTrigger>
+            <header className="text-center mb-12">
+              <Badge className="mb-4">Veelgestelde Vragen</Badge>
+              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
+                Vragen over <span className="text-gradient">IT support</span>?
+              </h2>
+            </header>
+          </ScrollTrigger>
+
+          <div className="max-w-3xl mx-auto">
+            {faqs.map((faq, index) => (
+              <FAQItem key={index} q={faq.q} a={faq.a} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ==================== CTA ==================== */}
       <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
         <div className="absolute inset-0 bg-gradient-to-br from-quantum-blue/10 via-transparent to-quantum-purple/10" />
@@ -905,7 +999,7 @@ export default function ITSupportPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

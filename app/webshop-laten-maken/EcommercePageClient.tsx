@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import {
   ShoppingCart, CheckCircle2, ArrowRight,
   CreditCard, Package, Truck, BarChart3,
-  Palette, Zap, Lock, RefreshCw,
-  Users, ChevronDown, Settings,
+  Zap, Lock, RefreshCw, Palette,
+  Users, ChevronDown,
   Rocket, Target, TrendingUp, Globe
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
@@ -186,6 +186,10 @@ const faqs = [
   {
     q: 'Kunnen jullie integreren met mijn boekhouding/ERP?',
     a: 'Ja, we hebben ervaring met koppelingen naar Exact, Moneybird, Afas, Picqer en andere systemen. Beide platformen hebben uitgebreide mogelijkheden voor integraties.'
+  },
+  {
+    q: 'Hoe lang duurt het om een webshop te bouwen?',
+    a: 'Een standaard webshop is binnen 2-4 weken live. Dit hangt af van de complexiteit, het aantal producten en de gewenste integraties. Bij de start maken we een realistische planning samen. We werken in sprints zodat u tussentijds kunt meekijken en feedback geven.'
   },
 ]
 

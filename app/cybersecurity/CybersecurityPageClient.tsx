@@ -7,7 +7,7 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Shield, CheckCircle2, ArrowRight, Phone,
+  Shield, CheckCircle2, ArrowRight,
   Clock, Lock, AlertTriangle, Eye,
   Mail, Users, FileCheck, Key,
   Settings, Headphones, RefreshCw, HardDrive,
@@ -342,7 +342,7 @@ export default function CybersecurityPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -825,7 +825,7 @@ export default function CybersecurityPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

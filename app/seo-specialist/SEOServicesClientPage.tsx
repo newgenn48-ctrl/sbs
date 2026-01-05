@@ -7,10 +7,10 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Search, CheckCircle2, ArrowRight, Phone,
+  Search, CheckCircle2, ArrowRight,
   TrendingUp, Globe, BarChart, FileText,
-  Link as LinkIcon, Target, Zap, Eye,
-  ChevronDown, Shield, Award, Clock
+  Link as LinkIcon, Target, Zap,
+  ChevronDown, Shield, Award
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -337,7 +337,7 @@ export default function SEOServicesClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -584,7 +584,7 @@ export default function SEOServicesClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

@@ -7,7 +7,7 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Workflow, CheckCircle2, ArrowRight, Phone,
+  Workflow, CheckCircle2, ArrowRight,
   Cog, Clock, FileText, Zap,
   Target, TrendingUp, Settings, Database,
   ChevronDown, RefreshCw,
@@ -15,7 +15,6 @@ import {
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
 
 // Loading skeleton voor 3D component
@@ -172,6 +171,10 @@ const faqs = [
   {
     q: 'Kunnen bestaande medewerkers de automatisering beheren?',
     a: 'Ja, we zorgen ervoor dat uw team de automatisering kan monitoren en kleine aanpassingen kan maken. We leveren documentatie en training. Voor complexe wijzigingen kunt u altijd bij ons terecht.'
+  },
+  {
+    q: 'Wat is de gemiddelde terugverdientijd van proces automatisering?',
+    a: 'De meeste automatiseringsprojecten verdienen zichzelf binnen 3-6 maanden terug. Dit hangt af van de tijdwinst, het uurtarief van de betrokken medewerkers en de vermindering van fouten. We berekenen vooraf de verwachte ROI zodat u een onderbouwde beslissing kunt nemen.'
   },
 ]
 
@@ -340,7 +343,7 @@ export default function ProcessAutomationPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -589,7 +592,7 @@ export default function ProcessAutomationPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

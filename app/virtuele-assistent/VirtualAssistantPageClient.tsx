@@ -13,7 +13,7 @@ import {
   ChevronDown, Headphones, Globe,
   FileText, Bell, PhoneCall, Volume2
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { AnimatePresence } from 'framer-motion'
@@ -22,8 +22,8 @@ import { AnimatePresence } from 'framer-motion'
 const Scene3DLoader = () => (
   <div className="absolute inset-0 flex items-center justify-center">
     <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
+      <div className="w-24 h-24 rounded-full bg-quantum-orange/20 animate-pulse" />
+      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-orange/30 animate-ping" style={{ animationDuration: '2s' }} />
     </div>
   </div>
 )
@@ -55,7 +55,7 @@ const services = [
     title: 'Telefonische Afhandeling',
     description: 'AI die telefoongesprekken voert, doorverbindt en berichten noteert.',
     features: ['Gesprekken beantwoorden', 'Intelligent doorverbinden', 'Voicemail naar tekst', 'Call screening'],
-    color: 'quantum-purple'
+    color: 'quantum-orange'
   },
   {
     icon: Calendar,
@@ -83,7 +83,7 @@ const services = [
     title: 'Transcriptie & Samenvatting',
     description: 'Automatische transcriptie en samenvatting van alle gesprekken.',
     features: ['Real-time transcriptie', 'Samenvatting per gesprek', 'Actie-items extractie', 'Zoekbare historie'],
-    color: 'quantum-purple'
+    color: 'quantum-orange'
   },
   {
     icon: Bell,
@@ -187,7 +187,7 @@ const FAQItem = ({ q, a }: { q: string; a: string }) => {
       >
         <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
         <ChevronDown
-          className={`w-5 h-5 text-quantum-purple transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-quantum-orange transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
       <AnimatePresence>
@@ -236,10 +236,10 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
 
 const WhyCard = ({ item, index }: { item: typeof whyAssistant[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-quantum-purple/30 transition-all h-full">
+    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-quantum-orange/30 transition-all h-full">
       <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-purple/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-purple" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-orange/10 flex items-center justify-center">
+          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-orange" />
         </div>
         <div className="text-right">
           <p className="text-xl sm:text-2xl font-bold text-quantum-green">{item.stat}</p>
@@ -256,13 +256,13 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
   <ScrollTrigger delay={index * 0.1}>
     <div className="relative">
       {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-quantum-purple/30 to-transparent z-0" />
+        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-quantum-orange/30 to-transparent z-0" />
       )}
 
       <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-purple/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-quantum-purple" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-purple text-sm font-bold flex items-center justify-center text-white">
+        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-orange/30 flex items-center justify-center mx-auto mb-4 relative">
+          <step.icon className="w-8 h-8 text-quantum-orange" />
+          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-orange text-sm font-bold flex items-center justify-center text-white">
             {step.step}
           </span>
         </div>
@@ -286,7 +286,7 @@ export default function VirtualAssistantPageClient() {
       {/* ==================== HERO ==================== */}
       <section className="relative min-h-screen flex items-center" aria-labelledby="hero-title">
         <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-purple/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-orange/10 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -297,7 +297,7 @@ export default function VirtualAssistantPageClient() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+              <Badge className="mb-6 px-4 py-2 bg-quantum-orange/10 text-quantum-orange border-quantum-orange/30">
                 <Headphones className="w-4 h-4 mr-2 inline" />
                 Virtuele Assistent
               </Badge>
@@ -332,7 +332,7 @@ export default function VirtualAssistantPageClient() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-purple/25"
+                  className="bg-gradient-to-r from-quantum-orange to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-orange/25"
                   asChild
                 >
                   <Link href="/contact?service=virtual-assistant">
@@ -340,7 +340,7 @@ export default function VirtualAssistantPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -351,7 +351,7 @@ export default function VirtualAssistantPageClient() {
               className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
               aria-hidden="true"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-quantum-orange/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
               <Suspense fallback={<Scene3DLoader />}>
                 <Canvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
@@ -383,11 +383,11 @@ export default function VirtualAssistantPageClient() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-quantum-purple/30"
+                className="hidden md:block absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-quantum-orange/30"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-quantum-purple/20 flex items-center justify-center">
-                    <Mic className="w-5 h-5 text-quantum-purple" />
+                  <div className="w-10 h-10 rounded-lg bg-quantum-orange/20 flex items-center justify-center">
+                    <Mic className="w-5 h-5 text-quantum-orange" />
                   </div>
                   <div>
                     <p className="text-xs text-gray-400">Voice</p>
@@ -408,7 +408,7 @@ export default function VirtualAssistantPageClient() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-quantum-purple/20 shadow-2xl">
+                <div className="relative rounded-2xl overflow-hidden border border-quantum-orange/20 shadow-2xl">
                   <video
                     className="w-full h-auto"
                     autoPlay
@@ -424,7 +424,7 @@ export default function VirtualAssistantPageClient() {
 
               <ScrollTrigger delay={0.2}>
                 <div>
-                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+                  <Badge className="mb-4 bg-quantum-orange/10 text-quantum-orange border-quantum-orange/30">
                     <Mic className="w-4 h-4 mr-2" />
                     AI Voice Technology
                   </Badge>
@@ -534,7 +534,7 @@ export default function VirtualAssistantPageClient() {
       <section className="py-24" aria-labelledby="waarom-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-purple/10 bg-gradient-to-b from-quantum-purple/5 to-transparent">
+            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-orange/10 bg-gradient-to-b from-quantum-orange/5 to-transparent">
               <ScrollTrigger>
                 <header className="text-center mb-12">
                   <Badge className="mb-4">Waarom een Virtuele Assistent</Badge>
@@ -598,11 +598,11 @@ export default function VirtualAssistantPageClient() {
 
       {/* ==================== CTA ==================== */}
       <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-quantum-purple/10 via-transparent to-quantum-blue/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-quantum-orange/10 via-transparent to-quantum-blue/10" />
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-quantum-purple/20">
+            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-quantum-orange/20">
               <Badge className="mb-4 sm:mb-6 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
                 Gratis Demo
               </Badge>
@@ -619,7 +619,7 @@ export default function VirtualAssistantPageClient() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-purple/25 text-lg px-8"
+                  className="bg-gradient-to-r from-quantum-orange to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-orange/25 text-lg px-8"
                   asChild
                 >
                   <Link href="/contact?service=virtual-assistant">
@@ -627,7 +627,7 @@ export default function VirtualAssistantPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

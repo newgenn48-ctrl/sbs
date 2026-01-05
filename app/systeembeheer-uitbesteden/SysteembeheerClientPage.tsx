@@ -7,11 +7,11 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Server, CheckCircle2, ArrowRight, Phone,
+  Server, CheckCircle2, ArrowRight,
   Clock, Wrench, UserCheck, Shield, Database,
-  Network, Cloud, Wifi, PhoneCall, Monitor,
-  Users, FileCheck, ShieldCheck, BookOpen,
-  ChevronDown, Settings, RefreshCw, Activity,
+  Network, Cloud, Wifi, PhoneCall,
+  FileCheck, ShieldCheck, BookOpen,
+  ChevronDown, Settings, RefreshCw,
   Video, Bell, Lock
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
@@ -190,6 +190,10 @@ const faqs = [
     q: 'Werken jullie ook met kleine bedrijven met maar één server?',
     a: 'Absoluut. We werken met bedrijven van 5 tot 150+ medewerkers. Of u nu één server heeft of een complexe omgeving - we stemmen het beheer af op uw situatie en budget.'
   },
+  {
+    q: 'Hoe snel kunnen jullie reageren bij een storing?',
+    a: 'De responstijd hangt af van de SLA die u kiest. Bij kritieke storingen reageren we binnen 1-4 uur, afhankelijk van uw contract. We monitoren uw systemen proactief, waardoor we problemen vaak al oplossen voordat u er last van heeft.'
+  },
 ]
 
 // FAQ Component
@@ -367,7 +371,7 @@ export default function SysteembeheerClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -662,7 +666,7 @@ export default function SysteembeheerClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

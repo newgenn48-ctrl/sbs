@@ -7,11 +7,11 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  BarChart3, CheckCircle2, ArrowRight, Phone,
-  TrendingUp, Target, Brain, Zap,
-  Users, PieChart, LineChart, Activity,
+  BarChart3, CheckCircle2, ArrowRight,
+  TrendingUp, Target, Zap,
+  Users, PieChart, Activity,
   ChevronDown, Eye, Lightbulb,
-  Clock, Settings, Database, AlertCircle
+  Settings, Database, AlertCircle
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -171,6 +171,10 @@ const faqs = [
   {
     q: 'Kunnen we de dashboards zelf aanpassen?',
     a: 'Ja, we bouwen dashboards die u zelf kunt aanpassen en uitbreiden. U krijgt training en documentatie. Voor complexe aanpassingen of nieuwe AI-modellen kunt u altijd bij ons terecht.'
+  },
+  {
+    q: 'Hoe lang duurt het voordat we resultaten zien?',
+    a: 'De eerste dashboards en inzichten zijn meestal binnen 2-4 weken operationeel. Voorspellende modellen hebben wat meer tijd nodig om te trainen - reken op 4-8 weken voor betrouwbare voorspellingen, afhankelijk van de complexiteit en beschikbare data.'
   },
 ]
 
@@ -339,7 +343,7 @@ export default function AnalyticsPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -587,7 +591,7 @@ export default function AnalyticsPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

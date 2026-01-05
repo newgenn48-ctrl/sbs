@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import {
   Linkedin, Instagram, Video, PenTool, Users, Target,
   TrendingUp, BarChart3, MessageCircle, Share2, Heart,
-  Clock, Globe, Sparkles, ChevronDown, ArrowRight,
-  Phone, CheckCircle2
+  Globe, ChevronDown, ArrowRight,
+  CheckCircle2
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -170,6 +170,10 @@ const faqs = [
   {
     q: 'Hoe meten jullie het succes van social media marketing?',
     a: 'We kijken naar KPI\'s die direct impact hebben op uw bedrijfsdoelen: groei in engagement (likes, comments, shares), toename in website verkeer vanuit social media, lead generatie en uiteindelijk conversies. Dit alles wordt transparant gerapporteerd in een live dashboard waar u 24/7 toegang tot heeft.'
+  },
+  {
+    q: 'Kunnen jullie ook influencer marketing verzorgen?',
+    a: 'Ja, influencer marketing is onderdeel van ons aanbod. We identificeren relevante influencers binnen uw niche, onderhandelen samenwerkingen en coördineren campagnes. Van micro-influencers tot grotere namen - we matchen op basis van uw doelgroep, budget en merkwaarden voor authentieke partnerships die resultaat opleveren.'
   },
 ]
 
@@ -338,7 +342,7 @@ export default function SocialMediaClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -521,7 +525,7 @@ export default function SocialMediaClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

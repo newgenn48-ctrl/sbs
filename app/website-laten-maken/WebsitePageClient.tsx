@@ -13,8 +13,9 @@ import {
   Users, ChevronDown,
   Rocket, Target
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Loading skeleton voor 3D component
 const Scene3DLoader = () => (
@@ -679,10 +680,12 @@ export default function WebsitePageClient() {
                 <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-purple/20">
                   <div className="absolute -inset-1 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/20 to-quantum-green/20 rounded-2xl blur-xl opacity-50" />
                   <div className="relative">
-                    <img
+                    <Image
                       src="/website-laten-maken.webp"
                       alt="Website laten maken - professioneel maatwerk webdesign"
                       title="Website laten maken bij Start Beheer"
+                      width={800}
+                      height={600}
                       className="w-full h-auto"
                       loading="lazy"
                     />
@@ -847,7 +850,7 @@ export default function WebsitePageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import {
   BarChart3, Search, MessageCircle, Zap,
   ArrowRight, CheckCircle2, TrendingUp, Target,
-  ChevronDown, Eye, ShieldCheck, Infinity, Users, Phone,
-  Clock, Rocket, FileSearch, Settings, Link2
+  ChevronDown, Eye, ShieldCheck, Infinity, Users,
+  Rocket, FileSearch, Settings, Link2
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -368,7 +368,7 @@ export default function MarketingPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization */}
@@ -636,7 +636,7 @@ export default function MarketingPageClient() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

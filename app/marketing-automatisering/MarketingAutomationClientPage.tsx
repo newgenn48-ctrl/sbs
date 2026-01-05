@@ -7,7 +7,7 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Zap, CheckCircle2, ArrowRight, Phone,
+  Zap, CheckCircle2, ArrowRight,
   Mail, Users, Target, TrendingUp,
   Clock, BarChart3, Settings, RefreshCw,
   ChevronDown, Workflow, Filter
@@ -171,6 +171,10 @@ const faqs = [
   {
     q: 'Hoe wordt het succes gemeten?',
     a: 'We focussen op KPIs die er echt toe doen: hogere conversieratio\'s, verhoogde Customer Lifetime Value (CLV), tijd bespaard door uw team, en uiteraard ROI. U krijgt toegang tot realtime dashboards met alle belangrijke metrics.'
+  },
+  {
+    q: 'Kunnen jullie ook bestaande automation workflows overnemen of verbeteren?',
+    a: 'Absoluut. Veel klanten hebben al een begin gemaakt met marketing automation maar halen er niet het maximale uit. Wij auditen uw huidige setup, identificeren verbeterpunten en optimaliseren de workflows. Dit levert vaak sneller resultaat op dan volledig opnieuw beginnen.'
   },
 ]
 
@@ -338,7 +342,7 @@ export default function MarketingAutomationClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="mt-6 text-sm text-gray-400">
                 <p>✓ Analyse van uw processen ✓ Kansen-rapport ✓ Software-advies</p>
@@ -589,7 +593,7 @@ export default function MarketingAutomationClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">

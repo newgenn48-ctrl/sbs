@@ -7,10 +7,10 @@ import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Monitor, CheckCircle2, ArrowRight, Phone,
+  Monitor, CheckCircle2, ArrowRight,
   Clock, Wrench, UserCheck, Shield, Laptop,
   Smartphone, Settings, Download,
-  Users, FileCheck, ShieldCheck, BookOpen,
+  FileCheck, ShieldCheck, BookOpen,
   ChevronDown, RefreshCw, Headphones, UserPlus, UserMinus,
   PackageOpen, MoveRight
 } from 'lucide-react'
@@ -187,6 +187,10 @@ const faqs = [
     q: 'Hoe werkt de support voor medewerkers?',
     a: 'Medewerkers kunnen bellen, mailen of een ticket aanmaken. We helpen eerst remote - vaak is het probleem zo opgelost. Als dat niet lukt, komen we on-site of sturen we vervangende hardware.'
   },
+  {
+    q: 'Wat kost werkplekbeheer per medewerker?',
+    a: 'De kosten hangen af van het pakket dat u kiest en het aantal werkplekken. We werken met vaste maandelijkse tarieven per werkplek, zodat u precies weet waar u aan toe bent. Vraag een offerte aan voor een prijsindicatie op maat.'
+  },
 ]
 
 // FAQ Component
@@ -352,7 +356,7 @@ export default function WerkplekbeheerClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
             </motion.div>
 
             {/* 3D Visualization - Rechter kolom */}
@@ -655,7 +659,7 @@ export default function WerkplekbeheerClientPage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                </div>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
