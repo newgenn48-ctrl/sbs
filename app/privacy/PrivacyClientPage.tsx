@@ -12,9 +12,10 @@ const sections = [
 
 Contactgegevens:
 - Bedrijfsnaam: Start Beheer Solutions
-- E-mail: info@staartbeheer.nl
-- Telefoon: 030-123 4567
-- KvK-nummer: [Uw KvK-nummer]`
+- E-mail: info@startbeheer.nl
+- Telefoon: 06-87 874 001
+- KvK-nummer: 93769865
+- BTW-nummer: NL005041113B60`
   },
   {
     title: '2. Welke gegevens verzamelen wij?',
@@ -26,12 +27,14 @@ Contactgegevens:
 - Telefoonnummer
 - Bedrijfsnaam
 
-Automatisch verzamelde gegevens:
-- IP-adres
+Automatisch verzamelde gegevens (voor beveiliging en websitewerking):
+- IP-adres (geanonimiseerd voor analytics)
 - Browsertype en -versie
 - Bezochte pagina's
 - Datum en tijd van bezoek
 - Verwijzende website
+
+Let op: Voor analytische doeleinden wordt uw IP-adres geanonimiseerd verwerkt.
 
 Gegevens voor dienstverlening:
 - Communicatiegeschiedenis
@@ -89,7 +92,7 @@ Wij verkopen nooit uw gegevens aan derden. Alle verwerkers waarmee wij werken he
 - Recht op dataportabiliteit: u kunt uw gegevens opvragen in een gangbaar formaat
 - Recht van bezwaar: u kunt bezwaar maken tegen bepaalde verwerkingen
 
-Neem contact op via info@staartbeheer.nl om uw rechten uit te oefenen.`
+Neem contact op via info@startbeheer.nl om uw rechten uit te oefenen. Wij reageren binnen 30 dagen op uw verzoek.`
   },
   {
     title: '8. Beveiliging',
@@ -150,7 +153,7 @@ export default function PrivacyClientPage() {
               <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  Laatst bijgewerkt: december 2024
+                  Laatst bijgewerkt: januari 2025
                 </span>
               </div>
             </motion.div>

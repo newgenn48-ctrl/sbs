@@ -55,8 +55,10 @@ Start Beheer is niet aansprakelijk voor de onjuiste of onvolledige overbrenging 
     content: `Heeft u vragen over deze disclaimer? Neem dan contact met ons op:
 
 Start Beheer Solutions
-E-mail: info@staartbeheer.nl
-Telefoon: 030-123 4567`
+E-mail: info@startbeheer.nl
+Telefoon: 06-87 874 001
+KvK-nummer: 93769865
+BTW-nummer: NL005041113B60`
   },
 ]
 
@@ -91,7 +93,7 @@ export default function DisclaimerClientPage() {
               <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  Laatst bijgewerkt: december 2024
+                  Laatst bijgewerkt: januari 2025
                 </span>
               </div>
             </motion.div>

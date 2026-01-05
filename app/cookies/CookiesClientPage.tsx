@@ -70,7 +70,7 @@ Let op: het blokkeren van cookies kan invloed hebben op de functionaliteit van o
     content: `Wij maken gebruik van diensten van derden die ook cookies kunnen plaatsen:
 
 Google Analytics
-We gebruiken Google Analytics om inzicht te krijgen in hoe bezoekers onze website gebruiken. De verzamelde gegevens zijn geanonimiseerd en worden niet gedeeld met derden.
+We gebruiken Google Analytics om inzicht te krijgen in hoe bezoekers onze website gebruiken. IP-adressen worden geanonimiseerd (IP Anonymization) voordat ze worden verwerkt. De verzamelde gegevens worden niet gedeeld met derden en worden alleen geplaatst na uw toestemming.
 
 Google Ads
 Voor remarketing kunnen cookies van Google Ads worden geplaatst als u toestemming geeft voor marketing cookies.
@@ -85,7 +85,7 @@ Als u content deelt via social media knoppen, kunnen deze platforms cookies plaa
 - Uw toestemming in te trekken voor niet-essentiële cookies
 - Cookies te verwijderen via uw browserinstellingen
 
-Bij uw eerste bezoek aan onze website krijgt u de mogelijkheid om uw cookievoorkeuren in te stellen via onze cookiebanner. U kunt deze voorkeuren op elk moment wijzigen.`
+Bij uw eerste bezoek aan onze website krijgt u de mogelijkheid om uw cookievoorkeuren in te stellen via onze cookiebanner. Niet-essentiële cookies worden pas geplaatst nadat u hiervoor toestemming heeft gegeven. U kunt deze voorkeuren op elk moment wijzigen door de cookiebanner opnieuw te openen via de link in de footer.`
   },
   {
     title: 'Wijzigingen in dit beleid',
@@ -125,7 +125,7 @@ export default function CookiesClientPage() {
               <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  Laatst bijgewerkt: december 2024
+                  Laatst bijgewerkt: januari 2025
                 </span>
               </div>
             </motion.div>
