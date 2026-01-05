@@ -51,12 +51,14 @@ interface SheetContentProps
     VariantProps<typeof sheetVariants> {
   /** Accessible title for screen readers (visually hidden) */
   accessibleTitle?: string
+  /** Accessible description for screen readers (visually hidden) */
+  accessibleDescription?: string
 }
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   SheetContentProps
->(({ side = 'right', className, children, accessibleTitle = 'Menu', ...props }, ref) => (
+>(({ side = 'right', className, children, accessibleTitle = 'Menu', accessibleDescription = 'Navigatie menu', ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <DialogPrimitive.Content
@@ -66,6 +68,7 @@ const SheetContent = React.forwardRef<
     >
       <VisuallyHidden.Root>
         <DialogPrimitive.Title>{accessibleTitle}</DialogPrimitive.Title>
+        <DialogPrimitive.Description>{accessibleDescription}</DialogPrimitive.Description>
       </VisuallyHidden.Root>
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
