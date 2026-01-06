@@ -1,16 +1,17 @@
-'use client'
+﻿'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Globe, CheckCircle2, ArrowRight,
   Zap, Palette, Lock, Search,
   Smartphone, Code2, FileText,
-  Users, ChevronDown,
+  Users,
   Rocket, Target
 } from 'lucide-react'
 import { Suspense, useState, useEffect } from 'react'
@@ -95,7 +96,7 @@ const services = [
 
 // Prijs info
 const priceInfo = {
-  price: 'Vanaf €785',
+  price: 'Vanaf â‚¬785',
   description: 'Professionele website volledig op maat',
   features: [
     'Custom design op maat',
@@ -121,7 +122,7 @@ const whyChooseUs = [
   {
     icon: Users,
     title: 'Directe Lijnen',
-    description: 'Eén vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
+    description: 'EÃ©n vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
     stat: '1',
     statLabel: 'contactpersoon'
   },
@@ -129,14 +130,14 @@ const whyChooseUs = [
     icon: FileText,
     title: 'Vaste Prijs',
     description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf, geen uurtje-factuurtje.',
-    stat: '€',
+    stat: 'â‚¬',
     statLabel: 'vast'
   },
   {
     icon: Rocket,
     title: 'Nazorg Inbegrepen',
     description: 'Na oplevering staan wij voor u klaar. Updates, kleine aanpassingen en technische support.',
-    stat: '∞',
+    stat: 'âˆž',
     statLabel: 'support'
   },
 ]
@@ -189,7 +190,7 @@ const faqs = [
   },
   {
     q: 'Regelen jullie ook hosting en domein?',
-    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
+    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u Ã©Ã©n aanspreekpunt voor alles.'
   },
   {
     q: 'Wat voor support krijg ik na oplevering?',
@@ -197,37 +198,6 @@ const faqs = [
   },
 ]
 
-// FAQ Component
-const FAQItem = ({ q, a }: { q: string; a: string }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  return (
-    <div className="border-b border-white/10">
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left py-5"
-      >
-        <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
-        <ChevronDown
-          className={`w-5 h-5 text-quantum-purple transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
-        />
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
 
 // ============================================================================
 // COMPONENTS
@@ -370,7 +340,7 @@ export default function WebsitePageClient() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
-                Wilt u een <strong className="text-white">website laten maken</strong> die écht resultaat oplevert? Wij bouwen <strong className="text-white">razendsnelle websites</strong> met een <strong className="text-white">uniek design</strong> die bezoekers omzetten in klanten.
+                Wilt u een <strong className="text-white">website laten maken</strong> die Ã©cht resultaat oplevert? Wij bouwen <strong className="text-white">razendsnelle websites</strong> met een <strong className="text-white">uniek design</strong> die bezoekers omzetten in klanten.
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -475,7 +445,7 @@ export default function WebsitePageClient() {
                 </h2>
                 <p className="text-lg text-gray-400 leading-relaxed">
                   In een wereld waar de eerste indruk vaak online plaatsvindt, is uw website cruciaal.
-                  Wij bouwen geen standaard websites - wij creëren <strong className="text-gray-300">digitale ervaringen</strong> die
+                  Wij bouwen geen standaard websites - wij creÃ«ren <strong className="text-gray-300">digitale ervaringen</strong> die
                   uw bezoekers overtuigen en converteren. Met oog voor detail, technische perfectie en uw unieke verhaal.
                 </p>
               </div>
@@ -813,7 +783,7 @@ export default function WebsitePageClient() {
 
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} />
+              <FAQItem key={index} q={faq.q} a={faq.a} color="quantum-purple" />
             ))}
           </div>
         </div>

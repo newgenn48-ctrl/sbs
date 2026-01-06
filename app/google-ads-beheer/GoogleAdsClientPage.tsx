@@ -9,13 +9,13 @@ import { Badge } from '@/components/ui/badge'
 import {
   BarChart3, CheckCircle2, ArrowRight,
   Target, TrendingUp, Search, Filter,
-  ChevronDown, Zap, LineChart,
+  Zap, LineChart,
   DollarSign, MousePointer, Eye
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { AnimatePresence } from 'framer-motion'
+import { FAQItem } from '@/components/ui/FAQItem'
 
 // Loading skeleton voor 3D component
 const Scene3DLoader = () => (
@@ -169,37 +169,6 @@ const faqs = [
   },
 ]
 
-// FAQ Component
-const FAQItem = ({ q, a }: { q: string; a: string }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  return (
-    <div className="border-b border-white/10">
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left py-5"
-      >
-        <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
-        <ChevronDown
-          className={`w-5 h-5 text-quantum-green transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
-        />
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
 
 // ============================================================================
 // COMPONENTS
@@ -543,7 +512,7 @@ export default function GoogleAdsClientPage() {
 
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} />
+              <FAQItem key={index} q={faq.q} a={faq.a} color="quantum-green" />
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
@@ -12,11 +12,12 @@ import {
   CalendarCheck, MessageSquare, ThumbsUp, Target,
   Gauge, HeartHandshake, Award, HardHat,
   Headphones, MapPin, Star, Activity, Search, Cloud, Shield, Monitor,
-  FileCheck, ShieldCheck, BookOpen, ChevronDown
+  FileCheck, ShieldCheck, BookOpen
 } from 'lucide-react'
 import React, { Suspense, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { FAQItem } from '@/components/ui/FAQItem'
 
 // Hook for mobile detection
 const useIsMobile = () => {
@@ -230,37 +231,6 @@ const faqs = [
 // COMPONENTS
 // ============================================================================
 
-// FAQ Component
-const FAQItem = ({ q, a }: { q: string; a: string }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  return (
-    <div className="border-b border-white/10">
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left py-5"
-      >
-        <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
-        <ChevronDown
-          className={`w-5 h-5 text-quantum-blue transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
-        />
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
 
 const CategoryCard = ({ category, index }: { category: typeof itCategories[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
@@ -962,7 +932,7 @@ export default function ITSupportPageClient() {
 
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} />
+              <FAQItem key={index} q={faq.q} a={faq.a} color="quantum-blue" />
             ))}
           </div>
         </div>

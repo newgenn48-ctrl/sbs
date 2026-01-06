@@ -4,13 +4,23 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
+// Static color classes for Tailwind purging (dynamic classes don't work)
+const colorClasses = {
+  'quantum-blue': 'text-quantum-blue',
+  'quantum-purple': 'text-quantum-purple',
+  'quantum-green': 'text-quantum-green',
+  'quantum-orange': 'text-quantum-orange',
+} as const
+
+export type FAQColor = keyof typeof colorClasses
+
 interface FAQItemProps {
-  question: string
-  answer: string
-  accentColor?: string
+  q: string
+  a: string
+  color?: FAQColor
 }
 
-export const FAQItem = ({ question, answer, accentColor = 'quantum-green' }: FAQItemProps) => {
+export function FAQItem({ q, a, color = 'quantum-blue' }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -21,9 +31,9 @@ export const FAQItem = ({ question, answer, accentColor = 'quantum-green' }: FAQ
         className="w-full flex justify-between items-center text-left py-5"
         aria-expanded={isOpen}
       >
-        <h3 className="font-semibold text-lg text-gray-200 pr-4">{question}</h3>
+        <h3 className="font-semibold text-lg text-gray-200 pr-4">{q}</h3>
         <ChevronDown
-          className={`w-5 h-5 text-${accentColor} transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 ${colorClasses[color]} transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>
@@ -36,7 +46,7 @@ export const FAQItem = ({ question, answer, accentColor = 'quantum-green' }: FAQ
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-gray-300 leading-relaxed">{answer}</p>
+            <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
