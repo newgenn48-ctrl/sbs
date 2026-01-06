@@ -85,6 +85,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob: https:",
               "media-src 'self' blob:",
               "connect-src 'self' https://www.google-analytics.com https://www.google.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://vitals.vercel-insights.com https://va.vercel-scripts.com wss:",
+              "frame-src 'self' https://www.googletagmanager.com https://www.google.com https://td.doubleclick.net",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
