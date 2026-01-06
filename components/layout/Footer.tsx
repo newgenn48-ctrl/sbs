@@ -5,11 +5,17 @@ import Image from 'next/image'
 import { Mail, Phone, MapPin } from 'lucide-react'
 
 const footerLinks = {
-  services: [
+  itServices: [
     { name: 'IT Beheer & Support', href: '/it-support' },
-    { name: 'Online Marketing', href: '/marketing' },
+    { name: 'Systeembeheer Uitbesteden', href: '/systeembeheer-uitbesteden' },
+    { name: 'Werkplekbeheer Uitbesteden', href: '/werkplekbeheer-uitbesteden' },
+    { name: 'Microsoft 365 Beheer', href: '/microsoft-365-beheer' },
+  ],
+  development: [
     { name: 'Website Laten Maken', href: '/website-laten-maken' },
+    { name: 'Webshop Laten Maken', href: '/webshop-laten-maken' },
     { name: 'AI & Automatisering', href: '/ai' },
+    { name: 'Online Marketing', href: '/marketing' },
   ],
   company: [
     { name: 'Over Ons', href: '/about' },
@@ -29,7 +35,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
 
       <div className="container relative mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
@@ -75,13 +81,32 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Services Links */}
+          {/* IT Services Links */}
           <div>
             <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">
-              Services
+              IT Services
             </h3>
             <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
+              {footerLinks.itServices.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-300 hover:text-quantum-blue transition-colors text-sm"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Development & Marketing Links */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">
+              Development
+            </h3>
+            <ul className="space-y-3">
+              {footerLinks.development.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
