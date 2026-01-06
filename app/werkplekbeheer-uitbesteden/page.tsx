@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Hoe snel kan een nieuwe medewerker aan de slag?', acceptedAnswer: { '@type': 'Answer', text: 'Bij standaard onboarding is een nieuwe werkplek binnen 1-2 werkdagen klaar. Bij spoed kunnen we vaak dezelfde dag nog een laptop inrichten.' }},
+    { '@type': 'Question', name: 'Hoe werkt een werkplek migratie?', acceptedAnswer: { '@type': 'Answer', text: 'We plannen de migratie samen in. Eerst maken we een complete backup, dan installeren we de nieuwe werkplek met alle software en instellingen. Data en profielen worden overgezet.' }},
+    { '@type': 'Question', name: 'Hoe werkt de support voor medewerkers?', acceptedAnswer: { '@type': 'Answer', text: 'Medewerkers kunnen bellen, mailen of een ticket aanmaken. We helpen eerst remote - vaak is het probleem zo opgelost. Als dat niet lukt, komen we on-site.' }},
+    { '@type': 'Question', name: 'Wat kost werkplekbeheer per medewerker?', acceptedAnswer: { '@type': 'Answer', text: 'We werken met vaste maandelijkse tarieven per werkplek, zodat u precies weet waar u aan toe bent. Vraag een offerte aan voor een prijsindicatie op maat.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'IT Support', item: 'https://startbeheer.nl/it-support' },
+    { '@type': 'ListItem', position: 3, name: 'Werkplekbeheer', item: 'https://startbeheer.nl/werkplekbeheer-uitbesteden' },
+  ],
+}
+
 export default function WerkplekbeheerPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <WerkplekbeheerClientPage />
     </>
   )

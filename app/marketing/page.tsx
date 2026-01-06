@@ -93,13 +93,34 @@ const serviceSchema = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Wat onderscheidt jullie van andere marketing bureaus?', acceptedAnswer: { '@type': 'Answer', text: 'Wij combineren marketing met IT-expertise. Hierdoor bouwen we geïntegreerde systemen: van website tot CRM tot marketing automation. Geen losse tools, maar een samenhangend ecosysteem.' }},
+    { '@type': 'Question', name: 'Werken jullie met vaste contracten?', acceptedAnswer: { '@type': 'Answer', text: 'Nee, we werken zonder langlopende contracten. U kunt maandelijks opzeggen. We geloven dat resultaat de beste reden is om te blijven, niet een contract.' }},
+    { '@type': 'Question', name: 'Hoeveel budget heb ik nodig voor online marketing?', acceptedAnswer: { '@type': 'Answer', text: 'Dit hangt af van uw doelen en markt. Voor lokale dienstverleners kan €500-1000 per maand al effectief zijn. Landelijke campagnes vragen meer. We adviseren eerlijk over wat realistisch is.' }},
+    { '@type': 'Question', name: 'Hoe meten jullie resultaat?', acceptedAnswer: { '@type': 'Answer', text: 'We rapporteren maandelijks over concrete KPIs: leads, conversies, kosten per lead en ROI. Geen vanity metrics, maar cijfers die er toe doen voor uw bedrijf.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'Online Marketing', item: 'https://startbeheer.nl/marketing' },
+  ],
+}
+
 export default function MarketingPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <MarketingPageClient />
     </>
   )

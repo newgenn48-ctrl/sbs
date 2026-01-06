@@ -142,17 +142,23 @@ const serviceSchema = {
   }
 }
 
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'Development', item: 'https://startbeheer.nl/development' },
+    { '@type': 'ListItem', position: 3, name: 'Webapplicatie Laten Maken', item: 'https://startbeheer.nl/webapplicatie-laten-maken' },
+  ],
+}
+
 export default function WebapplicatiePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <WebapplicatiePageClient />
     </>
   )

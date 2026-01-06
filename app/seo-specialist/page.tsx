@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Hoe lang duurt het voordat ik hoger in Google sta?', acceptedAnswer: { '@type': 'Answer', text: 'SEO is een langetermijninvestering. Eerste resultaten zien we vaak na 3-4 maanden. Stabiele topposities kosten 6-12 maanden. We zijn eerlijk over deze tijdlijnen.' }},
+    { '@type': 'Question', name: 'Garanderen jullie een #1 positie?', acceptedAnswer: { '@type': 'Answer', text: 'Nee, niemand kan dat garanderen. Bureaus die dit beloven zijn niet eerlijk. Wij werken data-gedreven en laten zien wat realistisch haalbaar is voor uw zoekwoorden en markt.' }},
+    { '@type': 'Question', name: 'Wat kost SEO per maand?', acceptedAnswer: { '@type': 'Answer', text: 'Effectieve SEO begint vanaf €500 per maand voor lokale bedrijven. Voor landelijke concurrentie is €1000-2500 per maand realistischer. We stemmen altijd af op uw budget en doelen.' }},
+    { '@type': 'Question', name: 'Doen jullie ook linkbuilding?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, maar alleen kwalitatieve linkbuilding. Geen spammy links die uw site kunnen schaden. We focussen op relevante, natuurlijke backlinks van betrouwbare websites in uw branche.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'Online Marketing', item: 'https://startbeheer.nl/marketing' },
+    { '@type': 'ListItem', position: 3, name: 'SEO Specialist', item: 'https://startbeheer.nl/seo-specialist' },
+  ],
+}
+
 export default function SEOServicesPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <SEOServicesClientPage />
     </>
   )

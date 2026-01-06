@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Klinkt de AI-stem natuurlijk?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, we gebruiken de nieuwste voice AI technologie. De stem klinkt natuurlijk en menselijk, met de juiste intonatie en pauzes. Bellers merken vaak niet dat ze met AI spreken.' }},
+    { '@type': 'Question', name: 'Kan de assistent ook afspraken inplannen?', acceptedAnswer: { '@type': 'Answer', text: 'Absoluut. De virtuele assistent koppelt met uw agenda (Google Calendar, Outlook) en plant direct afspraken in op beschikbare momenten. Inclusief bevestigingsmails naar de klant.' }},
+    { '@type': 'Question', name: 'Wat gebeurt er buiten kantooruren?', acceptedAnswer: { '@type': 'Answer', text: 'De virtuele assistent is 24/7 beschikbaar. Buiten kantooruren neemt hij berichten aan, plant afspraken en stuurt een samenvatting naar u. Dringende zaken kunnen doorgeschakeld worden.' }},
+    { '@type': 'Question', name: 'Hoeveel kost een virtuele assistent?', acceptedAnswer: { '@type': 'Answer', text: 'Kosten variëren van €200-500 per maand afhankelijk van belvolume en functionaliteiten. Veel goedkoper dan een parttime medewerker, en 24/7 beschikbaar.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'AI & Automatisering', item: 'https://startbeheer.nl/ai' },
+    { '@type': 'ListItem', position: 3, name: 'Virtuele Assistent', item: 'https://startbeheer.nl/virtuele-assistent' },
+  ],
+}
+
 export default function VirtualAssistantPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <VirtualAssistantPageClient />
     </>
   )

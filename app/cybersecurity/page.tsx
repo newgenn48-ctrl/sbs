@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Hoe weet ik of mijn bedrijf goed beveiligd is?', acceptedAnswer: { '@type': 'Answer', text: 'Een security audit geeft u inzicht in de huidige staat van uw beveiliging. We testen uw systemen, bekijken configuraties en rapporteren over gevonden kwetsbaarheden.' }},
+    { '@type': 'Question', name: 'Is cybersecurity niet alleen voor grote bedrijven?', acceptedAnswer: { '@type': 'Answer', text: 'Juist niet. Kleine bedrijven zijn aantrekkelijke doelwitten omdat ze vaak minder goed beveiligd zijn. Goede beveiliging hoeft niet duur te zijn.' }},
+    { '@type': 'Question', name: 'Waarom is security awareness training belangrijk?', acceptedAnswer: { '@type': 'Answer', text: '85% van alle cyberaanvallen begint met een menselijke fout, zoals het klikken op een phishing link. Goed getrainde medewerkers zijn uw beste verdediging.' }},
+    { '@type': 'Question', name: 'Wat kost een ransomware aanval?', acceptedAnswer: { '@type': 'Answer', text: 'Gemiddeld kost een ransomware aanval een MKB bedrijf tussen de 50.000 en 250.000 euro aan schade. Preventie is vele malen goedkoper dan herstel.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'IT Support', item: 'https://startbeheer.nl/it-support' },
+    { '@type': 'ListItem', position: 3, name: 'Cybersecurity', item: 'https://startbeheer.nl/cybersecurity' },
+  ],
+}
+
 export default function CybersecurityPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <CybersecurityPageClient />
     </>
   )

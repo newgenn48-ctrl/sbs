@@ -93,13 +93,35 @@ const serviceSchema = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Welke social media kanalen zijn belangrijk voor B2B?', acceptedAnswer: { '@type': 'Answer', text: 'LinkedIn is essentieel voor B2B. Afhankelijk van uw doelgroep kunnen Instagram en YouTube ook waardevol zijn voor employer branding en thought leadership. We adviseren op basis van waar uw doelgroep actief is.' }},
+    { '@type': 'Question', name: 'Hoe vaak moeten we posten?', acceptedAnswer: { '@type': 'Answer', text: 'Kwaliteit boven kwantiteit. Voor de meeste B2B bedrijven adviseren we 2-3 LinkedIn posts per week. Consistentie is belangrijker dan volume. Liever 2 sterke posts dan 5 middelmatige.' }},
+    { '@type': 'Question', name: 'Maken jullie ook de content?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, we verzorgen complete content creatie: teksten, afbeeldingen, video en stories. We werken nauw samen met u voor authentieke content die bij uw merk past.' }},
+    { '@type': 'Question', name: 'Wat kost social media beheer?', acceptedAnswer: { '@type': 'Answer', text: 'Basis community management begint vanaf €400 per maand. Volledige content creatie en beheer vanaf €800-1500 per maand. Advertising budgetten komen hier bovenop.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'Online Marketing', item: 'https://startbeheer.nl/marketing' },
+    { '@type': 'ListItem', position: 3, name: 'Social Media Marketing', item: 'https://startbeheer.nl/social-media-marketing' },
+  ],
+}
+
 export default function SocialMediaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <SocialMediaClientPage />
     </>
   )

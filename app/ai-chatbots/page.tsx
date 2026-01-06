@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Kan de chatbot ook in het Nederlands?', acceptedAnswer: { '@type': 'Answer', text: 'Absoluut. Onze chatbots werken perfect in het Nederlands én Engels. Ze begrijpen ook dialect, typos en informeel taalgebruik. De AI leert continu bij van gesprekken.' }},
+    { '@type': 'Question', name: 'Hoe traint de chatbot op onze kennis?', acceptedAnswer: { '@type': 'Answer', text: 'We voeden de chatbot met uw FAQ\'s, productinfo en procedures. De AI leert van elk gesprek en wordt slimmer. U kunt antwoorden aanpassen via een dashboard.' }},
+    { '@type': 'Question', name: 'Wat als de chatbot het antwoord niet weet?', acceptedAnswer: { '@type': 'Answer', text: 'Bij complexe vragen schakelt de chatbot door naar een medewerker met alle context. Zo hoeft de klant niet opnieuw te beginnen. U bepaalt wanneer wordt doorgeschakeld.' }},
+    { '@type': 'Question', name: 'Werkt de chatbot ook op WhatsApp?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, we kunnen de chatbot koppelen aan WhatsApp Business, Facebook Messenger, uw website en andere kanalen. Eén chatbot, meerdere kanalen, één inbox voor uw team.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'AI & Automatisering', item: 'https://startbeheer.nl/ai' },
+    { '@type': 'ListItem', position: 3, name: 'AI Chatbots', item: 'https://startbeheer.nl/ai-chatbots' },
+  ],
+}
+
 export default function ChatbotsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <ChatbotsPageClient />
     </>
   )

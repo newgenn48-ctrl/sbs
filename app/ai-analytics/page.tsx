@@ -98,13 +98,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Welke data hebben we nodig?', acceptedAnswer: { '@type': 'Answer', text: 'We werken met de data die u al heeft: verkoopcijfers, websitedata, klantgegevens. Vaak is er meer bruikbare data dan bedrijven denken. We beginnen met een data-inventarisatie.' }},
+    { '@type': 'Question', name: 'Kunnen jullie koppelen met ons huidige systeem?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, we integreren met de meeste CRM\'s, boekhoudpakketten en bedrijfssoftware. Denk aan Exact, Afas, Salesforce, HubSpot en Google Analytics. Geen data-silos meer.' }},
+    { '@type': 'Question', name: 'Hoe betrouwbaar zijn AI-voorspellingen?', acceptedAnswer: { '@type': 'Answer', text: 'De betrouwbaarheid hangt af van datakwaliteit en -volume. We starten altijd met een pilotfase waarin we de nauwkeurigheid meten en verbeteren voordat we live gaan.' }},
+    { '@type': 'Question', name: 'Hebben we een data scientist nodig?', acceptedAnswer: { '@type': 'Answer', text: 'Nee. Wij bouwen dashboards die voor iedereen begrijpelijk zijn. Geen technische kennis nodig. Inzichten worden vertaald naar concrete actiepunten in begrijpelijke taal.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'AI & Automatisering', item: 'https://startbeheer.nl/ai' },
+    { '@type': 'ListItem', position: 3, name: 'AI Analytics', item: 'https://startbeheer.nl/ai-analytics' },
+  ],
+}
+
 export default function AnalyticsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <AnalyticsPageClient />
     </>
   )

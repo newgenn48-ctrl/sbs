@@ -94,13 +94,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Welke processen zijn geschikt voor automatisering?', acceptedAnswer: { '@type': 'Answer', text: 'Processen met vaste regels, herhaling en handmatige data-invoer zijn ideaal. Denk aan factuurverwerking, leadregistratie, rapportages en gegevensoverdracht tussen systemen.' }},
+    { '@type': 'Question', name: 'Gebruiken jullie Zapier of Make?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, voor veel automatiseringen gebruiken we no-code tools zoals Zapier, Make of Power Automate. Voor complexere cases bouwen we custom oplossingen. We kiezen de beste tool voor uw situatie.' }},
+    { '@type': 'Question', name: 'Hoeveel tijd besparen we met automatisering?', acceptedAnswer: { '@type': 'Answer', text: 'Gemiddeld besparen onze klanten 10-20 uur per week op administratieve taken. We maken vooraf een business case met een realistische inschatting voor uw situatie.' }},
+    { '@type': 'Question', name: 'Wat als er iets misgaat in de automatisering?', acceptedAnswer: { '@type': 'Answer', text: 'We bouwen foutafhandeling in elke automatisering. Bij fouten krijgt u een notificatie en loggen we wat er misging. Kritieke processen hebben altijd een fallback naar handmatig.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'AI & Automatisering', item: 'https://startbeheer.nl/ai' },
+    { '@type': 'ListItem', position: 3, name: 'Proces Automatisering', item: 'https://startbeheer.nl/proces-automatisering' },
+  ],
+}
+
 export default function ProcessAutomationPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <ProcessAutomationPageClient />
     </>
   )

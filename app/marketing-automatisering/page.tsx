@@ -94,13 +94,35 @@ const jsonLd = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Welke marketing automation tool is het beste?', acceptedAnswer: { '@type': 'Answer', text: 'Dit hangt af van uw behoeften en budget. HubSpot is uitgebreid maar duurder. ActiveCampaign biedt goede balans prijs/functionaliteit. Mailchimp is prima voor starters. Wij adviseren op basis van uw specifieke situatie.' }},
+    { '@type': 'Question', name: 'Hoelang duurt een implementatie?', acceptedAnswer: { '@type': 'Answer', text: 'Een basis implementatie duurt 2-4 weken. Complexere setups met CRM-integraties en uitgebreide workflows kosten 6-8 weken. We werken in fases zodat u snel waarde ziet.' }},
+    { '@type': 'Question', name: 'Kunnen jullie koppelen met ons CRM?', acceptedAnswer: { '@type': 'Answer', text: 'Ja, we hebben ervaring met koppelingen naar Salesforce, HubSpot, Pipedrive, ActiveCampaign en andere CRM systemen. Integratie zorgt voor naadloze dataflow tussen marketing en sales.' }},
+    { '@type': 'Question', name: 'Wat kost marketing automation?', acceptedAnswer: { '@type': 'Answer', text: 'Software kost €50-500 per maand afhankelijk van de tool en contacten. Implementatie is een eenmalige investering van €2.000-5.000. Doorlopend beheer vanaf €300 per maand.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'Online Marketing', item: 'https://startbeheer.nl/marketing' },
+    { '@type': 'ListItem', position: 3, name: 'Marketing Automatisering', item: 'https://startbeheer.nl/marketing-automatisering' },
+  ],
+}
+
 export default function MarketingAutomationPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <MarketingAutomationClientPage />
     </>
   )

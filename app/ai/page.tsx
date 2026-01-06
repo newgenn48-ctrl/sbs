@@ -93,13 +93,34 @@ const serviceSchema = {
   }
 }
 
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Wat kost AI implementatie voor een MKB?', acceptedAnswer: { '@type': 'Answer', text: 'AI-oplossingen variëren sterk in prijs. Een eenvoudige chatbot begint vanaf €2.000, terwijl uitgebreide proces automatisering vanaf €5.000 kan kosten. We maken altijd eerst een business case om de ROI te berekenen.' }},
+    { '@type': 'Question', name: 'Hoe snel zien we resultaat van AI?', acceptedAnswer: { '@type': 'Answer', text: 'De meeste klanten zien binnen 4-8 weken na implementatie meetbare resultaten. Chatbots leveren direct tijdsbesparing, terwijl proces automatisering vaak 2-3 maanden nodig heeft voor volledig effect.' }},
+    { '@type': 'Question', name: 'Is ons bedrijf groot genoeg voor AI?', acceptedAnswer: { '@type': 'Answer', text: 'AI is niet alleen voor grote bedrijven. Juist MKB-bedrijven met 5-50 medewerkers profiteren enorm. Repetitieve taken kosten relatief meer tijd, waardoor de ROI van automatisering vaak hoger is.' }},
+    { '@type': 'Question', name: 'Moeten onze medewerkers technisch zijn?', acceptedAnswer: { '@type': 'Answer', text: 'Nee. Wij bouwen gebruiksvriendelijke oplossingen die iedereen kan bedienen. Daarnaast geven we training en blijven we beschikbaar voor support. Technische kennis is niet vereist.' }},
+  ],
+}
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startbeheer.nl' },
+    { '@type': 'ListItem', position: 2, name: 'AI & Automatisering', item: 'https://startbeheer.nl/ai' },
+  ],
+}
+
 export default function AIPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <AIPageClient />
     </>
   )
