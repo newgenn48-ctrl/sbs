@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
     optimizeCss: true,
   },
 
+  // Target modern browsers only - eliminates legacy polyfills
+  transpilePackages: [],
+
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
   images: {
     remotePatterns: [
       {
@@ -45,6 +53,11 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         headers: [
+          // Preconnect headers for faster resource loading
+          {
+            key: 'Link',
+            value: '<https://fonts.googleapis.com>; rel=preconnect, <https://fonts.gstatic.com>; rel=preconnect; crossorigin, <https://www.googletagmanager.com>; rel=preconnect',
+          },
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',

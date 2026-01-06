@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -8,20 +9,29 @@ import dynamic from 'next/dynamic'
 import {
   ArrowRight,
   CheckCircle2,
-  Phone,
   Sparkles
 } from 'lucide-react'
 
+// Lazy load 3D after LCP for better Core Web Vitals
 const HeroBackground = dynamic(() => import('@/components/3d/HeroBackground'), {
   ssr: false,
+  loading: () => null,
 })
 
 export default function HeroSection() {
+  const [show3D, setShow3D] = useState(false)
+
+  // Delay 3D loading until after initial paint
+  useEffect(() => {
+    const timer = requestIdleCallback(() => setShow3D(true), { timeout: 1500 })
+    return () => cancelIdleCallback(timer)
+  }, [])
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background */}
+      {/* 3D Background - loaded after initial render */}
       <div className="absolute inset-0 z-0">
-        <HeroBackground />
+        {show3D && <HeroBackground />}
       </div>
 
       {/* Gradient overlays for readability */}
