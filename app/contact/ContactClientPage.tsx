@@ -4,10 +4,10 @@ import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Send,
   MessageSquare,
-  CheckCircle2,
   AlertCircle,
   Loader2
 } from 'lucide-react'
@@ -22,6 +22,7 @@ interface FormErrors {
 }
 
 export default function ContactClientPage() {
+  const router = useRouter()
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -31,7 +32,6 @@ export default function ContactClientPage() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
 
   const validateForm = (): boolean => {
@@ -100,7 +100,7 @@ export default function ContactClientPage() {
         return
       }
 
-      setIsSubmitted(true)
+      router.push('/bedankt')
     } catch {
       setErrors({ general: 'Er is een fout opgetreden. Probeer het later opnieuw.' })
     } finally {
@@ -131,43 +131,7 @@ export default function ContactClientPage() {
           <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
 
           <div className="p-8 sm:p-12">
-            {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12"
-              >
-                <div className="w-20 h-20 rounded-full bg-quantum-green/20 flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-quantum-green" />
-                </div>
-                <h3 className="text-2xl font-display font-bold text-white mb-4">
-                  Bericht Verzonden!
-                </h3>
-                <p className="text-gray-300 mb-8 max-w-md mx-auto">
-                  Bedankt voor uw bericht. Wij nemen binnen 24 uur contact met u op.
-                </p>
-                <Button
-                  onClick={() => {
-                    setIsSubmitted(false)
-                    setErrors({})
-                    setFormState({
-                      name: '',
-                      email: '',
-                      phone: '',
-                      company: '',
-                      service: '',
-                      message: '',
-                    })
-                  }}
-                  variant="outline"
-                  className="border-white/20 hover:bg-white/5"
-                >
-                  Nog een bericht versturen
-                </Button>
-              </motion.div>
-            ) : (
-              <>
-                <div className="text-center mb-10">
+            <div className="text-center mb-10">
                   <Badge className="mb-4 px-4 py-2 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30">
                     <MessageSquare className="w-4 h-4 mr-2 inline" />
                     Contact
@@ -345,8 +309,6 @@ export default function ContactClientPage() {
                     </Button>
                   </div>
                 </form>
-              </>
-            )}
           </div>
         </motion.div>
       </div>
