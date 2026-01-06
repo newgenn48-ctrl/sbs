@@ -2,32 +2,26 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { Globe, Mail, Phone, Linkedin, Twitter } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 const footerLinks = {
   services: [
-    { name: 'IT Support & Infrastructure', href: '/it-support' },
-    { name: 'Growth Marketing', href: '/marketing' },
-    { name: 'Website Development', href: '/development' },
-    { name: 'AI & Automation', href: '/ai' },
+    { name: 'IT Beheer & Support', href: '/it-support' },
+    { name: 'Online Marketing', href: '/marketing' },
+    { name: 'Website Laten Maken', href: '/website-laten-maken' },
+    { name: 'AI & Automatisering', href: '/ai' },
   ],
   company: [
     { name: 'Over Ons', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Privacybeleid', href: '/privacy' },
     { name: 'Algemene Voorwaarden', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
+    { name: 'Cookiebeleid', href: '/cookies' },
     { name: 'Disclaimer', href: '/disclaimer' },
   ],
 }
-
-const socialLinks = [
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
-]
 
 export default function Footer() {
   return (
@@ -69,26 +63,15 @@ export default function Footer() {
                 <span>info@startbeheer.nl</span>
               </a>
               <div className="flex items-center gap-3 text-gray-300">
-                <Globe className="h-4 w-4" />
-                <span>Digital-First Operations</span>
+                <MapPin className="h-4 w-4" />
+                <span>Nederland</span>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-4 mt-6">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-10 h-10 rounded-lg bg-cyber-light flex items-center justify-center hover:bg-quantum-blue/20 transition-colors"
-                >
-                  <social.icon className="h-5 w-5 text-gray-300" />
-                </motion.a>
-              ))}
+            {/* Bedrijfsgegevens */}
+            <div className="mt-6 text-sm text-gray-500 space-y-1">
+              <p>KvK: 93769865</p>
+              <p>BTW: NL005041113B60</p>
             </div>
           </div>
 
@@ -154,11 +137,10 @@ export default function Footer() {
         <div className="pt-8 border-t border-cyber-light">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Start Beheer Solutions. All rights
-              reserved.
+              © {new Date().getFullYear()} Start Beheer Solutions. Alle rechten voorbehouden.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-500">
-              <span>Made with ♥ by Start Beheer Solutions</span>
+              <span>Gemaakt met ♥ door Start Beheer Solutions</span>
             </div>
           </div>
         </div>
