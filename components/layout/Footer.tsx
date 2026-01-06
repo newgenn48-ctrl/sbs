@@ -45,6 +45,7 @@ export default function Footer() {
                 width={200}
                 height={58}
                 className="h-16 w-auto"
+                loading="lazy"
               />
             </Link>
             <p className="text-gray-300 mb-6 max-w-sm">
