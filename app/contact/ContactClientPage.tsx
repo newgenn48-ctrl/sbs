@@ -161,6 +161,7 @@ export default function ContactClientPage() {
                         type="text"
                         id="name"
                         name="name"
+                        autoComplete="name"
                         value={formState.name}
                         onChange={handleChange}
                         aria-invalid={!!errors.name}
@@ -184,6 +185,7 @@ export default function ContactClientPage() {
                         type="email"
                         id="email"
                         name="email"
+                        autoComplete="email"
                         value={formState.email}
                         onChange={handleChange}
                         aria-invalid={!!errors.email}
@@ -210,6 +212,7 @@ export default function ContactClientPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        autoComplete="tel"
                         value={formState.phone}
                         onChange={handleChange}
                         aria-invalid={!!errors.phone}
@@ -233,6 +236,7 @@ export default function ContactClientPage() {
                         type="text"
                         id="company"
                         name="company"
+                        autoComplete="organization"
                         value={formState.company}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all"
@@ -248,6 +252,7 @@ export default function ContactClientPage() {
                     <select
                       id="service"
                       name="service"
+                      autoComplete="off"
                       value={formState.service}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all appearance-none"
@@ -268,6 +273,7 @@ export default function ContactClientPage() {
                     <textarea
                       id="message"
                       name="message"
+                      autoComplete="off"
                       rows={5}
                       value={formState.message}
                       onChange={handleChange}
