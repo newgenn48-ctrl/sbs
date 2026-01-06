@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -183,6 +184,20 @@ export default function RootLayout({
       lang="nl"
       className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17852710951"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17852710951');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen bg-cyber-darker antialiased font-sans">
         <script
           type="application/ld+json"
