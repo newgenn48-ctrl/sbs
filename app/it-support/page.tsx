@@ -48,6 +48,26 @@ export const metadata: Metadata = {
   }
 }
 
+// FAQ data voor schema
+const faqData = [
+  {
+    question: 'Hoe snel kunnen jullie reageren bij een storing?',
+    answer: 'Dat hangt af van uw SLA. Bij kritieke storingen reageren we meestal binnen 30 minuten. Voor minder urgente zaken hanteren we responstijden van 4 uur tot next-business-day, afhankelijk van uw afspraken.'
+  },
+  {
+    question: 'Kunnen jullie ook op locatie komen?',
+    answer: 'Ja, wij bieden zowel remote support als on-site ondersteuning. Voor hardwareproblemen, installaties of complexe netwerkissues komen we naar uw locatie. Remote support is vaak sneller en wordt daarom als eerste optie ingezet.'
+  },
+  {
+    question: 'Wat kost IT support bij jullie?',
+    answer: 'Wij werken met flexibele tariefmodellen: strippenkaart, vast uurtarief of een vast maandbedrag. De kosten hangen af van het aantal werkplekken, de gewenste responstijd en de scope van het beheer. Vraag een vrijblijvende offerte aan voor een prijs op maat.'
+  },
+  {
+    question: 'Nemen jullie bestaande IT-omgevingen over?',
+    answer: 'Ja, wij nemen regelmatig IT-omgevingen over van andere partijen of interne IT-ers. We beginnen met een grondige inventarisatie, documenteren alles en zorgen voor een soepele transitie zonder onderbreking van uw bedrijfsvoering.'
+  },
+]
+
 // JSON-LD Structured Data voor SEO
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -104,12 +124,54 @@ const jsonLd = {
   }
 }
 
+// FAQPage Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqData.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+}
+
+// BreadcrumbList Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://startbeheer.nl',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'IT Support & Beheer',
+      item: 'https://startbeheer.nl/it-support',
+    },
+  ],
+}
+
 export default function ITSupportPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <ITSupportPageClient />
     </>

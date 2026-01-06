@@ -233,13 +233,6 @@ export default function RootLayout({
         },
       ],
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5',
-      reviewCount: '10',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 
   const websiteSchema = {
