@@ -84,7 +84,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https:",
               "media-src 'self' blob:",
-              "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com wss:",
+              "connect-src 'self' https://www.google-analytics.com https://www.google.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://vitals.vercel-insights.com https://va.vercel-scripts.com wss:",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
