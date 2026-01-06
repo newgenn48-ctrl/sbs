@@ -102,53 +102,85 @@ export default function RootLayout({
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://startbeheer.nl/#organization',
     name: 'Start Beheer Solutions',
     alternateName: 'Start Beheer',
     url: 'https://startbeheer.nl',
-    logo: 'https://startbeheer.nl/sbs.webp',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://startbeheer.nl/sbs.webp',
+      width: 200,
+      height: 58,
+    },
     description:
       'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+31-6-87-874-001',
-      email: 'info@startbeheer.nl',
-      contactType: 'customer service',
-      availableLanguage: ['Dutch', 'English'],
-    },
+    foundingDate: '2024',
+    vatID: 'NL005041113B60',
+    legalName: 'Start Beheer Solutions',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+31-6-87874001',
+        email: 'info@startbeheer.nl',
+        contactType: 'customer service',
+        availableLanguage: ['Dutch', 'English'],
+        areaServed: 'NL',
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: '+31-6-87874001',
+        contactType: 'sales',
+        availableLanguage: ['Dutch', 'English'],
+        areaServed: 'NL',
+      },
+    ],
     areaServed: {
       '@type': 'Country',
       name: 'Nederland',
     },
-    serviceType: [
+    knowsAbout: [
       'IT Support',
-      'Digital Marketing',
-      'AI Automation',
+      'Systeembeheer',
       'Website Development',
+      'AI Automatisering',
+      'Online Marketing',
+      'Microsoft 365',
+      'Cybersecurity',
     ],
     slogan: 'Uw Complete Digitale Partner',
   }
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'ProfessionalService',
     '@id': 'https://startbeheer.nl/#localbusiness',
     name: 'Start Beheer Solutions',
     image: 'https://startbeheer.nl/sbs.webp',
     url: 'https://startbeheer.nl',
-    telephone: '+31-6-87-874-001',
+    telephone: '+31-6-87874001',
     email: 'info@startbeheer.nl',
+    vatID: 'NL005041113B60',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'NL',
+      addressRegion: 'Nederland',
     },
-    openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '09:00',
-      closes: '17:00',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 52.0907,
+      longitude: 5.1214,
     },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '17:00',
+      },
+    ],
     priceRange: '€€',
-    servesCuisine: undefined,
+    currenciesAccepted: 'EUR',
+    paymentAccepted: 'Bank Transfer, iDEAL',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'IT Diensten',
@@ -158,15 +190,26 @@ export default function RootLayout({
           itemOffered: {
             '@type': 'Service',
             name: 'IT Beheer & Support',
-            description: 'Complete IT ondersteuning voor uw bedrijf',
+            description: 'Complete IT ondersteuning voor ZZP en MKB bedrijven',
+            url: 'https://startbeheer.nl/it-support',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Website Development',
-            description: 'Professionele websites en webapplicaties',
+            name: 'Systeembeheer Uitbesteden',
+            description: 'Professioneel systeembeheer voor uw bedrijf',
+            url: 'https://startbeheer.nl/systeembeheer-uitbesteden',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Website Laten Maken',
+            description: 'Professionele websites en webshops op maat',
+            url: 'https://startbeheer.nl/website-laten-maken',
           },
         },
         {
@@ -175,6 +218,7 @@ export default function RootLayout({
             '@type': 'Service',
             name: 'AI & Automatisering',
             description: 'AI-oplossingen en procesautomatisering',
+            url: 'https://startbeheer.nl/ai',
           },
         },
         {
@@ -183,10 +227,31 @@ export default function RootLayout({
             '@type': 'Service',
             name: 'Online Marketing',
             description: 'SEO, Google Ads en social media marketing',
+            url: 'https://startbeheer.nl/marketing',
           },
         },
       ],
     },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: '10',
+      bestRating: '5',
+      worstRating: '1',
+    },
+  }
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://startbeheer.nl/#website',
+    url: 'https://startbeheer.nl',
+    name: 'Start Beheer Solutions',
+    description: 'IT Beheer, Websites & AI voor ZZP en MKB',
+    publisher: {
+      '@id': 'https://startbeheer.nl/#organization',
+    },
+    inLanguage: 'nl-NL',
   }
 
   return (
@@ -226,6 +291,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(localBusinessSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
           }}
         />
         <CursorGlow />
