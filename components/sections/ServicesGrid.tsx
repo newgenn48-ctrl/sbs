@@ -5,7 +5,45 @@ import Link from 'next/link'
 import { Shield, Code, BrainCircuit, Megaphone, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
-const services = [
+// Static color classes for Tailwind purging (dynamic classes don't work)
+const colorClasses = {
+  'quantum-blue': {
+    border: 'border-quantum-blue/20 hover:border-quantum-blue/40',
+    bg: 'bg-quantum-blue/10',
+    text: 'text-quantum-blue',
+    icon: 'text-quantum-blue',
+  },
+  'quantum-purple': {
+    border: 'border-quantum-purple/20 hover:border-quantum-purple/40',
+    bg: 'bg-quantum-purple/10',
+    text: 'text-quantum-purple',
+    icon: 'text-quantum-purple',
+  },
+  'quantum-green': {
+    border: 'border-quantum-green/20 hover:border-quantum-green/40',
+    bg: 'bg-quantum-green/10',
+    text: 'text-quantum-green',
+    icon: 'text-quantum-green',
+  },
+  'quantum-orange': {
+    border: 'border-quantum-orange/20 hover:border-quantum-orange/40',
+    bg: 'bg-quantum-orange/10',
+    text: 'text-quantum-orange',
+    icon: 'text-quantum-orange',
+  },
+} as const
+
+type ColorKey = keyof typeof colorClasses
+
+const services: Array<{
+  icon: typeof Shield
+  title: string
+  subtitle: string
+  description: string
+  href: string
+  color: ColorKey
+  services: Array<{ name: string; href: string }>
+}> = [
   {
     icon: Shield,
     title: 'IT Beheer & Support',
@@ -100,18 +138,18 @@ export default function ServicesGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className={`glass-effect p-6 sm:p-8 rounded-2xl border border-${service.color}/20 hover:border-${service.color}/40 transition-all group h-full`}
+              className={`glass-effect p-6 sm:p-8 rounded-2xl border ${colorClasses[service.color].border} transition-all group h-full`}
             >
               {/* Header */}
               <div className="flex items-start gap-4 mb-6">
-                <div className={`w-14 h-14 rounded-xl bg-${service.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                  <service.icon className={`w-7 h-7 text-${service.color}`} />
+                <div className={`w-14 h-14 rounded-xl ${colorClasses[service.color].bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <service.icon className={`w-7 h-7 ${colorClasses[service.color].icon}`} />
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-1">
                     {service.title}
                   </h3>
-                  <p className={`text-sm font-medium text-${service.color}`}>
+                  <p className={`text-sm font-medium ${colorClasses[service.color].text}`}>
                     {service.subtitle}
                   </p>
                 </div>
@@ -130,7 +168,7 @@ export default function ServicesGrid() {
                     href={subService.href}
                     className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors group/link"
                   >
-                    <CheckCircle2 className={`w-4 h-4 text-${service.color} flex-shrink-0`} />
+                    <CheckCircle2 className={`w-4 h-4 ${colorClasses[service.color].icon} flex-shrink-0`} />
                     <span className="group-hover/link:translate-x-1 transition-transform">
                       {subService.name}
                     </span>
@@ -141,7 +179,7 @@ export default function ServicesGrid() {
               {/* CTA Link */}
               <Link
                 href={service.href}
-                className={`inline-flex items-center gap-2 text-${service.color} font-medium text-sm hover:gap-3 transition-all group/cta`}
+                className={`inline-flex items-center gap-2 ${colorClasses[service.color].text} font-medium text-sm hover:gap-3 transition-all group/cta`}
               >
                 <span>Bekijk alle diensten</span>
                 <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" />

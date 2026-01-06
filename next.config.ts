@@ -77,12 +77,14 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
+              // Note: unsafe-inline/eval required for Next.js + Framer Motion + Three.js
+              // Consider implementing nonces for stricter CSP in production
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
-              "img-src 'self' data: blob: https: http:",
+              "img-src 'self' data: blob: https:",
               "media-src 'self' blob:",
-              "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com",
+              "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com wss:",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
