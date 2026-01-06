@@ -186,51 +186,32 @@ export default function RootLayout({
       '@type': 'OfferCatalog',
       name: 'IT Diensten',
       itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'IT Beheer & Support',
-            description: 'Complete IT ondersteuning voor ZZP en MKB bedrijven',
-            url: 'https://startbeheer.nl/it-support',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Systeembeheer Uitbesteden',
-            description: 'Professioneel systeembeheer voor uw bedrijf',
-            url: 'https://startbeheer.nl/systeembeheer-uitbesteden',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Website Laten Maken',
-            description: 'Professionele websites en webshops op maat',
-            url: 'https://startbeheer.nl/website-laten-maken',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'AI & Automatisering',
-            description: 'AI-oplossingen en procesautomatisering',
-            url: 'https://startbeheer.nl/ai',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Online Marketing',
-            description: 'SEO, Google Ads en social media marketing',
-            url: 'https://startbeheer.nl/marketing',
-          },
-        },
+        // IT Support categorie
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'IT Beheer & Support', description: 'Complete IT ondersteuning voor ZZP en MKB bedrijven', url: 'https://startbeheer.nl/it-support' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Systeembeheer Uitbesteden', description: 'Professioneel server- en netwerkbeheer', url: 'https://startbeheer.nl/systeembeheer-uitbesteden' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Werkplekbeheer Uitbesteden', description: 'Device management en endpoint beheer', url: 'https://startbeheer.nl/werkplekbeheer-uitbesteden' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Microsoft 365 Beheer', description: 'Implementatie en beheer van Microsoft 365', url: 'https://startbeheer.nl/microsoft-365-beheer' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cybersecurity', description: 'Beveiliging tegen hackers en ransomware', url: 'https://startbeheer.nl/cybersecurity' }},
+        // Development categorie
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Web Development', description: 'Custom websites en webapplicaties', url: 'https://startbeheer.nl/development' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Website Laten Maken', description: 'Professionele websites op maat', url: 'https://startbeheer.nl/website-laten-maken' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Webshop Laten Maken', description: 'E-commerce op Shopify of WooCommerce', url: 'https://startbeheer.nl/webshop-laten-maken' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Webapplicatie Laten Maken', description: 'Custom webapplicaties en portalen', url: 'https://startbeheer.nl/webapplicatie-laten-maken' }},
+        // AI categorie
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI & Automatisering', description: 'AI-oplossingen voor MKB', url: 'https://startbeheer.nl/ai' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Chatbots', description: '24/7 klantenservice automatiseren', url: 'https://startbeheer.nl/ai-chatbots' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Analytics', description: 'Voorspellende analyses en business intelligence', url: 'https://startbeheer.nl/ai-analytics' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Proces Automatisering', description: 'RPA en workflow automation', url: 'https://startbeheer.nl/proces-automatisering' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Virtuele Assistent', description: 'AI telefoonbeantwoording en afspraakplanning', url: 'https://startbeheer.nl/virtuele-assistent' }},
+        // Marketing categorie
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Online Marketing', description: 'Complete online marketing diensten', url: 'https://startbeheer.nl/marketing' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Ads Beheer', description: 'Professioneel Google Ads campagnebeheer', url: 'https://startbeheer.nl/google-ads-beheer' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SEO Specialist', description: 'Zoekmachine optimalisatie voor hogere rankings', url: 'https://startbeheer.nl/seo-specialist' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Social Media Marketing', description: 'Social media strategie en beheer', url: 'https://startbeheer.nl/social-media-marketing' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing Automatisering', description: 'Marketing automation en lead nurturing', url: 'https://startbeheer.nl/marketing-automatisering' }},
+        // Oplossingen
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'IT Oplossingen', description: 'Complete IT-oplossingen voor ZZP en MKB', url: 'https://startbeheer.nl/oplossingen' }},
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'ZZP Oplossingen', description: 'Website, e-mail en SEO voor zelfstandigen', url: 'https://startbeheer.nl/zzp-oplossingen' }},
       ],
     },
   }
