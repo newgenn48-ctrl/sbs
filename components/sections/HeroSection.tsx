@@ -1,64 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import {
   ArrowRight,
   CheckCircle2,
   Sparkles
 } from 'lucide-react'
 
-// Lazy load 3D after LCP for better Core Web Vitals
-const HeroBackground = dynamic(() => import('@/components/3d/HeroBackground'), {
-  ssr: false,
-  loading: () => null,
-})
-
-// Detect problematic in-app browsers (Instagram, Facebook, etc.)
-function isInAppBrowser(): boolean {
-  if (typeof window === 'undefined') return false
-  const ua = navigator.userAgent || navigator.vendor || ''
-  return /FBAN|FBAV|Instagram|Line|Twitter|TikTok/i.test(ua)
-}
-
-// Check if WebGL is supported
-function isWebGLSupported(): boolean {
-  if (typeof window === 'undefined') return false
-  try {
-    const canvas = document.createElement('canvas')
-    return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-  } catch {
-    return false
-  }
-}
-
 export default function HeroSection() {
-  const [show3D, setShow3D] = useState(false)
-
-  // Delay 3D loading and check browser compatibility
-  useEffect(() => {
-    // Skip 3D on in-app browsers or if WebGL not supported
-    if (isInAppBrowser() || !isWebGLSupported()) {
-      return
-    }
-
-    // Polyfill for requestIdleCallback
-    const requestIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
-    const cancelIdle = window.cancelIdleCallback || clearTimeout
-
-    const timer = requestIdle(() => setShow3D(true), { timeout: 1500 })
-    return () => cancelIdle(timer)
-  }, [])
-
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background - loaded after initial render */}
+      {/* Animated CSS Background - performant alternative to Three.js */}
       <div className="absolute inset-0 z-0">
-        {show3D && <HeroBackground />}
+        {/* Gradient orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-quantum-blue/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-quantum-purple/20 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-green/10 rounded-full blur-3xl animate-pulse [animation-delay:2s]" />
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
 
       {/* Gradient overlays for readability */}

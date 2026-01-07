@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import {
   UserCheck,
   Zap,
@@ -14,14 +13,44 @@ import {
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
-const NetworkScene = dynamic(() => import('@/components/3d/NetworkScene'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-quantum-blue/20 border-t-quantum-blue/60 rounded-full animate-spin" />
+// CSS Network Animation - performant replacement for Three.js NetworkScene
+function NetworkVisualization() {
+  return (
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-quantum-purple/10 via-cyber-dark to-quantum-blue/10" />
+
+      {/* Network nodes */}
+      <div className="absolute top-[20%] left-[25%] w-4 h-4 bg-quantum-blue rounded-full animate-pulse shadow-lg shadow-quantum-blue/50" />
+      <div className="absolute top-[35%] right-[30%] w-3 h-3 bg-quantum-purple rounded-full animate-pulse [animation-delay:0.5s] shadow-lg shadow-quantum-purple/50" />
+      <div className="absolute bottom-[25%] left-[35%] w-5 h-5 bg-quantum-green rounded-full animate-pulse [animation-delay:1s] shadow-lg shadow-quantum-green/50" />
+      <div className="absolute top-[60%] right-[25%] w-3 h-3 bg-quantum-orange rounded-full animate-pulse [animation-delay:1.5s] shadow-lg shadow-quantum-orange/50" />
+      <div className="absolute top-[45%] left-[15%] w-4 h-4 bg-quantum-blue/80 rounded-full animate-pulse [animation-delay:0.7s] shadow-lg shadow-quantum-blue/40" />
+      <div className="absolute bottom-[40%] right-[15%] w-3 h-3 bg-quantum-purple/80 rounded-full animate-pulse [animation-delay:1.2s] shadow-lg shadow-quantum-purple/40" />
+
+      {/* Connection lines */}
+      <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.3 }}>
+        <line x1="25%" y1="20%" x2="70%" y2="35%" stroke="url(#line-gradient)" strokeWidth="1" className="animate-pulse" />
+        <line x1="70%" y1="35%" x2="35%" y2="75%" stroke="url(#line-gradient)" strokeWidth="1" className="animate-pulse [animation-delay:0.5s]" />
+        <line x1="35%" y1="75%" x2="75%" y2="60%" stroke="url(#line-gradient)" strokeWidth="1" className="animate-pulse [animation-delay:1s]" />
+        <line x1="15%" y1="45%" x2="25%" y2="20%" stroke="url(#line-gradient)" strokeWidth="1" className="animate-pulse [animation-delay:0.3s]" />
+        <line x1="85%" y1="60%" x2="70%" y2="35%" stroke="url(#line-gradient)" strokeWidth="1" className="animate-pulse [animation-delay:0.8s]" />
+        <defs>
+          <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="50%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#22c55e" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* Floating particles */}
+      <div className="absolute top-[30%] left-[50%] w-1 h-1 bg-white/60 rounded-full animate-bounce [animation-duration:3s]" />
+      <div className="absolute top-[55%] left-[40%] w-1 h-1 bg-white/40 rounded-full animate-bounce [animation-duration:4s] [animation-delay:1s]" />
+      <div className="absolute top-[70%] right-[40%] w-1 h-1 bg-white/50 rounded-full animate-bounce [animation-duration:3.5s] [animation-delay:0.5s]" />
     </div>
-  ),
-})
+  )
+}
 
 const reasons = [
   {
@@ -95,7 +124,7 @@ export default function TestimonialsSection() {
               className="lg:hidden mb-8"
             >
               <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden bg-cyber-dark/30 border border-quantum-purple/20">
-                <NetworkScene />
+                <NetworkVisualization />
               </div>
             </motion.div>
 
@@ -135,9 +164,9 @@ export default function TestimonialsSection() {
               {/* Background glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              {/* 3D Network Visualization */}
+              {/* Network Visualization */}
               <div className="absolute inset-0 rounded-3xl overflow-hidden bg-cyber-dark/30 border border-quantum-purple/20">
-                <NetworkScene />
+                <NetworkVisualization />
               </div>
 
               {/* Floating benefits */}
