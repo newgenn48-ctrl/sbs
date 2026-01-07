@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -32,9 +32,9 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleSubmenuToggle = (name: string) => {
-    setOpenMobileSubmenu(openMobileSubmenu === name ? null : name)
-  }
+  const handleSubmenuToggle = useCallback((name: string) => {
+    setOpenMobileSubmenu(prev => prev === name ? null : name)
+  }, [])
 
   return (
     <>
@@ -67,9 +67,9 @@ export default function Header() {
                 alt="Start Beheer Solutions"
                 width={180}
                 height={52}
+                sizes="180px"
                 className="h-14 w-auto"
                 priority
-                fetchPriority="high"
               />
             </motion.div>
           </Link>

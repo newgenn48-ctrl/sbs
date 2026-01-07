@@ -5,7 +5,37 @@ import { Building2, User, Briefcase, TrendingUp, CheckCircle2, ArrowRight } from
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 
-const clientTypes = [
+// Static color classes to ensure Tailwind purges correctly
+const colorClasses = {
+  'quantum-blue': {
+    border: 'border-quantum-blue/20',
+    borderHover: 'hover:border-quantum-blue/40',
+    bg: 'bg-quantum-blue/10',
+    text: 'text-quantum-blue',
+  },
+  'quantum-purple': {
+    border: 'border-quantum-purple/20',
+    borderHover: 'hover:border-quantum-purple/40',
+    bg: 'bg-quantum-purple/10',
+    text: 'text-quantum-purple',
+  },
+  'quantum-green': {
+    border: 'border-quantum-green/20',
+    borderHover: 'hover:border-quantum-green/40',
+    bg: 'bg-quantum-green/10',
+    text: 'text-quantum-green',
+  },
+} as const
+
+type ColorKey = keyof typeof colorClasses
+
+const clientTypes: Array<{
+  icon: typeof User
+  title: string
+  description: string
+  needs: string[]
+  color: ColorKey
+}> = [
   {
     icon: User,
     title: 'ZZP\'ers',
@@ -83,10 +113,10 @@ export default function IdealClientProfile() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`glass-effect p-6 sm:p-8 rounded-2xl border border-${client.color}/20 hover:border-${client.color}/40 transition-all group h-full`}
+              className={`glass-effect p-6 sm:p-8 rounded-2xl border ${colorClasses[client.color].border} ${colorClasses[client.color].borderHover} transition-all group h-full`}
             >
-              <div className={`w-14 h-14 rounded-xl bg-${client.color}/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <client.icon className={`w-7 h-7 text-${client.color}`} />
+              <div className={`w-14 h-14 rounded-xl ${colorClasses[client.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <client.icon className={`w-7 h-7 ${colorClasses[client.color].text}`} />
               </div>
 
               <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-3">
@@ -100,7 +130,7 @@ export default function IdealClientProfile() {
               <div className="space-y-3">
                 {client.needs.map((need) => (
                   <div key={need} className="flex items-center gap-2 text-sm text-gray-300">
-                    <CheckCircle2 className={`w-4 h-4 text-${client.color} flex-shrink-0`} />
+                    <CheckCircle2 className={`w-4 h-4 ${colorClasses[client.color].text} flex-shrink-0`} />
                     <span>{need}</span>
                   </div>
                 ))}

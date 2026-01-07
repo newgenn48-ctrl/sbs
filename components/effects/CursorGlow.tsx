@@ -2,23 +2,37 @@
 
 import { useEffect, useRef, useCallback, useState } from 'react'
 
+// CSS custom properties for cursor states - more performant than inline styles
+const cursorStyles = `
+  .cursor-glow {
+    --glow-size: 35px;
+    --glow-bg: radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%);
+    --dot-size: 8px;
+    --dot-color: #00D9FF;
+    --dot-shadow: 0 0 12px 4px rgba(0,217,255,0.5);
+  }
+  .cursor-glow.hovering {
+    --glow-size: 50px;
+    --glow-bg: radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%);
+    --dot-size: 10px;
+    --dot-color: #8338EC;
+    --dot-shadow: 0 0 15px 5px rgba(131,56,236,0.5);
+  }
+`
+
 export default function CursorGlow() {
-  const [isTouchDevice, setIsTouchDevice] = useState(true) // Default to true to avoid flash
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
   const cursorRef = useRef<HTMLDivElement>(null)
-  const glowRef = useRef<HTMLDivElement>(null)
-  const dotRef = useRef<HTMLDivElement>(null)
   const isHoveringRef = useRef(false)
   const positionRef = useRef({ x: 0, y: 0 })
   const targetRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number>(0)
 
-  // Check for touch device on mount (client-side only)
   useEffect(() => {
     setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches)
   }, [])
 
   const updateCursor = useCallback(() => {
-    // Fast lerp for smooth but responsive movement
     const lerp = 0.35
     positionRef.current.x += (targetRef.current.x - positionRef.current.x) * lerp
     positionRef.current.y += (targetRef.current.y - positionRef.current.y) * lerp
@@ -31,7 +45,6 @@ export default function CursorGlow() {
   }, [])
 
   useEffect(() => {
-    // Skip on touch devices
     if (isTouchDevice) return
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -42,48 +55,23 @@ export default function CursorGlow() {
         cursorRef.current.style.opacity = '1'
       }
 
-      // Check for hoverable elements
       const target = e.target as HTMLElement
       const isHoverable = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')
 
       if (!!isHoverable !== isHoveringRef.current) {
         isHoveringRef.current = !!isHoverable
-
-        if (glowRef.current && dotRef.current) {
-          if (isHoveringRef.current) {
-            glowRef.current.style.width = '50px'
-            glowRef.current.style.height = '50px'
-            glowRef.current.style.background = 'radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%)'
-            dotRef.current.style.width = '10px'
-            dotRef.current.style.height = '10px'
-            dotRef.current.style.backgroundColor = '#8338EC'
-            dotRef.current.style.boxShadow = '0 0 15px 5px rgba(131,56,236,0.5)'
-          } else {
-            glowRef.current.style.width = '35px'
-            glowRef.current.style.height = '35px'
-            glowRef.current.style.background = 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)'
-            dotRef.current.style.width = '8px'
-            dotRef.current.style.height = '8px'
-            dotRef.current.style.backgroundColor = '#00D9FF'
-            dotRef.current.style.boxShadow = '0 0 12px 4px rgba(0,217,255,0.5)'
-          }
-        }
+        cursorRef.current?.classList.toggle('hovering', isHoveringRef.current)
       }
     }
 
     const handleMouseLeave = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.opacity = '0'
-      }
+      if (cursorRef.current) cursorRef.current.style.opacity = '0'
     }
 
     const handleMouseEnter = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.opacity = '1'
-      }
+      if (cursorRef.current) cursorRef.current.style.opacity = '1'
     }
 
-    // Start animation loop
     rafRef.current = requestAnimationFrame(updateCursor)
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
@@ -98,41 +86,34 @@ export default function CursorGlow() {
     }
   }, [updateCursor, isTouchDevice])
 
-  // Don't render on touch devices
-  if (isTouchDevice) {
-    return null
-  }
+  if (isTouchDevice) return null
 
   return (
-    <div
-      ref={cursorRef}
-      className="fixed pointer-events-none z-[9999] will-change-transform"
-      style={{ opacity: 0 }}
-    >
-      {/* Outer glow */}
+    <>
+      <style>{cursorStyles}</style>
       <div
-        ref={glowRef}
-        className="absolute rounded-full transition-all duration-150"
-        style={{
-          width: 35,
-          height: 35,
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%)',
-        }}
-      />
-      {/* Inner dot */}
-      <div
-        ref={dotRef}
-        className="rounded-full transition-all duration-150"
-        style={{
-          width: 8,
-          height: 8,
-          backgroundColor: '#00D9FF',
-          boxShadow: '0 0 12px 4px rgba(0,217,255,0.5)',
-        }}
-      />
-    </div>
+        ref={cursorRef}
+        className="cursor-glow fixed pointer-events-none z-[9999] will-change-transform"
+        style={{ opacity: 0 }}
+      >
+        <div
+          className="absolute rounded-full transition-all duration-150 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: 'var(--glow-size)',
+            height: 'var(--glow-size)',
+            background: 'var(--glow-bg)',
+          }}
+        />
+        <div
+          className="rounded-full transition-all duration-150"
+          style={{
+            width: 'var(--dot-size)',
+            height: 'var(--dot-size)',
+            backgroundColor: 'var(--dot-color)',
+            boxShadow: 'var(--dot-shadow)',
+          }}
+        />
+      </div>
+    </>
   )
 }

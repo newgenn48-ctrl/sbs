@@ -44,6 +44,7 @@ export default function Footer() {
                 alt="Start Beheer Solutions"
                 width={200}
                 height={58}
+                sizes="200px"
                 className="h-16 w-auto"
                 loading="lazy"
               />

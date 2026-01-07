@@ -5,7 +5,49 @@ import { MessageSquare, FileSearch, Rocket, HeartHandshake, ArrowRight } from 'l
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 
-const processSteps = [
+// Static color classes to ensure Tailwind purges correctly
+const colorClasses = {
+  'quantum-blue': {
+    border: 'border-quantum-blue/20',
+    borderHover: 'hover:border-quantum-blue/40',
+    bg: 'bg-quantum-blue/10',
+    bgSolid: 'bg-quantum-blue',
+    text: 'text-quantum-blue',
+  },
+  'quantum-purple': {
+    border: 'border-quantum-purple/20',
+    borderHover: 'hover:border-quantum-purple/40',
+    bg: 'bg-quantum-purple/10',
+    bgSolid: 'bg-quantum-purple',
+    text: 'text-quantum-purple',
+  },
+  'quantum-green': {
+    border: 'border-quantum-green/20',
+    borderHover: 'hover:border-quantum-green/40',
+    bg: 'bg-quantum-green/10',
+    bgSolid: 'bg-quantum-green',
+    text: 'text-quantum-green',
+  },
+  'quantum-orange': {
+    border: 'border-quantum-orange/20',
+    borderHover: 'hover:border-quantum-orange/40',
+    bg: 'bg-quantum-orange/10',
+    bgSolid: 'bg-quantum-orange',
+    text: 'text-quantum-orange',
+  },
+} as const
+
+type ColorKey = keyof typeof colorClasses
+
+const processSteps: Array<{
+  icon: typeof MessageSquare
+  step: string
+  title: string
+  subtitle: string
+  description: string
+  highlights: string[]
+  color: ColorKey
+}> = [
   {
     icon: MessageSquare,
     step: '01',
@@ -83,7 +125,7 @@ export default function OurApproach() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative glass-effect p-6 sm:p-8 rounded-2xl border border-${step.color}/20 hover:border-${step.color}/40 transition-all group h-full overflow-hidden`}
+                className={`relative glass-effect p-6 sm:p-8 rounded-2xl border ${colorClasses[step.color].border} ${colorClasses[step.color].borderHover} transition-all group h-full overflow-hidden`}
               >
                 {/* Step Number Background */}
                 <div className="absolute -top-4 -right-4 text-8xl font-display font-bold text-white/[0.03] select-none pointer-events-none">
@@ -93,11 +135,11 @@ export default function OurApproach() {
                 {/* Header */}
                 <div className="flex items-start gap-4 mb-6 relative z-10">
                   <div className="relative">
-                    <div className={`w-16 h-16 rounded-2xl bg-${step.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <step.icon className={`w-8 h-8 text-${step.color}`} />
+                    <div className={`w-16 h-16 rounded-2xl ${colorClasses[step.color].bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <step.icon className={`w-8 h-8 ${colorClasses[step.color].text}`} />
                     </div>
                     {/* Step badge */}
-                    <span className={`absolute -top-2 -right-2 w-7 h-7 rounded-full bg-${step.color} text-white text-xs font-bold flex items-center justify-center`}>
+                    <span className={`absolute -top-2 -right-2 w-7 h-7 rounded-full ${colorClasses[step.color].bgSolid} text-white text-xs font-bold flex items-center justify-center`}>
                       {step.step}
                     </span>
                   </div>
@@ -119,7 +161,7 @@ export default function OurApproach() {
                   {step.highlights.map((highlight) => (
                     <span
                       key={highlight}
-                      className={`inline-flex items-center px-3 py-1.5 bg-${step.color}/10 text-${step.color} text-xs font-medium rounded-full`}
+                      className={`inline-flex items-center px-3 py-1.5 ${colorClasses[step.color].bg} ${colorClasses[step.color].text} text-xs font-medium rounded-full`}
                     >
                       {highlight}
                     </span>

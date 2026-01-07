@@ -52,7 +52,42 @@ function NetworkVisualization() {
   )
 }
 
-const reasons = [
+// Static color classes to ensure Tailwind purges correctly
+const colorClasses = {
+  'quantum-blue': {
+    border: 'border-quantum-blue/20',
+    borderHover: 'hover:border-quantum-blue/40',
+    bg: 'bg-quantum-blue/10',
+    text: 'text-quantum-blue',
+  },
+  'quantum-purple': {
+    border: 'border-quantum-purple/20',
+    borderHover: 'hover:border-quantum-purple/40',
+    bg: 'bg-quantum-purple/10',
+    text: 'text-quantum-purple',
+  },
+  'quantum-green': {
+    border: 'border-quantum-green/20',
+    borderHover: 'hover:border-quantum-green/40',
+    bg: 'bg-quantum-green/10',
+    text: 'text-quantum-green',
+  },
+  'quantum-orange': {
+    border: 'border-quantum-orange/20',
+    borderHover: 'hover:border-quantum-orange/40',
+    bg: 'bg-quantum-orange/10',
+    text: 'text-quantum-orange',
+  },
+} as const
+
+type ColorKey = keyof typeof colorClasses
+
+const reasons: Array<{
+  icon: typeof UserCheck
+  title: string
+  description: string
+  color: ColorKey
+}> = [
   {
     icon: UserCheck,
     title: 'Eén Vast Aanspreekpunt',
@@ -79,7 +114,11 @@ const reasons = [
   },
 ]
 
-const additionalBenefits = [
+const additionalBenefits: Array<{
+  icon: typeof Clock
+  text: string
+  color: ColorKey
+}> = [
   { icon: Clock, text: 'Snelle responstijd', color: 'quantum-blue' },
   { icon: Lightbulb, text: 'Proactief meedenken', color: 'quantum-purple' },
   { icon: HeartHandshake, text: 'Persoonlijke aanpak', color: 'quantum-green' },
@@ -137,10 +176,10 @@ export default function TestimonialsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className={`glass-effect p-5 rounded-2xl border border-${reason.color}/20 hover:border-${reason.color}/40 transition-all group h-full`}
+                  className={`glass-effect p-5 rounded-2xl border ${colorClasses[reason.color].border} ${colorClasses[reason.color].borderHover} transition-all group h-full`}
                 >
-                  <div className={`w-12 h-12 rounded-xl bg-${reason.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <reason.icon className={`w-6 h-6 text-${reason.color}`} />
+                  <div className={`w-12 h-12 rounded-xl ${colorClasses[reason.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <reason.icon className={`w-6 h-6 ${colorClasses[reason.color].text}`} />
                   </div>
                   <h3 className="text-lg font-display font-bold text-white mb-2">
                     {reason.title}
@@ -182,8 +221,8 @@ export default function TestimonialsSection() {
                         viewport={{ once: true }}
                         className="flex flex-col items-center gap-2 text-center"
                       >
-                        <div className={`w-10 h-10 rounded-xl bg-${benefit.color}/10 flex items-center justify-center`}>
-                          <benefit.icon className={`w-5 h-5 text-${benefit.color}`} />
+                        <div className={`w-10 h-10 rounded-xl ${colorClasses[benefit.color].bg} flex items-center justify-center`}>
+                          <benefit.icon className={`w-5 h-5 ${colorClasses[benefit.color].text}`} />
                         </div>
                         <span className="text-xs text-gray-300">{benefit.text}</span>
                       </motion.div>
@@ -213,8 +252,8 @@ export default function TestimonialsSection() {
                   viewport={{ once: true }}
                   className="flex flex-col items-center gap-3 text-center"
                 >
-                  <div className={`w-12 h-12 rounded-xl bg-${benefit.color}/10 flex items-center justify-center`}>
-                    <benefit.icon className={`w-6 h-6 text-${benefit.color}`} />
+                  <div className={`w-12 h-12 rounded-xl ${colorClasses[benefit.color].bg} flex items-center justify-center`}>
+                    <benefit.icon className={`w-6 h-6 ${colorClasses[benefit.color].text}`} />
                   </div>
                   <span className="text-sm text-gray-300">{benefit.text}</span>
                 </motion.div>
