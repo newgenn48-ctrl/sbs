@@ -235,18 +235,16 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Preconnect to external domains for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect only for Google Ads - fonts handled by next/font */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-        {/* Google Ads */}
+        {/* Google Ads - load after page is interactive */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17852710951"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-ads" strategy="afterInteractive">
+        <Script id="google-ads" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

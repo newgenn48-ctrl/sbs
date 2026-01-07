@@ -53,10 +53,10 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         headers: [
-          // Preconnect headers for faster resource loading
+          // Preconnect for Google Tag Manager only (fonts handled by next/font)
           {
             key: 'Link',
-            value: '<https://fonts.googleapis.com>; rel=preconnect, <https://fonts.gstatic.com>; rel=preconnect; crossorigin, <https://www.googletagmanager.com>; rel=preconnect',
+            value: '<https://www.googletagmanager.com>; rel=preconnect',
           },
           {
             key: 'X-DNS-Prefetch-Control',

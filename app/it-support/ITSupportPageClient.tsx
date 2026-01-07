@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -14,7 +13,7 @@ import {
   Headphones, MapPin, Star, Activity, Search, Cloud, Shield, Monitor,
   FileCheck, ShieldCheck, BookOpen
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
@@ -33,18 +32,15 @@ const useIsMobile = () => {
   return isMobile
 }
 
-// Loading skeleton voor 3D component (buiten Canvas)
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
+// Deferred Canvas for better LCP
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
       <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-      <p className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-sm text-gray-500 whitespace-nowrap">
-        Laden...
-      </p>
     </div>
-  </div>
-)
+  ),
+})
 
 const ITInfrastructure = dynamic(() => import('@/components/3d/ITInfrastructure'), {
   ssr: false
@@ -54,8 +50,54 @@ const ITInfrastructure = dynamic(() => import('@/components/3d/ITInfrastructure'
 // DATA
 // ============================================================================
 
+// Static color classes to ensure Tailwind purges correctly
+const colorClasses = {
+  'quantum-blue': {
+    border: 'border-quantum-blue/20',
+    borderHover: 'hover:border-quantum-blue/40',
+    bg: 'bg-quantum-blue/10',
+    bgHover: 'hover:bg-quantum-blue/20',
+    text: 'text-quantum-blue',
+    btnBorder: 'border-quantum-blue/30',
+  },
+  'quantum-purple': {
+    border: 'border-quantum-purple/20',
+    borderHover: 'hover:border-quantum-purple/40',
+    bg: 'bg-quantum-purple/10',
+    bgHover: 'hover:bg-quantum-purple/20',
+    text: 'text-quantum-purple',
+    btnBorder: 'border-quantum-purple/30',
+  },
+  'quantum-green': {
+    border: 'border-quantum-green/20',
+    borderHover: 'hover:border-quantum-green/40',
+    bg: 'bg-quantum-green/10',
+    bgHover: 'hover:bg-quantum-green/20',
+    text: 'text-quantum-green',
+    btnBorder: 'border-quantum-green/30',
+  },
+  'quantum-orange': {
+    border: 'border-quantum-orange/20',
+    borderHover: 'hover:border-quantum-orange/40',
+    bg: 'bg-quantum-orange/10',
+    bgHover: 'hover:bg-quantum-orange/20',
+    text: 'text-quantum-orange',
+    btnBorder: 'border-quantum-orange/30',
+  },
+} as const
+
+type ColorKey = keyof typeof colorClasses
+
 // De 4 hoofdcategorieën met links naar subpagina's
-const itCategories = [
+const itCategories: Array<{
+  icon: typeof Server
+  title: string
+  description: string
+  features: string[]
+  link: string
+  color: ColorKey
+  cta: string
+}> = [
   {
     icon: Server,
     title: 'Systeembeheer',
@@ -95,7 +137,13 @@ const itCategories = [
 ]
 
 // Support modellen
-const supportModels = [
+const supportModels: Array<{
+  icon: typeof Headphones
+  title: string
+  description: string
+  features: string[]
+  color: ColorKey
+}> = [
   {
     icon: Headphones,
     title: 'Remote IT Support',
@@ -234,9 +282,9 @@ const faqs = [
 
 const CategoryCard = ({ category, index }: { category: typeof itCategories[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border border-${category.color}/20 hover:border-${category.color}/40 transition-all group flex flex-col`}>
-      <div className={`w-14 h-14 rounded-2xl bg-${category.color}/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <category.icon className={`w-7 h-7 text-${category.color}`} />
+    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${colorClasses[category.color].border} ${colorClasses[category.color].borderHover} transition-all group flex flex-col`}>
+      <div className={`w-14 h-14 rounded-2xl ${colorClasses[category.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+        <category.icon className={`w-7 h-7 ${colorClasses[category.color].text}`} />
       </div>
 
       <h3 className="text-2xl font-bold mb-3">{category.title}</h3>
@@ -245,14 +293,14 @@ const CategoryCard = ({ category, index }: { category: typeof itCategories[0], i
       <ul className="space-y-2 mb-6 flex-grow">
         {category.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
-            <CheckCircle2 className={`w-4 h-4 text-${category.color} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${colorClasses[category.color].text} flex-shrink-0`} />
             {feature}
           </li>
         ))}
       </ul>
 
       <Button
-        className={`w-full bg-${category.color}/10 hover:bg-${category.color}/20 text-${category.color} border border-${category.color}/30`}
+        className={`w-full ${colorClasses[category.color].bg} ${colorClasses[category.color].bgHover} ${colorClasses[category.color].text} border ${colorClasses[category.color].btnBorder}`}
         asChild
       >
         <Link href={category.link}>
@@ -266,9 +314,9 @@ const CategoryCard = ({ category, index }: { category: typeof itCategories[0], i
 
 const SupportModelCard = ({ model, index }: { model: typeof supportModels[0], index: number }) => (
   <ScrollTrigger delay={index * 0.15}>
-    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border border-${model.color}/20 hover:border-${model.color}/40 transition-all group`}>
-      <div className={`w-14 h-14 rounded-2xl bg-${model.color}/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <model.icon className={`w-7 h-7 text-${model.color}`} />
+    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${colorClasses[model.color].border} ${colorClasses[model.color].borderHover} transition-all group`}>
+      <div className={`w-14 h-14 rounded-2xl ${colorClasses[model.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+        <model.icon className={`w-7 h-7 ${colorClasses[model.color].text}`} />
       </div>
 
       <h3 className="text-2xl font-bold mb-3">{model.title}</h3>
@@ -277,7 +325,7 @@ const SupportModelCard = ({ model, index }: { model: typeof supportModels[0], in
       <ul className="space-y-3">
         {model.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-3 text-sm">
-            <CheckCircle2 className={`w-4 h-4 text-${model.color} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${colorClasses[model.color].text} flex-shrink-0`} />
             <span className="text-gray-300">{feature}</span>
           </li>
         ))}
@@ -417,11 +465,12 @@ export default function ITSupportPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: isMobile ? [0, 0.5, 8] : [0, 0.5, 6], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ITInfrastructure />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas
+                camera={{ position: isMobile ? [0, 0.5, 8] : [0, 0.5, 6], fov: 45 }}
+                dpr={[1, 1.5]}
+              >
+                <ITInfrastructure />
+              </DeferredCanvas>
 
               {/* Floating cards */}
               <motion.div
