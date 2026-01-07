@@ -16,13 +16,40 @@ const BackgroundScene = dynamic(() => import('@/components/3d/BackgroundScene'),
   loading: () => null,
 })
 
+// Detect problematic in-app browsers (Instagram, Facebook, etc.)
+function isInAppBrowser(): boolean {
+  if (typeof window === 'undefined') return false
+  const ua = navigator.userAgent || navigator.vendor || ''
+  return /FBAN|FBAV|Instagram|Line|Twitter|TikTok/i.test(ua)
+}
+
+// Check if WebGL is supported
+function isWebGLSupported(): boolean {
+  if (typeof window === 'undefined') return false
+  try {
+    const canvas = document.createElement('canvas')
+    return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+  } catch {
+    return false
+  }
+}
+
 export default function HomePage() {
   const [show3D, setShow3D] = useState(false)
 
-  // Delay 3D loading until after initial paint for better Core Web Vitals
+  // Delay 3D loading and check browser compatibility
   useEffect(() => {
-    const timer = requestIdleCallback(() => setShow3D(true), { timeout: 2000 })
-    return () => cancelIdleCallback(timer)
+    // Skip 3D on in-app browsers or if WebGL not supported
+    if (isInAppBrowser() || !isWebGLSupported()) {
+      return
+    }
+
+    // Polyfill for requestIdleCallback
+    const requestIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
+    const cancelIdle = window.cancelIdleCallback || clearTimeout
+
+    const timer = requestIdle(() => setShow3D(true), { timeout: 2000 })
+    return () => cancelIdle(timer)
   }, [])
 
   return (
