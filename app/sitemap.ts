@@ -24,7 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Development pages
   const developmentPages = [
     '/development',
-    '/websites',
     '/website-laten-maken',
     '/webapplicatie-laten-maken',
     '/webshop-laten-maken',
@@ -48,10 +47,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/marketing-automatisering',
   ]
 
-  // Solutions pages
-  const solutionPages = [
-    '/zzp-oplossingen',
-  ]
+  // Solutions pages (currently empty - add solution pages here when they are added to navigation)
+  const solutionPages: string[] = []
 
   // Legal pages
   const legalPages = [
