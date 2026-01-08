@@ -61,13 +61,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ]
 
-  const allPages = [
-    ...mainPages,
+  // All service pages (high priority)
+  const servicePages = [
     ...itPages,
     ...developmentPages,
     ...aiPages,
     ...marketingPages,
     ...solutionPages,
+  ]
+
+  // Helper function to determine priority
+  const getPriority = (route: string): number => {
+    if (route === '') return 1.0 // Homepage
+    if (route === '/contact' || route === '/oplossingen') return 0.9 // Important pages
+    if (servicePages.includes(route)) return 0.9 // All service pages
+    if (route === '/about') return 0.8 // About page
+    if (legalPages.includes(route)) return 0.3 // Legal pages
+    return 0.8
+  }
+
+  const allPages = [
+    ...mainPages,
+    ...servicePages,
     ...legalPages,
   ]
 
@@ -75,6 +90,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified,
     changeFrequency: route === '' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1 : route.startsWith('/about') || route.startsWith('/contact') ? 0.9 : 0.8,
+    priority: getPriority(route),
   }))
 }
