@@ -109,9 +109,10 @@ export default function RootLayout({
     url: 'https://startbeheer.nl',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://startbeheer.nl/sbs.webp',
-      width: 200,
-      height: 58,
+      url: 'https://startbeheer.nl/icon-512.png',
+      width: 512,
+      height: 512,
+      caption: 'Start Beheer Solutions Logo',
     },
     description:
       'Uw betrouwbare IT-partner voor ZZP en MKB. Complete IT-oplossingen: systeembeheer, websites, AI-automatisering en online marketing.',
@@ -156,7 +157,7 @@ export default function RootLayout({
     '@type': 'ProfessionalService',
     '@id': 'https://startbeheer.nl/#localbusiness',
     name: 'Start Beheer Solutions',
-    image: 'https://startbeheer.nl/sbs.webp',
+    image: 'https://startbeheer.nl/icon-512.png',
     url: 'https://startbeheer.nl',
     telephone: '+31-6-87874001',
     email: 'info@startbeheer.nl',
