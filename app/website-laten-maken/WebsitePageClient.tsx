@@ -96,7 +96,7 @@ const services = [
 
 // Prijs info
 const priceInfo = {
-  price: 'Vanaf â‚¬785',
+  price: 'Vanaf €785',
   description: 'Professionele website volledig op maat',
   features: [
     'Custom design op maat',
@@ -122,7 +122,7 @@ const whyChooseUs = [
   {
     icon: Users,
     title: 'Directe Lijnen',
-    description: 'EÃ©n vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
+    description: 'Eén vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
     stat: '1',
     statLabel: 'contactpersoon'
   },
@@ -130,14 +130,14 @@ const whyChooseUs = [
     icon: FileText,
     title: 'Vaste Prijs',
     description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf, geen uurtje-factuurtje.',
-    stat: 'â‚¬',
+    stat: '€',
     statLabel: 'vast'
   },
   {
     icon: Rocket,
     title: 'Nazorg Inbegrepen',
     description: 'Na oplevering staan wij voor u klaar. Updates, kleine aanpassingen en technische support.',
-    stat: 'âˆž',
+    stat: '∞',
     statLabel: 'support'
   },
 ]
@@ -190,7 +190,7 @@ const faqs = [
   },
   {
     q: 'Regelen jullie ook hosting en domein?',
-    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u Ã©Ã©n aanspreekpunt voor alles.'
+    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
   },
   {
     q: 'Wat voor support krijg ik na oplevering?',
@@ -340,7 +340,7 @@ export default function WebsitePageClient() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
-                Wilt u een <strong className="text-white">website laten maken</strong> die Ã©cht resultaat oplevert? Wij bouwen <strong className="text-white">razendsnelle websites</strong> met een <strong className="text-white">uniek design</strong> die bezoekers omzetten in klanten.
+                Wilt u een <strong className="text-white">website laten maken</strong> die écht resultaat oplevert? Wij bouwen <strong className="text-white">razendsnelle websites</strong> met een <strong className="text-white">uniek design</strong> die bezoekers omzetten in klanten.
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -445,7 +445,7 @@ export default function WebsitePageClient() {
                 </h2>
                 <p className="text-lg text-gray-400 leading-relaxed">
                   In een wereld waar de eerste indruk vaak online plaatsvindt, is uw website cruciaal.
-                  Wij bouwen geen standaard websites - wij creÃ«ren <strong className="text-gray-300">digitale ervaringen</strong> die
+                  Wij bouwen geen standaard websites - wij creëren <strong className="text-gray-300">digitale ervaringen</strong> die
                   uw bezoekers overtuigen en converteren. Met oog voor detail, technische perfectie en uw unieke verhaal.
                 </p>
               </div>
