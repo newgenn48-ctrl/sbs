@@ -3,7 +3,7 @@ import MarketingPageClient from './MarketingPageClient'
 
 export const metadata: Metadata = {
   title: 'Online Marketing Bureau voor het MKB | Google Ads, SEO & Social Media',
-  description: 'Professioneel online marketing bureau voor het MKB. Van Google Ads en SEO tot Social Media en Marketing Automation. Wij bouwen een geintegreerd groei-ecosysteem. Geen vaste contracten. Meetbare resultaten.',
+  description: 'Professioneel online marketing bureau voor het MKB. Van Google Ads en SEO tot Social Media en Marketing Automation. Wij bouwen een geïntegreerd groei-ecosysteem. Geen vaste contracten. Meetbare resultaten.',
   keywords: [
     'online marketing bureau',
     'marketing bureau MKB',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Online Marketing Bureau voor het MKB | Start Beheer',
-    description: 'Professioneel online marketing bureau voor het MKB. Google Ads, SEO, Social Media en Marketing Automation in een geintegreerde aanpak.',
+    description: 'Professioneel online marketing bureau voor het MKB. Google Ads, SEO, Social Media en Marketing Automation in een geïntegreerde aanpak.',
     type: 'website',
     locale: 'nl_NL',
     siteName: 'Start Beheer',
