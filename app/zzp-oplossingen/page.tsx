@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import ZZPClientPage from './ZZPClientPage'
 
 export const metadata: Metadata = {
-  title: 'ZZP IT Oplossingen | Website, E-mail & SEO voor Zelfstandigen',
+  title: 'ZZP Oplossingen | Website, E-mail & SEO | Start Beheer',
   description: 'Complete digitale oplossingen voor ZZP\'ers: professionele website, zakelijke e-mail, lokale SEO en IT-support. Vanaf €99/mnd. ✓ Maandelijks opzegbaar ✓ Eén aanspreekpunt ✓ Bespaar 5-10 uur/mnd',
   keywords: 'ZZP IT oplossingen, website voor zzp, zakelijke e-mail zzp, lokale SEO zelfstandigen, IT support zzp, digitale oplossingen freelancer, ZZP pakket, ZZP website laten maken',
   openGraph: {
@@ -11,6 +11,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'nl_NL',
     url: 'https://startbeheer.nl/zzp-oplossingen',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ZZP Oplossingen | Website, E-mail & SEO | Start Beheer',
+    description: 'Complete digitale oplossingen voor ZZP\'ers. Website, e-mail, SEO en IT-support in één pakket.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: '/zzp-oplossingen'

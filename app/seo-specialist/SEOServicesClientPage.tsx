@@ -1,177 +1,32 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Search, CheckCircle2, ArrowRight,
-  TrendingUp, Globe, BarChart, FileText,
-  Link as LinkIcon, Target, Zap,
-  Shield, Award
+  TrendingUp, Globe, Target, Award
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whySEO, processSteps, faqs } from '@/lib/data/seo'
 
 const SEOSearchResults3D = dynamic(() => import('@/components/3d/SEOSearchResults3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// SEO diensten
-const services = [
-  {
-    icon: Zap,
-    title: 'Technische SEO',
-    description: 'Een waterdicht technisch fundament dat Google begrijpt en snel kan crawlen.',
-    features: ['Core Web Vitals optimalisatie', 'Schema markup', 'Crawl budget optimalisatie', 'Internationale SEO'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: FileText,
-    title: 'Content Strategie',
-    description: 'Content die niet alleen informeert, maar ook autoriteit en rankings bouwt.',
-    features: ['Diepgaand keyword research', 'Content gap analyse', 'Topical authority mapping', '10x content creatie'],
-    color: 'quantum-green'
-  },
-  {
-    icon: LinkIcon,
-    title: 'Linkbuilding',
-    description: 'Hoogwaardige backlinks die vertrouwen en autoriteit opbouwen.',
-    features: ['Digitale PR campagnes', 'Link-earning strategieën', 'Concurrentie backlink analyse', 'Broken link recovery'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Globe,
-    title: 'Local SEO',
-    description: 'Domineer lokale zoekresultaten en Google Maps voor uw regio.',
-    features: ['Google Business optimalisatie', 'Lokale citations', 'Review management', 'Local pack rankings'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Target,
-    title: 'Keyword Research',
-    description: 'Ontdek de zoekwoorden waar uw klanten daadwerkelijk naar zoeken.',
-    features: ['Search intent analyse', 'Long-tail opportunities', 'Concurrentie keyword analyse', 'Keyword clustering'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: BarChart,
-    title: 'Reporting & Analyse',
-    description: 'Transparante rapportage met focus op resultaten die ertoe doen.',
-    features: ['Live dashboard 24/7', 'Traffic & conversie tracking', 'ROI rapportage', 'Maandelijkse strategiesessies'],
-    color: 'quantum-green'
-  },
-]
-
-// Waarom SEO
-const whySEO = [
-  {
-    icon: TrendingUp,
-    title: 'Duurzame Groei',
-    description: 'SEO bouwt een fundament dat maanden en jaren blijft renderen, geen tijdelijke boost.',
-    stat: 'Langetermijn',
-    statLabel: 'investering'
-  },
-  {
-    icon: Award,
-    title: 'Gratis Verkeer',
-    description: 'Organisch verkeer kost geen klik-kosten. Elke bezoeker is pure winst.',
-    stat: '€0',
-    statLabel: 'per klik'
-  },
-  {
-    icon: Shield,
-    title: 'Autoriteit Opbouwen',
-    description: 'Hoge rankings positioneren u als expert en marktleider in uw vakgebied.',
-    stat: 'Top 3',
-    statLabel: 'posities'
-  },
-  {
-    icon: BarChart,
-    title: 'Lagere Kosten',
-    description: 'Minder afhankelijk van betaalde advertenties met steeds hogere kosten.',
-    stat: '-60%',
-    statLabel: 'ad spend'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'SEO Audit',
-    description: 'Diepgaande analyse van uw website, concurrentie en groeikansen.',
-    icon: Search
-  },
-  {
-    step: '02',
-    title: 'Strategie',
-    description: 'Datagedreven SEO-strategie afgestemd op uw bedrijfsdoelen.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'Technische optimalisaties, content creatie en linkbuilding campagnes.',
-    icon: Zap
-  },
-  {
-    step: '04',
-    title: 'Monitoring',
-    description: 'Continue optimalisatie op basis van data en Google updates.',
-    icon: TrendingUp
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe lang duurt het voordat we resultaten zien?',
-    a: 'SEO is een marathon, geen sprint. Technische verbeteringen kunnen binnen weken effect hebben, maar duurzame autoriteit en top rankings duren meestal 3-6 maanden. Dit is een investering in structurele groei, in tegenstelling tot betaalde advertenties die stoppen zodra u stopt met betalen.'
-  },
-  {
-    q: 'Garanderen jullie nummer 1 posities?',
-    a: 'Nee, en elk bureau dat dit doet is onbetrouwbaar. Google\'s algoritme is complex en verandert constant. Wat we wel garanderen is meetbare verbetering in organische zichtbaarheid, verkeer en leads door bewezen white-hat SEO-strategieën toe te passen.'
-  },
-  {
-    q: 'Gebruiken jullie alleen white-hat SEO methoden?',
-    a: 'Absoluut. We gebruiken alleen door Google goedgekeurde, duurzame strategieën. Geen riskante trucjes, spam of manipulatie. Onze focus ligt op het bouwen van echte waarde en autoriteit die bestand is tegen alle Google updates.'
-  },
-  {
-    q: 'Hoe meten jullie het succes van een SEO-campagne?',
-    a: 'We kijken verder dan alleen rankings. Onze rapportages focussen op wat echt belangrijk is: groei in organisch verkeer, toename in conversies (leads, verkopen), en verbetering van uw keyword footprint. Alles wordt bijgehouden in een transparant live-dashboard dat u 24/7 kunt raadplegen.'
-  },
-]
 
 
 // ============================================================================
@@ -258,7 +113,7 @@ export default function SEOServicesClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -307,10 +162,10 @@ export default function SEOServicesClientPage() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -319,16 +174,14 @@ export default function SEOServicesClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <SEOSearchResults3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <SEOSearchResults3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -343,9 +196,9 @@ export default function SEOServicesClientPage() {
                     <p className="text-lg font-bold">+250% verkeer</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -360,8 +213,8 @@ export default function SEOServicesClientPage() {
                     <p className="text-lg font-bold">Top 3</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -380,6 +233,7 @@ export default function SEOServicesClientPage() {
                     alt="SEO analyse en optimalisatie dashboard"
                     width={1200}
                     height={800}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="w-full h-auto"
                   />
                 </div>

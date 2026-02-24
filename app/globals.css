@@ -43,32 +43,6 @@
   --font-display: var(--font-plus-jakarta-sans), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), monospace;
 
-  /* Animations */
-  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-gradient-shift: gradient-shift 8s ease infinite;
-
-  @keyframes glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
-      transform: scale(1);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(0, 217, 255, 0.8);
-      transform: scale(1.02);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
   @keyframes hologram-scan {
     0% { transform: translateX(-200%); }
     100% { transform: translateX(200%); }
@@ -103,15 +77,6 @@
 
 /* Utility Classes */
 @layer utilities {
-  /* Blueprint Grid Background */
-  .blueprint-background {
-    background-color: var(--color-background);
-    background-image:
-      linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(to right, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-  }
-
   /* Quantum Text Gradient */
   .text-gradient {
     background: linear-gradient(to right, var(--color-quantum-blue), var(--color-quantum-purple), var(--color-quantum-green));
@@ -130,16 +95,6 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Neon Glow */
-  .neon-glow {
-    box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
-  }
-
-  /* Cyber Border Cut */
-  .cyber-border {
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
-  }
-
   /* Hologram Scan Effect */
   .hologram-effect {
     background: linear-gradient(135deg, transparent 30%, rgba(0, 217, 255, 0.1) 50%, transparent 70%);
@@ -154,10 +109,6 @@
     background-size: 50px 50px;
   }
 
-  /* Pulse Glow */
-  .pulse-glow {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
 }
 
 /* Custom Scrollbar */
@@ -197,46 +148,11 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Browser Compatibility - User Select (prefixes before standard) */
-.no-select {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.select-text {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-/* Browser Compatibility - Mask Image */
-.mask-gradient {
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-
 /* Browser Compatibility - Appearance (prefixes before standard) */
 .appearance-none {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-/* Browser Compatibility - Transform */
-.gpu-accelerated {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-/* Browser Compatibility - Text Wrap fallback for Safari < 17.4 */
-.text-nowrap {
-  white-space: nowrap;
-  text-wrap: nowrap;
 }
 
 /* Accessibility - Reduced Motion */
@@ -252,7 +168,6 @@ html {
 
   .animate-pulse,
   .animate-ping,
-  .pulse-glow,
   .hologram-effect {
     animation: none !important;
   }

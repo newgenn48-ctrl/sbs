@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Building2, User, Briefcase, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
@@ -86,7 +86,7 @@ export default function IdealClientProfile() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.header
+        <m.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -102,12 +102,12 @@ export default function IdealClientProfile() {
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Onze diensten zijn specifiek afgestemd op zelfstandigen en het midden- en kleinbedrijf.
           </p>
-        </motion.header>
+        </m.header>
 
         {/* Client Types Grid */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto mb-16">
           {clientTypes.map((client, index) => (
-            <motion.article
+            <m.article
               key={client.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -135,12 +135,12 @@ export default function IdealClientProfile() {
                   </div>
                 ))}
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
 
         {/* Ideal Fit Section */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -161,7 +161,7 @@ export default function IdealClientProfile() {
 
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {idealFit.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -171,7 +171,7 @@ export default function IdealClientProfile() {
                 >
                   <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0 mt-0.5" />
                   <span className="text-gray-300">{item}</span>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -185,7 +185,7 @@ export default function IdealClientProfile() {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

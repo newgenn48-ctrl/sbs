@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import SocialMediaClientPage from './SocialMediaClientPage'
 
 export const metadata: Metadata = {
-  title: 'Social Media Marketing | Bouw een Community & Versterk uw Merk | Start Beheer',
+  title: 'Social Media Marketing voor MKB | Start Beheer',
   description: 'Effectieve social media marketing die uw doelgroep engageert en converteert. Van strategie en content creatie tot community management en advertising op alle grote platforms.',
   keywords: [
     'social media marketing',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'social media MKB'
   ],
   openGraph: {
-    title: 'Social Media Marketing | Bouw een Community & Versterk uw Merk',
+    title: 'Social Media Marketing voor MKB | Start Beheer',
     description: 'Effectieve social media marketing die uw doelgroep engageert en converteert.',
     type: 'website',
     locale: 'nl_NL',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Social Media Marketing | Bouw een Community & Versterk uw Merk | Start Beheer',
+    title: 'Social Media Marketing voor MKB | Start Beheer',
     description: 'Effectieve social media marketing die uw doelgroep engageert en converteert op alle grote platforms.',
   },
   alternates: {

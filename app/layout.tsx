@@ -7,11 +7,12 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import CursorGlow from '@/components/effects/CursorGlow'
+import MotionProvider from '@/components/providers/MotionProvider'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-plus-jakarta-sans',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
@@ -86,6 +87,7 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
+  manifest: '/manifest.json',
 }
 
 export const viewport: Viewport = {
@@ -236,9 +238,12 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Preconnect only for Google Ads - fonts handled by next/font */}
+        {/* Preconnect hints for third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
         {/* Google Ads - load after page is interactive */}
         <Script
@@ -273,12 +278,14 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-        <CursorGlow />
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main id="main-content" className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <MotionProvider>
+          <CursorGlow />
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main id="main-content" className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </MotionProvider>
         <SpeedInsights />
         <Analytics />
       </body>

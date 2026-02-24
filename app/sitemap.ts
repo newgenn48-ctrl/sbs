@@ -47,15 +47,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/marketing-automatisering',
   ]
 
-  // Solutions pages (currently empty - add solution pages here when they are added to navigation)
-  const solutionPages: string[] = []
+  // Solutions pages
+  const solutionPages = [
+    '/websites',
+    '/zzp-oplossingen',
+  ]
 
-  // Legal pages
+  // Legal / utility pages
   const legalPages = [
     '/privacy',
     '/cookies',
     '/disclaimer',
     '/terms',
+    '/bedankt',
   ]
 
   // All service pages (high priority)

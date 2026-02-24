@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 import { Shield, Code, BrainCircuit, Megaphone, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -111,7 +111,7 @@ export default function ServicesGrid() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.header
+        <m.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -127,12 +127,12 @@ export default function ServicesGrid() {
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Van IT beheer uitbesteden tot website laten maken. Wij zijn uw centrale partner voor alle digitale oplossingen.
           </p>
-        </motion.header>
+        </m.header>
 
         {/* Services Grid */}
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-7xl mx-auto">
           {services.map((service, index) => (
-            <motion.article
+            <m.article
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -184,12 +184,12 @@ export default function ServicesGrid() {
                 <span>Bekijk alle diensten</span>
                 <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" />
               </Link>
-            </motion.article>
+            </m.article>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -207,7 +207,7 @@ export default function ServicesGrid() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

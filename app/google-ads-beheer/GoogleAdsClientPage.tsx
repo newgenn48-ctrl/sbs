@@ -1,173 +1,32 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   BarChart3, CheckCircle2, ArrowRight,
-  Target, TrendingUp, Search, Filter,
-  Zap, LineChart,
-  DollarSign, MousePointer, Eye
+  Target, TrendingUp, DollarSign
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-green/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-green/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyGoogleAds, processSteps, faqs } from '@/lib/data/google-ads'
 
 const GoogleAdsDashboard3D = dynamic(() => import('@/components/3d/GoogleAdsDashboard3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-const services = [
-  {
-    icon: Search,
-    title: 'Zoekwoord Strategie',
-    description: 'Vind de meest winstgevende zoekwoorden voor uw business met onze diepgaande analyse.',
-    features: ['Long-tail keywords', 'Concurrentie analyse', 'Intentie mapping', 'Negatieve keywords'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Target,
-    title: 'Doelgroep Targeting',
-    description: 'Bereik uw ideale klant op basis van demografie, locatie en online gedrag.',
-    features: ['Locatie targeting', 'Demografie filters', 'Remarketing', 'Lookalike audiences'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: MousePointer,
-    title: 'Advertentie Creatie',
-    description: 'Overtuigende advertenties die klikken genereren en converteren.',
-    features: ['A/B testing', 'Responsive ads', 'Ad extensions', 'Call-to-actions'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Conversie Optimalisatie',
-    description: 'Maximaliseer uw ROI met continue optimalisatie van campagnes.',
-    features: ['Conversie tracking', 'Landingspagina advies', 'Quality Score', 'Bid management'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: LineChart,
-    title: 'Shopping Campagnes',
-    description: 'Voor e-commerce: toon uw producten direct in de zoekresultaten.',
-    features: ['Product feed setup', 'Shopping ads', 'Performance Max', 'Merchant Center'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Eye,
-    title: 'Rapportage & Inzicht',
-    description: 'Real-time inzicht in uw campagne prestaties via ons dashboard.',
-    features: ['Live dashboard', 'ROI rapportage', 'Conversie attributie', 'Maandelijkse reviews'],
-    color: 'quantum-blue'
-  },
-]
-
-const whyGoogleAds = [
-  {
-    icon: Zap,
-    title: 'Direct Resultaat',
-    description: 'Binnen 24 uur zichtbaar bij klanten die actief zoeken naar uw product of dienst.',
-    stat: '24u',
-    statLabel: 'tot zichtbaar'
-  },
-  {
-    icon: Target,
-    title: 'Meetbare ROI',
-    description: 'Precies weten hoeveel elke euro oplevert. Geen giswerk, maar data.',
-    stat: '100%',
-    statLabel: 'meetbaar'
-  },
-  {
-    icon: Filter,
-    title: 'Gerichte Targeting',
-    description: 'Bereik alleen de mensen die echt geïnteresseerd zijn in uw aanbod.',
-    stat: 'Hyper',
-    statLabel: 'targeted'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Schaalbaar',
-    description: 'Begin klein, schaal op wanneer het werkt. Volledige controle over uw budget.',
-    stat: 'Flex',
-    statLabel: 'budget'
-  },
-]
-
-const processSteps = [
-  {
-    step: '01',
-    title: 'Audit & Analyse',
-    description: 'We analyseren uw huidige situatie, markt en concurrentie.',
-    icon: Search
-  },
-  {
-    step: '02',
-    title: 'Strategie',
-    description: 'We ontwikkelen een campagne strategie gericht op uw doelen.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'We bouwen en lanceren uw campagnes met conversie tracking.',
-    icon: BarChart3
-  },
-  {
-    step: '04',
-    title: 'Optimalisatie',
-    description: 'Dagelijkse monitoring en wekelijkse optimalisatie voor maximale ROI.',
-    icon: TrendingUp
-  },
-]
-
-const faqs = [
-  {
-    q: 'Wat is het minimale advertentiebudget?',
-    a: 'Voor de meeste MKB-bedrijven raden we een minimaal startbudget aan van €500 tot €1000 per maand. Dit geeft ons voldoende data om de campagnes effectief te optimaliseren. Voor zeer competitieve markten kan een hoger budget nodig zijn.'
-  },
-  {
-    q: 'Hoe snel kan ik resultaten verwachten?',
-    a: 'De eerste klikken en impressies ziet u vaak binnen 24 uur. Betekenisvolle resultaten zoals een stabiele stroom van leads duren doorgaans 60-90 dagen. Dit is de tijd die nodig is om voldoende data te verzamelen en te optimaliseren.'
-  },
-  {
-    q: 'Wat maakt jullie aanpak anders?',
-    a: 'Onze focus ligt op radicale transparantie en een 100% data-gedreven aanpak. U krijgt een live-dashboard met al uw campagnedata. Elke beslissing wordt onderbouwd met data, niet met onderbuikgevoel.'
-  },
-  {
-    q: 'Werken jullie met vaste contracten?',
-    a: 'Nee, wij geloven in onze resultaten en bieden maandelijks opzegbare contracten. We zijn ervan overtuigd dat onze prestaties de beste reden zijn om te blijven.'
-  },
-]
 
 
 // ============================================================================
@@ -254,7 +113,7 @@ export default function GoogleAdsClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -303,10 +162,10 @@ export default function GoogleAdsClientPage() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -315,16 +174,14 @@ export default function GoogleAdsClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-green/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <GoogleAdsDashboard3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <GoogleAdsDashboard3D />
+              </DeferredCanvas>
 
               {/* Floating cards */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -339,9 +196,9 @@ export default function GoogleAdsClientPage() {
                     <p className="text-lg font-bold">4.2x</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -356,8 +213,8 @@ export default function GoogleAdsClientPage() {
                     <p className="text-lg font-bold">+320%</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -376,6 +233,7 @@ export default function GoogleAdsClientPage() {
                     alt="Google Ads dashboard en campagne beheer"
                     width={1200}
                     height={800}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="w-full h-auto"
                   />
                 </div>

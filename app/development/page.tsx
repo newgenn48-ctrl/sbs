@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import DevelopmentPageClient from './DevelopmentPageClient'
 
 export const metadata: Metadata = {
-  title: 'Web Development | Websites & Webapplicaties op Maat | Start Beheer',
+  title: 'Web Development | Websites op Maat | Start Beheer',
   description: 'Professionele web development voor MKB. Custom websites, webapplicaties en e-commerce oplossingen. Modern, snel en schaalbaar. Vraag vrijblijvend advies.',
   keywords: [
     'web development',
@@ -17,11 +17,21 @@ export const metadata: Metadata = {
     'professionele website'
   ],
   openGraph: {
-    title: 'Web Development | Websites & Webapplicaties op Maat',
+    title: 'Web Development | Websites op Maat | Start Beheer',
     description: 'Professionele web development voor MKB. Custom websites, webapplicaties en e-commerce oplossingen.',
     type: 'website',
     locale: 'nl_NL',
     url: 'https://startbeheer.nl/development',
+    siteName: 'Start Beheer Solutions',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Web Development | Websites op Maat | Start Beheer',
+    description: 'Professionele web development voor MKB. Custom websites, webapplicaties en e-commerce oplossingen.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: '/development'

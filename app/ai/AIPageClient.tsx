@@ -1,180 +1,30 @@
 'use client'
 
-import React, { useState, useEffect, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import {
-  Brain, Bot, Workflow, Phone, ArrowRight, CheckCircle2,
-  ShieldCheck, Zap, BarChart, HeartHandshake,
-  Puzzle, Clock, Target, Users, FileSearch,
-  Settings, Rocket, TrendingUp, Sparkles
+  Brain, Bot, ArrowRight, CheckCircle2,
+  Zap, Clock, Target, Sparkles
 } from 'lucide-react'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, processSteps, whyUs, faqs } from '@/lib/data/ai'
 
 const AICore = dynamic(() => import('@/components/3d/AICore'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// AI diensten/subdiensten
-const services = [
-  {
-    icon: Bot,
-    title: 'AI Chatbots',
-    description: '24/7 klantenservice met een AI die vragen beantwoordt, leads kwalificeert en afspraken inplant.',
-    href: '/ai/chatbots',
-    features: ['24/7 beschikbaarheid', 'Lead kwalificatie', 'CRM integratie', 'Menselijke overdracht'],
-    stat: '80%',
-    statLabel: 'vragen direct beantwoord'
-  },
-  {
-    icon: Workflow,
-    title: 'Process Automation',
-    description: 'Automatiseer repetitieve taken zoals data-invoer, facturatie en rapportages.',
-    href: '/ai/process-automation',
-    features: ['Data-invoer automatisering', 'Document verwerking', 'Workflow automatisering', 'Software koppelingen'],
-    stat: '40%',
-    statLabel: 'tijdsbesparing'
-  },
-  {
-    icon: BarChart,
-    title: 'AI Analytics',
-    description: 'Transformeer data in acties met voorspellende analyses en real-time inzichten.',
-    href: '/ai/analytics',
-    features: ['Voorspellende analyses', 'Klantgedrag inzicht', 'Trend detectie', 'Real-time dashboards'],
-    stat: '3x',
-    statLabel: 'snellere inzichten'
-  },
-  {
-    icon: Phone,
-    title: 'Virtuele Assistent',
-    description: 'Een slimme assistent voor telefoongesprekken, afspraakplanning en agendabeheer.',
-    href: '/ai/virtual-assistant',
-    features: ['Intelligente call routing', 'Automatische planning', 'Transcriptie', '24/7 bereikbaar'],
-    stat: '95%',
-    statLabel: 'bereikbaarheid'
-  },
-]
-
-// Werkwijze/Proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Gratis AI Scan',
-    description: 'We analyseren uw processen en identificeren de beste AI kansen voor uw bedrijf.',
-    icon: FileSearch
-  },
-  {
-    step: '02',
-    title: 'Oplossing & ROI',
-    description: 'We presenteren concrete AI oplossingen met een duidelijke business case en ROI berekening.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'Snelle implementatie met minimale verstoring. Uw team wordt volledig getraind.',
-    icon: Rocket
-  },
-  {
-    step: '04',
-    title: 'Optimalisatie',
-    description: 'Continue monitoring en optimalisatie voor maximale resultaten.',
-    icon: TrendingUp
-  },
-]
-
-// Waarom Start Beheer voor AI
-const whyUs = [
-  {
-    icon: BarChart,
-    title: 'Meetbare ROI',
-    description: 'We implementeren alleen AI die zichzelf gegarandeerd terugverdient, met duidelijke KPIs.',
-    stat: '100%',
-    statLabel: 'ROI focus'
-  },
-  {
-    icon: Puzzle,
-    title: 'Naadloze Integratie',
-    description: 'Onze AI werkt perfect samen met uw bestaande software en processen.',
-    stat: 'Alle',
-    statLabel: 'systemen'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Veilig & Ethisch',
-    description: 'Uw data is veilig en onze AI wordt ethisch en verantwoordelijk ingezet.',
-    stat: 'AVG',
-    statLabel: 'compliant'
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Jargon-vrij',
-    description: 'Wij spreken uw taal, geen technische termen. U begrijpt precies wat u krijgt.',
-    stat: '1',
-    statLabel: 'aanspreekpunt'
-  },
-]
-
-// FAQ - geoptimaliseerd voor SEO
-const faqs = [
-  {
-    q: 'Wat kost AI implementatie voor het MKB?',
-    a: 'De kosten voor AI implementatie variëren sterk per oplossing. Een eenvoudige chatbot start vanaf €500/maand, terwijl complexe process automation projecten een eenmalige investering van €5.000-€15.000 vragen. Belangrijk: onze focus ligt altijd op ROI - de investering moet zichzelf terugverdienen.'
-  },
-  {
-    q: 'Vervangt AI mijn medewerkers?',
-    a: 'Nee, AI vervangt taken, geen mensen. Het doel is om uw medewerkers te "augmenteren": bevrijd hen van saai, repetitief werk, zodat zij zich kunnen richten op creativiteit, strategie en complex klantcontact. AI maakt uw team productiever, niet kleiner.'
-  },
-  {
-    q: 'Hoe snel zie ik resultaat van AI?',
-    a: 'Afhankelijk van de complexiteit, maar onze projecten leveren vaak al binnen 4 tot 6 weken de eerste meetbare resultaten op. Bij chatbots ziet u direct effect, bij process automation duurt de implementatie iets langer maar is de impact groter.'
-  },
-  {
-    q: 'Is mijn bedrijf geschikt voor AI?',
-    a: 'Als uw bedrijf processen heeft die herhaaldelijk worden uitgevoerd, of als u veel klantcontact heeft, is de kans 99% dat u kunt profiteren van AI. Onze gratis AI Scan is de perfecte manier om vrijblijvend uw specifieke kansen te ontdekken.'
-  },
-  {
-    q: 'Welke AI oplossing levert het meeste op?',
-    a: 'Dit hangt af van uw situatie. Voor bedrijven met veel klantcontact is een AI chatbot vaak het meest impactvol. Voor administratie-intensieve bedrijven is process automation de winnaar. Onze AI Scan helpt u de beste keuze te maken.'
-  },
-  {
-    q: 'Hoe werkt AI samen met mijn huidige software?',
-    a: 'Onze AI-oplossingen integreren naadloos met populaire software zoals Microsoft 365, HubSpot, Salesforce, en vele anderen. We gebruiken standaard API-koppelingen en kunnen custom integraties bouwen waar nodig.'
-  },
-]
-
-// FAQ Component
 
 // ============================================================================
 // COMPONENTS
@@ -273,7 +123,7 @@ export default function AIPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -333,10 +183,10 @@ export default function AIPageClient() {
                   </Link>
                 </Button>
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -345,16 +195,14 @@ export default function AIPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <AICore />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <AICore />
+              </DeferredCanvas>
 
               {/* Floating stat cards */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -369,9 +217,9 @@ export default function AIPageClient() {
                     <p className="text-lg font-bold text-white">40%</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -386,8 +234,8 @@ export default function AIPageClient() {
                     <p className="text-lg font-bold text-white">Altijd</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

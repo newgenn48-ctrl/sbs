@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   UserCheck,
   Zap,
@@ -135,7 +135,7 @@ export default function TestimonialsSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
           {/* Left - Content */}
           <div>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -153,10 +153,10 @@ export default function TestimonialsSection() {
               <p className="text-lg text-gray-300 leading-relaxed">
                 Geen grote organisatie waar u een nummer bent. Bij ons krijgt u persoonlijke aandacht en oplossingen die passen bij uw bedrijf.
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Mobile 3D - Compact */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -165,12 +165,12 @@ export default function TestimonialsSection() {
               <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden bg-cyber-dark/30 border border-quantum-purple/20">
                 <NetworkVisualization />
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Reasons Grid */}
             <div className="grid sm:grid-cols-2 gap-4">
               {reasons.map((reason, index) => (
-                <motion.article
+                <m.article
                   key={reason.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -187,13 +187,13 @@ export default function TestimonialsSection() {
                   <p className="text-sm text-gray-300 leading-relaxed">
                     {reason.description}
                   </p>
-                </motion.article>
+                </m.article>
               ))}
             </div>
           </div>
 
           {/* Right - 3D Visualization */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -213,7 +213,7 @@ export default function TestimonialsSection() {
                 <div className="glass-effect p-4 rounded-2xl border border-white/10">
                   <div className="grid grid-cols-4 gap-3">
                     {additionalBenefits.map((benefit, index) => (
-                      <motion.div
+                      <m.div
                         key={benefit.text}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -225,17 +225,17 @@ export default function TestimonialsSection() {
                           <benefit.icon className={`w-5 h-5 ${colorClasses[benefit.color].text}`} />
                         </div>
                         <span className="text-xs text-gray-300">{benefit.text}</span>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Mobile benefits bar */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -244,7 +244,7 @@ export default function TestimonialsSection() {
           <div className="glass-effect p-6 rounded-2xl border border-white/10">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               {additionalBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={benefit.text}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -256,11 +256,11 @@ export default function TestimonialsSection() {
                     <benefit.icon className={`w-6 h-6 ${colorClasses[benefit.color].text}`} />
                   </div>
                   <span className="text-sm text-gray-300">{benefit.text}</span>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

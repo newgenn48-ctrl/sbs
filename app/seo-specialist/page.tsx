@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import SEOServicesClientPage from './SEOServicesClientPage'
 
 export const metadata: Metadata = {
-  title: 'SEO Specialist | Hoger in Google & Meer Organisch Verkeer | Start Beheer',
+  title: 'SEO Specialist | Hoger in Google | Start Beheer',
   description: 'Bereik topposities in Google met onze SEO-diensten. Wij optimaliseren uw website technisch, inhoudelijk en qua autoriteit voor duurzame, organische groei.',
   keywords: [
     'SEO specialist',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'Google rankings verbeteren'
   ],
   openGraph: {
-    title: 'SEO Specialist | Hoger in Google & Meer Organisch Verkeer | Start Beheer',
+    title: 'SEO Specialist | Hoger in Google | Start Beheer',
     description: 'Bereik topposities in Google met onze SEO-diensten. Wij optimaliseren uw website technisch, inhoudelijk en qua autoriteit voor duurzame, organische groei.',
     type: 'website',
     locale: 'nl_NL',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SEO Specialist | Hoger in Google & Meer Organisch Verkeer | Start Beheer',
+    title: 'SEO Specialist | Hoger in Google | Start Beheer',
     description: 'Bereik topposities in Google met onze SEO-diensten. Technische, inhoudelijke en autoriteitsoptimalisatie.',
   },
   alternates: {

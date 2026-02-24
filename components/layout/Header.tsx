@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu, X, ChevronDown } from 'lucide-react'
@@ -56,7 +56,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -71,7 +71,7 @@ export default function Header() {
                 className="h-14 w-auto"
                 priority
               />
-            </motion.div>
+            </m.div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -129,7 +129,7 @@ export default function Header() {
                           </button>
                           <AnimatePresence>
                             {openMobileSubmenu === item.name && (
-                              <motion.div
+                              <m.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
@@ -149,7 +149,7 @@ export default function Header() {
                                     {subitem.name}
                                   </Link>
                                 ))}
-                              </motion.div>
+                              </m.div>
                             )}
                           </AnimatePresence>
                         </>

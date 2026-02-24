@@ -1,200 +1,32 @@
 ﻿'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Server, CheckCircle2, ArrowRight,
-  Clock, Wrench, UserCheck, Shield, Database,
-  Network, Cloud, Wifi, PhoneCall,
-  FileCheck, ShieldCheck, BookOpen, Settings, RefreshCw,
-  Video, Bell, Lock
+  Clock, Shield, Database, Lock,
+  FileCheck, ShieldCheck, BookOpen
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-      <p className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-sm text-gray-500 whitespace-nowrap">
-        Laden...
-      </p>
-    </div>
-  </div>
-)
+import { services, whyChooseUs, processSteps, faqs } from '@/lib/data/systeembeheer'
 
 // SupportNexus - servers, netwerk switch, WiFi, backup
 const SupportNexus = dynamic(() => import('@/components/3d/SupportNexus'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Systeembeheer diensten
-const services = [
-  {
-    icon: Server,
-    title: 'Serverbeheer',
-    description: 'Beheer en onderhoud van uw fysieke en virtuele servers. Windows Server, Linux - wij zorgen dat alles draait.',
-    features: ['Installatie & configuratie', 'Updates & patches', 'Performance optimalisatie', 'Troubleshooting'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Network,
-    title: 'Netwerkbeheer',
-    description: 'Uw bedrijfsnetwerk stabiel en veilig. Van switches tot firewalls, wij beheren de complete infrastructuur.',
-    features: ['Firewall configuratie', 'Switch & router beheer', 'VPN oplossingen', 'Netwerk troubleshooting'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Wifi,
-    title: 'WiFi Infrastructuur',
-    description: 'Betrouwbare draadloze dekking in uw hele pand. Zakelijke WiFi met gastnetwerk en beveiliging.',
-    features: ['Site survey & ontwerp', 'Access point installatie', 'Gastnetwerk configuratie', 'Dekking optimalisatie'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Database,
-    title: 'Backup & Recovery',
-    description: 'Uw data veilig bewaard. Automatische backups en een helder herstelplan voor als het misgaat.',
-    features: ['Automatische backups', 'Off-site opslag', 'Restore tests', 'Disaster recovery plan'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: PhoneCall,
-    title: 'VoIP & Telefonie',
-    description: 'Moderne zakelijke telefonie via internet. Flexibel, schaalbaar en kostenefficiënt.',
-    features: ['VoIP implementatie', 'Nummerbehoud', 'Doorschakelingen', 'Integratie met Teams'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Cloud,
-    title: 'Hybride Cloud',
-    description: 'Het beste van beide werelden. Lokale servers gecombineerd met cloud diensten waar dat zinvol is.',
-    features: ['Cloud migratie advies', 'Azure / AWS basics', 'Hybride oplossingen', 'Kostenoptimalisatie'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Video,
-    title: 'Vergaderruimtes',
-    description: 'Professionele meeting rooms met video conferencing. Teams, Zoom of andere oplossingen - wij installeren en configureren.',
-    features: ['Beeldscherm & camera setup', 'Audio configuratie', 'Teams/Zoom integratie', 'Gebruiksvriendelijke bediening'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Bell,
-    title: 'Alarm & Beveiliging',
-    description: 'Fysieke beveiliging van uw pand. Alarmsystemen, toegangscontrole en camerabewaking.',
-    features: ['Alarmsysteem installatie', 'Toegangscontrole', 'IP-camera systemen', 'Integratie met netwerk'],
-    color: 'quantum-orange'
-  },
-]
-
-// Waarom wij
-const whyChooseUs = [
-  {
-    icon: Clock,
-    title: 'Snelle Respons',
-    description: 'Geen eindeloze wachttijden. U spreekt direct met een specialist die uw infrastructuur kent.',
-    stat: 'Direct',
-    statLabel: 'persoonlijk contact'
-  },
-  {
-    icon: UserCheck,
-    title: 'Vaste Contactpersoon',
-    description: 'Eén aanspreekpunt die uw omgeving door en door kent. Geen steeds wisselende technici.',
-    stat: '1',
-    statLabel: 'vast aanspreekpunt'
-  },
-  {
-    icon: Wrench,
-    title: 'Maatwerk Oplossingen',
-    description: 'Geen standaardpakketten. Wij stemmen het beheer af op úw infrastructuur en budget.',
-    stat: '100%',
-    statLabel: 'op maat'
-  },
-  {
-    icon: FileCheck,
-    title: 'Volledige Documentatie',
-    description: 'Alles wordt gedocumenteerd. U heeft altijd inzicht in uw IT-omgeving.',
-    stat: 'Helder',
-    statLabel: 'overzicht'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Inventarisatie',
-    description: 'We brengen uw huidige infrastructuur in kaart: servers, netwerk, backups.',
-    icon: Settings
-  },
-  {
-    step: '02',
-    title: 'Advies & Plan',
-    description: 'U ontvangt een helder advies met concrete verbeterpunten en kostenindicatie.',
-    icon: FileCheck
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'We voeren verbeteringen door en nemen het beheer over - met minimale verstoring.',
-    icon: Wrench
-  },
-  {
-    step: '04',
-    title: 'Doorlopend Beheer',
-    description: 'Regelmatig onderhoud, updates en support wanneer u ons nodig heeft.',
-    icon: RefreshCw
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Wat is het verschil tussen systeembeheer en werkplekbeheer?',
-    a: 'Systeembeheer richt zich op de "achterkant": servers, netwerken, backups en infrastructuur. Werkplekbeheer gaat over de apparaten van uw medewerkers: laptops, PC\'s en software. Vaak combineren bedrijven beide diensten voor volledige IT-ontzorging.'
-  },
-  {
-    q: 'Kunnen jullie ook onze vergaderruimtes inrichten?',
-    a: 'Jazeker. We installeren complete meeting room oplossingen: beeldschermen, camera\'s, microfoons en integratie met Teams of Zoom. Zodat uw vergaderingen soepel verlopen.'
-  },
-  {
-    q: 'Doen jullie ook alarmsystemen en camera\'s?',
-    a: 'Ja, we installeren en beheren alarmsystemen, toegangscontrole en IP-camerasystemen. Deze integreren we met uw netwerk zodat u overal toegang heeft.'
-  },
-  {
-    q: 'Werken jullie ook met kleine bedrijven met maar één server?',
-    a: 'Absoluut. We werken met bedrijven van 5 tot 150+ medewerkers. Of u nu één server heeft of een complexe omgeving - we stemmen het beheer af op uw situatie en budget.'
-  },
-  {
-    q: 'Hoe snel kunnen jullie reageren bij een storing?',
-    a: 'De responstijd hangt af van de SLA die u kiest. Bij kritieke storingen reageren we binnen 1-4 uur, afhankelijk van uw contract. We monitoren uw systemen proactief, waardoor we problemen vaak al oplossen voordat u er last van heeft.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -280,7 +112,7 @@ export default function SysteembeheerClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -340,10 +172,10 @@ export default function SysteembeheerClientPage() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -352,14 +184,12 @@ export default function SysteembeheerClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 4 : 5.5], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <SupportNexus />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 4 : 5.5], fov: isMobile ? 50 : 45 }}>
+                <SupportNexus />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -374,9 +204,9 @@ export default function SysteembeheerClientPage() {
                     <p className="text-lg font-bold">Veilig</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -391,8 +221,8 @@ export default function SysteembeheerClientPage() {
                     <p className="text-lg font-bold">Beveiligd</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

@@ -1,183 +1,36 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Shield, CheckCircle2, ArrowRight,
-  Clock, Lock, AlertTriangle, Eye,
-  Mail, Users, FileCheck, Key,
-  Settings, Headphones, RefreshCw, HardDrive,
-  ShieldCheck, ShieldAlert, Fingerprint, Scan
+  Lock, AlertTriangle,
+  Mail, Users, Key,
+  Headphones, HardDrive,
+  ShieldAlert, Fingerprint, Scan
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
 
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
-
 const CyberShield = dynamic(() => import('@/components/3d/CyberShield'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Cybersecurity diensten
-const services = [
-  {
-    icon: Scan,
-    title: 'Security Audit',
-    description: 'Een grondige analyse van uw IT-beveiliging. We identificeren kwetsbaarheden en geven concrete aanbevelingen.',
-    features: ['Netwerk scan', 'Configuratie check', 'Rapport met prioriteiten', 'Actieplan'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Endpoint Security',
-    description: 'Bescherming van alle werkplekken tegen malware, virussen en andere bedreigingen. Centraal beheerd.',
-    features: ['Antivirus & antimalware', 'Firewall beheer', 'Updates automatiseren', 'Monitoring'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Users,
-    title: 'Security Awareness Training',
-    description: 'Train uw medewerkers om phishing en social engineering te herkennen. De mens is vaak de zwakste schakel.',
-    features: ['Phishing simulaties', 'Interactieve trainingen', 'Bewustwording campagnes', 'Certificering medewerkers'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Key,
-    title: 'Toegangsbeheer',
-    description: 'Wie heeft toegang tot wat? Multi-factor authenticatie en goed wachtwoordbeleid beschermen uw data.',
-    features: ['MFA implementatie', 'Wachtwoordbeleid', 'Rechten beheer', 'Single sign-on'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: HardDrive,
-    title: 'Backup & Recovery',
-    description: 'Veilige backups zodat u snel kunt herstellen na een incident. Ransomware hoeft geen ramp te zijn.',
-    features: ['Automatische backups', 'Off-site opslag', 'Regelmatige tests', 'Snelle recovery'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Eye,
-    title: 'Monitoring & Response',
-    description: 'We houden uw systemen in de gaten en reageren snel bij verdachte activiteit.',
-    features: ['Log monitoring', 'Alerting', 'Incident response', 'Forensisch onderzoek'],
-    color: 'quantum-blue'
-  },
-]
-
-// Waarom cybersecurity
-const whyChooseUs = [
-  {
-    icon: Shield,
-    title: 'Praktische Aanpak',
-    description: 'Geen overdreven complexiteit. Wij focussen op de maatregelen die voor uw organisatie het meeste verschil maken.',
-    stat: 'Focus',
-    statLabel: 'op wat werkt'
-  },
-  {
-    icon: Clock,
-    title: 'Snelle Hulp',
-    description: 'Bij een incident bent u niet alleen. Wij helpen u snel de schade te beperken en te herstellen.',
-    stat: 'Direct',
-    statLabel: 'beschikbaar'
-  },
-  {
-    icon: FileCheck,
-    title: 'Compliance',
-    description: 'AVG, NIS2, ISO 27001 - wij helpen u voldoen aan de eisen die voor uw branche gelden.',
-    stat: 'AVG',
-    statLabel: 'compliant'
-  },
-  {
-    icon: Headphones,
-    title: 'Nederlandse Support',
-    description: 'Geen buitenlandse helpdesk. Persoonlijk contact met IT-beveiligingsexperts die uw taal spreken.',
-    stat: '100%',
-    statLabel: 'Nederlands'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Assessment',
-    description: 'We brengen uw huidige beveiliging in kaart en identificeren de belangrijkste risico\'s.',
-    icon: Scan,
-  },
-  {
-    step: '02',
-    title: 'Prioriteiten',
-    description: 'Samen bepalen we welke maatregelen het meeste impact hebben voor uw situatie.',
-    icon: FileCheck
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'We voeren de beveiligingsmaatregelen stap voor stap door met minimale verstoring.',
-    icon: Settings
-  },
-  {
-    step: '04',
-    title: 'Onderhoud',
-    description: 'Beveiliging is geen eenmalige actie. Wij houden uw systemen veilig.',
-    icon: RefreshCw
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe weet ik of mijn bedrijf goed beveiligd is?',
-    a: 'Een security audit geeft u inzicht in de huidige staat van uw beveiliging. We testen uw systemen, bekijken configuraties en rapporteren over gevonden kwetsbaarheden met concrete aanbevelingen.'
-  },
-  {
-    q: 'Is cybersecurity niet alleen voor grote bedrijven?',
-    a: 'Juist niet. Kleine bedrijven zijn aantrekkelijke doelwitten omdat ze vaak minder goed beveiligd zijn. Gelukkig hoeft goede beveiliging niet duur te zijn - het gaat om de juiste basismaatregelen.'
-  },
-  {
-    q: 'Waarom is security awareness training belangrijk?',
-    a: '85% van alle cyberaanvallen begint met een menselijke fout, zoals het klikken op een phishing link. Goed getrainde medewerkers herkennen bedreigingen en weten hoe ze moeten handelen. Dit is vaak uw beste verdediging.'
-  },
-  {
-    q: 'Wat kost een ransomware aanval?',
-    a: 'Gemiddeld kost een ransomware aanval een MKB bedrijf tussen de 50.000 en 250.000 euro aan schade, losgeld, herstelkosten en gemiste omzet. Preventie is vele malen goedkoper dan herstel.'
-  },
-  {
-    q: 'Hoe lang duurt het om basis beveiliging op orde te krijgen?',
-    a: 'De belangrijkste maatregelen - MFA, goede backups, endpoint security - kunnen we vaak binnen enkele weken implementeren. Een volledig beveiligingsplan is een doorlopend proces.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
+import {
+  services, whyChooseUs, processSteps, faqs
+} from '@/lib/data/cybersecurity'
 
 // ============================================================================
 // COMPONENTS
@@ -262,7 +115,7 @@ export default function CybersecurityPageClient() {
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -311,23 +164,21 @@ export default function CybersecurityPageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
             >
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 4 : 5], fov: isMobile ? 55 : 50 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <CyberShield />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 4 : 5], fov: isMobile ? 55 : 50 }}>
+                <CyberShield />
+              </DeferredCanvas>
 
               {/* Floating status cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
@@ -342,9 +193,9 @@ export default function CybersecurityPageClient() {
                     <p className="text-lg font-bold text-white">Audit</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
@@ -359,8 +210,8 @@ export default function CybersecurityPageClient() {
                     <p className="text-sm font-bold text-white">Recovery</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -404,6 +255,7 @@ export default function CybersecurityPageClient() {
                     muted
                     loop
                     playsInline
+                    preload="none"
                   >
                     <source src="/cybersecurity.mp4" type="video/mp4" />
                   </video>
@@ -497,6 +349,7 @@ export default function CybersecurityPageClient() {
                       alt="Cybersecurity professionals aan het werk"
                       width={1200}
                       height={559}
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                       className="w-full h-auto"
                     />
                   </div>

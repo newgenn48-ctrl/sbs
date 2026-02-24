@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ export default function AboutPreview() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Video */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -40,7 +40,7 @@ export default function AboutPreview() {
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     className="w-full h-full object-cover"
                   >
                     <source src="/hero-video.mp4" type="video/mp4" />
@@ -52,7 +52,7 @@ export default function AboutPreview() {
               </div>
 
               {/* Floating badge */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -63,11 +63,11 @@ export default function AboutPreview() {
                   <p className="text-quantum-blue font-semibold text-lg">ZZP & MKB</p>
                   <p className="text-gray-300 text-sm">Specialist</p>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -97,7 +97,7 @@ export default function AboutPreview() {
               {/* Highlights */}
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
                 {highlights.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={item.text}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function AboutPreview() {
                       <item.icon className="w-4 h-4 text-quantum-blue" />
                     </div>
                     <span className="text-gray-300 text-sm">{item.text}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -124,7 +124,7 @@ export default function AboutPreview() {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>

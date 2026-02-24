@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { MessageSquare, FileSearch, Rocket, HeartHandshake, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
@@ -97,7 +97,7 @@ export default function OurApproach() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.header
+        <m.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -113,13 +113,13 @@ export default function OurApproach() {
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
             Een transparant proces waarbij u altijd weet waar u aan toe bent. Geen verrassingen, wel resultaat.
           </p>
-        </motion.header>
+        </m.header>
 
         {/* Process Steps Grid */}
         <div className="max-w-6xl mx-auto mb-16">
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
             {processSteps.map((step, index) => (
-              <motion.article
+              <m.article
                 key={step.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -167,13 +167,13 @@ export default function OurApproach() {
                     </span>
                   ))}
                 </div>
-              </motion.article>
+              </m.article>
             ))}
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -196,7 +196,7 @@ export default function OurApproach() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

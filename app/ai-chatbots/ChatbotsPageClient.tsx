@@ -1,182 +1,32 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Bot, CheckCircle2, ArrowRight,
   MessageSquare, Clock, Users, Zap,
-  Target, TrendingUp, Settings, Globe,
-  Headphones, Sparkles
+  TrendingUp
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyChatbots, processSteps, faqs } from '@/lib/data/chatbots'
 
 const ChatBot3D = dynamic(() => import('@/components/3d/ChatBot3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Chatbot diensten
-const services = [
-  {
-    icon: MessageSquare,
-    title: 'Klantenservice Chatbot',
-    description: 'Beantwoord 80% van de vragen automatisch. 24/7 beschikbaar, direct antwoord.',
-    features: ['FAQ automatisering', 'Product informatie', 'Order status', 'Retour handling'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Target,
-    title: 'Lead Kwalificatie',
-    description: 'Kwalificeer leads automatisch. Vraag de juiste vragen en plan afspraken in.',
-    features: ['Intake formulieren', 'Lead scoring', 'Afspraak planning', 'CRM integratie'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Headphones,
-    title: 'Support Escalatie',
-    description: 'Intelligente overdracht naar menselijke medewerkers wanneer nodig.',
-    features: ['Sentiment analyse', 'Prioriteit bepaling', 'Gesprekscontext', 'Naadloze overdracht'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Globe,
-    title: 'Multi-channel',
-    description: 'Dezelfde chatbot op uw website, WhatsApp, Facebook en meer.',
-    features: ['Website widget', 'WhatsApp Business', 'Facebook Messenger', 'Instagram DM'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Sparkles,
-    title: 'Personalisatie',
-    description: 'Chatbot die uw klanten herkent en gepersonaliseerde service biedt.',
-    features: ['Klantherkenning', 'Bestelhistorie', 'Voorkeuren onthouden', 'Proactieve suggesties'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Settings,
-    title: 'Integraties',
-    description: 'Koppel uw chatbot aan bestaande systemen voor naadloze workflows.',
-    features: ['CRM systemen', 'E-commerce platforms', 'Helpdesk software', 'Agenda integratie'],
-    color: 'quantum-blue'
-  },
-]
-
-// Waarom AI Chatbots
-const whyChatbots = [
-  {
-    icon: Clock,
-    title: '24/7 Beschikbaar',
-    description: 'Uw chatbot is altijd bereikbaar. Ook buiten kantooruren, in het weekend en op feestdagen.',
-    stat: '24/7',
-    statLabel: 'online'
-  },
-  {
-    icon: Zap,
-    title: 'Direct Antwoord',
-    description: 'Geen wachttijd. Klanten krijgen direct antwoord op hun vragen.',
-    stat: '<1s',
-    statLabel: 'reactietijd'
-  },
-  {
-    icon: TrendingUp,
-    title: '80% Automatisering',
-    description: 'De meeste vragen worden automatisch beantwoord. Uw team focust op complexe cases.',
-    stat: '80%',
-    statLabel: 'automatisch'
-  },
-  {
-    icon: Users,
-    title: 'Tevreden Klanten',
-    description: 'Snelle, consistente service leidt tot hogere klanttevredenheid.',
-    stat: '+25%',
-    statLabel: 'NPS score'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Analyse',
-    description: 'We analyseren uw meest gestelde vragen en customer journey.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Ontwerp',
-    description: 'We ontwerpen de gespreksflows en trainen de chatbot met uw content.',
-    icon: Bot
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'Chatbot wordt geïntegreerd met uw website en systemen.',
-    icon: Settings
-  },
-  {
-    step: '04',
-    title: 'Optimalisatie',
-    description: 'Continue verbetering op basis van gesprekken en feedback.',
-    icon: TrendingUp
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe slim is de chatbot echt?',
-    a: 'Onze chatbots gebruiken de nieuwste AI technologie (GPT-4, Claude) en kunnen complexe vragen begrijpen. Ze leren continu bij op basis van gesprekken. Wel trainen we ze specifiek op uw content en bedrijf.'
-  },
-  {
-    q: 'Kan de chatbot mijn merk/tone of voice overnemen?',
-    a: 'Absoluut. We trainen de chatbot met uw merkrichtlijnen, tone of voice en voorbeeldgesprekken. De chatbot communiceert precies zoals u dat wilt.'
-  },
-  {
-    q: 'Wat als de chatbot het antwoord niet weet?',
-    a: 'De chatbot herkent wanneer hij het antwoord niet weet en draagt het gesprek naadloos over aan een medewerker. Alle context blijft behouden zodat de klant niet opnieuw hoeft uit te leggen.'
-  },
-  {
-    q: 'Hoe zit het met privacy en data?',
-    a: 'Alle data wordt verwerkt conform AVG. Gesprekken worden veilig opgeslagen in Europa. U kunt zelf bepalen welke data wordt bewaard en voor hoe lang.'
-  },
-  {
-    q: 'Hoe lang duurt het om een chatbot te implementeren?',
-    a: 'Een basis chatbot kan binnen 2-3 weken live staan. Voor complexere implementaties met meerdere integraties en uitgebreide kennisbanken rekenen we 4-6 weken. Na de livegang blijven we de chatbot optimaliseren op basis van echte gesprekken.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -263,7 +113,7 @@ export default function ChatbotsPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -312,10 +162,10 @@ export default function ChatbotsPageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -324,16 +174,14 @@ export default function ChatbotsPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <ChatBot3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <ChatBot3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -348,9 +196,9 @@ export default function ChatbotsPageClient() {
                     <p className="text-lg font-bold">24/7 Online</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -365,8 +213,8 @@ export default function ChatbotsPageClient() {
                     <p className="text-lg font-bold">&lt;1 seconde</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -385,6 +233,7 @@ export default function ChatbotsPageClient() {
                     alt="AI Chatbot conversatie interface"
                     width={1200}
                     height={800}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="w-full h-auto"
                   />
                 </div>

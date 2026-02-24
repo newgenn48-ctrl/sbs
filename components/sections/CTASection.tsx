@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight, Calendar, CheckCircle2, Clock, Shield, Users, Phone } from 'lucide-react'
@@ -28,7 +28,7 @@ export default function CTASection() {
       <div className="absolute inset-0 bg-gradient-to-br from-quantum-blue/10 via-transparent to-quantum-purple/10" />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -113,7 +113,7 @@ export default function CTASection() {
           </div>
 
           {/* Bottom trust indicators */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -132,8 +132,8 @@ export default function CTASection() {
               <CheckCircle2 className="w-4 h-4 text-quantum-green" />
               Reactie binnen 24 uur
             </span>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   )

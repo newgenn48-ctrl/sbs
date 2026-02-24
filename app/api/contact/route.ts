@@ -263,8 +263,7 @@ Dit bericht is verzonden via het contactformulier op startbeheer.nl
       { success: true, message: 'Bericht succesvol verzonden' },
       { status: 200 }
     )
-  } catch (error) {
-    console.error('Contact form error:', error)
+  } catch {
     return NextResponse.json(
       { error: 'Er is een fout opgetreden. Probeer het later opnieuw.' },
       { status: 500 }

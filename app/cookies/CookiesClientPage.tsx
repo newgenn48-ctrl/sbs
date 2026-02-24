@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Cookie, Mail, Calendar, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
@@ -102,7 +102,7 @@ export default function CookiesClientPage() {
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -128,7 +128,7 @@ export default function CookiesClientPage() {
                   Laatst bijgewerkt: januari 2025
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -137,18 +137,18 @@ export default function CookiesClientPage() {
       <section className="py-16 relative">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-2xl md:text-3xl font-display font-bold text-white mb-8 text-center"
             >
               Welke cookies gebruiken wij?
-            </motion.h2>
+            </m.h2>
 
             <div className="space-y-6">
               {cookieTypes.map((type, index) => (
-                <motion.div
+                <m.div
                   key={type.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -192,7 +192,7 @@ export default function CookiesClientPage() {
                       </table>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function CookiesClientPage() {
       <section className="py-16 relative">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -214,7 +214,7 @@ export default function CookiesClientPage() {
               <div className="p-8 sm:p-12">
                 <div className="space-y-10">
                   {sections.map((section, index) => (
-                    <motion.div
+                    <m.div
                       key={section.title}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -227,12 +227,12 @@ export default function CookiesClientPage() {
                       <div className="text-gray-400 leading-relaxed whitespace-pre-line">
                         {section.content}
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
                 {/* Contact CTA */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -252,9 +252,9 @@ export default function CookiesClientPage() {
                     <Mail className="w-4 h-4" />
                     Contact opnemen
                   </Link>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>

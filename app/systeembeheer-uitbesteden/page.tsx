@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import SysteembeheerClientPage from './SysteembeheerClientPage'
 
 export const metadata: Metadata = {
-  title: 'Systeembeheer Uitbesteden | Servers & Netwerk Beheer | Start Beheer',
+  title: 'Systeembeheer Uitbesteden | Server Beheer | Start Beheer',
   description: 'Systeembeheer uitbesteden? Wij beheren uw servers, netwerk en cloud-omgeving proactief. Voorkom downtime, maximaliseer prestaties. Vast aanspreekpunt en 24/7 monitoring.',
   keywords: [
     'systeembeheer uitbesteden',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'IT infrastructuur'
   ],
   openGraph: {
-    title: 'Systeembeheer Uitbesteden | Servers & Netwerk Beheer | Start Beheer',
+    title: 'Systeembeheer Uitbesteden | Server Beheer | Start Beheer',
     description: 'Systeembeheer uitbesteden? Wij beheren uw servers, netwerk en cloud-omgeving proactief. Voorkom downtime en maximaliseer prestaties.',
     type: 'website',
     locale: 'nl_NL',

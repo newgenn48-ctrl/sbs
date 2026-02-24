@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import ITSupportPageClient from './ITSupportPageClient'
 
 export const metadata: Metadata = {
-  title: 'IT Support & Beheer voor MKB | Remote & On-Site | Start Beheer',
+  title: 'IT Support voor MKB | Remote & On-Site | Start Beheer',
   description: 'Professionele IT support voor het MKB. Remote hulp binnen minuten of on-site ondersteuning. Systeembeheer, werkplekbeheer, Microsoft 365 en cybersecurity. Flexibele contracten, vast aanspreekpunt. Vraag gratis advies.',
   keywords: [
     'IT support',

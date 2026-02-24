@@ -1,182 +1,33 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Zap, CheckCircle2, ArrowRight,
-  Mail, Users, Target, TrendingUp,
-  Clock, BarChart3, Settings, RefreshCw,
-  Workflow, Filter
+  Mail, Target, TrendingUp,
+  Clock, BarChart3, Workflow
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyAutomation, processSteps, faqs } from '@/lib/data/marketing-automation'
 
 const EmailAutomation3D = dynamic(() => import('@/components/3d/EmailAutomation3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Marketing Automation diensten
-const services = [
-  {
-    icon: Mail,
-    title: 'Lead Nurturing',
-    description: 'Automatische e-mailreeksen die koude leads omzetten in warme, gekwalificeerde prospects.',
-    features: ['Drip campaigns', 'Triggered emails', 'A/B testing', 'Personalisatie'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Workflow,
-    title: 'Email Automation',
-    description: 'Complete e-mailworkflows die automatisch reageren op klantgedrag en -acties.',
-    features: ['Welcome series', 'Abandoned cart', 'Re-engagement', 'Transactional mails'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Target,
-    title: 'CRM Integratie',
-    description: 'Naadloze koppeling met uw CRM voor perfecte data-sync en lead tracking.',
-    features: ['HubSpot', 'Salesforce', 'Pipedrive', 'Custom CRM'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Filter,
-    title: 'Behavior-based Triggers',
-    description: 'Automatische acties op basis van websitebezoek, downloads en klantgedrag.',
-    features: ['Pagina bezoeken', 'Content downloads', 'Event tracking', 'Score updates'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Users,
-    title: 'Sales Handoff',
-    description: 'Intelligente overdracht van marketing naar sales op het perfecte moment.',
-    features: ['Lead scoring', 'Auto-assignment', 'Sales notifications', 'Deal creation'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: BarChart3,
-    title: 'Reporting & Analytics',
-    description: 'Realtime inzicht in campagneprestaties, conversies en ROI.',
-    features: ['Conversie tracking', 'Attribution', 'ROI dashboards', 'Custom reports'],
-    color: 'quantum-blue'
-  },
-]
-
-
-// Waarom Marketing Automation
-const whyAutomation = [
-  {
-    icon: Clock,
-    title: 'Tijdsbesparing',
-    description: 'Automatiseer repetitieve taken en besteed meer tijd aan strategie en creativiteit.',
-    stat: '15u',
-    statLabel: 'per week'
-  },
-  {
-    icon: RefreshCw,
-    title: 'Consistente Opvolging',
-    description: 'Elke lead krijgt de juiste boodschap op het juiste moment, automatisch.',
-    stat: '100%',
-    statLabel: 'follow-up'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Hogere Conversie',
-    description: 'Gepersonaliseerde nurturing verhoogt uw conversieratio significant.',
-    stat: '+35%',
-    statLabel: 'conversie'
-  },
-  {
-    icon: Zap,
-    title: 'Schaalbaar',
-    description: 'Groei zonder evenredig meer mankracht. Uw systemen groeien mee.',
-    stat: '10x',
-    statLabel: 'capaciteit'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Analyse',
-    description: 'We analyseren uw huidige processen, klantreis en identificeren automatiseringskansen.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Setup',
-    description: 'We bouwen uw workflows, e-mailcampagnes en lead scoring in het gekozen platform.',
-    icon: Settings
-  },
-  {
-    step: '03',
-    title: 'Integratie',
-    description: 'We koppelen alle systemen (CRM, website, analytics) voor naadloze data-flow.',
-    icon: RefreshCw
-  },
-  {
-    step: '04',
-    title: 'Optimalisatie',
-    description: 'Continue verbetering op basis van data, A/B testing en performance metrics.',
-    icon: TrendingUp
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Met welke marketing automation platforms werken jullie?',
-    a: 'Wij zijn platform-agnostisch en hebben expertise in HubSpot, ActiveCampaign, Mailchimp, Klaviyo en andere platforms. We adviseren altijd het platform dat het beste bij uw bedrijf, doelen en budget past.'
-  },
-  {
-    q: 'Hoe complex is marketing automation om te implementeren?',
-    a: 'De complexiteit hangt af van uw bestaande systemen en doelen. Wij zorgen voor de volledige implementatie - van strategie tot technische setup. U hoeft geen technische kennis te hebben, wij regelen alles.'
-  },
-  {
-    q: 'Wat moeten wij aanleveren om te starten?',
-    a: 'Uw kennis van uw klanten en verkoopproces is de belangrijkste input. Daarnaast hebben we toegang nodig tot uw huidige systemen (CRM, website, etc.). Wij vertalen uw strategie naar geautomatiseerde workflows.'
-  },
-  {
-    q: 'Hoe wordt het succes gemeten?',
-    a: 'We focussen op KPIs die er echt toe doen: hogere conversieratio\'s, verhoogde Customer Lifetime Value (CLV), tijd bespaard door uw team, en uiteraard ROI. U krijgt toegang tot realtime dashboards met alle belangrijke metrics.'
-  },
-  {
-    q: 'Kunnen jullie ook bestaande automation workflows overnemen of verbeteren?',
-    a: 'Absoluut. Veel klanten hebben al een begin gemaakt met marketing automation maar halen er niet het maximale uit. Wij auditen uw huidige setup, identificeren verbeterpunten en optimaliseren de workflows. Dit levert vaak sneller resultaat op dan volledig opnieuw beginnen.'
-  },
-]
 
 
 // ============================================================================
@@ -264,7 +115,7 @@ export default function MarketingAutomationClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -316,10 +167,10 @@ export default function MarketingAutomationClientPage() {
               <div className="mt-6 text-sm text-gray-400">
                 <p>✓ Analyse van uw processen ✓ Kansen-rapport ✓ Software-advies</p>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -328,16 +179,14 @@ export default function MarketingAutomationClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <EmailAutomation3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <EmailAutomation3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -352,9 +201,9 @@ export default function MarketingAutomationClientPage() {
                     <p className="text-lg font-bold">+35%</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -369,8 +218,8 @@ export default function MarketingAutomationClientPage() {
                     <p className="text-lg font-bold">15u/week</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -389,6 +238,7 @@ export default function MarketingAutomationClientPage() {
                     alt="Marketing automatisering workflow"
                     width={1200}
                     height={800}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="w-full h-auto"
                   />
                 </div>

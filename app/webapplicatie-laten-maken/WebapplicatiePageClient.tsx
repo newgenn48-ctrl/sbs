@@ -1,206 +1,31 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Layers, CheckCircle2, ArrowRight,
-  Zap, Database, Lock, RefreshCw, Code2,
-  Users, FileCheck, Settings,
-  BarChart3, Plug, Workflow, Shield,
-  Rocket, Target
+  Zap, Lock, RefreshCw, Code2,
+  Plug, Target
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-blue/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, examples, whyChooseUs, processSteps, faqs } from '@/lib/data/webapplicatie'
 
 const AppDashboard3D = dynamic(() => import('@/components/3d/AppDashboard3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Webapplicatie diensten
-const services = [
-  {
-    icon: Layers,
-    title: 'Custom Webapplicaties',
-    description: 'Op maat gemaakte applicaties die precies doen wat u nodig heeft. Geen compromissen met standaard software.',
-    features: ['Volledig maatwerk', 'Schaalbare architectuur', 'Moderne UI/UX', 'Progressive Web App'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: BarChart3,
-    title: 'Dashboards & Portalen',
-    description: 'Overzichtelijke dashboards en klantportalen voor inzicht in uw data en processen.',
-    features: ['Real-time data', 'Interactieve grafieken', 'Rol-gebaseerde toegang', 'Custom rapportages'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Plug,
-    title: 'API Integraties',
-    description: 'Koppel uw systemen aan elkaar. CRM, boekhouding, voorraad - alles communiceert naadloos.',
-    features: ['REST & GraphQL APIs', 'Webhook integraties', 'Data synchronisatie', 'Legacy systemen'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Workflow,
-    title: 'Proces Automatisering',
-    description: 'Automatiseer repetitieve taken en workflows. Bespaar tijd en voorkom fouten.',
-    features: ['Workflow automation', 'Notificaties & alerts', 'Automatische rapporten', 'Task scheduling'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Database,
-    title: 'Database Oplossingen',
-    description: 'Robuuste data-architectuur voor veilige opslag en snelle toegang tot uw informatie.',
-    features: ['Database ontwerp', 'Data migratie', 'Backup strategie', 'Performance tuning'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Shield,
-    title: 'Security & Compliance',
-    description: 'Veilige applicaties die voldoen aan AVG en andere regelgeving.',
-    features: ['Authenticatie & autorisatie', 'Data encryptie', 'AVG compliance', 'Security audits'],
-    color: 'quantum-purple'
-  },
-]
-
-// Voorbeelden van webapplicaties
-const examples = [
-  {
-    title: 'Klantportalen',
-    description: 'Geef klanten toegang tot hun gegevens, facturen en documenten via een eigen portaal.',
-    icon: Users
-  },
-  {
-    title: 'Interne Tools',
-    description: 'CRM, project management, urenregistratie - tools op maat voor uw team.',
-    icon: Settings
-  },
-  {
-    title: 'Data Dashboards',
-    description: 'Visualiseer uw KPIs en bedrijfsdata in overzichtelijke, realtime dashboards.',
-    icon: BarChart3
-  },
-  {
-    title: 'Booking Systemen',
-    description: 'Reserveringssystemen voor afspraken, ruimtes of diensten.',
-    icon: FileCheck
-  },
-]
-
-// Waarom wij - focus op bedrijf/samenwerking
-const whyChooseUs = [
-  {
-    icon: Lock,
-    title: 'Volledig Eigendom',
-    description: 'U bent 100% eigenaar van de broncode. Geen lock-in, geen licentiekosten.',
-    stat: '100%',
-    statLabel: 'van u'
-  },
-  {
-    icon: Users,
-    title: 'Directe Lijnen',
-    description: 'Eén vast aanspreekpunt. Direct contact met uw developer, geen helpdesk.',
-    stat: '1',
-    statLabel: 'contactpersoon'
-  },
-  {
-    icon: RefreshCw,
-    title: 'Agile Werkwijze',
-    description: 'Regelmatige demos en feedback. U ziet altijd wat we bouwen.',
-    stat: '2 weken',
-    statLabel: 'sprints'
-  },
-  {
-    icon: Rocket,
-    title: 'Nazorg Inbegrepen',
-    description: 'Na oplevering staan wij klaar voor support, updates en doorontwikkeling.',
-    stat: '∞',
-    statLabel: 'support'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Discovery',
-    description: 'We analyseren uw processen, wensen en technische requirements.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Design & Planning',
-    description: 'Wireframes, user flows en technische architectuur worden uitgewerkt.',
-    icon: FileCheck
-  },
-  {
-    step: '03',
-    title: 'Agile Development',
-    description: 'In korte sprints bouwen we de applicatie met regelmatige demos.',
-    icon: Code2
-  },
-  {
-    step: '04',
-    title: 'Testing & Launch',
-    description: 'Uitgebreid testen, training voor gebruikers en live gang.',
-    icon: Rocket
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe lang duurt het om een webapplicatie te bouwen?',
-    a: 'Dit hangt sterk af van de complexiteit. Een eenvoudige applicatie kan in 2-3 maanden klaar zijn. Complexere projecten kunnen 6-12 maanden duren. Na de discovery fase geven we een realistische planning.'
-  },
-  {
-    q: 'Waarom geen standaard software zoals Salesforce of HubSpot?',
-    a: 'Standaard software is prima voor standaard processen. Maar als uw werkwijze uniek is, betaalt u voor functies die u niet gebruikt en mist u functies die u wel nodig heeft. Maatwerk past exact bij uw proces, zonder maandelijkse licentiekosten per gebruiker.'
-  },
-  {
-    q: 'Kunnen jullie integreren met onze bestaande systemen?',
-    a: 'Ja, wij hebben ervaring met het koppelen aan diverse systemen: CRM (Salesforce, HubSpot), boekhouding (Exact, Moneybird), voorraadbeheer en andere zakelijke software. Als er een API is, kunnen we koppelen.'
-  },
-  {
-    q: 'Wie is eigenaar van de code?',
-    a: 'U bent volledig eigenaar van de broncode. Na oplevering ontvangt u alle code en documentatie. Er is geen lock-in of afhankelijkheid van ons.'
-  },
-  {
-    q: 'Bieden jullie ook onderhoud en support?',
-    a: 'Ja, we bieden flexibele onderhoudscontracten voor hosting, updates, bugfixes en doorontwikkeling. U kunt ook kiezen voor support op afroep.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -286,7 +111,7 @@ export default function WebapplicatiePageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -335,10 +160,10 @@ export default function WebapplicatiePageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -347,16 +172,14 @@ export default function WebapplicatiePageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-blue/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <AppDashboard3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <AppDashboard3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -371,9 +194,9 @@ export default function WebapplicatiePageClient() {
                     <p className="text-lg font-bold">Naadloos</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -388,8 +211,8 @@ export default function WebapplicatiePageClient() {
                     <p className="text-lg font-bold">100% Custom</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -404,7 +227,7 @@ export default function WebapplicatiePageClient() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Video */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -415,6 +238,7 @@ export default function WebapplicatiePageClient() {
                   loop
                   muted
                   playsInline
+                  preload="none"
                   className="w-full h-full object-cover"
                   title="Webapplicatie ontwikkeling demo"
                   aria-label="Video demonstratie van onze webapplicatie ontwikkeling"
@@ -433,10 +257,10 @@ export default function WebapplicatiePageClient() {
                     100% Maatwerk
                   </Badge>
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Content */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -463,7 +287,7 @@ export default function WebapplicatiePageClient() {
                     { icon: Plug, text: 'Integraties mogelijk' },
                     { icon: RefreshCw, text: 'Schaalbaar platform' },
                   ].map((item, index) => (
-                    <motion.div
+                    <m.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -473,7 +297,7 @@ export default function WebapplicatiePageClient() {
                     >
                       <item.icon className="w-5 h-5 text-quantum-blue" />
                       <span className="text-sm">{item.text}</span>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
@@ -487,7 +311,7 @@ export default function WebapplicatiePageClient() {
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </a>
                 </Button>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>

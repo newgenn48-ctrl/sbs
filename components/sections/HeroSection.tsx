@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
@@ -31,7 +31,7 @@ export default function HeroSection() {
       <div className="container relative z-10 mx-auto px-4 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -56,7 +56,7 @@ export default function HeroSection() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-10">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
@@ -64,8 +64,8 @@ export default function HeroSection() {
               >
                 <CheckCircle2 className="w-5 h-5 text-quantum-green" />
                 <span>Eén vast aanspreekpunt</span>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
@@ -73,8 +73,8 @@ export default function HeroSection() {
               >
                 <CheckCircle2 className="w-5 h-5 text-quantum-green" />
                 <span>Transparante tarieven</span>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
@@ -82,10 +82,10 @@ export default function HeroSection() {
               >
                 <CheckCircle2 className="w-5 h-5 text-quantum-green" />
                 <span>24 uur responstijd</span>
-              </motion.div>
+              </m.div>
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -102,8 +102,8 @@ export default function HeroSection() {
                 </Link>
               </Button>
               
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
 
@@ -111,20 +111,20 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent z-[2]" />
 
       {/* Scroll Indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2 backdrop-blur-sm"
         >
           <div className="w-1 h-2 bg-quantum-blue rounded-full" />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   )
 }

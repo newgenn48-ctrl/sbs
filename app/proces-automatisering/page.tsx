@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import ProcessAutomationPageClient from './ProcessAutomationPageClient'
 
 export const metadata: Metadata = {
-  title: 'Proces Automatisering | RPA & Workflow Automation | Start Beheer',
+  title: 'Proces Automatisering | RPA & Workflows | Start Beheer',
   description: 'Automatiseer repetitieve taken en workflows. RPA en AI-gedreven proces automatisering voor MKB. Bespaar tijd, verminder fouten en verhoog productiviteit.',
   keywords: [
     'proces automatisering',

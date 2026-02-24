@@ -1,179 +1,29 @@
 ﻿'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Phone, CheckCircle2, ArrowRight,
-  Calendar, Clock, Mic, Zap,
-  Target, Settings, MessageSquare, Headphones, Globe,
-  FileText, Bell, PhoneCall, Volume2
+  Clock, Mic, Headphones
 } from 'lucide-react'
-import { Suspense, useState, useEffect } from 'react'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import Link from 'next/link'
 import Image from 'next/image'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-orange/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-orange/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyAssistant, processSteps, faqs } from '@/lib/data/virtual-assistant'
 
 const VirtualAssistant3D = dynamic(() => import('@/components/3d/VirtualAssistant3D'), { ssr: false })
-
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Virtuele assistent diensten
-const services = [
-  {
-    icon: PhoneCall,
-    title: 'Telefonische Afhandeling',
-    description: 'AI die telefoongesprekken voert, doorverbindt en berichten noteert.',
-    features: ['Gesprekken beantwoorden', 'Intelligent doorverbinden', 'Voicemail naar tekst', 'Call screening'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Calendar,
-    title: 'Afspraakplanning',
-    description: 'Automatisch afspraken inplannen, verzetten en bevestigen.',
-    features: ['Agenda synchronisatie', 'Beschikbaarheid check', 'Automatische bevestiging', 'Herinneringen'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: MessageSquare,
-    title: 'Lead Intake',
-    description: 'Kwalificeer leads telefonisch en verzamel alle benodigde informatie.',
-    features: ['Gestructureerde intake', 'Lead scoring', 'CRM integratie', 'Follow-up scheduling'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Globe,
-    title: 'Meertalig',
-    description: 'Communiceer met klanten in hun eigen taal. Nederlands, Engels, Duits en meer.',
-    features: ['Nederlands', 'Engels', 'Duits', 'Frans & Spaans'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: FileText,
-    title: 'Transcriptie & Samenvatting',
-    description: 'Automatische transcriptie en samenvatting van alle gesprekken.',
-    features: ['Real-time transcriptie', 'Samenvatting per gesprek', 'Actie-items extractie', 'Zoekbare historie'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Bell,
-    title: 'Notificaties & Escalatie',
-    description: 'Krijg alerts bij belangrijke oproepen en automatische escalatie.',
-    features: ['Urgente oproep alerts', 'VIP klant herkenning', 'Escalatie workflows', 'Real-time notificaties'],
-    color: 'quantum-blue'
-  },
-]
-
-
-// Waarom virtuele assistent
-const whyAssistant = [
-  {
-    icon: Clock,
-    title: '24/7 Bereikbaar',
-    description: 'Nooit meer een gemiste oproep. Uw assistent is altijd beschikbaar.',
-    stat: '24/7',
-    statLabel: 'bereikbaar'
-  },
-  {
-    icon: Zap,
-    title: 'Direct Antwoord',
-    description: 'Geen wachttijden. Elke beller wordt direct te woord gestaan.',
-    stat: '0s',
-    statLabel: 'wachttijd'
-  },
-  {
-    icon: Target,
-    title: '95% Afhandeling',
-    description: 'De meeste oproepen worden direct afgehandeld zonder tussenkomst.',
-    stat: '95%',
-    statLabel: 'direct'
-  },
-  {
-    icon: Volume2,
-    title: 'Natuurlijke Stem',
-    description: 'Natuurlijke AI-stem die niet van een mens te onderscheiden is.',
-    stat: 'HD',
-    statLabel: 'voice quality'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Intake',
-    description: 'We analyseren uw telefonische processen en wensen.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Training',
-    description: 'De assistent wordt getraind op uw bedrijf, diensten en FAQ.',
-    icon: Mic
-  },
-  {
-    step: '03',
-    title: 'Integratie',
-    description: 'Koppeling met uw telefonie, agenda en CRM systemen.',
-    icon: Settings
-  },
-  {
-    step: '04',
-    title: 'Go-Live',
-    description: 'Na testing gaat uw virtuele assistent live. Wij blijven optimaliseren.',
-    icon: Phone
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Klinkt de AI-stem echt natuurlijk?',
-    a: 'Ja, we gebruiken de nieuwste text-to-speech technologie. De stemmen zijn nauwelijks van echte mensen te onderscheiden. U kunt kiezen uit verschillende stemmen en we stemmen de intonatie af op uw merk.'
-  },
-  {
-    q: 'Wat als de beller een complex probleem heeft?',
-    a: 'De assistent herkent wanneer een gesprek te complex wordt en draagt direct over aan een medewerker. Alle context wordt meegestuurd zodat de klant niet opnieuw hoeft uit te leggen. U bepaalt zelf de escalatieregels.'
-  },
-  {
-    q: 'Kan de assistent mijn agenda beheren?',
-    a: 'Ja, de assistent integreert met Google Calendar, Outlook, Calendly en andere agenda-tools. Hij kan afspraken inplannen, verzetten en annuleren, rekening houdend met uw beschikbaarheid en voorkeuren.'
-  },
-  {
-    q: 'Hoe zit het met privacy van telefoongesprekken?',
-    a: 'Alle gesprekken worden verwerkt conform AVG. Opnames en transcripties worden veilig opgeslagen in Europa. Bellers worden geïnformeerd dat ze met een AI spreken. U bepaalt zelf wat er wordt bewaard.'
-  },
-]
-
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
 // ============================================================================
 // COMPONENTS
@@ -260,7 +110,7 @@ export default function VirtualAssistantPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -309,10 +159,10 @@ export default function VirtualAssistantPageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -321,16 +171,14 @@ export default function VirtualAssistantPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-orange/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <VirtualAssistant3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <VirtualAssistant3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -345,9 +193,9 @@ export default function VirtualAssistantPageClient() {
                     <p className="text-lg font-bold">24/7 Online</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -362,8 +210,8 @@ export default function VirtualAssistantPageClient() {
                     <p className="text-lg font-bold">Natuurlijk</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -383,6 +231,7 @@ export default function VirtualAssistantPageClient() {
                     muted
                     loop
                     playsInline
+                    preload="none"
                   >
                     <source src="/virtuele-assistent.mp4" type="video/mp4" />
                     Uw browser ondersteunt geen video.
@@ -466,6 +315,7 @@ export default function VirtualAssistantPageClient() {
                     alt="Virtuele assistent - 24/7 telefonische bereikbaarheid"
                     width={1200}
                     height={800}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="w-full h-auto"
                   />
                 </div>

@@ -1,208 +1,29 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Cloud, CheckCircle2, ArrowRight, Phone,
-  Clock, Users, Shield, Zap,
-  Mail, HardDrive, Video, MessageSquare,
-  FileText, Calendar, Lock, RefreshCw,
-  Settings, Headphones, Star, Activity,
-  Building2, TrendingUp, Target, Award
+  Cloud, CheckCircle2, ArrowRight,
+  Clock, Star, Zap, Phone
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
+import { m365Apps, services, benefits, processSteps, whyUs } from '@/lib/data/microsoft-365'
 
 const CloudNetwork = dynamic(() => import('@/components/3d/CloudNetwork'), { ssr: false })
-
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-[#0078D4]/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-[#0078D4]/30 animate-ping" style={{ animationDuration: '2s' }} />
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
     </div>
-  </div>
-)
+  ),
+})
 
-// ============================================================================
-// DATA
-// ============================================================================
-
-const m365Apps = [
-  {
-    icon: Mail,
-    name: 'Exchange Online',
-    description: 'Professionele zakelijke e-mail met 50GB opslag, gedeelde agenda\'s en contacten. Overal toegang via web, desktop en mobiel.',
-    color: '#0078D4'
-  },
-  {
-    icon: Video,
-    name: 'Microsoft Teams',
-    description: 'Videobellen, chatten en samenwerken in één platform. De centrale hub voor al uw teamcommunicatie.',
-    color: '#6264A7'
-  },
-  {
-    icon: HardDrive,
-    name: 'OneDrive',
-    description: '1TB cloudopslag per gebruiker. Bestanden veilig opslaan, delen en synchroniseren tussen al uw apparaten.',
-    color: '#0078D4'
-  },
-  {
-    icon: FileText,
-    name: 'SharePoint',
-    description: 'Intranet en documentbeheer voor uw organisatie. Centrale plek voor bedrijfsinformatie en samenwerking.',
-    color: '#038387'
-  },
-  {
-    icon: Calendar,
-    name: 'Outlook & Agenda',
-    description: 'E-mail, agenda en taken geïntegreerd. Plan vergaderingen, beheer uw tijd en blijf georganiseerd.',
-    color: '#0078D4'
-  },
-  {
-    icon: Shield,
-    name: 'Security & Compliance',
-    description: 'Ingebouwde beveiliging, AVG-compliance en data loss prevention. Uw data is veilig.',
-    color: '#D83B01'
-  },
-]
-
-const services = [
-  {
-    icon: RefreshCw,
-    title: 'Migratie & Implementatie',
-    description: 'Soepele overgang naar Microsoft 365. Van Google Workspace, on-premise Exchange of andere systemen - wij migreren uw e-mail, bestanden en agenda\'s zonder dataverlies.',
-    features: ['E-mail migratie', 'Data migratie', 'Gebruikers training', 'Minimale downtime']
-  },
-  {
-    icon: Settings,
-    title: 'Configuratie & Optimalisatie',
-    description: 'Microsoft 365 optimaal inrichten voor uw organisatie. Security policies, gebruikersbeheer, groepen en alle instellingen precies zoals u het wilt.',
-    features: ['Tenant configuratie', 'Security policies', 'Groepen & rechten', 'Best practices']
-  },
-  {
-    icon: Headphones,
-    title: 'Beheer & Support',
-    description: 'Doorlopend beheer van uw M365 omgeving. Wij handelen gebruikersaanvragen af, lossen problemen op en houden alles up-to-date.',
-    features: ['Gebruikersbeheer', 'Licentie beheer', 'Troubleshooting', 'Updates & patches']
-  },
-  {
-    icon: Shield,
-    title: 'Security & Compliance',
-    description: 'Beveilig uw Microsoft 365 omgeving. Multi-factor authenticatie, conditional access, data loss prevention en AVG-compliance.',
-    features: ['MFA implementatie', 'Conditional access', 'DLP policies', 'Audit logging']
-  },
-]
-
-const benefits = [
-  {
-    icon: Cloud,
-    title: 'Overal Werken',
-    description: 'Toegang tot al uw bestanden, e-mail en applicaties vanaf elk apparaat, waar u ook bent.'
-  },
-  {
-    icon: Users,
-    title: 'Betere Samenwerking',
-    description: 'Teams, SharePoint en OneDrive maken samenwerken eenvoudig - intern en met externe partners.'
-  },
-  {
-    icon: Lock,
-    title: 'Enterprise Security',
-    description: 'Microsoft investeert miljarden in security. Profiteer van dezelfde beveiliging als grote enterprises.'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Schaalbaar',
-    description: 'Eenvoudig gebruikers toevoegen of verwijderen. Betaal alleen voor wat u gebruikt.'
-  },
-  {
-    icon: RefreshCw,
-    title: 'Altijd Up-to-date',
-    description: 'Automatische updates zorgen dat u altijd de nieuwste features en security patches heeft.'
-  },
-  {
-    icon: Zap,
-    title: 'Verhoogde Productiviteit',
-    description: 'Geïntegreerde tools die naadloos samenwerken. Minder schakelen, meer gedaan krijgen.'
-  },
-]
-
-const processSteps = [
-  {
-    step: '01',
-    title: 'Inventarisatie',
-    description: 'We analyseren uw huidige situatie, wensen en eisen voor de perfecte M365 configuratie.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Planning',
-    description: 'Een gedetailleerd migratieplan met tijdlijn, zodat u precies weet wat u kunt verwachten.',
-    icon: Calendar
-  },
-  {
-    step: '03',
-    title: 'Migratie',
-    description: 'Wij voeren de migratie uit - meestal in het weekend om verstoring te minimaliseren.',
-    icon: RefreshCw
-  },
-  {
-    step: '04',
-    title: 'Training & Support',
-    description: 'Uw team leert de nieuwe tools kennen. En wij blijven beschikbaar voor vragen.',
-    icon: Users
-  },
-]
-
-const whyUs = [
-  {
-    icon: Award,
-    title: 'Microsoft Partner',
-    description: 'Gecertificeerd Microsoft Partner met jarenlange M365 ervaring.',
-    stat: 'Certified',
-    statLabel: 'Microsoft Partner'
-  },
-  {
-    icon: Building2,
-    title: 'MKB Specialist',
-    description: 'Wij begrijpen de uitdagingen van het MKB en stemmen onze aanpak daarop af.',
-    stat: '500+',
-    statLabel: 'MKB klanten'
-  },
-  {
-    icon: Headphones,
-    title: 'Persoonlijke Support',
-    description: 'Geen helpdesk in het buitenland. Directe toegang tot Nederlandse M365 experts.',
-    stat: '<1 uur',
-    statLabel: 'responstijd'
-  },
-  {
-    icon: Target,
-    title: 'Vaste Prijzen',
-    description: 'Transparante tarieven voor migratie en beheer. Geen verrassingen achteraf.',
-    stat: '100%',
-    statLabel: 'transparant'
-  },
-]
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -314,7 +135,7 @@ export default function Microsoft365PageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -373,10 +194,10 @@ export default function Microsoft365PageClient() {
                   </Link>
                 </Button>
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -384,14 +205,12 @@ export default function Microsoft365PageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#0078D4]/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 4.5 : 6], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <CloudNetwork />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 4.5 : 6], fov: isMobile ? 50 : 45 }}>
+                <CloudNetwork />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -406,9 +225,9 @@ export default function Microsoft365PageClient() {
                     <p className="text-lg font-bold">Altijd toegang</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -423,8 +242,8 @@ export default function Microsoft365PageClient() {
                     <p className="text-lg font-bold">Verhoogd</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

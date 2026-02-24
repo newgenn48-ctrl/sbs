@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import WerkplekbeheerClientPage from './WerkplekbeheerClientPage'
 
 export const metadata: Metadata = {
-  title: 'Werkplekbeheer Uitbesteden | Device Management | Start Beheer',
+  title: 'Werkplekbeheer & Device Management | Start Beheer',
   description: 'Werkplekbeheer uitbesteden? Wij zorgen voor veilige, gestandaardiseerde en optimaal presterende werkplekken. Van installatie tot support, proactief beheer en 24/7 monitoring.',
   keywords: [
     'werkplekbeheer uitbesteden',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'DaaS'
   ],
   openGraph: {
-    title: 'Werkplekbeheer Uitbesteden | Device Management | Start Beheer',
+    title: 'Werkplekbeheer & Device Management | Start Beheer',
     description: 'Werkplekbeheer uitbesteden? Veilige, gestandaardiseerde en optimaal presterende werkplekken met proactief beheer.',
     type: 'website',
     locale: 'nl_NL',

@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import AnalyticsPageClient from './AnalyticsPageClient'
 
 export const metadata: Metadata = {
-  title: 'AI Analytics | Voorspellende Analyses & Inzichten | Start Beheer',
+  title: 'AI Analytics | Voorspellende Analyses | Start Beheer',
   description: 'AI-gedreven analytics voor MKB. Voorspellende analyses, klantinzichten en business intelligence. Transformeer data in concrete acties voor betere besluitvorming.',
   keywords: [
     'AI analytics',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'realtime data inzichten'
   ],
   openGraph: {
-    title: 'AI Analytics | Voorspellende Analyses & Inzichten | Start Beheer',
+    title: 'AI Analytics | Voorspellende Analyses | Start Beheer',
     description: 'AI-gedreven analytics voor MKB. Voorspellende analyses, klantinzichten en business intelligence. Transformeer data in concrete acties.',
     type: 'website',
     locale: 'nl_NL',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Analytics | Voorspellende Analyses & Inzichten | Start Beheer',
+    title: 'AI Analytics | Voorspellende Analyses | Start Beheer',
     description: 'AI-gedreven analytics voor MKB. Voorspellende analyses en business intelligence voor betere besluitvorming.',
   },
   alternates: {

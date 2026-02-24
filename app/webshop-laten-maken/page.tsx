@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'webshop MKB'
   ],
   openGraph: {
-    title: 'Webshop Laten Maken | Shopify & WooCommerce | Start Beheer',
+    title: 'Webshop Laten Maken | Shopify & WooCommerce',
     description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen. Betalingsintegraties en conversie optimalisatie.',
     type: 'website',
     locale: 'nl_NL',

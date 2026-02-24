@@ -1,4 +1,9 @@
 import type { NextConfig } from 'next'
+import bundleAnalyzer from '@next/bundle-analyzer'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -112,8 +117,18 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Cache static assets aggressively
+      {
+        source: '/(.*)\\.(ico|png|jpg|jpeg|gif|webp|avif|svg|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ]
   },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

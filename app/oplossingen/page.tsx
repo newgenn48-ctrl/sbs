@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import OplossingenClientPage from './OplossingenClientPage'
 
 export const metadata: Metadata = {
-  title: 'IT Oplossingen voor ZZP & MKB | Complete Digitale Ondersteuning',
+  title: 'Complete IT Oplossingen ZZP & MKB | Start Beheer',
   description: 'Complete IT-oplossingen voor ZZP\'ers en MKB. Website, e-mail, IT-support, marketing en meer. Wij groeien met uw bedrijf mee. ✓ Eén aanspreekpunt ✓ Schaalbare oplossingen ✓ Persoonlijke aanpak',
   keywords: 'IT oplossingen ZZP, IT oplossingen MKB, digitale oplossingen bedrijven, IT partner ZZP MKB, website ZZP, IT support MKB, zakelijke IT diensten',
   openGraph: {
@@ -11,6 +11,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'nl_NL',
     url: 'https://startbeheer.nl/oplossingen',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete IT Oplossingen ZZP & MKB | Start Beheer',
+    description: 'Complete IT-oplossingen voor ZZP\'ers en MKB. Website, e-mail, IT-support en marketing in één pakket.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: '/oplossingen'

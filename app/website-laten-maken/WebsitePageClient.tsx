@@ -1,8 +1,7 @@
 ﻿'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -10,194 +9,26 @@ import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Globe, CheckCircle2, ArrowRight,
   Zap, Palette, Lock, Search,
-  Smartphone, Code2, FileText,
+  Smartphone, FileText,
   Users,
-  Rocket, Target
+  Target
 } from 'lucide-react'
-import { Suspense, useState, useEffect } from 'react'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import Link from 'next/link'
 import Image from 'next/image'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import {
+  services, priceInfo, whyChooseUs, processSteps, faqs
+} from '@/lib/data/website'
 
 const WebsiteBuilder3D = dynamic(() => import('@/components/3d/WebsiteBuilder3D'), { ssr: false })
-
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Website diensten
-const services = [
-  {
-    icon: Palette,
-    title: 'Custom Design',
-    description: 'Uniek ontwerp dat perfect past bij uw merk. Geen templates, alleen maatwerk.',
-    features: ['Merkidentiteit verwerkt', 'Unieke look & feel', 'UI/UX design', 'Responsive design'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Zap,
-    title: 'Razendsnelle Performance',
-    description: 'Websites die laden in minder dan 2 seconden. Cruciaal voor SEO en conversie.',
-    features: ['Laadtijd <2s', 'Geoptimaliseerde code', 'CDN integratie', 'Image optimization'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Search,
-    title: 'SEO Geoptimaliseerd',
-    description: 'Technisch SEO-fundament zodat u gevonden wordt in Google.',
-    features: ['Meta tags & schema', 'Sitemap & robots.txt', 'Core Web Vitals', 'Keyword onderzoek'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile-First',
-    description: 'Meer dan 60% van uw bezoekers komt via mobiel. Wij ontwerpen daar eerst voor.',
-    features: ['Responsive design', 'Touch-friendly', 'Mobiele snelheid', 'App-achtige ervaring'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: FileText,
-    title: 'CMS Integratie',
-    description: 'Beheer zelf uw content via een gebruiksvriendelijk CMS.',
-    features: ['Strapi / Sanity', 'Eenvoudig beheer', 'Media library', 'Meerdere gebruikers'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Lock,
-    title: 'Veilig & Betrouwbaar',
-    description: 'Moderne, veilige code zonder kwetsbare plugins of verouderde themas.',
-    features: ['SSL certificaat', 'Geen plugins nodig', 'Regelmatige updates', 'Backup strategie'],
-    color: 'quantum-green'
-  },
-]
-
-// Prijs info
-const priceInfo = {
-  price: 'Vanaf €785',
-  description: 'Professionele website volledig op maat',
-  features: [
-    'Custom design op maat',
-    'Mobile-first & responsive',
-    'SEO geoptimaliseerd',
-    'Razendsnelle laadtijd',
-    'Contactformulier',
-    'SSL certificaat',
-    'CMS voor zelf beheren',
-    'Analytics integratie',
-  ],
-}
-
-// Waarom wij - focus op bedrijf/samenwerking, niet product (dat staat bij Diensten)
-const whyChooseUs = [
-  {
-    icon: Lock,
-    title: 'Volledig Eigendom',
-    description: 'U bent 100% eigenaar van uw website. Geen lock-in, geen doorlopende licentiekosten.',
-    stat: '100%',
-    statLabel: 'van u'
-  },
-  {
-    icon: Users,
-    title: 'Directe Lijnen',
-    description: 'Eén vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
-    stat: '1',
-    statLabel: 'contactpersoon'
-  },
-  {
-    icon: FileText,
-    title: 'Vaste Prijs',
-    description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf, geen uurtje-factuurtje.',
-    stat: '€',
-    statLabel: 'vast'
-  },
-  {
-    icon: Rocket,
-    title: 'Nazorg Inbegrepen',
-    description: 'Na oplevering staan wij voor u klaar. Updates, kleine aanpassingen en technische support.',
-    stat: '∞',
-    statLabel: 'support'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Kennismaking',
-    description: 'We bespreken uw wensen, doelen en doelgroep in een vrijblijvend gesprek.',
-    icon: Users
-  },
-  {
-    step: '02',
-    title: 'Ontwerp',
-    description: 'Uw unieke design wordt uitgewerkt. U ziet het resultaat voordat we bouwen.',
-    icon: Palette
-  },
-  {
-    step: '03',
-    title: 'Development',
-    description: 'We bouwen uw website met moderne technologie en uitgebreide testing.',
-    icon: Code2
-  },
-  {
-    step: '04',
-    title: 'Lancering',
-    description: 'Na uw goedkeuring gaan we live. Wij regelen hosting en technische setup.',
-    icon: Rocket
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe lang duurt het om een website te maken?',
-    a: 'Een standaard website is meestal binnen 1-3 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 4-6 weken duren.'
-  },
-  {
-    q: 'Waarom geen WordPress of Wix?',
-    a: 'WordPress en Wix zijn prima voor eenvoudige websites, maar hebben nadelen: tragere laadtijden, beveiligingsrisico\'s door plugins, en beperkte flexibiliteit. Onze websites zijn sneller, veiliger en volledig op maat - zonder maandelijkse licentiekosten.'
-  },
-  {
-    q: 'Kan ik zelf content aanpassen na oplevering?',
-    a: 'Ja, u krijgt een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training zodat u direct aan de slag kunt.'
-  },
-  {
-    q: 'Wat als ik later meer pagina\'s of functies wil?',
-    a: 'Geen probleem. Onze websites zijn gebouwd om te groeien. U kunt altijd uitbreiden met extra pagina\'s, blog, webshop of andere functionaliteit.'
-  },
-  {
-    q: 'Regelen jullie ook hosting en domein?',
-    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
-  },
-  {
-    q: 'Wat voor support krijg ik na oplevering?',
-    a: 'Na oplevering blijven wij beschikbaar voor vragen, kleine aanpassingen en technische ondersteuning. Voor grotere wijzigingen maken we een offerte op maat. Zo bent u nooit alleen.'
-  },
-]
-
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
 // ============================================================================
 // COMPONENTS
@@ -322,7 +153,7 @@ export default function WebsitePageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -370,10 +201,10 @@ export default function WebsitePageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -382,16 +213,14 @@ export default function WebsitePageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <WebsiteBuilder3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <WebsiteBuilder3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -406,9 +235,9 @@ export default function WebsitePageClient() {
                     <p className="text-lg font-bold">&lt;2 seconden</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -423,8 +252,8 @@ export default function WebsitePageClient() {
                     <p className="text-lg font-bold">100% Custom</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -462,7 +291,7 @@ export default function WebsitePageClient() {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Video */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -477,6 +306,7 @@ export default function WebsitePageClient() {
                       muted
                       loop
                       playsInline
+                      preload="none"
                       className="w-full h-auto"
                       aria-label="Website laten maken - professioneel webdesign proces"
                       title="Website laten maken bij Start Beheer"
@@ -488,7 +318,7 @@ export default function WebsitePageClient() {
                 </div>
 
                 {/* Floating badge */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -499,11 +329,11 @@ export default function WebsitePageClient() {
                     <p className="text-quantum-green font-semibold text-lg">1-3 weken</p>
                     <p className="text-gray-400 text-sm">Oplevering</p>
                   </div>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
 
               {/* Content */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -537,7 +367,7 @@ export default function WebsitePageClient() {
                     { icon: Search, text: 'Vindbaar in Google' },
                     { icon: Zap, text: 'Snelle laadtijden' },
                   ].map((item, index) => (
-                    <motion.div
+                    <m.div
                       key={item.text}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -549,7 +379,7 @@ export default function WebsitePageClient() {
                         <item.icon className="w-4 h-4 text-quantum-green" />
                       </div>
                       <span className="text-gray-300 text-sm">{item.text}</span>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
@@ -563,7 +393,7 @@ export default function WebsitePageClient() {
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </a>
                 </Button>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -577,7 +407,7 @@ export default function WebsitePageClient() {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Content */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -611,7 +441,7 @@ export default function WebsitePageClient() {
                     { icon: Smartphone, text: 'Responsive op alle apparaten' },
                     { icon: Globe, text: 'Klaar voor groei' },
                   ].map((item, index) => (
-                    <motion.div
+                    <m.div
                       key={item.text}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -623,7 +453,7 @@ export default function WebsitePageClient() {
                         <item.icon className="w-4 h-4 text-quantum-purple" />
                       </div>
                       <span className="text-gray-300 text-sm">{item.text}</span>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
@@ -637,10 +467,10 @@ export default function WebsitePageClient() {
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
-              </motion.div>
+              </m.div>
 
               {/* Afbeelding */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -656,6 +486,7 @@ export default function WebsitePageClient() {
                       title="Website laten maken bij Start Beheer"
                       width={800}
                       height={600}
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                       className="w-full h-auto"
                       loading="lazy"
                     />
@@ -663,7 +494,7 @@ export default function WebsitePageClient() {
                 </div>
 
                 {/* Floating badge */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -674,8 +505,8 @@ export default function WebsitePageClient() {
                     <p className="text-quantum-purple font-semibold text-lg">100%</p>
                     <p className="text-gray-400 text-sm">Op Maat</p>
                   </div>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
             </div>
           </div>
         </div>

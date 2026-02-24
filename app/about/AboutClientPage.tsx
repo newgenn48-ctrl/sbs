@@ -1,8 +1,7 @@
 'use client'
 
-import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -78,9 +77,7 @@ export default function AboutClientPage() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0">
-          <Suspense fallback={null}>
-            <About3DScene scene="hero" />
-          </Suspense>
+          <About3DScene scene="hero" />
         </div>
 
         {/* Gradient overlays */}
@@ -90,7 +87,7 @@ export default function AboutClientPage() {
         {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20">
           <div className="max-w-4xl">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -123,12 +120,12 @@ export default function AboutClientPage() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
+        <m.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -136,7 +133,7 @@ export default function AboutClientPage() {
           <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
             <div className="w-1.5 h-3 bg-white/50 rounded-full" />
           </div>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* ========== SERVICES OVERVIEW ========== */}
@@ -144,7 +141,7 @@ export default function AboutClientPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-quantum-blue/5 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -161,11 +158,11 @@ export default function AboutClientPage() {
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
               Van IT-beheer tot marketing, wij bieden complete digitale oplossingen
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {services.map((service, index) => (
-              <motion.div
+              <m.div
                 key={service.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -184,7 +181,7 @@ export default function AboutClientPage() {
                     {service.name}
                   </h3>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -194,9 +191,7 @@ export default function AboutClientPage() {
       <section className="relative py-32 overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0 opacity-40">
-          <Suspense fallback={null}>
-            <About3DScene scene="founder" />
-          </Suspense>
+          <About3DScene scene="founder" />
         </div>
 
         {/* Gradient overlay */}
@@ -207,7 +202,7 @@ export default function AboutClientPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Text Content */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -236,7 +231,7 @@ export default function AboutClientPage() {
 
                 <div className="space-y-4">
                   {['Persoonlijke IT-partner voor uw bedrijf', 'Altijd bereikbaar wanneer u ons nodig heeft', 'Eerlijke prijzen, geen verborgen kosten', 'Proactief meedenken met uw groei'].map((item, i) => (
-                    <motion.div
+                    <m.div
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -246,13 +241,13 @@ export default function AboutClientPage() {
                     >
                       <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
                       <span className="text-gray-300">{item}</span>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Visual Card */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -292,7 +287,7 @@ export default function AboutClientPage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -302,9 +297,7 @@ export default function AboutClientPage() {
       <section className="relative py-32 overflow-hidden">
         {/* 3D Background */}
         <div className="absolute inset-0 z-0 opacity-40">
-          <Suspense fallback={null}>
-            <About3DScene scene="values" />
-          </Suspense>
+          <About3DScene scene="values" />
         </div>
 
         {/* Gradient overlay */}
@@ -312,7 +305,7 @@ export default function AboutClientPage() {
 
         {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -331,11 +324,11 @@ export default function AboutClientPage() {
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
               Onze kernwaarden vormen de basis van alles wat we doen
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {values.map((value, index) => (
-              <motion.article
+              <m.article
                 key={value.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -354,7 +347,7 @@ export default function AboutClientPage() {
                     <p className="text-gray-400 leading-relaxed">{value.description}</p>
                   </div>
                 </div>
-              </motion.article>
+              </m.article>
             ))}
           </div>
         </div>
@@ -366,7 +359,7 @@ export default function AboutClientPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-blue/10 rounded-full blur-[150px]" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -408,7 +401,7 @@ export default function AboutClientPage() {
                 <span>Direct Advies</span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </main>

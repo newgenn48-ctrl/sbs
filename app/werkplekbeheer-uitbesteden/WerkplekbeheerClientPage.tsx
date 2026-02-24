@@ -1,197 +1,32 @@
 ﻿'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Monitor, CheckCircle2, ArrowRight,
-  Clock, Wrench, UserCheck, Shield, Laptop,
-  Smartphone, Settings, Download,
-  FileCheck, ShieldCheck, BookOpen, RefreshCw, Headphones, UserPlus, UserMinus,
-  PackageOpen, MoveRight
+  Clock, Shield,
+  FileCheck, ShieldCheck, BookOpen
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-green/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-green/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyChooseUs, processSteps, faqs } from '@/lib/data/werkplekbeheer'
 
 const ProductivityHub = dynamic(() => import('@/components/3d/ProductivityHub'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Werkplekbeheer diensten
-const services = [
-  {
-    icon: Laptop,
-    title: 'Device Management',
-    description: 'Beheer van alle werkplekken: laptops, desktops en thin clients. Installatie, configuratie en onderhoud.',
-    features: ['Nieuwe werkplek inrichten', 'Hardware troubleshooting', 'Vervanging bij defect', 'Inventarisbeheer'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Download,
-    title: 'Software Beheer',
-    description: 'Installatie en updates van alle software die uw medewerkers nodig hebben. Altijd up-to-date en gelicentieerd.',
-    features: ['Software installatie', 'Updates & patches', 'Licentie beheer', 'Applicatie support'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Headphones,
-    title: 'Helpdesk & Support',
-    description: 'Uw medewerkers kunnen bij ons terecht voor al hun IT-vragen. Remote of on-site hulp wanneer nodig.',
-    features: ['Remote support', 'Telefonische hulp', 'On-site wanneer nodig', 'Snelle responstijd'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: UserPlus,
-    title: 'Onboarding',
-    description: 'Nieuwe medewerker? Wij zorgen dat de werkplek klaar staat. Laptop, accounts, software - alles geregeld.',
-    features: ['Werkplek configuratie', 'Account aanmaken', 'Software installatie', 'Introductie IT'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: UserMinus,
-    title: 'Offboarding',
-    description: 'Medewerker uit dienst? Wij zorgen voor veilige overdracht en opschoning van accounts en apparaten.',
-    features: ['Data backup', 'Account deactivatie', 'Apparaat innemen', 'Veilige data wissing'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobiele Apparaten',
-    description: 'Zakelijke telefoons en tablets beheren. Beveiliging, apps en integratie met uw bedrijfsomgeving.',
-    features: ['Telefoon configuratie', 'App beheer', 'Beveiliging instellen', 'E-mail & agenda sync'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: PackageOpen,
-    title: 'Werkplek Installatie',
-    description: 'Nieuwe werkplekken opzetten? Wij installeren en configureren alles: hardware, software, accounts en netwerk.',
-    features: ['Hardware setup', 'Software installatie', 'Netwerk configuratie', 'Gebruiker klaar maken'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: MoveRight,
-    title: 'Werkplek Migratie',
-    description: 'Overstappen naar nieuwe systemen of hardware? Wij migreren data, instellingen en applicaties zonder productiviteitsverlies.',
-    features: ['Data migratie', 'Applicatie overdracht', 'Instellingen behouden', 'Minimale downtime'],
-    color: 'quantum-orange'
-  },
-]
-
-// Waarom wij
-const whyChooseUs = [
-  {
-    icon: Clock,
-    title: 'Snelle Support',
-    description: 'Uw medewerkers krijgen snel hulp bij IT-problemen. Geen lange wachttijden.',
-    stat: 'Direct',
-    statLabel: 'beschikbaar'
-  },
-  {
-    icon: UserCheck,
-    title: 'Persoonlijke Aanpak',
-    description: 'Wij kennen uw medewerkers en hun werkplekken. Geen anonieme helpdesk.',
-    stat: '1',
-    statLabel: 'vast aanspreekpunt'
-  },
-  {
-    icon: Wrench,
-    title: 'Alles Inbegrepen',
-    description: 'Van installatie tot support, van onboarding tot offboarding. Compleet werkplekbeheer.',
-    stat: '100%',
-    statLabel: 'ontzorging'
-  },
-  {
-    icon: FileCheck,
-    title: 'Duidelijk Overzicht',
-    description: 'U weet precies welke apparaten en software u heeft. Altijd actueel.',
-    stat: 'Helder',
-    statLabel: 'inventaris'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Inventarisatie',
-    description: 'We brengen alle werkplekken in kaart: hardware, software, gebruikers.',
-    icon: Settings
-  },
-  {
-    step: '02',
-    title: 'Standaardisatie',
-    description: 'We bepalen samen de ideale werkplek-configuratie voor uw organisatie.',
-    icon: FileCheck
-  },
-  {
-    step: '03',
-    title: 'Overname Beheer',
-    description: 'We nemen het beheer over en zorgen dat alles up-to-date en veilig is.',
-    icon: RefreshCw
-  },
-  {
-    step: '04',
-    title: 'Doorlopende Support',
-    description: 'Uw medewerkers kunnen bij ons terecht. Wij regelen de rest.',
-    icon: Headphones
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Hoe snel kan een nieuwe medewerker aan de slag?',
-    a: 'Bij standaard onboarding is een nieuwe werkplek binnen 1-2 werkdagen klaar. Bij spoed kunnen we vaak dezelfde dag nog een laptop inrichten. We stemmen dit af op uw wensen.'
-  },
-  {
-    q: 'Hoe werkt een werkplek migratie?',
-    a: 'We plannen de migratie samen in. Eerst maken we een complete backup, dan installeren we de nieuwe werkplek met alle software en instellingen. Data en profielen worden overgezet. Uw medewerker merkt minimale onderbreking.'
-  },
-  {
-    q: 'Kunnen jullie meerdere werkplekken tegelijk installeren?',
-    a: 'Zeker. Bij grotere projecten - zoals een kantoorverhuizing of hardware refresh - plannen we de uitrol in fases. Zo verstoren we het dagelijks werk minimaal en blijft iedereen productief.'
-  },
-  {
-    q: 'Hoe werkt de support voor medewerkers?',
-    a: 'Medewerkers kunnen bellen, mailen of een ticket aanmaken. We helpen eerst remote - vaak is het probleem zo opgelost. Als dat niet lukt, komen we on-site of sturen we vervangende hardware.'
-  },
-  {
-    q: 'Wat kost werkplekbeheer per medewerker?',
-    a: 'De kosten hangen af van het pakket dat u kiest en het aantal werkplekken. We werken met vaste maandelijkse tarieven per werkplek, zodat u precies weet waar u aan toe bent. Vraag een offerte aan voor een prijsindicatie op maat.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -276,7 +111,7 @@ export default function WerkplekbeheerClientPage() {
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -325,23 +160,21 @@ export default function WerkplekbeheerClientPage() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
             >
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 4 : 5], fov: isMobile ? 55 : 50 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ProductivityHub />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 4 : 5], fov: isMobile ? 55 : 50 }}>
+                <ProductivityHub />
+              </DeferredCanvas>
 
               {/* Floating status cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
@@ -356,9 +189,9 @@ export default function WerkplekbeheerClientPage() {
                     <p className="text-lg font-bold text-white">Wij regelen het</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
@@ -373,8 +206,8 @@ export default function WerkplekbeheerClientPage() {
                     <p className="text-sm font-bold text-white">Snel geholpen</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

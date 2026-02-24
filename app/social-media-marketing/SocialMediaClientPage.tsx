@@ -1,182 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Linkedin, Instagram, Video, PenTool, Users, Target,
-  TrendingUp, BarChart3, MessageCircle, Share2, Heart,
-  Globe, ArrowRight,
-  CheckCircle2
+  Share2, CheckCircle2, ArrowRight,
+  Heart, TrendingUp
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whySocial, processSteps, faqs } from '@/lib/data/social-media'
 
 const SocialMediaFeed3D = dynamic(() => import('@/components/3d/SocialMediaFeed3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Social Media diensten
-const services = [
-  {
-    icon: Linkedin,
-    title: 'LinkedIn B2B Marketing',
-    description: 'Thought leadership en lead generatie via het grootste professionele netwerk.',
-    features: ['Company page beheer', 'LinkedIn Ads', 'Content strategie', 'Lead generation'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Instagram,
-    title: 'Instagram & Meta',
-    description: 'Visuele storytelling en community building op Instagram en Facebook.',
-    features: ['Feed & Stories', 'Reels productie', 'Meta Ads', 'Influencer samenwerking'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Video,
-    title: 'TikTok & Shorts',
-    description: 'Authentieke short-form video content voor een jonge, betrokken doelgroep.',
-    features: ['TikTok strategie', 'YouTube Shorts', 'Trend monitoring', 'Virale content'],
-    color: 'quantum-green'
-  },
-  {
-    icon: PenTool,
-    title: 'Content Creatie',
-    description: 'Professionele content die resoneert met uw doelgroep en merkidentiteit.',
-    features: ['Fotografie & video', 'Copywriting', 'Grafisch ontwerp', 'Content kalender'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Users,
-    title: 'Community Management',
-    description: 'Actieve community-opbouw door authentieke interactie en engagement.',
-    features: ['Daily engagement', 'Reactiebeheer', 'DM management', 'Crisis communicatie'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Target,
-    title: 'Social Advertising',
-    description: 'Gerichte advertentiecampagnes die converteren en ROI maximaliseren.',
-    features: ['Meta Ads', 'LinkedIn Ads', 'TikTok Ads', 'A/B testing'],
-    color: 'quantum-blue'
-  },
-]
-
-
-// Waarom Social Media
-const whySocial = [
-  {
-    icon: Users,
-    title: 'Community Building',
-    description: 'Bouw een loyale community van engaged volgers die ambassadeurs van uw merk worden.',
-    stat: '3x',
-    statLabel: 'meer engagement'
-  },
-  {
-    icon: Globe,
-    title: 'Brand Awareness',
-    description: 'Vergroot uw naamsbekendheid en word top-of-mind bij uw doelgroep.',
-    stat: '85%',
-    statLabel: 'grotere bekendheid'
-  },
-  {
-    icon: MessageCircle,
-    title: 'Direct Contact',
-    description: 'Creëer directe, authentieke conversaties met (potentiële) klanten.',
-    stat: '<1u',
-    statLabel: 'reactietijd'
-  },
-  {
-    icon: Target,
-    title: 'Lead Generatie',
-    description: 'Zet engagement om in gekwalificeerde leads en tastbare business resultaten.',
-    stat: '+150%',
-    statLabel: 'meer leads'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Analyse',
-    description: 'Doelgroep onderzoek, concurrentie analyse en audit van huidige kanalen.',
-    icon: BarChart3
-  },
-  {
-    step: '02',
-    title: 'Strategie',
-    description: 'Content strategie, posting schema en platform selectie op maat.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Content Creatie',
-    description: 'Professionele content productie die past bij uw merk en doelgroep.',
-    icon: PenTool
-  },
-  {
-    step: '04',
-    title: 'Management',
-    description: 'Daily posting, community engagement en continue optimalisatie.',
-    icon: Users
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Op welke social media platforms moeten we actief zijn?',
-    a: 'Dit hangt volledig af van uw doelgroep en business doelen. Voor B2B is LinkedIn vaak essentieel. Voor visuele producten zijn Instagram en Pinterest krachtig. TikTok werkt uitstekend voor een jonge doelgroep. We starten altijd met een doelgroep analyse om de platforms met de hoogste ROI te bepalen.'
-  },
-  {
-    q: 'Hoe vaak moeten we posten voor resultaat?',
-    a: 'Consistentie is belangrijker dan frequentie. We ontwikkelen een realistische content kalender die past bij uw resources. Liever 3 kwalitatief hoogstaande posts per week die waarde bieden, dan dagelijks irrelevante content. De optimale frequentie verschilt per platform en wordt bepaald door data-analyse.'
-  },
-  {
-    q: 'Wat is het verschil tussen organisch bereik en betaald adverteren?',
-    a: 'Organisch bereik is het publiek dat u gratis bereikt via uw volgers en hun netwerk. Social Advertising (betaalde ads) stelt ons in staat om uw boodschap te tonen aan een hyper-specifieke doelgroep buiten uw volgers. Een sterke social media strategie combineert beide voor maximale impact en ROI.'
-  },
-  {
-    q: 'Hoe meten jullie het succes van social media marketing?',
-    a: 'We kijken naar KPI\'s die direct impact hebben op uw bedrijfsdoelen: groei in engagement (likes, comments, shares), toename in website verkeer vanuit social media, lead generatie en uiteindelijk conversies. Dit alles wordt transparant gerapporteerd in een live dashboard waar u 24/7 toegang tot heeft.'
-  },
-  {
-    q: 'Kunnen jullie ook influencer marketing verzorgen?',
-    a: 'Ja, influencer marketing is onderdeel van ons aanbod. We identificeren relevante influencers binnen uw niche, onderhandelen samenwerkingen en coördineren campagnes. Van micro-influencers tot grotere namen - we matchen op basis van uw doelgroep, budget en merkwaarden voor authentieke partnerships die resultaat opleveren.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -263,7 +111,7 @@ export default function SocialMediaClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -312,10 +160,10 @@ export default function SocialMediaClientPage() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -324,16 +172,14 @@ export default function SocialMediaClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <SocialMediaFeed3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 6 : 8], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <SocialMediaFeed3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -348,9 +194,9 @@ export default function SocialMediaClientPage() {
                     <p className="text-lg font-bold">+150%</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -365,8 +211,8 @@ export default function SocialMediaClientPage() {
                     <p className="text-lg font-bold">3x Groei</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

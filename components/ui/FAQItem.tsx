@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
 // Static color classes for Tailwind purging (dynamic classes don't work)
@@ -39,7 +39,7 @@ export function FAQItem({ q, a, color = 'quantum-blue' }: FAQItemProps) {
       </button>
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -47,7 +47,7 @@ export function FAQItem({ q, a, color = 'quantum-blue' }: FAQItemProps) {
             className="overflow-hidden"
           >
             <p className="pb-5 text-gray-400 leading-relaxed">{a}</p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

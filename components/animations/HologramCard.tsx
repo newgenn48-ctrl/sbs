@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ReactNode } from 'react'
 
 interface HologramCardProps {
@@ -13,7 +13,7 @@ export default function HologramCard({
   className = '',
 }: HologramCardProps) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ scale: 1.02 }}
       className={`relative overflow-hidden rounded-2xl glass-effect border border-quantum-blue/20 ${className}`}
     >
@@ -30,6 +30,6 @@ export default function HologramCard({
       <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-quantum-blue/50" />
       <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-quantum-blue/50" />
       <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-quantum-blue/50" />
-    </motion.div>
+    </m.div>
   )
 }

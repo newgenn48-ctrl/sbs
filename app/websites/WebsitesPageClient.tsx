@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import HologramCard from '@/components/animations/HologramCard'
 import { Button } from '@/components/ui/button'
@@ -37,6 +36,14 @@ import Link from 'next/link'
 
 const DigitalNetwork = dynamic(() => import('@/components/3d/DigitalNetwork'), {
   ssr: false,
+})
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
 })
 
 const problemItems = [
@@ -192,7 +199,7 @@ const FeatureAccordion: React.FC<FeatureAccordionProps> = ({ feature, isOpen, on
     </button>
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0, marginTop: 0 }}
           animate={{ opacity: 1, height: 'auto', marginTop: '8px' }}
           exit={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -200,7 +207,7 @@ const FeatureAccordion: React.FC<FeatureAccordionProps> = ({ feature, isOpen, on
           className="overflow-hidden"
         >
           <p className="text-xs text-gray-400 pl-6 pr-4">{feature.details}</p>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   </div>
@@ -270,7 +277,7 @@ const FaqAccordion = ({ item, isOpen, onToggle }: { item: typeof faqItems[0], is
     </button>
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0, marginTop: 0 }}
           animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
           exit={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -278,7 +285,7 @@ const FaqAccordion = ({ item, isOpen, onToggle }: { item: typeof faqItems[0], is
           className="overflow-hidden"
         >
           <p className="text-gray-400 pr-8">{item.answer}</p>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   </div>
@@ -296,12 +303,12 @@ export default function WebsitesPageClient() {
       {/* Hero Section */}
       <section className="relative min-h-[600px] pt-32 flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-cyber-dark via-cyber-darker to-cyber-darker">
-          <Canvas camera={{ position: [0, 0, 10], fov: 75 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
+          <DeferredCanvas camera={{ position: [0, 0, 10], fov: 75 }}>
             <DigitalNetwork />
-          </Canvas>
+          </DeferredCanvas>
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -334,7 +341,7 @@ export default function WebsitesPageClient() {
                 Vraag een Demo aan
               </Button>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -356,14 +363,14 @@ export default function WebsitesPageClient() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {technologies.map((tech, index) => (
                 <ScrollTrigger key={index} delay={index * 0.1}>
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
                     className="glass-effect p-6 rounded-xl border border-quantum-green/20 hover:border-quantum-green/50 transition-all text-center"
                   >
                     <tech.icon className="h-12 w-12 text-quantum-green mx-auto mb-4" />
                     <h3 className="text-lg font-bold mb-2">{tech.name}</h3>
                     <p className="text-gray-400 text-sm">{tech.desc}</p>
-                  </motion.div>
+                  </m.div>
                 </ScrollTrigger>
               ))}
             </div>
@@ -378,7 +385,7 @@ export default function WebsitesPageClient() {
             <div className="max-w-7xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 {/* Video */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -393,6 +400,7 @@ export default function WebsitesPageClient() {
                         muted
                         loop
                         playsInline
+                        preload="none"
                         className="w-full h-auto"
                       >
                         <source src="/website-laten-maken.mp4" type="video/mp4" />
@@ -401,7 +409,7 @@ export default function WebsitesPageClient() {
                   </div>
 
                   {/* Floating badge */}
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -412,11 +420,11 @@ export default function WebsitesPageClient() {
                       <p className="text-quantum-green font-semibold text-lg">100%</p>
                       <p className="text-gray-400 text-sm">Maatwerk</p>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
 
                 {/* Content */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -451,7 +459,7 @@ export default function WebsitesPageClient() {
                       { icon: Clock, text: 'Oplevering binnen 4 weken' },
                       { icon: Award, text: 'SEO-proof fundament' },
                     ].map((item, index) => (
-                      <motion.div
+                      <m.div
                         key={item.text}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -463,7 +471,7 @@ export default function WebsitesPageClient() {
                           <item.icon className="w-4 h-4 text-quantum-green" />
                         </div>
                         <span className="text-gray-300 text-sm">{item.text}</span>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
 
@@ -477,7 +485,7 @@ export default function WebsitesPageClient() {
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </Button>
-                </motion.div>
+                </m.div>
               </div>
             </div>
           </div>

@@ -1,183 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Workflow, CheckCircle2, ArrowRight,
-  Cog, Clock, FileText, Zap,
-  Target, TrendingUp, Settings, Database,
-  RefreshCw,
-  Mail, Calculator, Upload, AlertCircle
+  Cog, Clock, FileText, Database
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, whyAutomation, processSteps, faqs } from '@/lib/data/process-automation'
 
 const WorkflowAutomation3D = dynamic(() => import('@/components/3d/WorkflowAutomation3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Automatisering diensten
-const services = [
-  {
-    icon: FileText,
-    title: 'Document Processing',
-    description: 'Automatisch verwerken van facturen, contracten en formulieren met AI.',
-    features: ['Factuurherkenning', 'Contract extractie', 'Form processing', 'Data validatie'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: Mail,
-    title: 'Email Automatisering',
-    description: 'Sorteer, classificeer en beantwoord emails automatisch.',
-    features: ['Email routing', 'Auto-responses', 'Attachment processing', 'Spam filtering'],
-    color: 'quantum-blue'
-  },
-  {
-    icon: Database,
-    title: 'Data Synchronisatie',
-    description: 'Houd al uw systemen automatisch up-to-date en gesynchroniseerd.',
-    features: ['Multi-system sync', 'Real-time updates', 'Conflict resolution', 'Data mapping'],
-    color: 'quantum-green'
-  },
-  {
-    icon: Calculator,
-    title: 'Rapportage Automatisering',
-    description: 'Genereer automatisch rapporten en dashboards uit uw data.',
-    features: ['Scheduled reports', 'Custom templates', 'Data aggregatie', 'Auto-distributie'],
-    color: 'quantum-orange'
-  },
-  {
-    icon: Upload,
-    title: 'Workflow Triggers',
-    description: 'Start automatisch workflows op basis van events en condities.',
-    features: ['Event-based triggers', 'Conditional logic', 'Approval flows', 'Notificaties'],
-    color: 'quantum-purple'
-  },
-  {
-    icon: AlertCircle,
-    title: 'Monitoring & Alerts',
-    description: 'Krijg automatisch notificaties bij afwijkingen of belangrijke events.',
-    features: ['Error detection', 'Threshold alerts', 'Performance monitoring', 'Audit logging'],
-    color: 'quantum-blue'
-  },
-]
-
-
-// Waarom automatisering
-const whyAutomation = [
-  {
-    icon: Clock,
-    title: 'Tijd Besparen',
-    description: 'Bespaar gemiddeld 15-20 uur per week op repetitieve taken.',
-    stat: '40%',
-    statLabel: 'tijdwinst'
-  },
-  {
-    icon: AlertCircle,
-    title: 'Minder Fouten',
-    description: 'Elimineer menselijke fouten in data-invoer en processen.',
-    stat: '95%',
-    statLabel: 'accuratesse'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Schaalbaarheid',
-    description: 'Groei zonder extra personeel. Automatisering schaalt mee.',
-    stat: '10x',
-    statLabel: 'schaalbaar'
-  },
-  {
-    icon: Zap,
-    title: 'Snelheid',
-    description: 'Processen die uren duurden nu in seconden afgerond.',
-    stat: '100x',
-    statLabel: 'sneller'
-  },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Process Mapping',
-    description: 'We brengen uw huidige processen en bottlenecks in kaart.',
-    icon: Target
-  },
-  {
-    step: '02',
-    title: 'Ontwerp',
-    description: 'We ontwerpen de geoptimaliseerde, geautomatiseerde workflow.',
-    icon: Cog
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'We bouwen en testen de automatisering in uw omgeving.',
-    icon: Settings
-  },
-  {
-    step: '04',
-    title: 'Optimalisatie',
-    description: 'Continue monitoring en verbetering van de workflows.',
-    icon: RefreshCw
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Welke processen kunnen geautomatiseerd worden?',
-    a: 'Bijna elk repetitief proces kan geautomatiseerd worden: data-invoer, email verwerking, rapportages, factuurverwerking, lead follow-up, social media posting, backup processen, en veel meer. Als u het vaker dan 3x per week doet, is het waarschijnlijk te automatiseren.'
-  },
-  {
-    q: 'Welke tools gebruiken jullie?',
-    a: 'We werken met tools als Zapier, Make (Integromat), n8n, en custom scripting. De keuze hangt af van uw bestaande systemen en de complexiteit van de automatisering. We adviseren altijd de meest kosteneffectieve oplossing.'
-  },
-  {
-    q: 'Wat als er iets mis gaat in de automatisering?',
-    a: 'Alle automatiseringen worden gebouwd met uitgebreide error handling en fallback mechanismen. U krijgt direct notificaties bij problemen. Daarnaast monitoren wij de flows en kunnen snel ingrijpen indien nodig.'
-  },
-  {
-    q: 'Kunnen bestaande medewerkers de automatisering beheren?',
-    a: 'Ja, we zorgen ervoor dat uw team de automatisering kan monitoren en kleine aanpassingen kan maken. We leveren documentatie en training. Voor complexe wijzigingen kunt u altijd bij ons terecht.'
-  },
-  {
-    q: 'Wat is de gemiddelde terugverdientijd van proces automatisering?',
-    a: 'De meeste automatiseringsprojecten verdienen zichzelf binnen 3-6 maanden terug. Dit hangt af van de tijdwinst, het uurtarief van de betrokken medewerkers en de vermindering van fouten. We berekenen vooraf de verwachte ROI zodat u een onderbouwde beslissing kunt nemen.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -264,7 +111,7 @@ export default function ProcessAutomationPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -313,10 +160,10 @@ export default function ProcessAutomationPageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -325,16 +172,14 @@ export default function ProcessAutomationPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <WorkflowAutomation3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 9 : 11], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <WorkflowAutomation3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -349,9 +194,9 @@ export default function ProcessAutomationPageClient() {
                     <p className="text-lg font-bold">40% besparing</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -366,8 +211,8 @@ export default function ProcessAutomationPageClient() {
                     <p className="text-lg font-bold">Geautomatiseerd</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
@@ -387,6 +232,7 @@ export default function ProcessAutomationPageClient() {
                     muted
                     loop
                     playsInline
+                    preload="none"
                   >
                     <source src="/proces-automatisering.mp4" type="video/mp4" />
                   </video>

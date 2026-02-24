@@ -21,7 +21,7 @@ const cursorStyles = `
 `
 
 export default function CursorGlow() {
-  const [isTouchDevice, setIsTouchDevice] = useState(true)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const cursorRef = useRef<HTMLDivElement>(null)
   const isHoveringRef = useRef(false)
   const positionRef = useRef({ x: 0, y: 0 })

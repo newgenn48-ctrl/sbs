@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Microsoft365PageClient from './Microsoft365PageClient'
 
 export const metadata: Metadata = {
-  title: 'Microsoft 365 Beheer | M365 Implementatie & Support | Start Beheer',
+  title: 'Microsoft 365 Beheer | M365 Support | Start Beheer',
   description: 'Professioneel Microsoft 365 beheer voor MKB. Implementatie, migratie, beheer en support van Teams, SharePoint, OneDrive en Exchange.',
   keywords: [
     'Microsoft 365 beheer',
@@ -19,11 +19,21 @@ export const metadata: Metadata = {
     'Microsoft 365 partner'
   ],
   openGraph: {
-    title: 'Microsoft 365 Beheer | M365 Implementatie & Support',
+    title: 'Microsoft 365 Beheer | M365 Support | Start Beheer',
     description: 'Professioneel Microsoft 365 beheer voor MKB. Implementatie, migratie, beheer en support.',
     type: 'website',
     locale: 'nl_NL',
     url: 'https://startbeheer.nl/microsoft-365-beheer',
+    siteName: 'Start Beheer Solutions',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Microsoft 365 Beheer | M365 Support | Start Beheer',
+    description: 'Professioneel Microsoft 365 beheer voor MKB. Implementatie, migratie, beheer en support.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: '/microsoft-365-beheer'

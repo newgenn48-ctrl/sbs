@@ -1,190 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  BarChart3, Search, MessageCircle, Zap,
-  ArrowRight, CheckCircle2, TrendingUp, Target,
-  Eye, ShieldCheck, Infinity, Users,
-  Rocket, FileSearch, Settings, Link2
+  ArrowRight, CheckCircle2, TrendingUp, Target, Link2
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { FAQItem } from '@/components/ui/FAQItem'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, integratedApproach, processSteps, whyUs, faqs } from '@/lib/data/marketing'
 
 const MarketingNexus = dynamic(() => import('@/components/3d/MarketingNexus'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Marketing diensten/subdiensten
-const services = [
-  {
-    icon: BarChart3,
-    title: 'Google Ads Beheer',
-    description: 'Direct resultaat met hyper-gerichte advertentiecampagnes die converteren.',
-    href: '/marketing/google-ads-beheer',
-    color: 'quantum-green',
-    features: ['Zoekwoord strategie', 'Conversie optimalisatie', 'Shopping campagnes', 'Live dashboard']
-  },
-  {
-    icon: Search,
-    title: 'SEO Services',
-    description: 'Verover de top van de zoekresultaten voor duurzame, organische groei.',
-    href: '/marketing/seo-services',
-    color: 'quantum-blue',
-    features: ['Technische SEO', 'Content strategie', 'Linkbuilding', 'Local SEO']
-  },
-  {
-    icon: MessageCircle,
-    title: 'Social Media Marketing',
-    description: 'Transformeer uw kanalen in een actieve community die converteert.',
-    href: '/marketing/social-media',
-    color: 'quantum-purple',
-    features: ['LinkedIn B2B', 'Instagram & Meta', 'Content creatie', 'Community management']
-  },
-  {
-    icon: Zap,
-    title: 'Marketing Automation',
-    description: 'Automatiseer uw marketing en sales voor schaalbare groei.',
-    href: '/marketing/marketing-automation',
-    color: 'quantum-orange',
-    features: ['Lead nurturing', 'Email automation', 'CRM integratie', 'Sales handoff']
-  },
-]
-
-// Geïntegreerde aanpak
-const integratedApproach = [
-  {
-    title: 'Ads → SEO',
-    description: 'Winstgevende zoekwoorden uit Google Ads campagnes vormen de directe input voor onze SEO content strategie, waardoor we sneller scoren op termen die converteren.'
-  },
-  {
-    title: 'SEO → Social',
-    description: 'Bezoekers die via organisch verkeer op uw website komen, retargeten we met specifieke campagnes op social media om top-of-mind te blijven.'
-  },
-  {
-    title: 'All → Automation',
-    description: 'Leads die binnenkomen via Ads, SEO of Social worden automatisch opgenomen in nurture-campagnes om ze te converteren naar betalende klanten.'
-  },
-]
-
-// Werkwijze/Proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Analyse & Strategie',
-    description: 'We analyseren uw markt, concurrentie en doelgroep om een winnende strategie te bepalen.',
-    icon: FileSearch
-  },
-  {
-    step: '02',
-    title: 'Kanaal Setup',
-    description: 'We richten de juiste kanalen in met optimale tracking en meetbaarheid.',
-    icon: Settings
-  },
-  {
-    step: '03',
-    title: 'Uitvoering & Optimalisatie',
-    description: 'Continue campagne-optimalisatie op basis van real-time data en resultaten.',
-    icon: Rocket
-  },
-  {
-    step: '04',
-    title: 'Rapportage & Groei',
-    description: 'Transparante rapportage en strategische bijsturing voor continue groei.',
-    icon: TrendingUp
-  },
-]
-
-// Waarom Start Beheer
-const whyUs = [
-  {
-    icon: Eye,
-    title: 'Radicale Transparantie',
-    description: 'Eén geïntegreerd dashboard met al uw marketingdata. Volledig inzicht, geen verrassingen.',
-    stat: '24/7',
-    statLabel: 'live inzicht'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Data-Gedreven',
-    description: 'Elke beslissing wordt onderbouwd met data. We testen, meten en weten wat werkt.',
-    stat: '100%',
-    statLabel: 'meetbaar'
-  },
-  {
-    icon: Infinity,
-    title: 'Geen Vaste Contracten',
-    description: 'We geloven in onze resultaten. Daarom bent u vrij om maandelijks aan te passen.',
-    stat: 'Flex',
-    statLabel: 'opzegbaar'
-  },
-  {
-    icon: Users,
-    title: 'Uw Groei-Partner',
-    description: 'Geen externe leverancier, maar uw strategische partner. Uw succes is ons succes.',
-    stat: '1',
-    statLabel: 'aanspreekpunt'
-  },
-]
-
-// FAQ - geoptimaliseerd voor SEO
-const faqs = [
-  {
-    q: 'Wat kost online marketing uitbesteden?',
-    a: 'De kosten voor online marketing uitbesteden variëren op basis van uw doelen en de gekozen kanalen. Wij werken met transparante maandbudgetten waarbij u vooraf weet wat de investering is. Een typische MKB-campagne start vanaf €1.500 per maand inclusief beheer. We maken altijd een vrijblijvende offerte op maat.'
-  },
-  {
-    q: 'Waarom een geïntegreerde marketing aanpak?',
-    a: 'Losse marketing-inspanningen zijn als een orkest zonder dirigent. Google Ads, SEO en Social Media versterken elkaar exponentieel wanneer ze vanuit één centrale strategie worden aangestuurd. Dit vliegwieleffect zorgt voor lagere kosten per lead en hogere conversies.'
-  },
-  {
-    q: 'Welke marketingdienst levert het snelste resultaat?',
-    a: 'Voor direct resultaat is Google Ads de snelste route - binnen 24 uur kunt u al zichtbaar zijn. Voor duurzame groei op lange termijn is SEO essentieel. De meeste klanten kiezen voor een combinatie waarbij Ads voor directe leads zorgt terwijl SEO organisch groeit.'
-  },
-  {
-    q: 'Hoe meten jullie marketing succes?',
-    a: 'We focussen op metrics die ertoe doen: Cost per Acquisition (CPA), Return on Ad Spend (ROAS) en Customer Lifetime Value (CLV). Alle data komt samen in één overzichtelijk live-dashboard dat u 24/7 kunt raadplegen. Geen vanity metrics, maar echte business resultaten.'
-  },
-  {
-    q: 'Werken jullie met vaste contracten?',
-    a: 'Nee, wij geloven in onze resultaten. Al onze marketing diensten zijn maandelijks opzegbaar. Dit dwingt ons om elke maand te presteren en houdt ons scherp. Onze resultaten zijn de beste reden om te blijven samenwerken.'
-  },
-  {
-    q: 'Voor welke bedrijven is jullie marketing geschikt?',
-    a: 'Wij werken voornamelijk met MKB-bedrijven die serieus willen groeien online. Van ZZP\'ers tot bedrijven met 100+ medewerkers. Onze aanpak is vooral effectief voor B2B dienstverleners, e-commerce en lokale ondernemers die hun online zichtbaarheid willen vergroten.'
-  },
-]
 
 
 // ============================================================================
@@ -278,7 +118,7 @@ export default function MarketingPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -338,10 +178,10 @@ export default function MarketingPageClient() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -350,16 +190,14 @@ export default function MarketingPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <MarketingNexus />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <MarketingNexus />
+              </DeferredCanvas>
 
               {/* Floating cards */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -374,9 +212,9 @@ export default function MarketingPageClient() {
                     <p className="text-lg font-bold">4.5x</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -391,8 +229,8 @@ export default function MarketingPageClient() {
                     <p className="text-lg font-bold">4 Geïntegreerd</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import WebsitePageClient from './WebsitePageClient'
 
 export const metadata: Metadata = {
-  title: 'Website Laten Maken | Professionele Websites op Maat | Start Beheer',
+  title: 'Professionele Website Laten Maken | Start Beheer',
   description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first. Vraag vrijblijvend een offerte aan.',
   keywords: [
     'website laten maken',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     'website maken kosten'
   ],
   openGraph: {
-    title: 'Website Laten Maken | Professionele Websites op Maat | Start Beheer',
+    title: 'Professionele Website Laten Maken | Start Beheer',
     description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first.',
     type: 'website',
     locale: 'nl_NL',

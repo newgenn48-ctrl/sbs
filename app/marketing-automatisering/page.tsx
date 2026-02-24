@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import MarketingAutomationClientPage from './MarketingAutomationClientPage'
 
 export const metadata: Metadata = {
-  title: 'Marketing Automatisering | Automatiseer uw Groei & Bespaar Tijd | Start Beheer',
+  title: 'Marketing Automatisering voor MKB | Start Beheer',
   description: 'Stop met leads laten lekken. Wij bouwen intelligente systemen die uw marketing- en salesprocessen automatiseren voor maximale efficiëntie en ROI. Gratis automation scan.',
   keywords: [
     'marketing automatisering',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'marketing funnel'
   ],
   openGraph: {
-    title: 'Marketing Automatisering | Automatiseer uw Groei & Bespaar Tijd',
+    title: 'Marketing Automatisering voor MKB | Start Beheer',
     description: 'Intelligente systemen die uw marketing- en salesprocessen automatiseren voor maximale efficiëntie en ROI.',
     type: 'website',
     locale: 'nl_NL',

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight, Phone, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -9,7 +9,7 @@ export default function BedanktPage() {
   return (
     <main className="min-h-screen bg-cyber-darker flex items-center justify-center py-20 pt-32">
       <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="glass-effect rounded-3xl overflow-hidden border border-quantum-green/20"
@@ -17,14 +17,14 @@ export default function BedanktPage() {
           <div className="h-1 bg-gradient-to-r from-quantum-green via-quantum-blue to-quantum-purple" />
 
           <div className="p-8 sm:p-12 text-center">
-            <motion.div
+            <m.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
               className="w-20 h-20 rounded-full bg-quantum-green/20 flex items-center justify-center mx-auto mb-6"
             >
               <CheckCircle2 className="w-10 h-10 text-quantum-green" />
-            </motion.div>
+            </m.div>
 
             <h1 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
               Bedankt voor uw bericht!
@@ -61,7 +61,7 @@ export default function BedanktPage() {
               </Link>
             </Button>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </main>
   )

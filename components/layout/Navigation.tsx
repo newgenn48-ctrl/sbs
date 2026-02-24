@@ -1,15 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { navigation } from '@/lib/navigation'
 
 export default function Navigation() {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
   const pathname = usePathname()
+  const handleMouseLeave = useCallback(() => setActiveSubmenu(null), [])
 
   return (
     <nav className="hidden lg:flex items-center space-x-3 xl:space-x-4 2xl:space-x-6">
@@ -17,8 +18,8 @@ export default function Navigation() {
         <div
           key={item.name}
           className="relative"
-          onMouseEnter={() => item.submenu && setActiveSubmenu(item.name)}
-          onMouseLeave={() => setActiveSubmenu(null)}
+          onMouseEnter={item.submenu ? () => setActiveSubmenu(item.name) : undefined}
+          onMouseLeave={item.submenu ? handleMouseLeave : undefined}
         >
           <Link
             href={item.href}
@@ -35,7 +36,7 @@ export default function Navigation() {
 
           <AnimatePresence>
             {item.submenu && activeSubmenu === item.name && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -53,7 +54,7 @@ export default function Navigation() {
                     {subitem.name}
                   </Link>
                 ))}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>

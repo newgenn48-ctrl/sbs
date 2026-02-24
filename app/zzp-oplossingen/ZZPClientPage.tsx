@@ -1,171 +1,31 @@
 'use client'
 
-import React, { useState, useEffect, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import {
-  ArrowRight, CheckCircle2, Phone,
-  Globe, ShieldCheck, BarChart3, Mail, Search, Zap,
+  ArrowRight, CheckCircle2,
   Clock, Target, Users, TrendingUp,
-  Award, Briefcase, Rocket, FileSearch
+  Briefcase
 } from 'lucide-react'
 
 import { FAQItem } from '@/components/ui/FAQItem'
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { services, processSteps, whyUs, faqs } from '@/lib/data/zzp'
 
 const BusinessDashboard = dynamic(() => import('@/components/3d/BusinessDashboard'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// ZZP diensten/oplossingen
-const services = [
-  {
-    icon: Globe,
-    title: 'Professionele Website',
-    description: 'Een website die werkt als uw beste verkoper. 24/7 online, geoptimaliseerd voor Google.',
-    features: ['Conversiegericht design', 'Mobiel geoptimaliseerd', 'Sub-seconde laadtijden', 'SSL beveiliging'],
-    color: '#00FF88'
-  },
-  {
-    icon: Mail,
-    title: 'Zakelijke E-mail',
-    description: 'Microsoft 365 e-mail met uw eigen domeinnaam. Professioneel en betrouwbaar.',
-    features: ['Eigen domein e-mail', 'Microsoft 365 apps', 'Automatische backups', '50GB opslag'],
-    color: '#00D9FF'
-  },
-  {
-    icon: Search,
-    title: 'Lokale SEO',
-    description: 'Word gevonden door klanten in uw regio. Domineer de lokale zoekresultaten.',
-    features: ['Google Mijn Bedrijf', 'Lokale zoekwoorden', 'Review management', 'Maandrapportages'],
-    color: '#A855F7'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'IT Support & Security',
-    description: 'Technische ondersteuning wanneer u het nodig heeft. Altijd bereikbaar.',
-    features: ['Helpdesk support', 'Beveiligingsmonitoring', 'Software updates', 'Probleemoplossing'],
-    color: '#FF6B6B'
-  },
-]
-
-// Werkwijze/Proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Gratis Intake',
-    description: 'We bespreken uw situatie, doelen en waar u nu tegenaan loopt.',
-    icon: FileSearch
-  },
-  {
-    step: '02',
-    title: 'Maatwerkplan',
-    description: 'U ontvangt een concreet plan met exacte kosten en verwachte resultaten.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Snelle Setup',
-    description: 'Binnen 2 weken staat alles live en werkt uw digitale basis perfect.',
-    icon: Rocket
-  },
-  {
-    step: '04',
-    title: 'Continue Groei',
-    description: 'Wij optimaliseren continu terwijl u focust op uw klanten.',
-    icon: TrendingUp
-  },
-]
-
-// Waarom Start Beheer
-const whyUs = [
-  {
-    icon: Target,
-    title: 'ZZP Specialist',
-    description: 'Wij begrijpen de uitdagingen van zelfstandigen en stemmen onze diensten hierop af.',
-    stat: '100+',
-    statLabel: 'ZZP klanten'
-  },
-  {
-    icon: Zap,
-    title: 'Alles-in-één',
-    description: 'Geen gedoe met verschillende leveranciers. Eén aanspreekpunt voor al uw digitale zaken.',
-    stat: '1',
-    statLabel: 'contactpersoon'
-  },
-  {
-    icon: BarChart3,
-    title: 'Betaalbaar',
-    description: 'Professionele oplossingen tegen tarieven die passen bij een ZZP-budget.',
-    stat: 'Vanaf',
-    statLabel: '€99/mnd'
-  },
-  {
-    icon: Award,
-    title: 'Resultaatgericht',
-    description: 'Wij focussen op wat telt: meer zichtbaarheid, meer klanten, meer omzet.',
-    stat: 'Meetbare',
-    statLabel: 'resultaten'
-  },
-]
-
-// FAQ - geoptimaliseerd voor SEO
-const faqs = [
-  {
-    q: 'Wat kost een complete digitale oplossing voor een ZZP\'er?',
-    a: 'Onze complete pakketten beginnen vanaf €99 per maand, inclusief website, e-mail, basis SEO en support. Voor een volledige prijsopgave op maat plannen we graag een gratis intake gesprek.'
-  },
-  {
-    q: 'Is dit niet te duur voor een ZZP\'er?',
-    a: 'Zie het als uw meest rendabele "medewerker". De tijd die u bespaart (gemiddeld 5-10 uur per maand) en de extra klanten die het oplevert, maken de investering ruimschoots terug. Bovendien zijn de kosten zakelijk aftrekbaar.'
-  },
-  {
-    q: 'Ik ben niet technisch. Is dit moeilijk te begrijpen?',
-    a: 'Juist niet. Wij nemen alle technische complexiteit weg en vertalen alles naar duidelijke taal. U focust op uw vak, wij op de technologie. Bij vragen staat onze helpdesk altijd klaar.'
-  },
-  {
-    q: 'Hoe snel kan mijn website live staan?',
-    a: 'Een professionele website hebben wij binnen 1-2 weken live staan. De snelheid hangt af van hoe snel u feedback geeft en content aanlevert. Wij zorgen voor een gestroomlijnd proces.'
-  },
-  {
-    q: 'Kan ik klein beginnen en later uitbreiden?',
-    a: 'Absoluut. Onze oplossingen zijn modulair opgebouwd. Start met wat u nu nodig heeft en breid uit naarmate uw bedrijf groeit. Geen langlopende contracten, maandelijks opzegbaar.'
-  },
-  {
-    q: 'Wat als ik al een website heb?',
-    a: 'Geen probleem. We kunnen uw bestaande website overnemen en optimaliseren, of adviseren of een nieuwe website meer oplevert. In een gratis intake bespreken we de beste optie voor uw situatie.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -251,7 +111,7 @@ export default function ZZPClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -311,10 +171,10 @@ export default function ZZPClientPage() {
                   </Link>
                 </Button>
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -323,16 +183,14 @@ export default function ZZPClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <BusinessDashboard />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <BusinessDashboard />
+              </DeferredCanvas>
 
               {/* Floating stat cards */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -347,9 +205,9 @@ export default function ZZPClientPage() {
                     <p className="text-lg font-bold text-white">5-10 uur/mnd</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -364,8 +222,8 @@ export default function ZZPClientPage() {
                     <p className="text-lg font-bold text-white">100+</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

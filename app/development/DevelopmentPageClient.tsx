@@ -1,151 +1,29 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
-  Code2, CheckCircle2, ArrowRight, Phone,
-  Globe, Smartphone, ShoppingCart, Zap,
-  Palette, Gauge, Lock, RefreshCw,
-  Users, FileCheck, Settings, Layers,
-  Monitor, Database, Cloud, Rocket
+  Code2, CheckCircle2, ArrowRight, Zap
 } from 'lucide-react'
-import React, { Suspense, useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
-
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { developmentServices, whyCustomDev, technologies, processSteps } from '@/lib/data/development'
 
 const CodeEditor3D = dynamic(() => import('@/components/3d/CodeEditor3D'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Development diensten - links naar subpagina's
-const developmentServices = [
-  {
-    icon: Globe,
-    title: 'Website Laten Maken',
-    description: 'Professionele websites die resultaat opleveren. Modern design, razendsnel en SEO-geoptimaliseerd.',
-    features: ['Custom design', 'Mobile-first', 'SEO geoptimaliseerd', 'CMS integratie'],
-    link: '/development/website-laten-maken',
-    color: 'quantum-purple',
-    cta: 'Bekijk Website Diensten'
-  },
-  {
-    icon: Layers,
-    title: 'Webapplicatie Ontwikkeling',
-    description: 'Op maat gemaakte webapplicaties die uw bedrijfsprocessen stroomlijnen en automatiseren.',
-    features: ['Custom functionaliteit', 'API integraties', 'Schaalbare architectuur', 'Real-time features'],
-    link: '/development/webapplicatie-ontwikkeling',
-    color: 'quantum-blue',
-    cta: 'Bekijk Webapplicaties'
-  },
-  {
-    icon: ShoppingCart,
-    title: 'E-commerce Oplossingen',
-    description: 'Webshops die verkopen. Van Shopify tot custom e-commerce, wij bouwen uw online winkel.',
-    features: ['Shopify development', 'Betalingsintegraties', 'Voorraadbeheer', 'Conversie optimalisatie'],
-    link: '/development/ecommerce',
-    color: 'quantum-green',
-    cta: 'Bekijk E-commerce'
-  },
-]
-
-// Waarom custom development
-const whyCustomDev = [
-  {
-    icon: Zap,
-    title: 'Razendsnel',
-    description: 'Onze websites laden onder de 2 seconden. Snelheid is cruciaal voor SEO en gebruikerservaring.',
-    stat: '<2s',
-    statLabel: 'laadtijd'
-  },
-  {
-    icon: Lock,
-    title: 'Veilig & Robuust',
-    description: 'Geen kwetsbare plugins of verouderde themas. Moderne, veilige code die bestand is tegen aanvallen.',
-    stat: '100%',
-    statLabel: 'custom code'
-  },
-  {
-    icon: Palette,
-    title: 'Uniek Design',
-    description: 'Geen templates. Elk project krijgt een uniek ontwerp dat perfect past bij uw merk en doelgroep.',
-    stat: '0',
-    statLabel: 'templates'
-  },
-  {
-    icon: Gauge,
-    title: 'Schaalbaar',
-    description: 'Gebouwd om mee te groeien met uw bedrijf. Van startup tot enterprise, de architectuur past zich aan.',
-    stat: '∞',
-    statLabel: 'schaalbaarheid'
-  },
-]
-
-// Technologieën
-const technologies = [
-  { name: 'Next.js', description: 'React framework voor snelle websites' },
-  { name: 'React', description: 'Moderne UI development' },
-  { name: 'TypeScript', description: 'Type-safe development' },
-  { name: 'Tailwind CSS', description: 'Utility-first styling' },
-  { name: 'Node.js', description: 'Backend development' },
-  { name: 'Shopify', description: 'E-commerce platform' },
-]
-
-// Het proces
-const processSteps = [
-  {
-    step: '01',
-    title: 'Discovery',
-    description: 'We analyseren uw wensen, doelgroep en concurrentie om de perfecte strategie te bepalen.',
-    icon: Users
-  },
-  {
-    step: '02',
-    title: 'Design',
-    description: 'Uw unieke ontwerp wordt uitgewerkt in gedetailleerde designs en prototypes.',
-    icon: Palette
-  },
-  {
-    step: '03',
-    title: 'Development',
-    description: 'Onze developers bouwen uw project met moderne technologieën en best practices.',
-    icon: Code2
-  },
-  {
-    step: '04',
-    title: 'Launch & Support',
-    description: 'Na uitgebreide tests gaan we live. Daarna blijven we beschikbaar voor support.',
-    icon: Rocket
-  },
-]
 
 // ============================================================================
 // COMPONENTS
@@ -241,7 +119,7 @@ export default function DevelopmentPageClient() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content - Linker kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -290,10 +168,10 @@ export default function DevelopmentPageClient() {
                   </Link>
                 </Button>
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization - Rechter kolom */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -302,16 +180,14 @@ export default function DevelopmentPageClient() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <CodeEditor3D />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <CodeEditor3D />
+              </DeferredCanvas>
 
               {/* Floating cards - hidden on mobile */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -326,9 +202,9 @@ export default function DevelopmentPageClient() {
                     <p className="text-lg font-bold">Razendsnel</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -343,8 +219,8 @@ export default function DevelopmentPageClient() {
                     <p className="text-lg font-bold">100% Custom</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 

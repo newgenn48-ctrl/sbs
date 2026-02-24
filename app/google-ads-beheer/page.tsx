@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import GoogleAdsClientPage from './GoogleAdsClientPage'
 
 export const metadata: Metadata = {
-  title: 'Google Ads Beheer | Maximaal Rendement uit uw Advertentiebudget | Start Beheer',
+  title: 'Google Ads Beheer | Maximaal Rendement | Start Beheer',
   description: 'Professioneel Google Ads beheer door Start Beheer. Krijg meer gekwalificeerde leads en klanten via gerichte advertentiecampagnes. Data-gedreven en resultaatgericht.',
   keywords: [
     'Google Ads beheer',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'Google Ads bureau'
   ],
   openGraph: {
-    title: 'Google Ads Beheer | Maximaal Rendement uit uw Advertentiebudget',
+    title: 'Google Ads Beheer | Maximaal Rendement | Start Beheer',
     description: 'Professioneel Google Ads beheer. Krijg meer gekwalificeerde leads via gerichte advertentiecampagnes.',
     type: 'website',
     locale: 'nl_NL',

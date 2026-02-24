@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import CybersecurityPageClient from './CybersecurityPageClient'
 
 export const metadata: Metadata = {
-  title: 'Cybersecurity voor MKB | Beveiliging & Bescherming | Start Beheer',
+  title: 'Cybersecurity voor MKB | Beveiliging | Start Beheer',
   description: 'Professionele cybersecurity voor het MKB. Bescherm uw bedrijf tegen hackers, ransomware en datalekken. Security audits, awareness training en beveiligingsoplossingen op maat.',
   keywords: [
     'cybersecurity MKB',

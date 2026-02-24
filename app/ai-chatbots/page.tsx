@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import ChatbotsPageClient from './ChatbotsPageClient'
 
 export const metadata: Metadata = {
-  title: 'AI Chatbots | 24/7 Klantenservice Automatiseren | Start Beheer',
+  title: 'AI Chatbots | 24/7 Klantenservice | Start Beheer',
   description: 'AI chatbots voor MKB. Automatiseer uw klantenservice met intelligente chatbots die 24/7 vragen beantwoorden, leads kwalificeren en afspraken inplannen.',
   keywords: [
     'AI chatbot',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'WhatsApp chatbot'
   ],
   openGraph: {
-    title: 'AI Chatbots | 24/7 Klantenservice Automatiseren | Start Beheer',
+    title: 'AI Chatbots | 24/7 Klantenservice | Start Beheer',
     description: 'AI chatbots voor MKB. Automatiseer uw klantenservice met intelligente chatbots die 24/7 vragen beantwoorden, leads kwalificeren en afspraken inplannen.',
     type: 'website',
     locale: 'nl_NL',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Chatbots | 24/7 Klantenservice Automatiseren | Start Beheer',
+    title: 'AI Chatbots | 24/7 Klantenservice | Start Beheer',
     description: 'AI chatbots voor MKB. Automatiseer uw klantenservice met intelligente chatbots die 24/7 beschikbaar zijn.',
   },
   alternates: {

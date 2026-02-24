@@ -1,198 +1,30 @@
 'use client'
 
-import React, { useState, useEffect, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import {
-  ArrowRight, CheckCircle2, Phone,
-  Globe, ShieldCheck, BarChart3, Mail, Zap,
-  Clock, Target, Users, TrendingUp,
-  Award, Building2, User, Rocket, FileSearch,
-  Headphones, LineChart, Cog
+  ArrowRight, CheckCircle2,
+  User, Building2, TrendingUp
 } from 'lucide-react'
 
 import { FAQItem } from '@/components/ui/FAQItem'
-// Loading skeleton voor 3D component
-const Scene3DLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="relative">
-      <div className="w-24 h-24 rounded-full bg-quantum-purple/20 animate-pulse" />
-      <div className="absolute inset-0 w-24 h-24 rounded-full border-2 border-quantum-purple/30 animate-ping" style={{ animationDuration: '2s' }} />
-    </div>
-  </div>
-)
+import { targetGroups, services, processSteps, whyUs, faqs } from '@/lib/data/oplossingen'
 
 const BusinessDashboard = dynamic(() => import('@/components/3d/BusinessDashboard'), { ssr: false })
+const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
+    </div>
+  ),
+})
 
-// Hook voor responsive camera
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Doelgroepen
-const targetGroups = [
-  {
-    icon: User,
-    title: 'ZZP\'ers',
-    subtitle: 'Zelfstandig ondernemer',
-    description: 'Focus op uw expertise terwijl wij uw digitale aanwezigheid regelen. Van website tot marketing.',
-    benefits: ['Professionele uitstraling', 'Meer zichtbaarheid online', 'Alles in één pakket'],
-    color: '#00FF88'
-  },
-  {
-    icon: Building2,
-    title: 'MKB',
-    subtitle: 'Klein & middenbedrijf',
-    description: 'Schaalbare IT- en marketingoplossingen die meegroeien met uw bedrijf. Van 2 tot 250 medewerkers.',
-    benefits: ['Schaalbaar met groei', 'IT én marketing beheer', 'Eén aanspreekpunt'],
-    color: '#A855F7'
-  },
-]
-
-// Diensten overzicht
-const services = [
-  {
-    icon: Globe,
-    title: 'Website & Online Presence',
-    description: 'Professionele websites die werken als uw beste verkoper. Geoptimaliseerd voor Google en conversie.',
-    features: ['Responsive design', 'SEO-geoptimaliseerd', 'Snelle laadtijden', 'SSL beveiliging'],
-    color: '#00FF88'
-  },
-  {
-    icon: Mail,
-    title: 'Zakelijke E-mail & Microsoft 365',
-    description: 'Professionele communicatie met uw eigen domeinnaam. Inclusief alle Microsoft 365 tools.',
-    features: ['Eigen domein e-mail', 'Microsoft 365 apps', 'Automatische backups', 'Overal toegankelijk'],
-    color: '#00D9FF'
-  },
-  {
-    icon: Headphones,
-    title: 'IT Support & Beheer',
-    description: 'Betrouwbare ondersteuning wanneer u het nodig heeft. Proactief beheer voorkomt problemen.',
-    features: ['Helpdesk support', 'Remote ondersteuning', 'Proactief beheer', 'Snelle responstijd'],
-    color: '#A855F7'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Security & Backup',
-    description: 'Bescherm uw bedrijfsdata tegen cyberdreigingen. Automatische backups voor gemoedsrust.',
-    features: ['Beveiligingsmonitoring', 'Automatische backups', 'Virusprotectie', 'Data recovery'],
-    color: '#FF6B6B'
-  },
-  {
-    icon: LineChart,
-    title: 'Online Marketing',
-    description: 'Meer klanten met gerichte online marketing. Van SEO tot Google Ads en social media.',
-    features: ['Google Ads campagnes', 'SEO & vindbaarheid', 'Social media marketing', 'Lead generatie'],
-    color: '#FFB800'
-  },
-  {
-    icon: Cog,
-    title: 'AI & Automatisering',
-    description: 'Werk slimmer met AI-tools en automatisering. Bespaar tijd op repetitieve taken.',
-    features: ['Chatbots', 'Process automation', 'AI analytics', 'Workflow optimalisatie'],
-    color: '#4285F4'
-  },
-]
-
-// Werkwijze
-const processSteps = [
-  {
-    step: '01',
-    title: 'Kennismaking',
-    description: 'We bespreken uw situatie, uitdagingen en ambities in een vrijblijvend gesprek.',
-    icon: FileSearch
-  },
-  {
-    step: '02',
-    title: 'Advies op Maat',
-    description: 'U ontvangt een concreet voorstel afgestemd op uw bedrijfsgrootte en behoeften.',
-    icon: Target
-  },
-  {
-    step: '03',
-    title: 'Implementatie',
-    description: 'Wij regelen alles. Minimale verstoring van uw dagelijkse werkzaamheden.',
-    icon: Rocket
-  },
-  {
-    step: '04',
-    title: 'Doorlopende Support',
-    description: 'Proactief beheer en altijd een aanspreekpunt als u vragen heeft.',
-    icon: Headphones
-  },
-]
-
-// Waarom Start Beheer
-const whyUs = [
-  {
-    icon: Target,
-    title: 'ZZP & MKB Specialist',
-    description: 'Wij begrijpen de uitdagingen van ondernemers en stemmen onze diensten hierop af.',
-  },
-  {
-    icon: Zap,
-    title: 'Eén Aanspreekpunt',
-    description: 'Geen gedoe met verschillende leveranciers. Alles via één vertrouwd contactpersoon.',
-  },
-  {
-    icon: Cog,
-    title: 'Schaalbare Oplossingen',
-    description: 'Start klein en breid uit wanneer uw bedrijf groeit. Flexibel en toekomstbestendig.',
-  },
-  {
-    icon: Award,
-    title: 'Persoonlijke Aanpak',
-    description: 'Geen nummertje, maar een partner die uw bedrijf kent en meedenkt.',
-  },
-]
-
-// FAQ
-const faqs = [
-  {
-    q: 'Voor welke bedrijven zijn jullie oplossingen geschikt?',
-    a: 'Onze oplossingen zijn geschikt voor ZZP\'ers en MKB-bedrijven van 1 tot circa 250 medewerkers. Of u nu net start of al jaren actief bent, wij hebben passende oplossingen die meegroeien met uw bedrijf.'
-  },
-  {
-    q: 'Ik ben niet technisch. Is dat een probleem?',
-    a: 'Absoluut niet, juist niet zelfs. Wij nemen alle technische complexiteit van u over en communiceren in begrijpelijke taal. U hoeft alleen te weten wát u wilt bereiken, wij regelen het hóe.'
-  },
-  {
-    q: 'Kan ik beginnen met één dienst en later uitbreiden?',
-    a: 'Ja, onze oplossingen zijn modulair. Start bijvoorbeeld met een website en voeg later e-mail, IT-support of marketing toe wanneer uw bedrijf daaraan toe is.'
-  },
-  {
-    q: 'Hoe snel kunnen jullie starten?',
-    a: 'Na het kennismakingsgesprek kunnen we meestal binnen 1-2 weken van start. Voor een complete website rekenen we 2-4 weken, afhankelijk van de complexiteit.'
-  },
-  {
-    q: 'Werken jullie met lange contracten?',
-    a: 'Nee, wij geloven in de kracht van onze dienstverlening. De meeste diensten zijn maandelijks opzegbaar. Wij willen dat u blijft omdat u tevreden bent, niet omdat u vastzit.'
-  },
-  {
-    q: 'Wat maakt jullie anders dan andere IT-bedrijven?',
-    a: 'Wij combineren IT, websites én marketing onder één dak, specifiek voor ZZP en MKB. Geen grote corporate aanpak, maar persoonlijke aandacht en oplossingen die passen bij uw schaal en budget.'
-  },
-]
-
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ============================================================================
 // COMPONENTS
@@ -305,7 +137,7 @@ export default function OplossingenClientPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -369,10 +201,10 @@ export default function OplossingenClientPage() {
                   </Link>
                 </Button>
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* 3D Visualization */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -381,16 +213,14 @@ export default function OplossingenClientPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
 
-              <Suspense fallback={<Scene3DLoader />}>
-                <Canvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} intensity={1} />
-                  <BusinessDashboard />
-                </Canvas>
-              </Suspense>
+              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 10 : 12], fov: isMobile ? 50 : 45 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <BusinessDashboard />
+              </DeferredCanvas>
 
               {/* Floating cards */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -405,9 +235,9 @@ export default function OplossingenClientPage() {
                     <p className="text-sm font-bold text-white">Focus op uw vak</p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
@@ -422,8 +252,8 @@ export default function OplossingenClientPage() {
                     <p className="text-sm font-bold text-white">Schaalbaar groeien</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
 
