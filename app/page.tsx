@@ -1,11 +1,14 @@
+import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import ServicesGrid from '@/components/sections/ServicesGrid'
-import AboutPreview from '@/components/sections/AboutPreview'
-import IdealClientProfile from '@/components/sections/IdealClientProfile'
-import OurApproach from '@/components/sections/OurApproach'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import CTASection from '@/components/sections/CTASection'
 import Script from 'next/script'
+
+// Below-fold sections: dynamically imported to defer client JS
+const AboutPreview = dynamic(() => import('@/components/sections/AboutPreview'))
+const IdealClientProfile = dynamic(() => import('@/components/sections/IdealClientProfile'))
+const OurApproach = dynamic(() => import('@/components/sections/OurApproach'))
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'))
+const CTASection = dynamic(() => import('@/components/sections/CTASection'))
 
 export default function HomePage() {
   const webPageSchema = {

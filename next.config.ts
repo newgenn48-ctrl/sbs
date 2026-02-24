@@ -58,11 +58,6 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         headers: [
-          // Preconnect for Google Tag Manager only (fonts handled by next/font)
-          {
-            key: 'Link',
-            value: '<https://www.googletagmanager.com>; rel=preconnect',
-          },
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
