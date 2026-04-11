@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
+import TrustBar from '@/components/sections/TrustBar'
 import ServicesGrid from '@/components/sections/ServicesGrid'
 import Script from 'next/script'
 
@@ -40,9 +41,10 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <HeroSection />
+      <TrustBar />
       <ServicesGrid />
-      <AboutPreview />
       <IdealClientProfile />
+      <AboutPreview />
       <OurApproach />
       <TestimonialsSection />
       <CTASection />

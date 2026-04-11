@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
       subject: `Nieuw contactformulier: ${sanitizedData.name}${sanitizedData.service ? ` - ${sanitizedData.service}` : ''}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #00D9FF; border-bottom: 2px solid #00D9FF; padding-bottom: 10px;">
+          <h2 style="color: #2563EB; border-bottom: 2px solid #2563EB; padding-bottom: 10px;">
             Nieuw bericht via contactformulier
           </h2>
 
@@ -231,7 +231,7 @@ Dit bericht is verzonden via het contactformulier op startbeheer.nl
       subject: 'Bedankt voor uw bericht - Start Beheer',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #00D9FF;">Bedankt voor uw bericht!</h2>
+          <h2 style="color: #2563EB;">Bedankt voor uw bericht!</h2>
 
           <p>Beste ${sanitizedData.name},</p>
 

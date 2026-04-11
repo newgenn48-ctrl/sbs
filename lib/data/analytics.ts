@@ -46,42 +46,42 @@ export const services: Service[] = [
     title: 'Voorspellende Analyses',
     description: 'AI die trends voorspelt voordat ze zichtbaar zijn. Anticipeer op veranderingen.',
     features: ['Sales forecasting', 'Demand prediction', 'Trend identificatie', 'Seizoenspatronen'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Users,
     title: 'Klantinzichten',
     description: 'Begrijp uw klanten beter. Segmentatie, gedragsanalyse en churn voorspelling.',
     features: ['Klantsegmentatie', 'Gedragsanalyse', 'Churn prediction', 'Customer lifetime value'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: PieChart,
     title: 'Business Intelligence',
     description: 'Real-time dashboards met KPIs en metrics die er toe doen.',
     features: ['Real-time dashboards', 'Custom KPIs', 'Drill-down analyse', 'Benchmark data'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Activity,
     title: 'Performance Analytics',
     description: 'Meet en optimaliseer de prestaties van uw campagnes en kanalen.',
     features: ['Marketing ROI', 'Channel performance', 'Conversion tracking', 'Attribution modelling'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: AlertCircle,
     title: 'Anomalie Detectie',
     description: 'Automatische detectie van afwijkingen en onverwachte patronen in uw data.',
     features: ['Fraud detection', 'Error alerts', 'Outlier detection', 'Quality monitoring'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Lightbulb,
     title: 'AI Recommendations',
     description: 'Concrete aanbevelingen op basis van uw data. Van pricing tot content.',
     features: ['Pricing optimization', 'Product recommendations', 'Content suggestions', 'Next best action'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
 ]
 

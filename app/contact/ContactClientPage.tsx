@@ -121,25 +121,25 @@ export default function ContactClientPage() {
   }
 
   return (
-    <main className="min-h-screen bg-cyber-darker flex items-center justify-center py-20 pt-32">
+    <main className="min-h-screen bg-white flex items-center justify-center py-20 pt-32">
       <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-effect rounded-3xl overflow-hidden border border-quantum-purple/20"
+          className="glass-effect rounded-3xl overflow-hidden border border-primary-violet/20"
         >
-          <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
+          <div className="h-1 bg-gradient-to-r from-primary-blue via-primary-violet to-primary-emerald" />
 
           <div className="p-8 sm:p-12">
             <div className="text-center mb-10">
-                  <Badge className="mb-4 px-4 py-2 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30">
+                  <Badge className="mb-4 px-4 py-2 bg-primary-blue/20 text-primary-blue border-primary-blue/30">
                     <MessageSquare className="w-4 h-4 mr-2 inline" />
                     Contact
                   </Badge>
-                  <h1 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+                  <h1 className="text-2xl md:text-3xl font-display font-bold text-slate-900 mb-4">
                     Neem Contact Op
                   </h1>
-                  <p className="text-gray-300">
+                  <p className="text-slate-600">
                     Vul het formulier in en wij nemen zo snel mogelijk contact met u op.
                   </p>
                 </div>
@@ -154,7 +154,7 @@ export default function ContactClientPage() {
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
                         Naam *
                       </label>
                       <input
@@ -166,10 +166,10 @@ export default function ContactClientPage() {
                         onChange={handleChange}
                         aria-invalid={!!errors.name}
                         aria-describedby={errors.name ? 'name-error' : undefined}
-                        className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all ${
+                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
                           errors.name
                             ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
                         }`}
                         placeholder="Uw naam"
                       />
@@ -178,7 +178,7 @@ export default function ContactClientPage() {
                       )}
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
                         E-mail *
                       </label>
                       <input
@@ -190,10 +190,10 @@ export default function ContactClientPage() {
                         onChange={handleChange}
                         aria-invalid={!!errors.email}
                         aria-describedby={errors.email ? 'email-error' : undefined}
-                        className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all ${
+                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
                           errors.email
                             ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
                         }`}
                         placeholder="uw@email.nl"
                       />
@@ -205,7 +205,7 @@ export default function ContactClientPage() {
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-200 mb-2">
+                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
                         Telefoon
                       </label>
                       <input
@@ -217,10 +217,10 @@ export default function ContactClientPage() {
                         onChange={handleChange}
                         aria-invalid={!!errors.phone}
                         aria-describedby={errors.phone ? 'phone-error' : undefined}
-                        className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all ${
+                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
                           errors.phone
                             ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
                         }`}
                         placeholder="06-12345678"
                       />
@@ -229,7 +229,7 @@ export default function ContactClientPage() {
                       )}
                     </div>
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-200 mb-2">
+                      <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">
                         Bedrijfsnaam
                       </label>
                       <input
@@ -239,14 +239,14 @@ export default function ContactClientPage() {
                         autoComplete="organization"
                         value={formState.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all"
+                        className="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all"
                         placeholder="Uw bedrijf"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-200 mb-2">
+                    <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
                       Waar kunnen we u mee helpen?
                     </label>
                     <select
@@ -255,11 +255,11 @@ export default function ContactClientPage() {
                       autoComplete="off"
                       value={formState.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-quantum-blue/50 focus:ring-1 focus:ring-quantum-blue/50 transition-all appearance-none"
+                      className="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all appearance-none"
                     >
-                      <option value="" className="bg-cyber-darker">Selecteer een dienst</option>
+                      <option value="" className="bg-white">Selecteer een dienst</option>
                       {services.map((service) => (
-                        <option key={service} value={service} className="bg-cyber-darker">
+                        <option key={service} value={service} className="bg-white">
                           {service}
                         </option>
                       ))}
@@ -267,7 +267,7 @@ export default function ContactClientPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
                       Uw Bericht *
                     </label>
                     <textarea
@@ -279,10 +279,10 @@ export default function ContactClientPage() {
                       onChange={handleChange}
                       aria-invalid={!!errors.message}
                       aria-describedby={errors.message ? 'message-error' : undefined}
-                      className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all resize-none ${
+                      className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all resize-none ${
                         errors.message
                           ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                          : 'border-white/10 focus:border-quantum-blue/50 focus:ring-quantum-blue/50'
+                          : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
                       }`}
                       placeholder="Vertel ons over uw vraag of project..."
                     />
@@ -292,14 +292,14 @@ export default function ContactClientPage() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-4">
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-slate-500">
                       * Verplichte velden
                     </p>
                     <Button
                       type="submit"
                       size="lg"
                       disabled={isSubmitting}
-                      className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 px-8 w-full sm:w-auto"
+                      className="bg-gradient-to-r from-primary-blue to-primary-violet hover:opacity-90 shadow-lg shadow-primary-blue/25 px-8 w-full sm:w-auto"
                     >
                       {isSubmitting ? (
                         <>

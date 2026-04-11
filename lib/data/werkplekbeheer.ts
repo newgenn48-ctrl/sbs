@@ -47,56 +47,56 @@ export const services: Service[] = [
     title: 'Device Management',
     description: 'Beheer van alle werkplekken: laptops, desktops en thin clients. Installatie, configuratie en onderhoud.',
     features: ['Nieuwe werkplek inrichten', 'Hardware troubleshooting', 'Vervanging bij defect', 'Inventarisbeheer'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Download,
     title: 'Software Beheer',
     description: 'Installatie en updates van alle software die uw medewerkers nodig hebben. Altijd up-to-date en gelicentieerd.',
     features: ['Software installatie', 'Updates & patches', 'Licentie beheer', 'Applicatie support'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Headphones,
     title: 'Helpdesk & Support',
     description: 'Uw medewerkers kunnen bij ons terecht voor al hun IT-vragen. Remote of on-site hulp wanneer nodig.',
     features: ['Remote support', 'Telefonische hulp', 'On-site wanneer nodig', 'Snelle responstijd'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: UserPlus,
     title: 'Onboarding',
     description: 'Nieuwe medewerker? Wij zorgen dat de werkplek klaar staat. Laptop, accounts, software - alles geregeld.',
     features: ['Werkplek configuratie', 'Account aanmaken', 'Software installatie', 'Introductie IT'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: UserMinus,
     title: 'Offboarding',
     description: 'Medewerker uit dienst? Wij zorgen voor veilige overdracht en opschoning van accounts en apparaten.',
     features: ['Data backup', 'Account deactivatie', 'Apparaat innemen', 'Veilige data wissing'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Smartphone,
     title: 'Mobiele Apparaten',
     description: 'Zakelijke telefoons en tablets beheren. Beveiliging, apps en integratie met uw bedrijfsomgeving.',
     features: ['Telefoon configuratie', 'App beheer', 'Beveiliging instellen', 'E-mail & agenda sync'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: PackageOpen,
     title: 'Werkplek Installatie',
     description: 'Nieuwe werkplekken opzetten? Wij installeren en configureren alles: hardware, software, accounts en netwerk.',
     features: ['Hardware setup', 'Software installatie', 'Netwerk configuratie', 'Gebruiker klaar maken'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: MoveRight,
     title: 'Werkplek Migratie',
     description: 'Overstappen naar nieuwe systemen of hardware? Wij migreren data, instellingen en applicaties zonder productiviteitsverlies.',
     features: ['Data migratie', 'Applicatie overdracht', 'Instellingen behouden', 'Minimale downtime'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
 ]
 

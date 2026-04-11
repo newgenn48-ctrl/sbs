@@ -50,7 +50,7 @@ export const developmentServices: DevelopmentService[] = [
     description: 'Professionele websites die resultaat opleveren. Modern design, razendsnel en SEO-geoptimaliseerd.',
     features: ['Custom design', 'Mobile-first', 'SEO geoptimaliseerd', 'CMS integratie'],
     link: '/development/website-laten-maken',
-    color: 'quantum-purple',
+    color: 'violet',
     cta: 'Bekijk Website Diensten'
   },
   {
@@ -59,7 +59,7 @@ export const developmentServices: DevelopmentService[] = [
     description: 'Op maat gemaakte webapplicaties die uw bedrijfsprocessen stroomlijnen en automatiseren.',
     features: ['Custom functionaliteit', 'API integraties', 'Schaalbare architectuur', 'Real-time features'],
     link: '/development/webapplicatie-ontwikkeling',
-    color: 'quantum-blue',
+    color: 'blue',
     cta: 'Bekijk Webapplicaties'
   },
   {
@@ -68,7 +68,7 @@ export const developmentServices: DevelopmentService[] = [
     description: 'Webshops die verkopen. Van Shopify tot custom e-commerce, wij bouwen uw online winkel.',
     features: ['Shopify development', 'Betalingsintegraties', 'Voorraadbeheer', 'Conversie optimalisatie'],
     link: '/development/ecommerce',
-    color: 'quantum-green',
+    color: 'emerald',
     cta: 'Bekijk E-commerce'
   },
 ]

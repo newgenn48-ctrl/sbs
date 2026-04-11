@@ -54,7 +54,7 @@ export const targetGroups: TargetGroup[] = [
     subtitle: 'Zelfstandig ondernemer',
     description: 'Focus op uw expertise terwijl wij uw digitale aanwezigheid regelen. Van website tot marketing.',
     benefits: ['Professionele uitstraling', 'Meer zichtbaarheid online', 'Alles in \u00E9\u00E9n pakket'],
-    color: '#00FF88'
+    color: 'emerald'
   },
   {
     icon: Building2,
@@ -62,7 +62,7 @@ export const targetGroups: TargetGroup[] = [
     subtitle: 'Klein & middenbedrijf',
     description: 'Schaalbare IT- en marketingoplossingen die meegroeien met uw bedrijf. Van 2 tot 250 medewerkers.',
     benefits: ['Schaalbaar met groei', 'IT \u00E9n marketing beheer', 'E\u00E9n aanspreekpunt'],
-    color: '#A855F7'
+    color: 'violet'
   },
 ]
 
@@ -72,42 +72,42 @@ export const services: Service[] = [
     title: 'Website & Online Presence',
     description: 'Professionele websites die werken als uw beste verkoper. Geoptimaliseerd voor Google en conversie.',
     features: ['Responsive design', 'SEO-geoptimaliseerd', 'Snelle laadtijden', 'SSL beveiliging'],
-    color: '#00FF88'
+    color: 'emerald'
   },
   {
     icon: Mail,
     title: 'Zakelijke E-mail & Microsoft 365',
     description: 'Professionele communicatie met uw eigen domeinnaam. Inclusief alle Microsoft 365 tools.',
     features: ['Eigen domein e-mail', 'Microsoft 365 apps', 'Automatische backups', 'Overal toegankelijk'],
-    color: '#00D9FF'
+    color: 'blue'
   },
   {
     icon: Headphones,
     title: 'IT Support & Beheer',
     description: 'Betrouwbare ondersteuning wanneer u het nodig heeft. Proactief beheer voorkomt problemen.',
     features: ['Helpdesk support', 'Remote ondersteuning', 'Proactief beheer', 'Snelle responstijd'],
-    color: '#A855F7'
+    color: 'violet'
   },
   {
     icon: ShieldCheck,
     title: 'Security & Backup',
     description: 'Bescherm uw bedrijfsdata tegen cyberdreigingen. Automatische backups voor gemoedsrust.',
     features: ['Beveiligingsmonitoring', 'Automatische backups', 'Virusprotectie', 'Data recovery'],
-    color: '#FF6B6B'
+    color: 'warm'
   },
   {
     icon: LineChart,
     title: 'Online Marketing',
     description: 'Meer klanten met gerichte online marketing. Van SEO tot Google Ads en social media.',
     features: ['Google Ads campagnes', 'SEO & vindbaarheid', 'Social media marketing', 'Lead generatie'],
-    color: '#FFB800'
+    color: 'warm'
   },
   {
     icon: Cog,
     title: 'AI & Automatisering',
     description: 'Werk slimmer met AI-tools en automatisering. Bespaar tijd op repetitieve taken.',
     features: ['Chatbots', 'Process automation', 'AI analytics', 'Workflow optimalisatie'],
-    color: '#4285F4'
+    color: 'blue'
   },
 ]
 

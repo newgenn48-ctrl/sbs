@@ -46,42 +46,42 @@ export const services: Service[] = [
     title: 'Telefonische Afhandeling',
     description: 'AI die telefoongesprekken voert, doorverbindt en berichten noteert.',
     features: ['Gesprekken beantwoorden', 'Intelligent doorverbinden', 'Voicemail naar tekst', 'Call screening'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Calendar,
     title: 'Afspraakplanning',
     description: 'Automatisch afspraken inplannen, verzetten en bevestigen.',
     features: ['Agenda synchronisatie', 'Beschikbaarheid check', 'Automatische bevestiging', 'Herinneringen'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: MessageSquare,
     title: 'Lead Intake',
     description: 'Kwalificeer leads telefonisch en verzamel alle benodigde informatie.',
     features: ['Gestructureerde intake', 'Lead scoring', 'CRM integratie', 'Follow-up scheduling'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Globe,
     title: 'Meertalig',
     description: 'Communiceer met klanten in hun eigen taal. Nederlands, Engels, Duits en meer.',
     features: ['Nederlands', 'Engels', 'Duits', 'Frans & Spaans'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: FileText,
     title: 'Transcriptie & Samenvatting',
     description: 'Automatische transcriptie en samenvatting van alle gesprekken.',
     features: ['Real-time transcriptie', 'Samenvatting per gesprek', 'Actie-items extractie', 'Zoekbare historie'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Bell,
     title: 'Notificaties & Escalatie',
     description: 'Krijg alerts bij belangrijke oproepen en automatische escalatie.',
     features: ['Urgente oproep alerts', 'VIP klant herkenning', 'Escalatie workflows', 'Real-time notificaties'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

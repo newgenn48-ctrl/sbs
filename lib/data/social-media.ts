@@ -46,42 +46,42 @@ export const services: Service[] = [
     title: 'LinkedIn B2B Marketing',
     description: 'Thought leadership en lead generatie via het grootste professionele netwerk.',
     features: ['Company page beheer', 'LinkedIn Ads', 'Content strategie', 'Lead generation'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Instagram,
     title: 'Instagram & Meta',
     description: 'Visuele storytelling en community building op Instagram en Facebook.',
     features: ['Feed & Stories', 'Reels productie', 'Meta Ads', 'Influencer samenwerking'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Video,
     title: 'TikTok & Shorts',
     description: 'Authentieke short-form video content voor een jonge, betrokken doelgroep.',
     features: ['TikTok strategie', 'YouTube Shorts', 'Trend monitoring', 'Virale content'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: PenTool,
     title: 'Content Creatie',
     description: 'Professionele content die resoneert met uw doelgroep en merkidentiteit.',
     features: ['Fotografie & video', 'Copywriting', 'Grafisch ontwerp', 'Content kalender'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Users,
     title: 'Community Management',
     description: 'Actieve community-opbouw door authentieke interactie en engagement.',
     features: ['Daily engagement', 'Reactiebeheer', 'DM management', 'Crisis communicatie'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Target,
     title: 'Social Advertising',
     description: 'Gerichte advertentiecampagnes die converteren en ROI maximaliseren.',
     features: ['Meta Ads', 'LinkedIn Ads', 'TikTok Ads', 'A/B testing'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

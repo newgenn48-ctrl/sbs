@@ -48,42 +48,42 @@ export const services: SEOService[] = [
     title: 'Technische SEO',
     description: 'Een waterdicht technisch fundament dat Google begrijpt en snel kan crawlen.',
     features: ['Core Web Vitals optimalisatie', 'Schema markup', 'Crawl budget optimalisatie', 'Internationale SEO'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: FileText,
     title: 'Content Strategie',
     description: 'Content die niet alleen informeert, maar ook autoriteit en rankings bouwt.',
     features: ['Diepgaand keyword research', 'Content gap analyse', 'Topical authority mapping', '10x content creatie'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: LinkIcon,
     title: 'Linkbuilding',
     description: 'Hoogwaardige backlinks die vertrouwen en autoriteit opbouwen.',
     features: ['Digitale PR campagnes', 'Link-earning strategieën', 'Concurrentie backlink analyse', 'Broken link recovery'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Globe,
     title: 'Local SEO',
     description: 'Domineer lokale zoekresultaten en Google Maps voor uw regio.',
     features: ['Google Business optimalisatie', 'Lokale citations', 'Review management', 'Local pack rankings'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Target,
     title: 'Keyword Research',
     description: 'Ontdek de zoekwoorden waar uw klanten daadwerkelijk naar zoeken.',
     features: ['Search intent analyse', 'Long-tail opportunities', 'Concurrentie keyword analyse', 'Keyword clustering'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: BarChart,
     title: 'Reporting & Analyse',
     description: 'Transparante rapportage met focus op resultaten die ertoe doen.',
     features: ['Live dashboard 24/7', 'Traffic & conversie tracking', 'ROI rapportage', 'Maandelijkse strategiesessies'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
 ]
 

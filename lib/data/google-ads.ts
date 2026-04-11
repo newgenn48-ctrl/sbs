@@ -46,42 +46,42 @@ export const services: GoogleAdsService[] = [
     title: 'Zoekwoord Strategie',
     description: 'Vind de meest winstgevende zoekwoorden voor uw business met onze diepgaande analyse.',
     features: ['Long-tail keywords', 'Concurrentie analyse', 'Intentie mapping', 'Negatieve keywords'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Target,
     title: 'Doelgroep Targeting',
     description: 'Bereik uw ideale klant op basis van demografie, locatie en online gedrag.',
     features: ['Locatie targeting', 'Demografie filters', 'Remarketing', 'Lookalike audiences'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: MousePointer,
     title: 'Advertentie Creatie',
     description: 'Overtuigende advertenties die klikken genereren en converteren.',
     features: ['A/B testing', 'Responsive ads', 'Ad extensions', 'Call-to-actions'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: TrendingUp,
     title: 'Conversie Optimalisatie',
     description: 'Maximaliseer uw ROI met continue optimalisatie van campagnes.',
     features: ['Conversie tracking', 'Landingspagina advies', 'Quality Score', 'Bid management'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: LineChart,
     title: 'Shopping Campagnes',
     description: 'Voor e-commerce: toon uw producten direct in de zoekresultaten.',
     features: ['Product feed setup', 'Shopping ads', 'Performance Max', 'Merchant Center'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Eye,
     title: 'Rapportage & Inzicht',
     description: 'Real-time inzicht in uw campagne prestaties via ons dashboard.',
     features: ['Live dashboard', 'ROI rapportage', 'Conversie attributie', 'Maandelijkse reviews'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

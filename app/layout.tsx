@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
@@ -7,7 +7,15 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import CursorGlow from '@/components/effects/CursorGlow'
+import FloatingContact from '@/components/ui/FloatingContact'
 import MotionProvider from '@/components/providers/MotionProvider'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+})
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -94,7 +102,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#050714',
+  themeColor: '#FFFFFF',
 }
 
 export default function RootLayout({
@@ -235,7 +243,7 @@ export default function RootLayout({
   return (
     <html
       lang="nl"
-      className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* Preconnect hints for third-party origins */}
@@ -255,7 +263,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-cyber-darker antialiased font-sans">
+      <body className="min-h-screen bg-white antialiased font-sans text-slate-900">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -276,6 +284,7 @@ export default function RootLayout({
         />
         <MotionProvider>
           <CursorGlow />
+          <FloatingContact />
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main id="main-content" className="flex-1">{children}</main>

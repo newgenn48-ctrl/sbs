@@ -46,56 +46,56 @@ export const services: Service[] = [
     title: 'Serverbeheer',
     description: 'Beheer en onderhoud van uw fysieke en virtuele servers. Windows Server, Linux - wij zorgen dat alles draait.',
     features: ['Installatie & configuratie', 'Updates & patches', 'Performance optimalisatie', 'Troubleshooting'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Network,
     title: 'Netwerkbeheer',
     description: 'Uw bedrijfsnetwerk stabiel en veilig. Van switches tot firewalls, wij beheren de complete infrastructuur.',
     features: ['Firewall configuratie', 'Switch & router beheer', 'VPN oplossingen', 'Netwerk troubleshooting'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Wifi,
     title: 'WiFi Infrastructuur',
     description: 'Betrouwbare draadloze dekking in uw hele pand. Zakelijke WiFi met gastnetwerk en beveiliging.',
     features: ['Site survey & ontwerp', 'Access point installatie', 'Gastnetwerk configuratie', 'Dekking optimalisatie'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Database,
     title: 'Backup & Recovery',
     description: 'Uw data veilig bewaard. Automatische backups en een helder herstelplan voor als het misgaat.',
     features: ['Automatische backups', 'Off-site opslag', 'Restore tests', 'Disaster recovery plan'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: PhoneCall,
     title: 'VoIP & Telefonie',
     description: 'Moderne zakelijke telefonie via internet. Flexibel, schaalbaar en kosteneffici\u00EBnt.',
     features: ['VoIP implementatie', 'Nummerbehoud', 'Doorschakelingen', 'Integratie met Teams'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Cloud,
     title: 'Hybride Cloud',
     description: 'Het beste van beide werelden. Lokale servers gecombineerd met cloud diensten waar dat zinvol is.',
     features: ['Cloud migratie advies', 'Azure / AWS basics', 'Hybride oplossingen', 'Kostenoptimalisatie'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Video,
     title: 'Vergaderruimtes',
     description: 'Professionele meeting rooms met video conferencing. Teams, Zoom of andere oplossingen - wij installeren en configureren.',
     features: ['Beeldscherm & camera setup', 'Audio configuratie', 'Teams/Zoom integratie', 'Gebruiksvriendelijke bediening'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Bell,
     title: 'Alarm & Beveiliging',
     description: 'Fysieke beveiliging van uw pand. Alarmsystemen, toegangscontrole en camerabewaking.',
     features: ['Alarmsysteem installatie', 'Toegangscontrole', 'IP-camera systemen', 'Integratie met netwerk'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
 ]
 

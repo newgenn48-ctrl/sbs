@@ -48,42 +48,42 @@ export const services: AutomationService[] = [
     title: 'Lead Nurturing',
     description: 'Automatische e-mailreeksen die koude leads omzetten in warme, gekwalificeerde prospects.',
     features: ['Drip campaigns', 'Triggered emails', 'A/B testing', 'Personalisatie'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Workflow,
     title: 'Email Automation',
     description: 'Complete e-mailworkflows die automatisch reageren op klantgedrag en -acties.',
     features: ['Welcome series', 'Abandoned cart', 'Re-engagement', 'Transactional mails'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Target,
     title: 'CRM Integratie',
     description: 'Naadloze koppeling met uw CRM voor perfecte data-sync en lead tracking.',
     features: ['HubSpot', 'Salesforce', 'Pipedrive', 'Custom CRM'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Filter,
     title: 'Behavior-based Triggers',
     description: 'Automatische acties op basis van websitebezoek, downloads en klantgedrag.',
     features: ['Pagina bezoeken', 'Content downloads', 'Event tracking', 'Score updates'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Users,
     title: 'Sales Handoff',
     description: 'Intelligente overdracht van marketing naar sales op het perfecte moment.',
     features: ['Lead scoring', 'Auto-assignment', 'Sales notifications', 'Deal creation'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: BarChart3,
     title: 'Reporting & Analytics',
     description: 'Realtime inzicht in campagneprestaties, conversies en ROI.',
     features: ['Conversie tracking', 'Attribution', 'ROI dashboards', 'Custom reports'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

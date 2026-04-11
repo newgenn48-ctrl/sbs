@@ -38,23 +38,21 @@ export default function Header() {
 
   return (
     <>
-      {/* Skip link voor accessibility - zichtbaar bij focus */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-quantum-blue focus:text-black focus:px-4 focus:py-2 focus:rounded-lg focus:z-[9999] focus:font-medium focus:outline-none"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-primary-blue focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:z-[9999] focus:font-medium focus:outline-none"
       >
         Skip naar hoofdinhoud
       </a>
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-cyber-darker/95 backdrop-blur-xl border-b border-cyber-light'
-            : 'bg-transparent'
+            ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm'
+            : 'bg-dark/90 backdrop-blur-sm'
         }`}
       >
         <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center">
             <m.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -74,21 +72,18 @@ export default function Header() {
             </m.div>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center">
-            <Navigation />
+            <Navigation isScrolled={isScrolled} />
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <Button className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:scale-105 transition-transform" asChild>
+          <div className="hidden lg:flex items-center">
+            <Button className="bg-gradient-to-r from-primary-blue to-primary-violet hover:brightness-110 transition-all shadow-lg shadow-primary-blue/20 text-white" asChild>
               <Link href="/contact">
                 Gratis Advies
               </Link>
             </Button>
           </div>
 
-          {/* Mobile Menu */}
           <div className="lg:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -96,19 +91,12 @@ export default function Header() {
                   variant="ghost"
                   size="icon"
                   aria-label="Open menu"
-                  className="text-gray-300 hover:text-quantum-blue"
+                  className={isScrolled ? 'text-slate-700 hover:text-primary-blue' : 'text-white hover:text-blue-300'}
                 >
-                  {isMobileMenuOpen ? (
-                    <X className="h-6 w-6" />
-                  ) : (
-                    <Menu className="h-6 w-6" />
-                  )}
+                  {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
               </SheetTrigger>
-              <SheetContent
-                side="right"
-                className="w-80 bg-cyber-darker border-cyber-light"
-              >
+              <SheetContent side="right" className="w-full sm:w-80 bg-white border-slate-200">
                 <div className="flex flex-col space-y-2 mt-8">
                   {navigation.map((item) => (
                     <div key={item.name}>
@@ -116,16 +104,10 @@ export default function Header() {
                         <>
                           <button
                             onClick={() => handleSubmenuToggle(item.name)}
-                            className="w-full flex justify-between items-center text-lg font-medium text-gray-300 hover:text-quantum-blue py-3 min-h-[44px]"
+                            className="w-full flex justify-between items-center text-lg font-medium text-slate-700 hover:text-primary-blue py-3 min-h-[44px]"
                           >
                             {item.name}
-                            <ChevronDown
-                              className={`h-5 w-5 transition-transform ${
-                                openMobileSubmenu === item.name
-                                  ? 'rotate-180'
-                                  : ''
-                              }`}
-                            />
+                            <ChevronDown className={`h-5 w-5 transition-transform ${openMobileSubmenu === item.name ? 'rotate-180' : ''}`} />
                           </button>
                           <AnimatePresence>
                             {openMobileSubmenu === item.name && (
@@ -140,10 +122,8 @@ export default function Header() {
                                     key={subitem.name}
                                     href={subitem.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`text-base font-medium transition-colors hover:text-quantum-blue py-2 min-h-[44px] flex items-center ${
-                                      pathname === subitem.href
-                                        ? 'text-quantum-blue'
-                                        : 'text-gray-300'
+                                    className={`text-base font-medium transition-colors hover:text-primary-blue py-2 min-h-[44px] flex items-center ${
+                                      pathname === subitem.href ? 'text-primary-blue' : 'text-slate-600'
                                     }`}
                                   >
                                     {subitem.name}
@@ -157,10 +137,8 @@ export default function Header() {
                         <Link
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`block text-lg font-medium transition-colors hover:text-quantum-blue py-3 min-h-[44px] flex items-center ${
-                            pathname === item.href
-                              ? 'text-quantum-blue'
-                              : 'text-gray-300'
+                          className={`block text-lg font-medium transition-colors hover:text-primary-blue py-3 min-h-[44px] flex items-center ${
+                            pathname === item.href ? 'text-primary-blue' : 'text-slate-700'
                           }`}
                         >
                           {item.name}
@@ -168,10 +146,8 @@ export default function Header() {
                       )}
                     </div>
                   ))}
-                  <Button className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:scale-105 transition-transform mt-6" asChild>
-                    <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                      Gratis Advies
-                    </Link>
+                  <Button className="bg-gradient-to-r from-primary-blue to-primary-violet hover:brightness-110 transition-all mt-4 text-white" asChild>
+                    <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>Gratis Advies</Link>
                   </Button>
                 </div>
               </SheetContent>

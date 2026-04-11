@@ -52,42 +52,42 @@ export const services: Service[] = [
     title: 'Shopify & WooCommerce',
     description: 'Professionele webshops op bewezen platforms. Shopify of WooCommerce, wij helpen u kiezen.',
     features: ['Premium thema\'s', 'App integraties', 'Schaalbaar platform', 'Eenvoudig beheer'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: CreditCard,
     title: 'Betalingsintegraties',
     description: 'Alle betaalmethodes die uw klanten verwachten. iDEAL, creditcard, Klarna en meer.',
     features: ['iDEAL & Bancontact', 'Creditcard & PayPal', 'Klarna & afterpay', 'Veilig & PCI compliant'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Package,
     title: 'Voorraadbeheer',
     description: 'Houd uw voorraad bij en synchroniseer met uw leveranciers en verkoopkanalen.',
     features: ['Real-time voorraad', 'Multi-channel sync', 'Leverancier koppelingen', 'Automatische alerts'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Truck,
     title: 'Verzendintegraties',
     description: 'Automatisch verzendlabels maken en tracking informatie delen met klanten.',
     features: ['PostNL & DHL', 'Track & trace', 'Automatische labels', 'Retour management'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: BarChart3,
     title: 'Analytics & Conversie',
     description: 'Inzicht in uw verkopen en bezoekers. Optimaliseer voor meer conversie.',
     features: ['E-commerce analytics', 'A/B testing', 'Conversion tracking', 'Customer journey'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Globe,
     title: 'Multi-channel',
     description: 'Verkoop via meerdere kanalen: webshop, marktplaatsen, social commerce.',
     features: ['Bol.com integratie', 'Amazon koppeling', 'Instagram Shop', 'Facebook Shop'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

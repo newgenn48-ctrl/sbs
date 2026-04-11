@@ -54,7 +54,7 @@ export const services: MarketingService[] = [
     title: 'Google Ads Beheer',
     description: 'Direct resultaat met hyper-gerichte advertentiecampagnes die converteren.',
     href: '/marketing/google-ads-beheer',
-    color: 'quantum-green',
+    color: 'emerald',
     features: ['Zoekwoord strategie', 'Conversie optimalisatie', 'Shopping campagnes', 'Live dashboard']
   },
   {
@@ -62,7 +62,7 @@ export const services: MarketingService[] = [
     title: 'SEO Services',
     description: 'Verover de top van de zoekresultaten voor duurzame, organische groei.',
     href: '/marketing/seo-services',
-    color: 'quantum-blue',
+    color: 'blue',
     features: ['Technische SEO', 'Content strategie', 'Linkbuilding', 'Local SEO']
   },
   {
@@ -70,7 +70,7 @@ export const services: MarketingService[] = [
     title: 'Social Media Marketing',
     description: 'Transformeer uw kanalen in een actieve community die converteert.',
     href: '/marketing/social-media',
-    color: 'quantum-purple',
+    color: 'violet',
     features: ['LinkedIn B2B', 'Instagram & Meta', 'Content creatie', 'Community management']
   },
   {
@@ -78,7 +78,7 @@ export const services: MarketingService[] = [
     title: 'Marketing Automation',
     description: 'Automatiseer uw marketing en sales voor schaalbare groei.',
     href: '/marketing/marketing-automation',
-    color: 'quantum-orange',
+    color: 'warm',
     features: ['Lead nurturing', 'Email automation', 'CRM integratie', 'Sales handoff']
   },
 ]

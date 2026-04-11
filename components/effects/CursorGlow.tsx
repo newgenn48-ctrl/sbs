@@ -2,21 +2,20 @@
 
 import { useEffect, useRef, useCallback, useState } from 'react'
 
-// CSS custom properties for cursor states - more performant than inline styles
 const cursorStyles = `
   .cursor-glow {
     --glow-size: 35px;
-    --glow-bg: radial-gradient(circle, rgba(0,217,255,0.3) 0%, transparent 70%);
+    --glow-bg: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
     --dot-size: 8px;
-    --dot-color: #00D9FF;
-    --dot-shadow: 0 0 12px 4px rgba(0,217,255,0.5);
+    --dot-color: #2563EB;
+    --dot-shadow: 0 0 12px 4px rgba(37,99,235,0.4);
   }
   .cursor-glow.hovering {
     --glow-size: 50px;
-    --glow-bg: radial-gradient(circle, rgba(131,56,236,0.3) 0%, transparent 70%);
+    --glow-bg: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
     --dot-size: 10px;
-    --dot-color: #8338EC;
-    --dot-shadow: 0 0 15px 5px rgba(131,56,236,0.5);
+    --dot-color: #7C3AED;
+    --dot-shadow: 0 0 15px 5px rgba(124,58,237,0.4);
   }
 `
 

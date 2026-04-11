@@ -1,7 +1,7 @@
 'use client'
 
+import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -15,37 +15,25 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
 import { services, whyChatbots, processSteps, faqs } from '@/lib/data/chatbots'
-
-const ChatBot3D = dynamic(() => import('@/components/3d/ChatBot3D'), { ssr: false })
-const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-    </div>
-  ),
-})
-
-import { useIsMobile } from '@/hooks/useIsMobile'
-
+import { serviceColors, type ServiceColorKey } from '@/lib/colors'
 // ============================================================================
 // COMPONENTS
 // ============================================================================
 
 const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border border-${service.color}/20 hover:border-${service.color}/40 transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl bg-${service.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 text-${service.color}`} />
+    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color as ServiceColorKey].border} ${serviceColors[service.color as ServiceColorKey].borderHover} transition-all group`}>
+      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color as ServiceColorKey].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+        <service.icon className={`w-6 h-6 ${serviceColors[service.color as ServiceColorKey].text}`} />
       </div>
 
       <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-gray-400 mb-4 text-sm">{service.description}</p>
+      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
 
       <ul className="space-y-2">
         {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
-            <CheckCircle2 className={`w-4 h-4 text-${service.color} flex-shrink-0`} />
+          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
+            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color as ServiceColorKey].text} flex-shrink-0`} />
             {feature}
           </li>
         ))}
@@ -54,21 +42,20 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
   </ScrollTrigger>
 )
 
-
 const WhyCard = ({ item, index }: { item: typeof whyChatbots[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-white/10 hover:border-quantum-purple/30 transition-all h-full">
+    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-violet/30 transition-all h-full">
       <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-quantum-purple/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-quantum-purple" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-violet/10 flex items-center justify-center">
+          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-violet" />
         </div>
         <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-quantum-green">{item.stat}</p>
-          <p className="text-xs text-gray-500">{item.statLabel}</p>
+          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
+          <p className="text-xs text-slate-400">{item.statLabel}</p>
         </div>
       </div>
       <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
     </div>
   </ScrollTrigger>
 )
@@ -77,18 +64,18 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
   <ScrollTrigger delay={index * 0.1}>
     <div className="relative">
       {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-quantum-purple/30 to-transparent z-0" />
+        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-violet/30 to-transparent z-0" />
       )}
 
       <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-purple/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-quantum-purple" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-purple text-sm font-bold flex items-center justify-center text-white">
+        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-violet/30 flex items-center justify-center mx-auto mb-4 relative">
+          <step.icon className="w-8 h-8 text-primary-violet" />
+          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-violet text-sm font-bold flex items-center justify-center text-white">
             {step.step}
           </span>
         </div>
         <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-gray-400 text-sm max-w-[200px] mx-auto">{step.description}</p>
+        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
       </div>
     </div>
   </ScrollTrigger>
@@ -99,15 +86,13 @@ const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index:
 // ============================================================================
 
 export default function ChatbotsPageClient() {
-  const isMobile = useIsMobile()
-
   return (
-    <div className="min-h-screen bg-cyber-darker text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
 
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-purple/10 via-transparent to-transparent" />
+      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-blue/15 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -118,7 +103,7 @@ export default function ChatbotsPageClient() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+              <Badge className="mb-6 px-4 py-2 bg-primary-violet/10 text-primary-violet border-primary-violet/30">
                 <Bot className="w-4 h-4 mr-2 inline" />
                 AI Chatbots
               </Badge>
@@ -130,22 +115,22 @@ export default function ChatbotsPageClient() {
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
                 <strong className="text-white">Intelligente chatbots</strong> die vragen beantwoorden, leads kwalificeren
                 en afspraken inplannen. <strong className="text-white">24 uur per dag, 7 dagen per week</strong>.
               </p>
 
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+              <ul className="space-y-3 mb-8 text-slate-300">
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>80% van de vragen automatisch beantwoord</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>Naadloze overdracht naar uw team</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>Integratie met uw CRM en systemen</span>
                 </li>
               </ul>
@@ -153,7 +138,7 @@ export default function ChatbotsPageClient() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-purple/25"
+                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25"
                   asChild
                 >
                   <Link href="/contact?service=chatbot">
@@ -172,27 +157,21 @@ export default function ChatbotsPageClient() {
               className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
               aria-hidden="true"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-quantum-purple/20 via-quantum-blue/10 to-transparent blur-3xl rounded-full" />
-
-              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 8 : 10], fov: isMobile ? 50 : 45 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} />
-                <ChatBot3D />
-              </DeferredCanvas>
+              <HeroVisual variant="chatbots" />
 
               {/* Floating cards - hidden on mobile */}
               <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect px-4 py-3 rounded-xl border border-quantum-green/30"
+                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-quantum-green/20 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-quantum-green" />
+                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-primary-emerald" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Beschikbaarheid</p>
+                    <p className="text-xs text-slate-500">Beschikbaarheid</p>
                     <p className="text-lg font-bold">24/7 Online</p>
                   </div>
                 </div>
@@ -202,14 +181,14 @@ export default function ChatbotsPageClient() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-quantum-purple/30"
+                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-violet/30"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-quantum-purple/20 flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-quantum-purple" />
+                  <div className="w-10 h-10 rounded-lg bg-primary-violet/20 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-primary-violet" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Reactietijd</p>
+                    <p className="text-xs text-slate-500">Reactietijd</p>
                     <p className="text-lg font-bold">&lt;1 seconde</p>
                   </div>
                 </div>
@@ -218,16 +197,16 @@ export default function ChatbotsPageClient() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </section>
 
       {/* ==================== AFBEELDING SECTIE ==================== */}
-      <section className="py-24 bg-cyber-dark/30">
+      <section className="py-24 bg-slate-50/50">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-quantum-purple/20 shadow-2xl">
+                <div className="relative rounded-2xl overflow-hidden border border-primary-violet/20 shadow-2xl">
                   <Image
                     src="/ai-chatbots.webp"
                     alt="AI Chatbot conversatie interface"
@@ -241,42 +220,42 @@ export default function ChatbotsPageClient() {
 
               <ScrollTrigger delay={0.2}>
                 <div>
-                  <Badge className="mb-4 bg-quantum-purple/10 text-quantum-purple border-quantum-purple/30">
+                  <Badge className="mb-4 bg-primary-violet/10 text-primary-violet border-primary-violet/30">
                     <Bot className="w-4 h-4 mr-2" />
                     24/7 Beschikbaar
                   </Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">
                     Uw digitale <span className="text-gradient">medewerker</span>
                   </h2>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
+                  <p className="text-slate-600 mb-6 leading-relaxed">
                     Een AI chatbot die nooit slaapt, altijd vriendelijk is en direct antwoord geeft. Ontlast uw supportteam en verhoog de klanttevredenheid.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
-                        <MessageSquare className="w-5 h-5 text-quantum-purple" />
+                      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
+                        <MessageSquare className="w-5 h-5 text-primary-violet" />
                       </div>
                       <div>
-                        <p className="font-medium text-white">Directe antwoorden</p>
-                        <p className="text-sm text-gray-400">Geen wachttijden meer</p>
+                        <p className="font-medium text-slate-900">Directe antwoorden</p>
+                        <p className="text-sm text-slate-500">Geen wachttijden meer</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-quantum-blue/10 flex items-center justify-center flex-shrink-0">
-                        <Users className="w-5 h-5 text-quantum-blue" />
+                      <div className="w-10 h-10 rounded-lg bg-primary-blue/10 flex items-center justify-center flex-shrink-0">
+                        <Users className="w-5 h-5 text-primary-blue" />
                       </div>
                       <div>
-                        <p className="font-medium text-white">Schaalt mee</p>
-                        <p className="text-sm text-gray-400">100 of 10.000 gesprekken tegelijk</p>
+                        <p className="font-medium text-slate-900">Schaalt mee</p>
+                        <p className="text-sm text-slate-500">100 of 10.000 gesprekken tegelijk</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-quantum-green/10 flex items-center justify-center flex-shrink-0">
-                        <TrendingUp className="w-5 h-5 text-quantum-green" />
+                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-5 h-5 text-primary-emerald" />
                       </div>
                       <div>
-                        <p className="font-medium text-white">Leert continu</p>
-                        <p className="text-sm text-gray-400">Wordt elke dag slimmer</p>
+                        <p className="font-medium text-slate-900">Leert continu</p>
+                        <p className="text-sm text-slate-500">Wordt elke dag slimmer</p>
                       </div>
                     </div>
                   </div>
@@ -296,7 +275,7 @@ export default function ChatbotsPageClient() {
               <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
                 Wat kan een <span className="text-gradient">AI Chatbot</span> voor u doen?
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-slate-500 max-w-2xl mx-auto">
                 Van klantenservice tot lead generatie - ontdek alle mogelijkheden van onze AI chatbots.
               </p>
             </header>
@@ -310,12 +289,11 @@ export default function ChatbotsPageClient() {
         </div>
       </section>
 
-
       {/* ==================== WAAROM CHATBOTS ==================== */}
       <section className="py-24" aria-labelledby="waarom-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-quantum-purple/10 bg-gradient-to-b from-quantum-purple/5 to-transparent">
+            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-violet/10 bg-gradient-to-b from-primary-violet/5 to-transparent">
               <ScrollTrigger>
                 <header className="text-center mb-12">
                   <Badge className="mb-4">Waarom AI Chatbots</Badge>
@@ -336,7 +314,7 @@ export default function ChatbotsPageClient() {
       </section>
 
       {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-cyber-dark/50" aria-labelledby="proces-title">
+      <section className="py-24 bg-slate-50" aria-labelledby="proces-title">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <ScrollTrigger>
@@ -371,7 +349,7 @@ export default function ChatbotsPageClient() {
 
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="quantum-purple" />
+              <FAQItem key={index} q={faq.q} a={faq.a} color="violet" />
             ))}
           </div>
         </div>
@@ -379,12 +357,12 @@ export default function ChatbotsPageClient() {
 
       {/* ==================== CTA ==================== */}
       <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-quantum-purple/10 via-transparent to-quantum-blue/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-violet/10 via-transparent to-primary-blue/10" />
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-quantum-purple/20">
-              <Badge className="mb-4 sm:mb-6 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
+            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-violet/20">
+              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
                 Gratis Demo
               </Badge>
 
@@ -393,14 +371,14 @@ export default function ChatbotsPageClient() {
                 <span className="text-gradient">24/7 service?</span>
               </h2>
 
-              <p className="text-lg sm:text-xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
                 Vraag een gratis demo aan en zie hoe onze chatbot uw klantvragen beantwoordt.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-quantum-purple to-quantum-blue hover:opacity-90 shadow-lg shadow-quantum-purple/25 text-lg px-8"
+                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25 text-lg px-8"
                   asChild
                 >
                   <Link href="/contact?service=chatbot">
@@ -410,17 +388,17 @@ export default function ChatbotsPageClient() {
                 </Button>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Geen verplichtingen
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Demo binnen 48 uur
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Gepersonaliseerd advies
                 </span>
               </div>

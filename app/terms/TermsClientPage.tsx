@@ -122,10 +122,10 @@ const sections = [
 
 export default function TermsClientPage() {
   return (
-    <main className="min-h-screen bg-cyber-darker">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-purple/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-violet/20 via-transparent to-transparent" />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -134,22 +134,22 @@ export default function TermsClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-purple/20 text-quantum-purple border-quantum-purple/30">
+              <Badge className="mb-6 px-4 py-2 bg-primary-violet/20 text-primary-violet border-primary-violet/30">
                 <FileText className="w-4 h-4 mr-2 inline" />
                 Algemene Voorwaarden
               </Badge>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
-                <span className="text-white">Algemene </span>
+                <span className="text-slate-900">Algemene </span>
                 <span className="text-gradient">Voorwaarden</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 Duidelijke afspraken voor een prettige samenwerking. Hieronder vindt u
                 onze algemene voorwaarden.
               </p>
 
-              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
+              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Laatst bijgewerkt: januari 2025
@@ -168,9 +168,9 @@ export default function TermsClientPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-effect rounded-3xl border border-white/10 overflow-hidden"
+              className="glass-effect rounded-3xl border border-slate-200 overflow-hidden"
             >
-              <div className="h-1 bg-gradient-to-r from-quantum-purple via-quantum-blue to-quantum-green" />
+              <div className="h-1 bg-gradient-to-r from-primary-violet via-primary-blue to-primary-emerald" />
 
               <div className="p-8 sm:p-12">
                 <div className="space-y-10">
@@ -182,10 +182,10 @@ export default function TermsClientPage() {
                       transition={{ delay: index * 0.03 }}
                       viewport={{ once: true }}
                     >
-                      <h2 className="text-xl font-display font-bold text-white mb-4">
+                      <h2 className="text-xl font-display font-bold text-slate-900 mb-4">
                         {section.title}
                       </h2>
-                      <div className="text-gray-400 leading-relaxed whitespace-pre-line">
+                      <div className="text-slate-500 leading-relaxed whitespace-pre-line">
                         {section.content}
                       </div>
                     </m.div>
@@ -197,18 +197,18 @@ export default function TermsClientPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-12 pt-8 border-t border-white/10"
+                  className="mt-12 pt-8 border-t border-slate-200"
                 >
-                  <h3 className="text-lg font-display font-bold text-white mb-4">
+                  <h3 className="text-lg font-display font-bold text-slate-900 mb-4">
                     Vragen over onze voorwaarden?
                   </h3>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-slate-500 mb-4">
                     Neem gerust contact met ons op als u vragen heeft over deze
                     algemene voorwaarden.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 text-quantum-purple hover:text-quantum-purple/80 transition-colors"
+                    className="inline-flex items-center gap-2 text-primary-violet hover:text-primary-violet/80 transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     Contact opnemen

@@ -1,7 +1,7 @@
 'use client'
 
+import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -12,26 +12,14 @@ import {
 import React from 'react'
 import Link from 'next/link'
 import { m365Apps, services, benefits, processSteps, whyUs } from '@/lib/data/microsoft-365'
-
-const CloudNetwork = dynamic(() => import('@/components/3d/CloudNetwork'), { ssr: false })
-const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-    </div>
-  ),
-})
-
-import { useIsMobile } from '@/hooks/useIsMobile'
-
+import { serviceColors } from '@/lib/colors'
 // ============================================================================
 // COMPONENTS
 // ============================================================================
 
 const AppCard = ({ app, index }: { app: typeof m365Apps[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-6 rounded-2xl border border-white/10 hover:border-quantum-blue/30 transition-all h-full group">
+    <div className="glass-effect p-6 rounded-2xl border border-slate-200 hover:border-primary-blue/30 transition-all h-full group">
       <div
         className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
         style={{ backgroundColor: `${app.color}20` }}
@@ -39,23 +27,23 @@ const AppCard = ({ app, index }: { app: typeof m365Apps[0], index: number }) => 
         <app.icon className="w-6 h-6" style={{ color: app.color }} />
       </div>
       <h3 className="text-lg font-bold mb-2">{app.name}</h3>
-      <p className="text-gray-400 text-sm">{app.description}</p>
+      <p className="text-slate-500 text-sm">{app.description}</p>
     </div>
   </ScrollTrigger>
 )
 
 const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-8 rounded-2xl border border-quantum-blue/20 hover:border-quantum-blue/40 transition-all h-full">
-      <div className="w-14 h-14 rounded-2xl bg-quantum-blue/10 flex items-center justify-center mb-6">
-        <service.icon className="w-7 h-7 text-quantum-blue" />
+    <div className="glass-effect p-8 rounded-2xl border border-primary-blue/20 hover:border-primary-blue/40 transition-all h-full">
+      <div className="w-14 h-14 rounded-2xl bg-primary-blue/10 flex items-center justify-center mb-6">
+        <service.icon className="w-7 h-7 text-primary-blue" />
       </div>
       <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-      <p className="text-gray-400 mb-6">{service.description}</p>
+      <p className="text-slate-500 mb-6">{service.description}</p>
       <ul className="space-y-2">
         {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
-            <CheckCircle2 className="w-4 h-4 text-quantum-green flex-shrink-0" />
+          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
+            <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
             {feature}
           </li>
         ))}
@@ -66,13 +54,13 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
 
 const BenefitCard = ({ benefit, index }: { benefit: typeof benefits[0], index: number }) => (
   <ScrollTrigger delay={index * 0.05}>
-    <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-      <div className="w-10 h-10 rounded-lg bg-quantum-purple/10 flex items-center justify-center flex-shrink-0">
-        <benefit.icon className="w-5 h-5 text-quantum-purple" />
+    <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-100 transition-colors">
+      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
+        <benefit.icon className="w-5 h-5 text-primary-violet" />
       </div>
       <div>
         <h3 className="font-bold mb-1">{benefit.title}</h3>
-        <p className="text-gray-400 text-sm">{benefit.description}</p>
+        <p className="text-slate-500 text-sm">{benefit.description}</p>
       </div>
     </div>
   </ScrollTrigger>
@@ -82,17 +70,17 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0], index: num
   <ScrollTrigger delay={index * 0.1}>
     <div className="relative">
       {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-quantum-blue/30 to-transparent z-0" />
+        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-blue/30 to-transparent z-0" />
       )}
       <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-cyber-dark border-2 border-quantum-blue/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-quantum-blue" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-quantum-blue text-sm font-bold flex items-center justify-center text-white">
+        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-blue/30 flex items-center justify-center mx-auto mb-4 relative">
+          <step.icon className="w-8 h-8 text-primary-blue" />
+          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-blue text-sm font-bold flex items-center justify-center text-white">
             {step.step}
           </span>
         </div>
         <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-gray-400 text-sm max-w-[200px] mx-auto">{step.description}</p>
+        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
       </div>
     </div>
   </ScrollTrigger>
@@ -100,18 +88,18 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0], index: num
 
 const WhyUsCard = ({ item, index }: { item: typeof whyUs[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-6 rounded-2xl border border-white/10 hover:border-quantum-blue/30 transition-all h-full">
+    <div className="glass-effect p-6 rounded-2xl border border-slate-200 hover:border-primary-blue/30 transition-all h-full">
       <div className="flex items-start justify-between mb-4">
-        <div className="w-12 h-12 rounded-xl bg-quantum-blue/10 flex items-center justify-center">
-          <item.icon className="w-6 h-6 text-quantum-blue" />
+        <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center">
+          <item.icon className="w-6 h-6 text-primary-blue" />
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold text-quantum-green">{item.stat}</p>
-          <p className="text-xs text-gray-500">{item.statLabel}</p>
+          <p className="text-2xl font-bold text-primary-emerald">{item.stat}</p>
+          <p className="text-xs text-slate-400">{item.statLabel}</p>
         </div>
       </div>
       <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-gray-400 text-sm">{item.description}</p>
+      <p className="text-slate-500 text-sm">{item.description}</p>
     </div>
   </ScrollTrigger>
 )
@@ -121,14 +109,12 @@ const WhyUsCard = ({ item, index }: { item: typeof whyUs[0], index: number }) =>
 // ============================================================================
 
 export default function Microsoft365PageClient() {
-  const isMobile = useIsMobile()
-
   return (
-    <div className="min-h-screen bg-cyber-darker text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
 
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-darker to-black" />
+      <section className="relative min-h-screen flex items-center text-white">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0078D4]/10 via-transparent to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
@@ -152,31 +138,31 @@ export default function Microsoft365PageClient() {
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
                 Haal meer uit uw Microsoft 365 investering. Van migratie tot dagelijks beheer - wij zorgen dat Teams, SharePoint, OneDrive en Exchange perfect werken voor uw organisatie.
               </p>
 
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+              <ul className="space-y-3 mb-8 text-slate-300">
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>Soepele migratie zonder dataverlies</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>Optimale configuratie voor uw organisatie</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-quantum-green flex-shrink-0" />
+                <li className="flex items-center gap-3 text-slate-300">
+                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
                   <span>Doorlopend beheer en Nederlandse support</span>
                 </li>
               </ul>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Clock className="w-4 h-4 text-quantum-blue" />
+                <div className="flex items-center gap-2 text-slate-500">
+                  <Clock className="w-4 h-4 text-primary-blue" />
                   <span>Snelle implementatie</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-400">
+                <div className="flex items-center gap-2 text-slate-500">
                   <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                   <span>Microsoft Partner</span>
                 </div>
@@ -185,7 +171,7 @@ export default function Microsoft365PageClient() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#0078D4] to-quantum-purple hover:opacity-90 shadow-lg shadow-[#0078D4]/25"
+                  className="bg-gradient-to-r from-[#0078D4] to-primary-violet hover:opacity-90 shadow-lg shadow-[#0078D4]/25"
                   asChild
                 >
                   <Link href="/contact?service=microsoft-365">
@@ -203,25 +189,23 @@ export default function Microsoft365PageClient() {
               transition={{ duration: 1, delay: 0.2 }}
               className="relative h-[400px] md:h-[500px] lg:h-[550px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0078D4]/20 via-quantum-purple/10 to-transparent blur-3xl rounded-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0078D4]/20 via-primary-violet/10 to-transparent blur-3xl rounded-full" />
 
-              <DeferredCanvas camera={{ position: [0, 0, isMobile ? 4.5 : 6], fov: isMobile ? 50 : 45 }}>
-                <CloudNetwork />
-              </DeferredCanvas>
+              <HeroVisual variant="microsoft365" />
 
               {/* Floating cards - hidden on mobile */}
               <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect px-4 py-3 rounded-xl border border-quantum-green/30"
+                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-quantum-green/20 flex items-center justify-center">
-                    <Cloud className="w-5 h-5 text-quantum-green" />
+                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
+                    <Cloud className="w-5 h-5 text-primary-emerald" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Cloud</p>
+                    <p className="text-xs text-slate-500">Cloud</p>
                     <p className="text-lg font-bold">Altijd toegang</p>
                   </div>
                 </div>
@@ -231,14 +215,14 @@ export default function Microsoft365PageClient() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect px-4 py-3 rounded-xl border border-[#0078D4]/30"
+                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-[#0078D4]/30"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center">
                     <Zap className="w-5 h-5 text-[#0078D4]" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Productiviteit</p>
+                    <p className="text-xs text-slate-500">Productiviteit</p>
                     <p className="text-lg font-bold">Verhoogd</p>
                   </div>
                 </div>
@@ -247,11 +231,11 @@ export default function Microsoft365PageClient() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </section>
 
       {/* ==================== M365 APPS ==================== */}
-      <section className="py-24 bg-cyber-dark/50">
+      <section className="py-24 bg-slate-50">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
@@ -259,7 +243,7 @@ export default function Microsoft365PageClient() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Alles wat u nodig heeft in <span className="text-gradient">één platform</span>
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-slate-500 max-w-2xl mx-auto">
                 Microsoft 365 biedt een complete suite van productiviteitstools die naadloos samenwerken.
               </p>
             </div>
@@ -282,7 +266,7 @@ export default function Microsoft365PageClient() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Van migratie tot <span className="text-gradient">dagelijks beheer</span>
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-slate-500 max-w-2xl mx-auto">
                 Wij ondersteunen u in elke fase van uw Microsoft 365 journey.
               </p>
             </div>
@@ -297,16 +281,16 @@ export default function Microsoft365PageClient() {
       </section>
 
       {/* ==================== BENEFITS ==================== */}
-      <section className="py-24 bg-cyber-dark/50">
+      <section className="py-24 bg-slate-50">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <ScrollTrigger>
               <div>
-                <Badge className="mb-4 bg-quantum-purple/20 text-quantum-purple border-quantum-purple/30">Voordelen</Badge>
+                <Badge className="mb-4 bg-primary-violet/20 text-primary-violet border-primary-violet/30">Voordelen</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Waarom <span className="text-gradient">Microsoft 365?</span>
                 </h2>
-                <p className="text-gray-400 mb-8">
+                <p className="text-slate-500 mb-8">
                   Microsoft 365 is meer dan alleen Office. Het is een compleet platform voor moderne werkplekken dat groeit met uw organisatie.
                 </p>
                 <Button asChild>
@@ -336,7 +320,7 @@ export default function Microsoft365PageClient() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Van start tot <span className="text-gradient">productief</span>
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-slate-500 max-w-2xl mx-auto">
                 Een gestructureerde aanpak voor een succesvolle Microsoft 365 implementatie.
               </p>
             </div>
@@ -351,7 +335,7 @@ export default function Microsoft365PageClient() {
       </section>
 
       {/* ==================== WHY US ==================== */}
-      <section className="py-24 bg-cyber-dark/50">
+      <section className="py-24 bg-slate-50">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <ScrollTrigger>
             <div className="text-center mb-16">
@@ -359,7 +343,7 @@ export default function Microsoft365PageClient() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Uw <span className="text-gradient">Microsoft 365 partner</span>
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-slate-500 max-w-2xl mx-auto">
                 Gecertificeerde expertise gecombineerd met persoonlijke aandacht voor uw organisatie.
               </p>
             </div>
@@ -375,12 +359,12 @@ export default function Microsoft365PageClient() {
 
       {/* ==================== CTA ==================== */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0078D4]/10 via-transparent to-quantum-purple/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0078D4]/10 via-transparent to-primary-violet/10" />
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollTrigger>
             <div className="max-w-4xl mx-auto text-center glass-effect p-12 md:p-16 rounded-3xl border border-[#0078D4]/20">
-              <Badge className="mb-6 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
+              <Badge className="mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
                 Gratis Adviesgesprek
               </Badge>
 
@@ -388,14 +372,14 @@ export default function Microsoft365PageClient() {
                 Klaar om meer uit <span className="text-gradient">M365 te halen?</span>
               </h2>
 
-              <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              <p className="text-xl text-slate-500 mb-8 max-w-2xl mx-auto">
                 Plan een vrijblijvend gesprek. Wij analyseren uw huidige situatie en adviseren over de beste aanpak voor uw organisatie.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#0078D4] to-quantum-purple hover:opacity-90 shadow-lg shadow-[#0078D4]/25 text-lg px-8"
+                  className="bg-gradient-to-r from-[#0078D4] to-primary-violet hover:opacity-90 shadow-lg shadow-[#0078D4]/25 text-lg px-8"
                   asChild
                 >
                   <Link href="/contact?service=microsoft-365">
@@ -405,17 +389,17 @@ export default function Microsoft365PageClient() {
                 </Button>
                 </div>
 
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Vrijblijvend advies
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Microsoft Partner
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-quantum-green" />
+                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
                   Nederlandse support
                 </span>
               </div>

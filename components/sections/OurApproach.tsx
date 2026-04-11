@@ -3,51 +3,8 @@
 import { m } from 'framer-motion'
 import { MessageSquare, FileSearch, Rocket, HeartHandshake, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
 
-// Static color classes to ensure Tailwind purges correctly
-const colorClasses = {
-  'quantum-blue': {
-    border: 'border-quantum-blue/20',
-    borderHover: 'hover:border-quantum-blue/40',
-    bg: 'bg-quantum-blue/10',
-    bgSolid: 'bg-quantum-blue',
-    text: 'text-quantum-blue',
-  },
-  'quantum-purple': {
-    border: 'border-quantum-purple/20',
-    borderHover: 'hover:border-quantum-purple/40',
-    bg: 'bg-quantum-purple/10',
-    bgSolid: 'bg-quantum-purple',
-    text: 'text-quantum-purple',
-  },
-  'quantum-green': {
-    border: 'border-quantum-green/20',
-    borderHover: 'hover:border-quantum-green/40',
-    bg: 'bg-quantum-green/10',
-    bgSolid: 'bg-quantum-green',
-    text: 'text-quantum-green',
-  },
-  'quantum-orange': {
-    border: 'border-quantum-orange/20',
-    borderHover: 'hover:border-quantum-orange/40',
-    bg: 'bg-quantum-orange/10',
-    bgSolid: 'bg-quantum-orange',
-    text: 'text-quantum-orange',
-  },
-} as const
-
-type ColorKey = keyof typeof colorClasses
-
-const processSteps: Array<{
-  icon: typeof MessageSquare
-  step: string
-  title: string
-  subtitle: string
-  description: string
-  highlights: string[]
-  color: ColorKey
-}> = [
+const processSteps = [
   {
     icon: MessageSquare,
     step: '01',
@@ -55,7 +12,6 @@ const processSteps: Array<{
     subtitle: 'Vrijblijvend gesprek',
     description: 'We starten met een persoonlijk gesprek om uw bedrijf, doelen en uitdagingen te begrijpen.',
     highlights: ['Gratis adviesgesprek', 'Analyse huidige situatie', 'Doelen in kaart'],
-    color: 'quantum-blue',
   },
   {
     icon: FileSearch,
@@ -64,7 +20,6 @@ const processSteps: Array<{
     subtitle: 'Plan op maat',
     description: 'Op basis van onze analyse ontwikkelen we een helder plan met concrete stappen.',
     highlights: ['Duidelijke offerte', 'Realistische planning', 'Geen verrassingen'],
-    color: 'quantum-purple',
   },
   {
     icon: Rocket,
@@ -73,7 +28,6 @@ const processSteps: Array<{
     subtitle: 'Professionele uitvoering',
     description: 'We voeren het plan vakkundig uit met duidelijke communicatie en regelmatige updates.',
     highlights: ['Vaste contactpersoon', 'Wekelijkse updates', 'Agile werkwijze'],
-    color: 'quantum-green',
   },
   {
     icon: HeartHandshake,
@@ -82,121 +36,87 @@ const processSteps: Array<{
     subtitle: 'Blijvende ondersteuning',
     description: 'Na oplevering blijven we uw partner voor ondersteuning, optimalisatie en groei.',
     highlights: ['Continue support', 'Proactief beheer', 'Groei begeleiding'],
-    color: 'quantum-orange',
   },
 ]
 
 export default function OurApproach() {
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Subtle color accent only */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-quantum-green/10 via-transparent to-transparent" />
-
-      {/* Top decorative line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-quantum-green to-transparent rounded-full" />
-
+    <section className="py-24 relative bg-white">
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <m.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 px-4 py-2 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary-emerald/10 border border-primary-emerald/20 text-primary-emerald text-sm font-medium">
             Onze Werkwijze
-          </Badge>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4">
-            Van Eerste Contact tot{' '}
-            <span className="text-gradient">Langdurig Partnerschap</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 text-slate-900">
+            Van eerste contact tot{' '}
+            <span className="text-gradient">langdurig partnerschap</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
             Een transparant proces waarbij u altijd weet waar u aan toe bent. Geen verrassingen, wel resultaat.
           </p>
         </m.header>
 
-        {/* Process Steps Grid */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {processSteps.map((step, index) => (
-              <m.article
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative glass-effect p-6 sm:p-8 rounded-2xl border ${colorClasses[step.color].border} ${colorClasses[step.color].borderHover} transition-all group h-full overflow-hidden`}
-              >
-                {/* Step Number Background */}
-                <div className="absolute -top-4 -right-4 text-8xl font-display font-bold text-white/[0.03] select-none pointer-events-none">
-                  {step.step}
-                </div>
+        {/* Timeline */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="relative">
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary-blue via-primary-violet to-primary-emerald hidden md:block" />
 
-                {/* Header */}
-                <div className="flex items-start gap-4 mb-6 relative z-10">
-                  <div className="relative">
-                    <div className={`w-16 h-16 rounded-2xl ${colorClasses[step.color].bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <step.icon className={`w-8 h-8 ${colorClasses[step.color].text}`} />
+            <div className="space-y-8">
+              {processSteps.map((step, index) => (
+                <m.article
+                  key={step.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.15 }}
+                  viewport={{ once: true }}
+                  className="relative flex gap-6 md:gap-8 group"
+                >
+                  <div className="relative z-10 flex-shrink-0">
+                    <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center group-hover:border-primary-blue/40 transition-colors shadow-sm">
+                      <step.icon className="w-7 h-7 text-primary-blue" />
                     </div>
-                    {/* Step badge */}
-                    <span className={`absolute -top-2 -right-2 w-7 h-7 rounded-full ${colorClasses[step.color].bgSolid} text-white text-xs font-bold flex items-center justify-center`}>
+                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-r from-primary-blue to-primary-violet text-white text-xs font-bold flex items-center justify-center">
                       {step.step}
                     </span>
                   </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-gray-300">{step.subtitle}</p>
+
+                  <div className="flex-1 bg-white p-6 rounded-2xl border border-slate-200 group-hover:border-primary-blue/20 hover:shadow-md transition-all shadow-sm">
+                    <div className="mb-3">
+                      <h3 className="text-xl font-display font-bold text-slate-900">{step.title}</h3>
+                      <p className="text-sm text-slate-500">{step.subtitle}</p>
+                    </div>
+                    <p className="text-slate-600 mb-4 leading-relaxed">{step.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {step.highlights.map((highlight) => (
+                        <span
+                          key={highlight}
+                          className="inline-flex items-center px-3 py-1.5 bg-primary-blue/8 text-primary-blue text-xs font-medium rounded-full"
+                        >
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
-                  {step.description}
-                </p>
-
-                {/* Highlights */}
-                <div className="flex flex-wrap gap-2 relative z-10">
-                  {step.highlights.map((highlight) => (
-                    <span
-                      key={highlight}
-                      className={`inline-flex items-center px-3 py-1.5 ${colorClasses[step.color].bg} ${colorClasses[step.color].text} text-xs font-medium rounded-full`}
-                    >
-                      {highlight}
-                    </span>
-                  ))}
-                </div>
-              </m.article>
-            ))}
+                </m.article>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        {/* Bottom note */}
+        <m.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          className="text-center text-slate-500 text-sm mt-12"
         >
-          <div className="max-w-3xl mx-auto text-center glass-effect p-8 sm:p-12 rounded-3xl border border-quantum-blue/20">
-            <Badge className="mb-4 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
-              Gratis & Vrijblijvend
-            </Badge>
-            <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
-              Klaar om te starten?
-            </h3>
-            <p className="text-gray-300 mb-6 max-w-xl mx-auto">
-              Plan een vrijblijvend kennismakingsgesprek en ontdek hoe wij uw bedrijf kunnen helpen groeien.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-quantum-blue to-quantum-purple rounded-full text-white font-medium hover:shadow-lg hover:shadow-quantum-blue/25 transition-all duration-300 group"
-            >
-              <span>Plan Kennismaking</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </m.div>
+          Stap 1 is altijd gratis en vrijblijvend — u zit nergens aan vast.
+        </m.p>
       </div>
     </section>
   )

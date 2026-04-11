@@ -123,10 +123,10 @@ www.autoriteitpersoonsgegevens.nl`
 
 export default function PrivacyClientPage() {
   return (
-    <main className="min-h-screen bg-cyber-darker">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-blue/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-blue/20 via-transparent to-transparent" />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -135,22 +135,22 @@ export default function PrivacyClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30">
+              <Badge className="mb-6 px-4 py-2 bg-primary-blue/20 text-primary-blue border-primary-blue/30">
                 <Shield className="w-4 h-4 mr-2 inline" />
                 Privacy Policy
               </Badge>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
-                <span className="text-white">Privacy </span>
+                <span className="text-slate-900">Privacy </span>
                 <span className="text-gradient">Beleid</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 Bij Start Beheer nemen wij uw privacy serieus. In dit beleid leggen wij
                 uit hoe wij omgaan met uw persoonsgegevens.
               </p>
 
-              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
+              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Laatst bijgewerkt: januari 2025
@@ -169,9 +169,9 @@ export default function PrivacyClientPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-effect rounded-3xl border border-white/10 overflow-hidden"
+              className="glass-effect rounded-3xl border border-slate-200 overflow-hidden"
             >
-              <div className="h-1 bg-gradient-to-r from-quantum-blue via-quantum-purple to-quantum-green" />
+              <div className="h-1 bg-gradient-to-r from-primary-blue via-primary-violet to-primary-emerald" />
 
               <div className="p-8 sm:p-12">
                 <div className="space-y-10">
@@ -183,10 +183,10 @@ export default function PrivacyClientPage() {
                       transition={{ delay: index * 0.05 }}
                       viewport={{ once: true }}
                     >
-                      <h2 className="text-xl font-display font-bold text-white mb-4">
+                      <h2 className="text-xl font-display font-bold text-slate-900 mb-4">
                         {section.title}
                       </h2>
-                      <div className="text-gray-400 leading-relaxed whitespace-pre-line">
+                      <div className="text-slate-500 leading-relaxed whitespace-pre-line">
                         {section.content}
                       </div>
                     </m.div>
@@ -198,18 +198,18 @@ export default function PrivacyClientPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-12 pt-8 border-t border-white/10"
+                  className="mt-12 pt-8 border-t border-slate-200"
                 >
-                  <h3 className="text-lg font-display font-bold text-white mb-4">
+                  <h3 className="text-lg font-display font-bold text-slate-900 mb-4">
                     Vragen over uw privacy?
                   </h3>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-slate-500 mb-4">
                     Neem gerust contact met ons op als u vragen heeft over dit privacybeleid
                     of hoe wij met uw gegevens omgaan.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 text-quantum-blue hover:text-quantum-blue/80 transition-colors"
+                    className="inline-flex items-center gap-2 text-primary-blue hover:text-primary-blue/80 transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     Contact opnemen

@@ -46,42 +46,42 @@ export const services: Service[] = [
     title: 'Document Processing',
     description: 'Automatisch verwerken van facturen, contracten en formulieren met AI.',
     features: ['Factuurherkenning', 'Contract extractie', 'Form processing', 'Data validatie'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Mail,
     title: 'Email Automatisering',
     description: 'Sorteer, classificeer en beantwoord emails automatisch.',
     features: ['Email routing', 'Auto-responses', 'Attachment processing', 'Spam filtering'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Database,
     title: 'Data Synchronisatie',
     description: 'Houd al uw systemen automatisch up-to-date en gesynchroniseerd.',
     features: ['Multi-system sync', 'Real-time updates', 'Conflict resolution', 'Data mapping'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Calculator,
     title: 'Rapportage Automatisering',
     description: 'Genereer automatisch rapporten en dashboards uit uw data.',
     features: ['Scheduled reports', 'Custom templates', 'Data aggregatie', 'Auto-distributie'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Upload,
     title: 'Workflow Triggers',
     description: 'Start automatisch workflows op basis van events en condities.',
     features: ['Event-based triggers', 'Conditional logic', 'Approval flows', 'Notificaties'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: AlertCircle,
     title: 'Monitoring & Alerts',
     description: 'Krijg automatisch notificaties bij afwijkingen of belangrijke events.',
     features: ['Error detection', 'Threshold alerts', 'Performance monitoring', 'Audit logging'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

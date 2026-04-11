@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(sort:*)",
+      "Bash(head:*)",
+      "Bash(cd:*)",
+      "Bash(cd \"/c/Users/konia/OneDrive - Stichting Hogeschool Utrecht/project-new\" && npm run build 2>&1)",
+      "Bash(cd \"/c/Users/konia/OneDrive - Stichting Hogeschool Utrecht/project-new\" && rm -rf .next && npm run build 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\konia\\\\OneDrive - Stichting Hogeschool Utrecht\\\\project-new\" && npm run build 2>&1)",
+      "Bash(ls:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(cd \"/c/Users/konia/OneDrive - Stichting Hogeschool Utrecht/project-new\" && npm uninstall react-icons 2>&1)",
+      "WebSearch",
+      "WebFetch(domain:www.spasov.me)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm run:*)",
+      "Bash(grep -r \"0.1. \\\\|/10\\\\|/20\" lib/data/*.ts)",
+      "Bash(grep -E \"quantum-|cyber-\" lib/data/*.ts)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -rioP '#[0-9a-f]{6}' components/3d/*.tsx)",
+      "Bash(grep -rio '#[0-9a-fA-F]\\\\{6\\\\}' components/3d/*.tsx)",
+      "Bash(grep -rio '#0d0d1a\\\\|#1a1a3e\\\\|#0f0f1a\\\\|#111122\\\\|#0a0a1a\\\\|#050714\\\\|#0A0E27\\\\|#00FF94' components/3d/*.tsx)",
+      "Bash(grep -rio '#00D9FF\\\\|#00FF88\\\\|#A855F7\\\\|#8338EC\\\\|#FF6B35\\\\|#FF6B6B\\\\|#FFD700\\\\|#FFB800\\\\|#1a1a2e\\\\|#0a0a0f\\\\|#0d1117\\\\|#161b22' components/3d/*.tsx)",
+      "Bash(sed -i 's/#f8fafc/#1e293b/g' components/3d/*.tsx)",
+      "Bash(sed -i 's/#f1f5f9/#0f172a/g' components/3d/*.tsx)",
+      "Bash(node fix-3d.js)",
+      "Bash(npm uninstall:*)",
+      "Bash(sed -i 's/bg-slate-1000/bg-white/g' app/about/AboutClientPage.tsx)",
+      "Bash(sed -i 's/placeholder-gray-400/placeholder-slate-400/g' app/contact/ContactClientPage.tsx)",
+      "Bash(python3 -c ':*)",
+      "Bash(grep -l '\\\\${.*\\\\.color}' app/*/*.tsx)",
+      "Bash(node fix-colors.js)",
+      "Bash(grep -rn '\\\\${.*\\\\.color}' app/ --include=\"*.tsx\")",
+      "Bash(grep -v \"//\")",
+      "Bash(sed -i '240s/text-slate-500/text-slate-400/' app/website-laten-maken/WebsitePageClient.tsx)",
+      "Bash(sed -i '257s/text-slate-500/text-slate-400/' app/website-laten-maken/WebsitePageClient.tsx)"
+    ]
+  }
+}

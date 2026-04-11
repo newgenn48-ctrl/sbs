@@ -46,42 +46,42 @@ export const services: Service[] = [
     title: 'Klantenservice Chatbot',
     description: 'Beantwoord 80% van de vragen automatisch. 24/7 beschikbaar, direct antwoord.',
     features: ['FAQ automatisering', 'Product informatie', 'Order status', 'Retour handling'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Target,
     title: 'Lead Kwalificatie',
     description: 'Kwalificeer leads automatisch. Vraag de juiste vragen en plan afspraken in.',
     features: ['Intake formulieren', 'Lead scoring', 'Afspraak planning', 'CRM integratie'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Headphones,
     title: 'Support Escalatie',
     description: 'Intelligente overdracht naar menselijke medewerkers wanneer nodig.',
     features: ['Sentiment analyse', 'Prioriteit bepaling', 'Gesprekscontext', 'Naadloze overdracht'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Globe,
     title: 'Multi-channel',
     description: 'Dezelfde chatbot op uw website, WhatsApp, Facebook en meer.',
     features: ['Website widget', 'WhatsApp Business', 'Facebook Messenger', 'Instagram DM'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Sparkles,
     title: 'Personalisatie',
     description: 'Chatbot die uw klanten herkent en gepersonaliseerde service biedt.',
     features: ['Klantherkenning', 'Bestelhistorie', 'Voorkeuren onthouden', 'Proactieve suggesties'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Settings,
     title: 'Integraties',
     description: 'Koppel uw chatbot aan bestaande systemen voor naadloze workflows.',
     features: ['CRM systemen', 'E-commerce platforms', 'Helpdesk software', 'Agenda integratie'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

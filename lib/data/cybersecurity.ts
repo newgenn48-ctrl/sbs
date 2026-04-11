@@ -49,42 +49,42 @@ export const services: CyberService[] = [
     title: 'Security Audit',
     description: 'Een grondige analyse van uw IT-beveiliging. We identificeren kwetsbaarheden en geven concrete aanbevelingen.',
     features: ['Netwerk scan', 'Configuratie check', 'Rapport met prioriteiten', 'Actieplan'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: ShieldCheck,
     title: 'Endpoint Security',
     description: 'Bescherming van alle werkplekken tegen malware, virussen en andere bedreigingen. Centraal beheerd.',
     features: ['Antivirus & antimalware', 'Firewall beheer', 'Updates automatiseren', 'Monitoring'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Users,
     title: 'Security Awareness Training',
     description: 'Train uw medewerkers om phishing en social engineering te herkennen. De mens is vaak de zwakste schakel.',
     features: ['Phishing simulaties', 'Interactieve trainingen', 'Bewustwording campagnes', 'Certificering medewerkers'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Key,
     title: 'Toegangsbeheer',
     description: 'Wie heeft toegang tot wat? Multi-factor authenticatie en goed wachtwoordbeleid beschermen uw data.',
     features: ['MFA implementatie', 'Wachtwoordbeleid', 'Rechten beheer', 'Single sign-on'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: HardDrive,
     title: 'Backup & Recovery',
     description: 'Veilige backups zodat u snel kunt herstellen na een incident. Ransomware hoeft geen ramp te zijn.',
     features: ['Automatische backups', 'Off-site opslag', 'Regelmatige tests', 'Snelle recovery'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Eye,
     title: 'Monitoring & Response',
     description: 'We houden uw systemen in de gaten en reageren snel bij verdachte activiteit.',
     features: ['Log monitoring', 'Alerting', 'Incident response', 'Forensisch onderzoek'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
 ]
 

@@ -52,42 +52,42 @@ export const services: Service[] = [
     title: 'Custom Webapplicaties',
     description: 'Op maat gemaakte applicaties die precies doen wat u nodig heeft. Geen compromissen met standaard software.',
     features: ['Volledig maatwerk', 'Schaalbare architectuur', 'Moderne UI/UX', 'Progressive Web App'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: BarChart3,
     title: 'Dashboards & Portalen',
     description: 'Overzichtelijke dashboards en klantportalen voor inzicht in uw data en processen.',
     features: ['Real-time data', 'Interactieve grafieken', 'Rol-gebaseerde toegang', 'Custom rapportages'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
   {
     icon: Plug,
     title: 'API Integraties',
     description: 'Koppel uw systemen aan elkaar. CRM, boekhouding, voorraad - alles communiceert naadloos.',
     features: ['REST & GraphQL APIs', 'Webhook integraties', 'Data synchronisatie', 'Legacy systemen'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: Workflow,
     title: 'Proces Automatisering',
     description: 'Automatiseer repetitieve taken en workflows. Bespaar tijd en voorkom fouten.',
     features: ['Workflow automation', 'Notificaties & alerts', 'Automatische rapporten', 'Task scheduling'],
-    color: 'quantum-orange'
+    color: 'warm'
   },
   {
     icon: Database,
     title: 'Database Oplossingen',
     description: 'Robuuste data-architectuur voor veilige opslag en snelle toegang tot uw informatie.',
     features: ['Database ontwerp', 'Data migratie', 'Backup strategie', 'Performance tuning'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: Shield,
     title: 'Security & Compliance',
     description: 'Veilige applicaties die voldoen aan AVG en andere regelgeving.',
     features: ['Authenticatie & autorisatie', 'Data encryptie', 'AVG compliance', 'Security audits'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
 ]
 

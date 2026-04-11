@@ -1,95 +1,131 @@
+'use client'
+
+import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import {
   ArrowRight,
   CheckCircle2,
-  Sparkles
+  Shield,
+  Clock,
+  HeadphonesIcon,
 } from 'lucide-react'
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Animated CSS Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-quantum-blue/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-quantum-purple/20 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-quantum-green/10 rounded-full blur-3xl animate-pulse [animation-delay:2s]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0B1121]">
+      {/* Animated gradient mesh */}
+      <div className="absolute inset-0 overflow-hidden">
+        <m.div
+          className="absolute top-1/4 left-1/3 w-[80vw] max-w-[500px] h-[80vw] max-h-[500px] rounded-full blur-[120px]"
+          style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)' }}
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <m.div
+          className="absolute bottom-1/4 right-1/4 w-[70vw] max-w-[400px] h-[70vw] max-h-[400px] rounded-full blur-[100px]"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)' }}
+          animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </div>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-cyber-darker/70 via-transparent to-cyber-darker/80" />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-cyber-darker/60 via-transparent to-cyber-darker/60" />
+      {/* Subtle dot grid */}
+      <div className="absolute inset-0 bg-dot-pattern" />
 
-      <div className="container relative z-10 mx-auto px-4 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container relative z-10 mx-auto px-4 pt-32 pb-24 md:pt-28 lg:pt-36 lg:pb-32">
+        <div className="max-w-3xl mx-auto text-center">
 
-          {/* Badge - CSS animation */}
-          <div className="animate-[hero-fade-in_0.6s_ease-out_both]">
-            <Badge className="mb-6 px-4 py-2 bg-quantum-blue/20 text-quantum-blue border-quantum-blue/30 backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 mr-2 inline" />
-              IT Partner voor ZZP & MKB
-            </Badge>
-          </div>
-
-          {/* H1 + P - NO animation, immediately visible for LCP */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-6 leading-[1.1]">
-            Complete{' '}
-            <span className="text-gradient">IT-Oplossingen</span>
-            <span className="block mt-2">voor uw Bedrijf</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Van <strong className="text-white">systeembeheer uitbesteden</strong> en{' '}
-            <strong className="text-white">website laten maken</strong> tot{' '}
-            <strong className="text-white">AI chatbots</strong> en{' '}
-            <strong className="text-white">Google Ads beheer</strong>.
-            Alles onder één dak met persoonlijke aandacht.
-          </p>
-
-          {/* USPs - CSS staggered animation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <div className="animate-[hero-fade-in-left_0.5s_ease-out_0.3s_both] flex items-center gap-2 text-gray-300 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
-              <CheckCircle2 className="w-5 h-5 text-quantum-green" />
-              <span>Eén vast aanspreekpunt</span>
+          {/* Trust indicator */}
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.08] text-blue-300 text-sm font-medium">
+              <Shield className="w-4 h-4" />
+              Vertrouwd door bedrijven in heel Nederland
             </div>
-            <div className="animate-[hero-fade-in-left_0.5s_ease-out_0.4s_both] flex items-center gap-2 text-gray-300 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
-              <CheckCircle2 className="w-5 h-5 text-quantum-green" />
-              <span>Transparante tarieven</span>
-            </div>
-            <div className="animate-[hero-fade-in-left_0.5s_ease-out_0.5s_both] flex items-center gap-2 text-gray-300 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
-              <CheckCircle2 className="w-5 h-5 text-quantum-green" />
-              <span>24 uur responstijd</span>
-            </div>
-          </div>
+          </m.div>
 
-          {/* CTA - CSS animation */}
-          <div className="animate-[hero-fade-in_0.5s_ease-out_0.6s_both] flex flex-col sm:flex-row gap-4 justify-center">
+          {/* H1 */}
+          <m.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-6 leading-[1.1] text-white"
+          >
+            Uw IT Uitbesteden?{' '}
+            <span className="text-gradient">Wij Regelen Alles.</span>
+          </m.h1>
+
+          <m.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-400 mb-8 leading-relaxed max-w-2xl mx-auto"
+          >
+            Van <strong className="text-white">systeembeheer</strong> en{' '}
+            <strong className="text-white">websites</strong> tot{' '}
+            <strong className="text-white">AI-automatisering</strong> en{' '}
+            <strong className="text-white">online marketing</strong>.
+            Eén partner, alles geregeld.
+          </m.p>
+
+          {/* USPs */}
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-3 mb-10"
+          >
+            {[
+              { icon: HeadphonesIcon, text: 'Eén vast aanspreekpunt' },
+              { icon: CheckCircle2, text: 'Transparante tarieven' },
+              { icon: Clock, text: 'Reactie binnen 24 uur' },
+            ].map((usp) => (
+              <div
+                key={usp.text}
+                className="flex items-center gap-2 text-slate-300 bg-white/[0.04] px-4 py-2 rounded-full border border-white/[0.06]"
+              >
+                <usp.icon className="w-4 h-4 text-emerald-400" />
+                <span className="text-sm">{usp.text}</span>
+              </div>
+            ))}
+          </m.div>
+
+          {/* CTA Buttons */}
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-quantum-blue to-quantum-purple hover:opacity-90 shadow-lg shadow-quantum-blue/25 px-8"
+              className="bg-white text-[#0B1121] hover:bg-slate-100 font-semibold px-8 shadow-none"
               asChild
             >
               <Link href="/contact">
-                Gratis Adviesgesprek
+                Plan Gratis Adviesgesprek
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
-          </div>
-
+            <Button
+              size="lg"
+              className="border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/30 px-8"
+              asChild
+            >
+              <Link href="#services">
+                Bekijk Onze Diensten
+              </Link>
+            </Button>
+          </m.div>
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cyber-darker to-transparent z-[2]" />
-
-      {/* Scroll Indicator - CSS animation */}
-      <div className="animate-[hero-fade-in_0.5s_ease-out_1.2s_both] absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 hidden md:block">
-        <div className="animate-[hero-bounce_2s_ease-in-out_infinite] w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2 backdrop-blur-sm">
-          <div className="w-1 h-2 bg-quantum-blue rounded-full" />
-        </div>
-      </div>
+      {/* Smooth transition to white */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent z-[2]" />
     </section>
   )
 }

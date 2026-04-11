@@ -1,53 +1,66 @@
 @import "tailwindcss";
 
-/* Custom Theme Configuration */
+/* ============================================
+   Premium Light Theme — Start Beheer Solutions
+   ============================================ */
+
 @theme {
-  /* Colors - Quantum Theme */
-  --color-quantum-blue: #00D9FF;
-  --color-quantum-purple: #8338EC;
-  --color-quantum-orange: #FF6B9D;
-  --color-quantum-green: #00FF88;
-  --color-quantum-pink: #FF006E;
+  /* === Primary Brand Colors === */
+  --color-primary-blue: #2563EB;
+  --color-primary-violet: #7C3AED;
+  --color-primary-emerald: #10B981;
+  --color-primary-warm: #F59E0B;
 
-  /* Cyber Colors */
-  --color-cyber-dark: #0A0E27;
-  --color-cyber-darker: #050714;
-  --color-cyber-light: #1A1F3A;
+  /* === Surface Colors === */
+  --color-surface-base: #FFFFFF;
+  --color-surface-card: #F8FAFC;
+  --color-surface-elevated: #F1F5F9;
 
-  /* Semantic Colors */
-  --color-background: #010308;
-  --color-foreground: #F8FAFC;
-  --color-card: #0A0E27;
-  --color-card-foreground: #F8FAFC;
-  --color-primary: #00D9FF;
-  --color-primary-foreground: #010308;
-  --color-secondary: #8338EC;
-  --color-secondary-foreground: #F8FAFC;
-  --color-muted: #1A1F3A;
-  --color-muted-foreground: #94A3B8;
-  --color-accent: #00FF88;
-  --color-accent-foreground: #010308;
+  /* === Dark Sections === */
+  --color-dark: #0F172A;
+  --color-dark-surface: #1E293B;
+  --color-dark-elevated: #334155;
+
+  /* === Backward Compat === */
+  --color-quantum-blue: #2563EB;
+  --color-quantum-purple: #7C3AED;
+  --color-quantum-green: #10B981;
+  --color-quantum-orange: #F59E0B;
+  --color-quantum-pink: #EC4899;
+  --color-cyber-darker: #FFFFFF;
+  --color-cyber-dark: #F8FAFC;
+  --color-cyber-light: #E2E8F0;
+
+  /* === Semantic Colors === */
+  --color-background: #FFFFFF;
+  --color-foreground: #0F172A;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #0F172A;
+  --color-primary: #2563EB;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #7C3AED;
+  --color-secondary-foreground: #FFFFFF;
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #64748B;
+  --color-accent: #10B981;
+  --color-accent-foreground: #FFFFFF;
   --color-destructive: #EF4444;
-  --color-destructive-foreground: #F8FAFC;
-  --color-border: #1E293B;
-  --color-input: #1E293B;
-  --color-ring: #00D9FF;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-input: #E2E8F0;
+  --color-ring: #2563EB;
 
-  /* Border Radius */
-  --radius-lg: 0.5rem;
-  --radius-md: 0.375rem;
+  /* === Border Radius === */
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
 
-  /* Fonts */
-  --font-sans: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  /* === Fonts === */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-plus-jakarta-sans), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), monospace;
 
-  @keyframes hologram-scan {
-    0% { transform: translateX(-200%); }
-    100% { transform: translateX(200%); }
-  }
-
+  /* === Animations === */
   @keyframes hero-fade-in {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -62,20 +75,46 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(8px); }
   }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+  }
 }
 
-/* Base Styles */
+/* ============================================
+   Base Styles
+   ============================================ */
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
   body {
-    background-color: var(--color-cyber-darker);
+    background-color: var(--color-background);
     color: var(--color-foreground);
   }
 
-  /* Typography */
   .font-display {
     line-height: 1.2;
     text-rendering: optimizeLegibility;
@@ -90,11 +129,13 @@
   }
 }
 
-/* Utility Classes */
+/* ============================================
+   Utility Classes
+   ============================================ */
 @layer utilities {
-  /* Quantum Text Gradient */
+  /* Text Gradient */
   .text-gradient {
-    background: linear-gradient(to right, var(--color-quantum-blue), var(--color-quantum-purple), var(--color-quantum-green));
+    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-primary-violet));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -102,68 +143,152 @@
     display: inline-block;
   }
 
-  /* Glass Morphism Effect */
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, var(--color-primary-emerald), var(--color-primary-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+  }
+
+  /* Glass Morphism — Light */
   .glass-effect {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(226, 232, 240, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
-  /* Hologram Scan Effect */
-  .hologram-effect {
-    background: linear-gradient(135deg, transparent 30%, rgba(0, 217, 255, 0.1) 50%, transparent 70%);
-    animation: hologram-scan 3s linear infinite;
+  /* Glass Morphism — Dark */
+  .glass-effect-dark {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background-color: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   /* Grid Pattern */
   .bg-grid-pattern {
     background-image:
-      linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+      linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 
+  /* Animated gradient border */
+  .gradient-border {
+    position: relative;
+    z-index: 0;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--color-primary-blue), var(--color-primary-violet), var(--color-primary-emerald));
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+  .gradient-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    z-index: -1;
+  }
+
+  /* Glow effect on hover */
+  .hover-glow {
+    transition: box-shadow 0.3s ease;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.15), 0 0 60px rgba(124, 58, 237, 0.08);
+  }
+
+  /* Card lift effect */
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  /* Dot grid pattern (for dark sections) */
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Section dark helper */
+  .section-dark {
+    background-color: var(--color-dark);
+    color: #F1F5F9;
+  }
 }
 
-/* Custom Scrollbar */
+/* ============================================
+   Scrollbar
+   ============================================ */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-cyber-dark);
+  background-color: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--color-quantum-blue), var(--color-quantum-purple));
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--color-quantum-purple), var(--color-quantum-pink));
+  background: var(--color-primary-blue);
 }
 
 /* Selection */
 ::selection {
-  background-color: rgba(0, 217, 255, 0.3);
-  color: var(--color-quantum-green);
+  background-color: rgba(37, 99, 235, 0.15);
+  color: var(--color-dark);
 }
 
 /* Focus Styles */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-cyber-darker), 0 0 0 4px rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px rgba(37, 99, 235, 0.5);
 }
 
-/* Browser Compatibility - Text Size Adjust */
+/* Browser Compatibility */
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
-/* Browser Compatibility - Appearance (prefixes before standard) */
 .appearance-none {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -182,8 +307,11 @@ html {
   }
 
   .animate-pulse,
-  .animate-ping,
-  .hologram-effect {
+  .animate-ping {
     animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

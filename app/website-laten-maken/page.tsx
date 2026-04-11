@@ -3,7 +3,7 @@ import WebsitePageClient from './WebsitePageClient'
 
 export const metadata: Metadata = {
   title: 'Professionele Website Laten Maken | Start Beheer',
-  description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first. Vraag vrijblijvend een offerte aan.',
+  description: 'Website laten maken? Professionele websites op maat vanaf €585 excl. BTW. Custom design, SEO-geoptimaliseerd, mobile-first. Gratis demo binnen 24 uur.',
   keywords: [
     'website laten maken',
     'professionele website',
@@ -19,12 +19,20 @@ export const metadata: Metadata = {
     'website maken kosten'
   ],
   openGraph: {
-    title: 'Professionele Website Laten Maken | Start Beheer',
-    description: 'Professionele website laten maken? Wij bouwen snelle, moderne websites die converteren. Custom design, SEO-geoptimaliseerd, mobile-first.',
+    title: 'Website Laten Maken | Professioneel & op Maat | Start Beheer',
+    description: 'Website laten maken? Professionele websites op maat vanaf €785. Custom design, SEO-geoptimaliseerd, mobile-first.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/website-laten-maken',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Website Laten Maken - Start Beheer Solutions',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -47,10 +55,18 @@ const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Hoe lang duurt het om een website te maken?',
+      name: 'Wat kost een website laten maken?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Een standaard website is meestal binnen 1-3 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 4-6 weken duren.'
+        text: 'Vanaf €585 excl. BTW voor een volledige website op maat. U ontvangt vooraf een vaste prijs — wat we afspreken, dat betaalt u. Geen verrassingen.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Hoe lang duurt het?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Gemiddeld 1-3 weken. U ontvangt al binnen 24 uur een eerste ontwerp. Complexere projecten duren 4-6 weken.'
       }
     },
     {
@@ -58,23 +74,23 @@ const faqSchema = {
       name: 'Waarom geen WordPress of Wix?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'WordPress en Wix zijn prima voor eenvoudige websites, maar hebben nadelen: tragere laadtijden, beveiligingsrisico\'s door plugins, en beperkte flexibiliteit. Onze websites zijn sneller, veiliger en volledig op maat - zonder maandelijkse licentiekosten.'
+        text: 'Onze websites laden sneller, zijn veiliger en volledig op maat. Geen maandelijkse licentiekosten, geen kwetsbare plugins, geen beperkingen van een template.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Kan ik zelf content aanpassen na oplevering?',
+      name: 'Kan ik zelf teksten en foto\'s aanpassen?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja, u krijgt een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training zodat u direct aan de slag kunt.'
+        text: 'Ja. U krijgt een simpel CMS en een korte training. Daarna past u zelf alles aan, zonder ons nodig te hebben.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Wat als ik later meer pagina\'s of functies wil?',
+      name: 'Kan ik later uitbreiden?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Geen probleem. Onze websites zijn gebouwd om te groeien. U kunt altijd uitbreiden met extra pagina\'s, blog, webshop of andere functionaliteit.'
+        text: 'Altijd. Extra pagina\'s, blog, webshop, nieuwe functionaliteiten — uw website groeit mee met uw bedrijf.'
       }
     },
     {
@@ -82,23 +98,23 @@ const faqSchema = {
       name: 'Regelen jullie ook hosting en domein?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u een aanspreekpunt voor alles.'
+        text: 'Ja. Domein, hosting, SSL, e-mail — wij regelen de complete technische setup. Eén aanspreekpunt voor alles.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Wat voor support krijg ik na oplevering?',
+      name: 'Wat als ik het ontwerp niet mooi vind?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Na oplevering blijven wij beschikbaar voor vragen, kleine aanpassingen en technische ondersteuning. Voor grotere wijzigingen maken we een offerte op maat. Zo bent u nooit alleen.'
+        text: 'Dan passen we het aan totdat u tevreden bent. Bevalt het eerste ontwerp helemaal niet? Dan stopt het daar, zonder kosten.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Wat kost een website laten maken?',
+      name: 'Krijg ik support na oplevering?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Een professionele website op maat begint vanaf 785 euro. De exacte prijs hangt af van uw wensen, het aantal pagina\'s en de gewenste functionaliteiten. U ontvangt altijd een vrijblijvende offerte op maat.'
+        text: 'Ja. Kleine aanpassingen, vragen en technische support zijn inbegrepen. U staat er niet alleen voor.'
       }
     }
   ]
@@ -122,11 +138,11 @@ const jsonLd = {
   },
   offers: {
     '@type': 'Offer',
-    price: '785',
+    price: '585',
     priceCurrency: 'EUR',
     priceSpecification: {
       '@type': 'PriceSpecification',
-      price: '785',
+      price: '585',
       priceCurrency: 'EUR',
       valueAddedTaxIncluded: false
     }

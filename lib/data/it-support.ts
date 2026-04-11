@@ -12,37 +12,37 @@ import type { LucideIcon } from 'lucide-react'
 // ============================================================================
 
 export const colorClasses = {
-  'quantum-blue': {
-    border: 'border-quantum-blue/20',
-    borderHover: 'hover:border-quantum-blue/40',
-    bg: 'bg-quantum-blue/10',
-    bgHover: 'hover:bg-quantum-blue/20',
-    text: 'text-quantum-blue',
-    btnBorder: 'border-quantum-blue/30',
+  'blue': {
+    border: 'border-primary-blue/20',
+    borderHover: 'hover:border-primary-blue/40',
+    bg: 'bg-primary-blue/10',
+    bgHover: 'hover:bg-primary-blue/20',
+    text: 'text-primary-blue',
+    btnBorder: 'border-primary-blue/30',
   },
-  'quantum-purple': {
-    border: 'border-quantum-purple/20',
-    borderHover: 'hover:border-quantum-purple/40',
-    bg: 'bg-quantum-purple/10',
-    bgHover: 'hover:bg-quantum-purple/20',
-    text: 'text-quantum-purple',
-    btnBorder: 'border-quantum-purple/30',
+  'violet': {
+    border: 'border-primary-violet/20',
+    borderHover: 'hover:border-primary-violet/40',
+    bg: 'bg-primary-violet/10',
+    bgHover: 'hover:bg-primary-violet/20',
+    text: 'text-primary-violet',
+    btnBorder: 'border-primary-violet/30',
   },
-  'quantum-green': {
-    border: 'border-quantum-green/20',
-    borderHover: 'hover:border-quantum-green/40',
-    bg: 'bg-quantum-green/10',
-    bgHover: 'hover:bg-quantum-green/20',
-    text: 'text-quantum-green',
-    btnBorder: 'border-quantum-green/30',
+  'emerald': {
+    border: 'border-primary-emerald/20',
+    borderHover: 'hover:border-primary-emerald/40',
+    bg: 'bg-primary-emerald/10',
+    bgHover: 'hover:bg-primary-emerald/20',
+    text: 'text-primary-emerald',
+    btnBorder: 'border-primary-emerald/30',
   },
-  'quantum-orange': {
-    border: 'border-quantum-orange/20',
-    borderHover: 'hover:border-quantum-orange/40',
-    bg: 'bg-quantum-orange/10',
-    bgHover: 'hover:bg-quantum-orange/20',
-    text: 'text-quantum-orange',
-    btnBorder: 'border-quantum-orange/30',
+  'warm': {
+    border: 'border-amber-500/20',
+    borderHover: 'hover:border-amber-500/40',
+    bg: 'bg-amber-500/10',
+    bgHover: 'hover:bg-amber-500/20',
+    text: 'text-amber-600',
+    btnBorder: 'border-amber-500/30',
   },
 } as const
 
@@ -104,7 +104,7 @@ export const itCategories: ITCategory[] = [
     description: 'Volledig IT-beheer uitbesteden. Servers, netwerken, backups en infrastructuur - wij regelen het allemaal.',
     features: ['Server beheer & onderhoud', 'Netwerk & WiFi infrastructuur', 'Backup & disaster recovery', 'VoIP & telefonie'],
     link: '/systeembeheer-uitbesteden',
-    color: 'quantum-blue',
+    color: 'blue',
     cta: 'Bekijk Systeembeheer'
   },
   {
@@ -113,7 +113,7 @@ export const itCategories: ITCategory[] = [
     description: "Al uw werkplekken professioneel beheerd. PC's, laptops en software - altijd up-to-date en veilig.",
     features: ['Device management', 'Software installatie & updates', 'Helpdesk & remote support', 'Gebruikersbeheer'],
     link: '/werkplekbeheer-uitbesteden',
-    color: 'quantum-green',
+    color: 'emerald',
     cta: 'Bekijk Werkplekbeheer'
   },
   {
@@ -122,7 +122,7 @@ export const itCategories: ITCategory[] = [
     description: 'Optimaal werken in de cloud. Microsoft 365 beheer, e-mail, opslag en samenwerking.',
     features: ['Microsoft 365 beheer', 'E-mail & Exchange', 'OneDrive & SharePoint', 'Teams implementatie'],
     link: '/microsoft-365-beheer',
-    color: 'quantum-purple',
+    color: 'violet',
     cta: 'Bekijk Cloud Diensten'
   },
   {
@@ -131,7 +131,7 @@ export const itCategories: ITCategory[] = [
     description: 'Bescherm uw bedrijf tegen digitale dreigingen. Van antivirus tot complete security audits.',
     features: ['Antivirus & anti-malware', 'Firewall & netwerkbeveiliging', 'Security awareness training', 'AVG & compliance'],
     link: '/cybersecurity',
-    color: 'quantum-orange',
+    color: 'warm',
     cta: 'Bekijk Security'
   },
 ]
@@ -143,21 +143,21 @@ export const supportModels: SupportModel[] = [
     title: 'Remote IT Support',
     description: 'Directe hulp op afstand via telefoon of remote verbinding. Ideaal voor snelle vragen en softwareproblemen.',
     features: ['Directe verbinding met IT-expert', 'Scherm delen voor snelle diagnose', 'Geen reistijd, snelle oplossing', 'Beschikbaar tijdens kantooruren'],
-    color: 'quantum-blue'
+    color: 'blue'
   },
   {
     icon: MapPin,
     title: 'On-Site IT Support',
     description: 'Een IT-specialist komt naar uw locatie voor hardwareproblemen, installaties of complexe issues.',
     features: ['Hands-on hulp op locatie', 'Hardware reparatie & installatie', 'Netwerk troubleshooting', 'Persoonlijk contact'],
-    color: 'quantum-green'
+    color: 'emerald'
   },
   {
     icon: CalendarCheck,
     title: 'Vaste IT-dag',
     description: 'Een vaste IT\'er op uw locatie, bijvoorbeeld één dag per week. Uw eigen "IT-afdeling" zonder vast dienstverband.',
     features: ['Vaste IT\'er die uw omgeving kent', 'Structurele ondersteuning', 'Direct aanspreekpunt voor medewerkers', 'Preventief onderhoud inbegrepen'],
-    color: 'quantum-purple'
+    color: 'violet'
   },
 ]
 

@@ -64,10 +64,10 @@ BTW-nummer: NL005041113B60`
 
 export default function DisclaimerClientPage() {
   return (
-    <main className="min-h-screen bg-cyber-darker">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-green/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-emerald/20 via-transparent to-transparent" />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -76,7 +76,7 @@ export default function DisclaimerClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-green/20 text-quantum-green border-quantum-green/30">
+              <Badge className="mb-6 px-4 py-2 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
                 <AlertTriangle className="w-4 h-4 mr-2 inline" />
                 Disclaimer
               </Badge>
@@ -85,12 +85,12 @@ export default function DisclaimerClientPage() {
                 <span className="text-gradient">Disclaimer</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 Belangrijke informatie over het gebruik van onze website en de
                 aansprakelijkheid van Start Beheer.
               </p>
 
-              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
+              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Laatst bijgewerkt: januari 2025
@@ -109,9 +109,9 @@ export default function DisclaimerClientPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-effect rounded-3xl border border-white/10 overflow-hidden"
+              className="glass-effect rounded-3xl border border-slate-200 overflow-hidden"
             >
-              <div className="h-1 bg-gradient-to-r from-quantum-green via-quantum-blue to-quantum-purple" />
+              <div className="h-1 bg-gradient-to-r from-primary-emerald via-primary-blue to-primary-violet" />
 
               <div className="p-8 sm:p-12">
                 <div className="space-y-10">
@@ -123,10 +123,10 @@ export default function DisclaimerClientPage() {
                       transition={{ delay: index * 0.05 }}
                       viewport={{ once: true }}
                     >
-                      <h2 className="text-xl font-display font-bold text-white mb-4">
+                      <h2 className="text-xl font-display font-bold text-slate-900 mb-4">
                         {section.title}
                       </h2>
-                      <div className="text-gray-400 leading-relaxed whitespace-pre-line">
+                      <div className="text-slate-500 leading-relaxed whitespace-pre-line">
                         {section.content}
                       </div>
                     </m.div>
@@ -138,18 +138,18 @@ export default function DisclaimerClientPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-12 pt-8 border-t border-white/10"
+                  className="mt-12 pt-8 border-t border-slate-200"
                 >
-                  <h3 className="text-lg font-display font-bold text-white mb-4">
+                  <h3 className="text-lg font-display font-bold text-slate-900 mb-4">
                     Vragen?
                   </h3>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-slate-500 mb-4">
                     Neem gerust contact met ons op als u vragen heeft over deze
                     disclaimer.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 text-quantum-green hover:text-quantum-green/80 transition-colors"
+                    className="inline-flex items-center gap-2 text-primary-emerald hover:text-primary-emerald/80 transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     Contact opnemen

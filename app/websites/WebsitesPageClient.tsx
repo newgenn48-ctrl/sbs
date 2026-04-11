@@ -1,8 +1,8 @@
 'use client'
 
+import HeroVisual from '@/components/ui/HeroVisual'
 import React, { useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import HologramCard from '@/components/animations/HologramCard'
 import { Button } from '@/components/ui/button'
@@ -33,18 +33,6 @@ import {
   Award
 } from 'lucide-react'
 import Link from 'next/link'
-
-const DigitalNetwork = dynamic(() => import('@/components/3d/DigitalNetwork'), {
-  ssr: false,
-})
-const DeferredCanvas = dynamic(() => import('@/components/3d/DeferredCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-24 h-24 rounded-full bg-quantum-blue/20 animate-pulse" />
-    </div>
-  ),
-})
 
 const problemItems = [
   "Mijn website is traag, onveilig en gebouwd op een log WordPress thema.",
@@ -157,15 +145,15 @@ interface InfoCardProps {
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, items, variant }) => {
   const isProblem = variant === 'problem';
-  const titleColor = isProblem ? 'text-red-400' : 'text-quantum-green';
-  const borderColor = isProblem ? 'border-red-500/20' : 'border-quantum-green/20';
+  const titleColor = isProblem ? 'text-red-400' : 'text-primary-emerald';
+  const borderColor = isProblem ? 'border-red-500/20' : 'border-primary-emerald/20';
   const Icon = isProblem ? XCircle : CheckCircle2;
-  const iconColor = isProblem ? 'text-red-500' : 'text-quantum-green';
+  const iconColor = isProblem ? 'text-red-500' : 'text-primary-emerald';
 
   return (
     <div className={`glass-effect p-8 rounded-2xl ${borderColor} h-full`}>
       <h2 className={`text-3xl font-display font-bold mb-6 ${titleColor}`}>{title}</h2>
-      <ul className="space-y-4 text-gray-300">
+      <ul className="space-y-4 text-slate-600">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-3">
             <Icon className={`${iconColor} mt-1 h-5 w-5 flex-shrink-0`} />
@@ -189,13 +177,13 @@ interface FeatureAccordionProps {
 }
 
 const FeatureAccordion: React.FC<FeatureAccordionProps> = ({ feature, isOpen, onToggle }) => (
-  <div className="border-b border-quantum-green/10 py-2">
+  <div className="border-b border-primary-emerald/10 py-2">
     <button onClick={onToggle} className="flex items-center justify-between w-full text-left text-sm">
-      <span className="font-medium text-gray-200 flex items-start gap-2">
-        <CheckCircle2 className="h-4 w-4 text-quantum-green mt-0.5 flex-shrink-0" />
+      <span className="font-medium text-slate-700 flex items-start gap-2">
+        <CheckCircle2 className="h-4 w-4 text-primary-emerald mt-0.5 flex-shrink-0" />
         {feature.title}
       </span>
-      <ChevronDown className={`transform transition-transform duration-300 text-quantum-green ${isOpen ? 'rotate-180' : ''}`} />
+      <ChevronDown className={`transform transition-transform duration-300 text-primary-emerald ${isOpen ? 'rotate-180' : ''}`} />
     </button>
     <AnimatePresence>
       {isOpen && (
@@ -206,7 +194,7 @@ const FeatureAccordion: React.FC<FeatureAccordionProps> = ({ feature, isOpen, on
           transition={{ duration: 0.3 }}
           className="overflow-hidden"
         >
-          <p className="text-xs text-gray-400 pl-6 pr-4">{feature.details}</p>
+          <p className="text-xs text-slate-500 pl-6 pr-4">{feature.details}</p>
         </m.div>
       )}
     </AnimatePresence>
@@ -228,7 +216,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ pkg }) => {
     <HologramCard className={`h-full flex flex-col ${pkg.recommended ? 'scale-105' : ''}`}>
       <div className="p-8 flex flex-col flex-grow">
         {pkg.recommended && (
-          <Badge className="mb-4 bg-quantum-green/20 text-quantum-green border-quantum-green">
+          <Badge className="mb-4 bg-primary-emerald/20 text-primary-emerald border-primary-emerald">
             Populairste Keuze
           </Badge>
         )}
@@ -241,8 +229,8 @@ const PricingCard: React.FC<PricingCardProps> = ({ pkg }) => {
           <span className="text-4xl font-bold text-gradient">{pkg.price}</span>
         </div>
 
-        <p className="text-quantum-blue mb-2">{pkg.pages}</p>
-        <p className="text-gray-400 mb-6 flex-grow">{pkg.description}</p>
+        <p className="text-primary-blue mb-2">{pkg.pages}</p>
+        <p className="text-slate-500 mb-6 flex-grow">{pkg.description}</p>
 
         <div className="space-y-1 mb-8">
           {pkg.features.map((feature, i) => (
@@ -258,8 +246,8 @@ const PricingCard: React.FC<PricingCardProps> = ({ pkg }) => {
         <Button
           className={`w-full mt-auto ${
             pkg.recommended
-              ? 'bg-gradient-to-r from-quantum-green to-quantum-blue'
-              : 'bg-cyber-light hover:bg-cyber-light/80'
+              ? 'bg-gradient-to-r from-primary-emerald to-primary-blue'
+              : 'bg-slate-100 hover:bg-slate-200'
           }`}
         >
           Start Project
@@ -270,10 +258,10 @@ const PricingCard: React.FC<PricingCardProps> = ({ pkg }) => {
 };
 
 const FaqAccordion = ({ item, isOpen, onToggle }: { item: typeof faqItems[0], isOpen: boolean, onToggle: () => void }) => (
-  <div className="border-b border-quantum-green/10 py-4">
+  <div className="border-b border-primary-emerald/10 py-4">
     <button onClick={onToggle} className="flex items-center justify-between w-full text-left">
-      <span className="font-medium text-lg text-gray-200">{item.question}</span>
-      <ChevronDown className={`transform transition-transform duration-300 text-quantum-green h-6 w-6 ${isOpen ? 'rotate-180' : ''}`} />
+      <span className="font-medium text-lg text-slate-700">{item.question}</span>
+      <ChevronDown className={`transform transition-transform duration-300 text-primary-emerald h-6 w-6 ${isOpen ? 'rotate-180' : ''}`} />
     </button>
     <AnimatePresence>
       {isOpen && (
@@ -284,7 +272,7 @@ const FaqAccordion = ({ item, isOpen, onToggle }: { item: typeof faqItems[0], is
           transition={{ duration: 0.3 }}
           className="overflow-hidden"
         >
-          <p className="text-gray-400 pr-8">{item.answer}</p>
+          <p className="text-slate-500 pr-8">{item.answer}</p>
         </m.div>
       )}
     </AnimatePresence>
@@ -299,13 +287,11 @@ export default function WebsitesPageClient() {
   };
 
   return (
-    <div className="min-h-screen bg-cyber-darker text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       {/* Hero Section */}
       <section className="relative min-h-[600px] pt-32 flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-cyber-dark via-cyber-darker to-cyber-darker">
-          <DeferredCanvas camera={{ position: [0, 0, 10], fov: 75 }}>
-            <DigitalNetwork />
-          </DeferredCanvas>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-50 via-slate-50 to-white">
+          <HeroVisual variant="websites" />
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <m.div
@@ -314,21 +300,21 @@ export default function WebsitesPageClient() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <Badge className="mb-4 bg-quantum-green/20 text-quantum-green border-quantum-green">
+            <Badge className="mb-4 bg-primary-emerald/20 text-primary-emerald border-primary-emerald">
               High-Performance Web Development
             </Badge>
             <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
               <span className="text-gradient">Geen Templates.</span>
               <br />
-              <span className="text-white">Puur Maatwerk.</span>
+              <span className="text-slate-900">Puur Maatwerk.</span>
             </h1>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-500 mb-8 leading-relaxed">
               Wij bouwen geen trage WordPress sites. Wij creëren 100% custom, high-performance digitale ervaringen die uw concurrentie ver achter zich laten.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
               >
                 Ontdek het Verschil
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -336,7 +322,7 @@ export default function WebsitesPageClient() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-quantum-green/50 hover:bg-quantum-green/10"
+                className="border-primary-emerald/50 hover:bg-primary-emerald/10"
               >
                 Vraag een Demo aan
               </Button>
@@ -354,7 +340,7 @@ export default function WebsitesPageClient() {
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
                   <span className="text-gradient">De Fundamenten van Succes</span>
                 </h2>
-                <p className="text-xl text-gray-400">
+                <p className="text-xl text-slate-500">
                   Technologie gekozen voor maximale impact en ROI.
                 </p>
               </div>
@@ -365,11 +351,11 @@ export default function WebsitesPageClient() {
                 <ScrollTrigger key={index} delay={index * 0.1}>
                   <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
-                    className="glass-effect p-6 rounded-xl border border-quantum-green/20 hover:border-quantum-green/50 transition-all text-center"
+                    className="glass-effect p-6 rounded-xl border border-primary-emerald/20 hover:border-primary-emerald/50 transition-all text-center"
                   >
-                    <tech.icon className="h-12 w-12 text-quantum-green mx-auto mb-4" />
+                    <tech.icon className="h-12 w-12 text-primary-emerald mx-auto mb-4" />
                     <h3 className="text-lg font-bold mb-2">{tech.name}</h3>
-                    <p className="text-gray-400 text-sm">{tech.desc}</p>
+                    <p className="text-slate-500 text-sm">{tech.desc}</p>
                   </m.div>
                 </ScrollTrigger>
               ))}
@@ -379,7 +365,7 @@ export default function WebsitesPageClient() {
 
         {/* Video Sectie */}
         <section className="py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-cyber-darker via-cyber-dark/50 to-cyber-darker" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/50 to-white" />
 
           <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <div className="max-w-7xl mx-auto">
@@ -392,9 +378,9 @@ export default function WebsitesPageClient() {
                   transition={{ duration: 0.6 }}
                   className="relative"
                 >
-                  <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-quantum-green/10">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-quantum-green/20 via-quantum-blue/20 to-quantum-purple/20 rounded-2xl blur-xl opacity-50" />
-                    <div className="relative bg-cyber-dark rounded-2xl overflow-hidden">
+                  <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-primary-emerald/10">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/20 to-primary-violet/20 rounded-2xl blur-xl opacity-50" />
+                    <div className="relative bg-slate-50 rounded-2xl overflow-hidden">
                       <video
                         autoPlay
                         muted
@@ -416,9 +402,9 @@ export default function WebsitesPageClient() {
                     transition={{ delay: 0.3, duration: 0.5 }}
                     className="absolute -bottom-4 -right-4 lg:-right-8"
                   >
-                    <div className="bg-cyber-dark/90 backdrop-blur-xl border border-quantum-green/30 rounded-xl px-4 py-3 shadow-lg">
-                      <p className="text-quantum-green font-semibold text-lg">100%</p>
-                      <p className="text-gray-400 text-sm">Maatwerk</p>
+                    <div className="bg-slate-50/90 backdrop-blur-xl border border-primary-emerald/30 rounded-xl px-4 py-3 shadow-lg">
+                      <p className="text-primary-emerald font-semibold text-lg">100%</p>
+                      <p className="text-slate-500 text-sm">Maatwerk</p>
                     </div>
                   </m.div>
                 </m.div>
@@ -430,22 +416,22 @@ export default function WebsitesPageClient() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <Badge className="mb-4 px-4 py-2 bg-quantum-green/10 text-quantum-green border-quantum-green/30">
+                  <Badge className="mb-4 px-4 py-2 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
                     <Sparkles className="w-4 h-4 mr-2 inline" />
                     Website Laten Maken
                   </Badge>
 
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
-                    <span className="text-white">Uw Visie, </span>
+                    <span className="text-slate-900">Uw Visie, </span>
                     <span className="text-gradient">Onze Code</span>
                   </h2>
 
-                  <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                  <p className="text-slate-500 text-lg mb-6 leading-relaxed">
                     Een website die niet alleen mooi is, maar ook écht werkt. Geen templates,
                     geen compromissen - puur maatwerk dat uw bedrijf laat groeien.
                   </p>
 
-                  <p className="text-gray-400 mb-8 leading-relaxed">
+                  <p className="text-slate-500 mb-8 leading-relaxed">
                     Van strategie tot livegang begeleiden wij u door het hele proces.
                     Het resultaat? Een razendsnelle, conversiegerichte website die uw
                     concurrentie ver achter zich laat.
@@ -467,17 +453,17 @@ export default function WebsitesPageClient() {
                         transition={{ delay: 0.3 + index * 0.1 }}
                         className="flex items-center gap-3"
                       >
-                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-quantum-green/10 flex items-center justify-center">
-                          <item.icon className="w-4 h-4 text-quantum-green" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-emerald/10 flex items-center justify-center">
+                          <item.icon className="w-4 h-4 text-primary-emerald" />
                         </div>
-                        <span className="text-gray-300 text-sm">{item.text}</span>
+                        <span className="text-slate-600 text-sm">{item.text}</span>
                       </m.div>
                     ))}
                   </div>
 
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                    className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
                     asChild
                   >
                     <Link href="/contact?service=website">
@@ -492,7 +478,7 @@ export default function WebsitesPageClient() {
         </section>
 
         {/* Problem & Solution */}
-        <section className="py-20 relative bg-cyber-dark">
+        <section className="py-20 relative bg-slate-50">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
               <ScrollTrigger>
@@ -513,7 +499,7 @@ export default function WebsitesPageClient() {
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
                   <span className="text-gradient">Onze Aanpak vs. De Standaard</span>
                 </h2>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                <p className="text-xl text-slate-500 max-w-3xl mx-auto">
                   Waarom een custom website op de lange termijn de slimmere investering is.
                 </p>
               </div>
@@ -523,7 +509,7 @@ export default function WebsitesPageClient() {
                 <div className="hidden md:grid grid-cols-3 gap-4 font-bold text-lg text-center p-4">
                   <div></div>
                   <div className="flex items-center justify-center gap-2">
-                    <ThumbsUp className="text-quantum-green" /> Onze Aanpak
+                    <ThumbsUp className="text-primary-emerald" /> Onze Aanpak
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <ThumbsDown className="text-red-400" /> Standaard (WordPress)
@@ -531,15 +517,15 @@ export default function WebsitesPageClient() {
                 </div>
                 {comparisonData.features.map((feature, index) => (
                   <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center md:text-left p-4 border-t border-quantum-green/10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center md:text-left p-4 border-t border-primary-emerald/10">
                       <div className="font-bold flex items-center gap-3">
-                        <feature.icon className="h-6 w-6 text-quantum-green" />
+                        <feature.icon className="h-6 w-6 text-primary-emerald" />
                         {feature.name}
                       </div>
-                      <div className="text-gray-300 md:text-center">
-                        <span className="md:hidden font-bold text-quantum-green/80">Onze Aanpak: </span>{feature.custom}
+                      <div className="text-slate-600 md:text-center">
+                        <span className="md:hidden font-bold text-primary-emerald/80">Onze Aanpak: </span>{feature.custom}
                       </div>
-                      <div className="text-gray-400 md:text-center">
+                      <div className="text-slate-500 md:text-center">
                         <span className="md:hidden font-bold text-red-400/80">Standaard: </span>{feature.standard}
                       </div>
                     </div>
@@ -551,14 +537,14 @@ export default function WebsitesPageClient() {
         </section>
 
         {/* Packages */}
-        <section className="py-20 relative bg-cyber-dark">
+        <section className="py-20 relative bg-slate-50">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
                   <span className="text-gradient">Transparante Pakketten</span>
                 </h2>
-                <p className="text-xl text-gray-400">
+                <p className="text-xl text-slate-500">
                   Duidelijke prijzen voor meetbare resultaten.
                 </p>
               </div>
@@ -580,18 +566,18 @@ export default function WebsitesPageClient() {
               <ScrollTrigger>
                   <div className="text-center mb-12">
                       <h2 className="text-4xl md:text-5xl font-display font-bold mb-4"><span className="text-gradient">Onze Website Belofte</span></h2>
-                      <p className="text-xl text-gray-400 max-w-3xl mx-auto">Vier garanties waarop u kunt bouwen. Dit is de standaard die u van ons mag verwachten.</p>
+                      <p className="text-xl text-slate-500 max-w-3xl mx-auto">Vier garanties waarop u kunt bouwen. Dit is de standaard die u van ons mag verwachten.</p>
                   </div>
               </ScrollTrigger>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
                   {promiseItems.map((promise, index) => (
                       <ScrollTrigger key={index} delay={index * 0.1}>
-                          <div className="glass-effect p-6 rounded-2xl h-full border border-quantum-green/20 text-center">
-                              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-quantum-green/10 mx-auto mb-4">
-                                  <promise.icon className="h-6 w-6 text-quantum-green" />
+                          <div className="glass-effect p-6 rounded-2xl h-full border border-primary-emerald/20 text-center">
+                              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary-emerald/10 mx-auto mb-4">
+                                  <promise.icon className="h-6 w-6 text-primary-emerald" />
                               </div>
                               <h3 className="text-xl font-display font-bold mb-2">{promise.title}</h3>
-                              <p className="text-gray-400 text-sm">{promise.description}</p>
+                              <p className="text-slate-500 text-sm">{promise.description}</p>
                           </div>
                       </ScrollTrigger>
                   ))}
@@ -600,14 +586,14 @@ export default function WebsitesPageClient() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20 relative bg-cyber-dark">
+        <section className="py-20 relative bg-slate-50">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
                   <span className="text-gradient">Veelgestelde Vragen</span>
                 </h2>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                <p className="text-xl text-slate-500 max-w-3xl mx-auto">
                   Antwoorden op de meest voorkomende vragen.
                 </p>
               </div>
@@ -630,18 +616,18 @@ export default function WebsitesPageClient() {
         <section className="py-20 relative">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
             <ScrollTrigger>
-              <div className="max-w-4xl mx-auto text-center glass-effect p-12 rounded-3xl border border-quantum-green/20">
-                <Globe className="h-16 w-16 text-quantum-green mx-auto mb-6" />
+              <div className="max-w-4xl mx-auto text-center glass-effect p-12 rounded-3xl border border-primary-emerald/20">
+                <Globe className="h-16 w-16 text-primary-emerald mx-auto mb-6" />
                 <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
                   <span className="text-gradient">Klaar voor een Echte Website?</span>
                 </h2>
-                <p className="text-xl text-gray-400 mb-8">
+                <p className="text-xl text-slate-500 mb-8">
                   Stop met het verspillen van geld aan trage, onveilige template-sites. Investeer in een digitale ervaring die resultaat oplevert.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-quantum-green to-quantum-blue hover:scale-105 transition-transform"
+                    className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
                   >
                     Plan Strategie Sessie
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -649,7 +635,7 @@ export default function WebsitesPageClient() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-quantum-green/50 hover:bg-quantum-green/10"
+                    className="border-primary-emerald/50 hover:bg-primary-emerald/10"
                   >
                     Bekijk Ons Werk
                   </Button>

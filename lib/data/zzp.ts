@@ -47,28 +47,28 @@ export const services: Service[] = [
     title: 'Professionele Website',
     description: 'Een website die werkt als uw beste verkoper. 24/7 online, geoptimaliseerd voor Google.',
     features: ['Conversiegericht design', 'Mobiel geoptimaliseerd', 'Sub-seconde laadtijden', 'SSL beveiliging'],
-    color: '#00FF88'
+    color: 'emerald'
   },
   {
     icon: Mail,
     title: 'Zakelijke E-mail',
     description: 'Microsoft 365 e-mail met uw eigen domeinnaam. Professioneel en betrouwbaar.',
     features: ['Eigen domein e-mail', 'Microsoft 365 apps', 'Automatische backups', '50GB opslag'],
-    color: '#00D9FF'
+    color: 'blue'
   },
   {
     icon: Search,
     title: 'Lokale SEO',
     description: 'Word gevonden door klanten in uw regio. Domineer de lokale zoekresultaten.',
     features: ['Google Mijn Bedrijf', 'Lokale zoekwoorden', 'Review management', 'Maandrapportages'],
-    color: '#A855F7'
+    color: 'violet'
   },
   {
     icon: ShieldCheck,
     title: 'IT Support & Security',
     description: 'Technische ondersteuning wanneer u het nodig heeft. Altijd bereikbaar.',
     features: ['Helpdesk support', 'Beveiligingsmonitoring', 'Software updates', 'Probleemoplossing'],
-    color: '#FF6B6B'
+    color: 'warm'
   },
 ]
 

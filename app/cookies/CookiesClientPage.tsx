@@ -95,10 +95,10 @@ Bij uw eerste bezoek aan onze website krijgt u de mogelijkheid om uw cookievoork
 
 export default function CookiesClientPage() {
   return (
-    <main className="min-h-screen bg-cyber-darker">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-quantum-orange/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/20 via-transparent to-transparent" />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -107,22 +107,22 @@ export default function CookiesClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-6 px-4 py-2 bg-quantum-orange/20 text-quantum-orange border-quantum-orange/30">
+              <Badge className="mb-6 px-4 py-2 bg-amber-500/20 text-amber-600 border-amber-500/30">
                 <Cookie className="w-4 h-4 mr-2 inline" />
                 Cookie Policy
               </Badge>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
-                <span className="text-white">Cookie </span>
+                <span className="text-slate-900">Cookie </span>
                 <span className="text-gradient">Beleid</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 Transparantie over hoe wij cookies gebruiken om uw ervaring op onze
                 website te verbeteren.
               </p>
 
-              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-gray-400">
+              <div className="flex items-center justify-center gap-4 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Laatst bijgewerkt: januari 2025
@@ -141,7 +141,7 @@ export default function CookiesClientPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-2xl md:text-3xl font-display font-bold text-white mb-8 text-center"
+              className="text-2xl md:text-3xl font-display font-bold text-slate-900 mb-8 text-center"
             >
               Welke cookies gebruiken wij?
             </m.h2>
@@ -154,38 +154,38 @@ export default function CookiesClientPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="glass-effect rounded-2xl border border-white/10 overflow-hidden"
+                  className="glass-effect rounded-2xl border border-slate-200 overflow-hidden"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-lg font-display font-bold text-white">
+                      <h3 className="text-lg font-display font-bold text-slate-900">
                         {type.title}
                       </h3>
                       {type.required && (
-                        <span className="px-3 py-1 bg-quantum-blue/20 text-quantum-blue text-xs rounded-full">
+                        <span className="px-3 py-1 bg-primary-blue/20 text-primary-blue text-xs rounded-full">
                           Noodzakelijk
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-400 mb-4">
+                    <p className="text-slate-500 mb-4">
                       {type.description}
                     </p>
 
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-white/10">
-                            <th className="text-left py-2 text-gray-300 font-medium">Cookie</th>
-                            <th className="text-left py-2 text-gray-300 font-medium">Doel</th>
-                            <th className="text-left py-2 text-gray-300 font-medium">Duur</th>
+                          <tr className="border-b border-slate-200">
+                            <th className="text-left py-2 text-slate-600 font-medium">Cookie</th>
+                            <th className="text-left py-2 text-slate-600 font-medium">Doel</th>
+                            <th className="text-left py-2 text-slate-600 font-medium">Duur</th>
                           </tr>
                         </thead>
                         <tbody>
                           {type.examples.map((cookie) => (
-                            <tr key={cookie.name} className="border-b border-white/5">
-                              <td className="py-2 text-quantum-blue font-mono text-xs">{cookie.name}</td>
-                              <td className="py-2 text-gray-400">{cookie.purpose}</td>
-                              <td className="py-2 text-gray-500">{cookie.duration}</td>
+                            <tr key={cookie.name} className="border-b border-slate-100">
+                              <td className="py-2 text-primary-blue font-mono text-xs">{cookie.name}</td>
+                              <td className="py-2 text-slate-500">{cookie.purpose}</td>
+                              <td className="py-2 text-slate-400">{cookie.duration}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -207,9 +207,9 @@ export default function CookiesClientPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-effect rounded-3xl border border-white/10 overflow-hidden"
+              className="glass-effect rounded-3xl border border-slate-200 overflow-hidden"
             >
-              <div className="h-1 bg-gradient-to-r from-quantum-orange via-quantum-purple to-quantum-blue" />
+              <div className="h-1 bg-gradient-to-r from-amber-500 via-primary-violet to-primary-blue" />
 
               <div className="p-8 sm:p-12">
                 <div className="space-y-10">
@@ -221,10 +221,10 @@ export default function CookiesClientPage() {
                       transition={{ delay: index * 0.05 }}
                       viewport={{ once: true }}
                     >
-                      <h2 className="text-xl font-display font-bold text-white mb-4">
+                      <h2 className="text-xl font-display font-bold text-slate-900 mb-4">
                         {section.title}
                       </h2>
-                      <div className="text-gray-400 leading-relaxed whitespace-pre-line">
+                      <div className="text-slate-500 leading-relaxed whitespace-pre-line">
                         {section.content}
                       </div>
                     </m.div>
@@ -236,18 +236,18 @@ export default function CookiesClientPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-12 pt-8 border-t border-white/10"
+                  className="mt-12 pt-8 border-t border-slate-200"
                 >
-                  <h3 className="text-lg font-display font-bold text-white mb-4">
+                  <h3 className="text-lg font-display font-bold text-slate-900 mb-4">
                     Vragen over cookies?
                   </h3>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-slate-500 mb-4">
                     Neem gerust contact met ons op als u vragen heeft over ons
                     cookiebeleid.
                   </p>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 text-quantum-orange hover:text-quantum-orange/80 transition-colors"
+                    className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-600/80 transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     Contact opnemen

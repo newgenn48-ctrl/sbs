@@ -46,56 +46,54 @@ interface FAQ {
 // DATA
 // ============================================================================
 
-// Website diensten
 export const services: WebService[] = [
   {
     icon: Palette,
     title: 'Custom Design',
-    description: 'Uniek ontwerp dat perfect past bij uw merk. Geen templates, alleen maatwerk.',
-    features: ['Merkidentiteit verwerkt', 'Unieke look & feel', 'UI/UX design', 'Responsive design'],
-    color: 'quantum-purple'
+    description: 'Professionele uitstraling die bij uw merk past. Geen templates.',
+    features: ['Uniek ontwerp op maat', 'UI/UX doordacht', 'Responsive op elk scherm'],
+    color: 'violet'
   },
   {
     icon: Zap,
-    title: 'Razendsnelle Performance',
-    description: 'Websites die laden in minder dan 2 seconden. Cruciaal voor SEO en conversie.',
-    features: ['Laadtijd <2s', 'Geoptimaliseerde code', 'CDN integratie', 'Image optimization'],
-    color: 'quantum-green'
+    title: 'Razendsnelle Laadtijd',
+    description: 'Onder 2 seconden. Beter voor Google, beter voor conversie.',
+    features: ['Laadtijd <2s', 'Betere Google-positie', 'Meer conversies'],
+    color: 'emerald'
   },
   {
     icon: Search,
-    title: 'SEO Geoptimaliseerd',
-    description: 'Technisch SEO-fundament zodat u gevonden wordt in Google.',
-    features: ['Meta tags & schema', 'Sitemap & robots.txt', 'Core Web Vitals', 'Keyword onderzoek'],
-    color: 'quantum-blue'
+    title: 'Vindbaar in Google',
+    description: 'SEO zit in de fundering. Uw klanten vinden u, niet uw concurrent.',
+    features: ['Technische SEO ingebouwd', 'Schema markup', 'Core Web Vitals'],
+    color: 'blue'
   },
   {
     icon: Smartphone,
     title: 'Mobile-First',
-    description: 'Meer dan 60% van uw bezoekers komt via mobiel. Wij ontwerpen daar eerst voor.',
-    features: ['Responsive design', 'Touch-friendly', 'Mobiele snelheid', 'App-achtige ervaring'],
-    color: 'quantum-orange'
+    description: '60%+ van uw bezoekers zit op een telefoon. Als dat niet werkt, verliest u omzet.',
+    features: ['Ontworpen voor mobiel', 'Touch-vriendelijk', 'Snelle mobiele laadtijd'],
+    color: 'warm'
   },
   {
     icon: FileText,
-    title: 'CMS Integratie',
-    description: 'Beheer zelf uw content via een gebruiksvriendelijk CMS.',
-    features: ['Strapi / Sanity', 'Eenvoudig beheer', 'Media library', 'Meerdere gebruikers'],
-    color: 'quantum-purple'
+    title: 'Zelf Aanpassen',
+    description: 'U wijzigt zelf teksten en foto\'s via een simpel CMS. Geen developer nodig.',
+    features: ['Zelf content beheren', 'Geen technische kennis nodig', 'Training inbegrepen'],
+    color: 'violet'
   },
   {
     icon: Lock,
-    title: 'Veilig & Betrouwbaar',
-    description: 'Moderne, veilige code zonder kwetsbare plugins of verouderde themas.',
-    features: ['SSL certificaat', 'Geen plugins nodig', 'Regelmatige updates', 'Backup strategie'],
-    color: 'quantum-green'
+    title: 'Veilig & Hackproof',
+    description: 'Moderne code zonder kwetsbare plugins. SSL en backups inbegrepen.',
+    features: ['SSL certificaat', 'Geen kwetsbare plugins', 'Dagelijkse backups'],
+    color: 'emerald'
   },
 ]
 
-// Prijs info
 export const priceInfo: PriceInfo = {
-  price: 'Vanaf €785',
-  description: 'Professionele website volledig op maat',
+  price: 'Vanaf €585',
+  description: 'Professionele website volledig op maat (excl. BTW)',
   features: [
     'Custom design op maat',
     'Mobile-first & responsive',
@@ -108,90 +106,95 @@ export const priceInfo: PriceInfo = {
   ],
 }
 
-// Waarom wij - focus op bedrijf/samenwerking, niet product (dat staat bij Diensten)
 export const whyChooseUs: WhyChooseUsItem[] = [
   {
-    icon: Lock,
-    title: 'Volledig Eigendom',
-    description: 'U bent 100% eigenaar van uw website. Geen lock-in, geen doorlopende licentiekosten.',
-    stat: '100%',
-    statLabel: 'van u'
+    icon: Rocket,
+    title: 'Eerste ontwerp binnen 24 uur',
+    description: 'Ontvang binnen 24 uur een eerste ontwerp van uw nieuwe homepage. Geheel vrijblijvend — bevalt het niet, geen kosten.',
+    stat: '24u',
+    statLabel: 'eerste ontwerp'
   },
   {
-    icon: Users,
-    title: 'Directe Lijnen',
-    description: 'Eén vast aanspreekpunt. Geen helpdesk, geen wachtrijen. Direct contact met uw developer.',
-    stat: '1',
-    statLabel: 'contactpersoon'
+    icon: Palette,
+    title: 'Modern & uniek design',
+    description: 'Geen standaard templates. Uw website wordt volledig op maat ontworpen met een strakke, moderne uitstraling die uw merk versterkt.',
+    stat: '100%',
+    statLabel: 'maatwerk'
   },
   {
     icon: FileText,
-    title: 'Vaste Prijs',
-    description: 'Vooraf een duidelijke offerte. Geen verrassingen achteraf, geen uurtje-factuurtje.',
+    title: 'Vaste prijs, geen verrassingen',
+    description: 'U weet vooraf exact wat het kost. Geen uurtje-factuurtje, geen bijkomende kosten. Wat we afspreken, dat betaalt u.',
     stat: '€',
-    statLabel: 'vast'
+    statLabel: 'vaste prijs'
   },
   {
-    icon: Rocket,
-    title: 'Nazorg Inbegrepen',
-    description: 'Na oplevering staan wij voor u klaar. Updates, kleine aanpassingen en technische support.',
-    stat: '∞',
-    statLabel: 'support'
+    icon: Users,
+    title: 'Eén vast aanspreekpunt',
+    description: 'U belt, appt of mailt uw vaste developer direct. Geen callcenter, geen ticket-systeem. Voor, tijdens én na het project.',
+    stat: '1',
+    statLabel: 'aanspreekpunt'
   },
 ]
 
-// Het proces
 export const processSteps: ProcessStep[] = [
   {
     step: '01',
-    title: 'Kennismaking',
-    description: 'We bespreken uw wensen, doelen en doelgroep in een vrijblijvend gesprek.',
+    title: 'Gratis Gesprek',
+    description: 'Geen verkooppraatjes. Wij luisteren, stellen vragen en brengen uw situatie in kaart.',
     icon: Users
   },
   {
     step: '02',
-    title: 'Ontwerp',
-    description: 'Uw unieke design wordt uitgewerkt. U ziet het resultaat voordat we bouwen.',
+    title: 'Ontwerp in 24u',
+    description: 'U ontvangt een eerste ontwerp van uw homepage. Bevalt het niet? Dan stopt het hier, gratis.',
     icon: Palette
   },
   {
     step: '03',
-    title: 'Development',
-    description: 'We bouwen uw website met moderne technologie en uitgebreide testing.',
+    title: 'Bouw & Feedback',
+    description: 'U ziet elke stap en geeft feedback. Wij bouwen pas verder als u tevreden bent.',
     icon: Code2
   },
   {
     step: '04',
-    title: 'Lancering',
-    description: 'Na uw goedkeuring gaan we live. Wij regelen hosting en technische setup.',
+    title: 'Live & Support',
+    description: 'Wij regelen alles: hosting, domein, lancering. En daarna zijn wij er nog steeds.',
     icon: Rocket
   },
 ]
 
-// FAQ
 export const faqs: FAQ[] = [
   {
-    q: 'Hoe lang duurt het om een website te maken?',
-    a: 'Een standaard website is meestal binnen 1-3 weken klaar. Dit hangt af van de complexiteit en hoe snel feedback wordt gegeven. Complexere projecten kunnen 4-6 weken duren.'
+    q: 'Wat kost een website laten maken?',
+    a: 'Vanaf €585 excl. BTW voor een volledige website op maat. U ontvangt vooraf een vaste prijs — wat we afspreken, dat betaalt u. Geen verrassingen.'
+  },
+  {
+    q: 'Hoe lang duurt het?',
+    a: 'Gemiddeld 1-3 weken. U ontvangt al binnen 24 uur een eerste ontwerp. Complexere projecten duren 4-6 weken.'
   },
   {
     q: 'Waarom geen WordPress of Wix?',
-    a: 'WordPress en Wix zijn prima voor eenvoudige websites, maar hebben nadelen: tragere laadtijden, beveiligingsrisico\'s door plugins, en beperkte flexibiliteit. Onze websites zijn sneller, veiliger en volledig op maat - zonder maandelijkse licentiekosten.'
+    a: 'Onze websites laden sneller, zijn veiliger en volledig op maat. Geen maandelijkse licentiekosten, geen kwetsbare plugins, geen beperkingen van een template.'
   },
   {
-    q: 'Kan ik zelf content aanpassen na oplevering?',
-    a: 'Ja, u krijgt een gebruiksvriendelijk CMS waarmee u zelf teksten en afbeeldingen kunt aanpassen. Wij geven ook een korte training zodat u direct aan de slag kunt.'
+    q: 'Kan ik zelf teksten en foto\'s aanpassen?',
+    a: 'Ja. U krijgt een simpel CMS en een korte training. Daarna past u zelf alles aan, zonder ons nodig te hebben.'
   },
   {
-    q: 'Wat als ik later meer pagina\'s of functies wil?',
-    a: 'Geen probleem. Onze websites zijn gebouwd om te groeien. U kunt altijd uitbreiden met extra pagina\'s, blog, webshop of andere functionaliteit.'
+    q: 'Kan ik later uitbreiden?',
+    a: 'Altijd. Extra pagina\'s, blog, webshop, nieuwe functionaliteiten — uw website groeit mee met uw bedrijf.'
   },
   {
     q: 'Regelen jullie ook hosting en domein?',
-    a: 'Ja, wij kunnen de volledige technische setup verzorgen: domeinregistratie, hosting, SSL certificaat en e-mail. Zo heeft u één aanspreekpunt voor alles.'
+    a: 'Ja. Domein, hosting, SSL, e-mail — wij regelen de complete technische setup. Eén aanspreekpunt voor alles.'
   },
   {
-    q: 'Wat voor support krijg ik na oplevering?',
-    a: 'Na oplevering blijven wij beschikbaar voor vragen, kleine aanpassingen en technische ondersteuning. Voor grotere wijzigingen maken we een offerte op maat. Zo bent u nooit alleen.'
+    q: 'Wat als ik het ontwerp niet mooi vind?',
+    a: 'Dan passen we het aan totdat u tevreden bent. Bevalt het eerste ontwerp helemaal niet? Dan stopt het daar, zonder kosten.'
+  },
+  {
+    q: 'Krijg ik support na oplevering?',
+    a: 'Ja. Kleine aanpassingen, vragen en technische support zijn inbegrepen. U staat er niet alleen voor.'
   },
 ]

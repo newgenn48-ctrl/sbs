@@ -7,7 +7,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { navigation } from '@/lib/navigation'
 
-export default function Navigation() {
+export default function Navigation({ isScrolled = false }: { isScrolled?: boolean }) {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
   const pathname = usePathname()
   const handleMouseLeave = useCallback(() => setActiveSubmenu(null), [])
@@ -24,10 +24,12 @@ export default function Navigation() {
           <Link
             href={item.href}
             onClick={(e) => item.href === '#' && e.preventDefault()}
-            className={`flex items-center gap-1 text-xs 2xl:text-sm font-medium transition-colors hover:text-quantum-blue whitespace-nowrap ${
+            className={`flex items-center gap-1 text-xs 2xl:text-sm font-medium transition-colors whitespace-nowrap ${
               pathname && pathname.startsWith(item.href) && item.href !== '#'
-                ? 'text-quantum-blue'
-                : 'text-gray-300'
+                ? 'text-primary-blue'
+                : isScrolled
+                  ? 'text-slate-700 hover:text-primary-blue'
+                  : 'text-slate-300 hover:text-white'
             }`}
           >
             {item.name}
@@ -41,13 +43,13 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 mt-2 w-64 rounded-xl bg-cyber-darker border border-cyber-light overflow-hidden z-50 shadow-xl shadow-black/50"
+                className="absolute top-full left-0 mt-2 w-64 rounded-xl bg-white border border-slate-200 overflow-hidden z-50 shadow-xl shadow-slate-200/50"
               >
                 {item.submenu.map((subitem) => (
                   <Link
                     key={subitem.name}
                     href={subitem.href}
-                    className={`block px-4 py-3 text-sm text-gray-300 hover:text-quantum-blue hover:bg-cyber-light/50 transition-colors ${
+                    className={`block px-4 py-3 text-sm text-slate-600 hover:text-primary-blue hover:bg-slate-50 transition-colors ${
                       subitem.isSub ? 'pl-8' : ''
                     }`}
                   >
