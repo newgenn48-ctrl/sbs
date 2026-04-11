@@ -24,35 +24,36 @@ interface VisualConfig {
   icon: LucideIcon
   accentColor: string
   accentGlow: string
+  accentBg: string
   secondaryColor: string
   floatingIcons: LucideIcon[]
   label: string
 }
 
 const configs: Record<HeroVariant, VisualConfig> = {
-  'it-support':       { icon: Server,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-emerald-400', floatingIcons: [Shield, Monitor, Cloud, Lock],    label: 'IT Support' },
-  'cybersecurity':    { icon: Shield,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-emerald-400', floatingIcons: [Lock, Globe, Server, Cpu],        label: 'Security' },
-  'systeembeheer':    { icon: Server,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-violet-400',  floatingIcons: [Monitor, Cloud, Shield, Cpu],    label: 'Systemen' },
-  'werkplekbeheer':   { icon: Monitor,       accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-amber-400',   floatingIcons: [Smartphone, Cloud, Lock, Cpu],   label: 'Werkplekken' },
-  'microsoft365':     { icon: Cloud,         accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-violet-400',  floatingIcons: [Mail, Shield, Monitor, Globe],   label: 'Microsoft 365' },
-  'website':          { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-blue-400',    floatingIcons: [Code, Search, Smartphone, BarChart3], label: 'Websites' },
-  'webapplicatie':    { icon: Code,          accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-emerald-400', floatingIcons: [Cpu, Globe, Server, Lock],        label: 'Web Apps' },
-  'webshop':          { icon: ShoppingCart,  accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-amber-400',   floatingIcons: [BarChart3, Globe, Lock, Mail],   label: 'E-commerce' },
-  'development':      { icon: Code,          accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-blue-400',    floatingIcons: [Globe, Cpu, Server, Smartphone], label: 'Development' },
-  'ai':               { icon: BrainCircuit,  accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', secondaryColor: 'text-violet-400',  floatingIcons: [Cpu, Bot, LineChart, Workflow],   label: 'AI' },
-  'chatbots':         { icon: MessageSquare, accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', secondaryColor: 'text-blue-400',    floatingIcons: [Bot, BrainCircuit, Globe, Mail], label: 'Chatbots' },
-  'analytics':        { icon: LineChart,     accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', secondaryColor: 'text-violet-400',  floatingIcons: [BarChart3, BrainCircuit, Search, Cpu], label: 'Analytics' },
-  'automation':       { icon: Workflow,      accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', secondaryColor: 'text-blue-400',    floatingIcons: [Cpu, Mail, Bot, Server],         label: 'Automation' },
-  'virtual-assistant':{ icon: Bot,           accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', secondaryColor: 'text-violet-400',  floatingIcons: [MessageSquare, BrainCircuit, Globe, Mail], label: 'Assistent' },
-  'marketing':        { icon: Megaphone,     accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   secondaryColor: 'text-blue-400',    floatingIcons: [BarChart3, Search, Share2, Mail], label: 'Marketing' },
-  'google-ads':       { icon: BarChart3,     accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   secondaryColor: 'text-emerald-400', floatingIcons: [Search, LineChart, Globe, Megaphone], label: 'Google Ads' },
-  'seo':              { icon: Search,        accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   secondaryColor: 'text-blue-400',    floatingIcons: [Globe, BarChart3, Code, LineChart], label: 'SEO' },
-  'social-media':     { icon: Share2,        accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   secondaryColor: 'text-violet-400',  floatingIcons: [Megaphone, BarChart3, Globe, Mail], label: 'Social Media' },
-  'marketing-automation': { icon: Mail,      accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   secondaryColor: 'text-emerald-400', floatingIcons: [Workflow, BarChart3, Bot, Megaphone], label: 'Automation' },
-  'oplossingen':      { icon: Cpu,           accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-violet-400',  floatingIcons: [Server, Code, BrainCircuit, Megaphone], label: 'Oplossingen' },
-  'zzp':              { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-emerald-400', floatingIcons: [Code, Search, Shield, BarChart3], label: 'ZZP' },
-  'about':            { icon: Shield,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    secondaryColor: 'text-violet-400',  floatingIcons: [Server, Code, BrainCircuit, Megaphone], label: 'Over Ons' },
-  'websites':         { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  secondaryColor: 'text-blue-400',    floatingIcons: [Code, Search, Smartphone, BarChart3], label: 'Websites' },
+  'it-support':       { icon: Server,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-emerald-400', floatingIcons: [Shield, Monitor, Cloud, Lock],    label: 'IT Support' },
+  'cybersecurity':    { icon: Shield,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-emerald-400', floatingIcons: [Lock, Globe, Server, Cpu],        label: 'Security' },
+  'systeembeheer':    { icon: Server,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-violet-400',  floatingIcons: [Monitor, Cloud, Shield, Cpu],    label: 'Systemen' },
+  'werkplekbeheer':   { icon: Monitor,       accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-amber-400',   floatingIcons: [Smartphone, Cloud, Lock, Cpu],   label: 'Werkplekken' },
+  'microsoft365':     { icon: Cloud,         accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-violet-400',  floatingIcons: [Mail, Shield, Monitor, Globe],   label: 'Microsoft 365' },
+  'website':          { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-blue-400',    floatingIcons: [Code, Search, Smartphone, BarChart3], label: 'Websites' },
+  'webapplicatie':    { icon: Code,          accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-emerald-400', floatingIcons: [Cpu, Globe, Server, Lock],        label: 'Web Apps' },
+  'webshop':          { icon: ShoppingCart,  accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-amber-400',   floatingIcons: [BarChart3, Globe, Lock, Mail],   label: 'E-commerce' },
+  'development':      { icon: Code,          accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-blue-400',    floatingIcons: [Globe, Cpu, Server, Smartphone], label: 'Development' },
+  'ai':               { icon: BrainCircuit,  accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', accentBg: 'bg-emerald-500/40', secondaryColor: 'text-violet-400',  floatingIcons: [Cpu, Bot, LineChart, Workflow],   label: 'AI' },
+  'chatbots':         { icon: MessageSquare, accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', accentBg: 'bg-emerald-500/40', secondaryColor: 'text-blue-400',    floatingIcons: [Bot, BrainCircuit, Globe, Mail], label: 'Chatbots' },
+  'analytics':        { icon: LineChart,     accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', accentBg: 'bg-emerald-500/40', secondaryColor: 'text-violet-400',  floatingIcons: [BarChart3, BrainCircuit, Search, Cpu], label: 'Analytics' },
+  'automation':       { icon: Workflow,      accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', accentBg: 'bg-emerald-500/40', secondaryColor: 'text-blue-400',    floatingIcons: [Cpu, Mail, Bot, Server],         label: 'Automation' },
+  'virtual-assistant':{ icon: Bot,           accentColor: 'text-emerald-400', accentGlow: 'shadow-emerald-500/30', accentBg: 'bg-emerald-500/40', secondaryColor: 'text-violet-400',  floatingIcons: [MessageSquare, BrainCircuit, Globe, Mail], label: 'Assistent' },
+  'marketing':        { icon: Megaphone,     accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   accentBg: 'bg-amber-500/40',   secondaryColor: 'text-blue-400',    floatingIcons: [BarChart3, Search, Share2, Mail], label: 'Marketing' },
+  'google-ads':       { icon: BarChart3,     accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   accentBg: 'bg-amber-500/40',   secondaryColor: 'text-emerald-400', floatingIcons: [Search, LineChart, Globe, Megaphone], label: 'Google Ads' },
+  'seo':              { icon: Search,        accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   accentBg: 'bg-amber-500/40',   secondaryColor: 'text-blue-400',    floatingIcons: [Globe, BarChart3, Code, LineChart], label: 'SEO' },
+  'social-media':     { icon: Share2,        accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   accentBg: 'bg-amber-500/40',   secondaryColor: 'text-violet-400',  floatingIcons: [Megaphone, BarChart3, Globe, Mail], label: 'Social Media' },
+  'marketing-automation': { icon: Mail,      accentColor: 'text-amber-400',   accentGlow: 'shadow-amber-500/30',   accentBg: 'bg-amber-500/40',   secondaryColor: 'text-emerald-400', floatingIcons: [Workflow, BarChart3, Bot, Megaphone], label: 'Automation' },
+  'oplossingen':      { icon: Cpu,           accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-violet-400',  floatingIcons: [Server, Code, BrainCircuit, Megaphone], label: 'Oplossingen' },
+  'zzp':              { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-emerald-400', floatingIcons: [Code, Search, Shield, BarChart3], label: 'ZZP' },
+  'about':            { icon: Shield,        accentColor: 'text-blue-400',    accentGlow: 'shadow-blue-500/30',    accentBg: 'bg-blue-500/40',    secondaryColor: 'text-violet-400',  floatingIcons: [Server, Code, BrainCircuit, Megaphone], label: 'Over Ons' },
+  'websites':         { icon: Globe,         accentColor: 'text-violet-400',  accentGlow: 'shadow-violet-500/30',  accentBg: 'bg-violet-500/40',  secondaryColor: 'text-blue-400',    floatingIcons: [Code, Search, Smartphone, BarChart3], label: 'Websites' },
 }
 
 const positions = [
@@ -132,7 +133,7 @@ export default function HeroVisual({ variant, className = '' }: HeroVisualProps)
           <Icon className={`w-10 h-10 sm:w-12 sm:h-12 ${config.accentColor}`} />
 
           {/* Glow behind icon */}
-          <div className={`absolute inset-0 rounded-2xl blur-xl opacity-20 ${config.accentGlow.replace('shadow-', 'bg-').replace('/30', '/40')}`} />
+          <div className={`absolute inset-0 rounded-2xl blur-xl opacity-20 ${config.accentBg}`} />
         </m.div>
 
         {/* Orbital dots */}

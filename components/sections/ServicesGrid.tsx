@@ -4,43 +4,7 @@ import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { Shield, Code, BrainCircuit, Megaphone, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useRef, useEffect } from 'react'
-
-const colorClasses = {
-  blue: {
-    border: 'border-primary-blue/20 hover:border-primary-blue/40',
-    bg: 'bg-primary-blue/10',
-    text: 'text-primary-blue',
-    icon: 'text-primary-blue',
-    glow: 'group-hover:shadow-primary-blue/10',
-    gradient: 'from-primary-blue/5 to-transparent',
-  },
-  violet: {
-    border: 'border-primary-violet/20 hover:border-primary-violet/40',
-    bg: 'bg-primary-violet/10',
-    text: 'text-primary-violet',
-    icon: 'text-primary-violet',
-    glow: 'group-hover:shadow-primary-violet/10',
-    gradient: 'from-primary-violet/5 to-transparent',
-  },
-  emerald: {
-    border: 'border-primary-emerald/20 hover:border-primary-emerald/40',
-    bg: 'bg-primary-emerald/10',
-    text: 'text-primary-emerald',
-    icon: 'text-primary-emerald',
-    glow: 'group-hover:shadow-primary-emerald/10',
-    gradient: 'from-primary-emerald/5 to-transparent',
-  },
-  warm: {
-    border: 'border-amber-500/20 hover:border-amber-500/40',
-    bg: 'bg-amber-500/10',
-    text: 'text-amber-600',
-    icon: 'text-amber-600',
-    glow: 'group-hover:shadow-amber-500/10',
-    gradient: 'from-amber-500/5 to-transparent',
-  },
-} as const
-
-type ColorKey = keyof typeof colorClasses
+import { serviceColors, type ServiceColorKey } from '@/lib/colors'
 
 const services: Array<{
   icon: typeof Shield
@@ -48,7 +12,7 @@ const services: Array<{
   subtitle: string
   description: string
   href: string
-  color: ColorKey
+  color: ServiceColorKey
   services: Array<{ name: string; href: string }>
 }> = [
   {
@@ -177,20 +141,20 @@ export default function ServicesGrid() {
               transition={{ delay: index * 0.1, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <TiltCard className={`relative bg-white p-6 sm:p-8 rounded-2xl border ${colorClasses[service.color].border} shadow-sm group h-full transition-shadow duration-300 hover:shadow-xl ${colorClasses[service.color].glow}`}>
+              <TiltCard className={`relative bg-white p-6 sm:p-8 rounded-2xl border ${serviceColors[service.color].border} shadow-sm group h-full transition-shadow duration-300 hover:shadow-xl ${serviceColors[service.color].glow}`}>
                 {/* Subtle gradient overlay on hover */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${colorClasses[service.color].gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${serviceColors[service.color].gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                 <div className="relative z-10">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className={`w-14 h-14 rounded-xl ${colorClasses[service.color].bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <service.icon className={`w-7 h-7 ${colorClasses[service.color].icon}`} />
+                    <div className={`w-14 h-14 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <service.icon className={`w-7 h-7 ${serviceColors[service.color].icon}`} />
                     </div>
                     <div>
                       <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 mb-1">
                         {service.title}
                       </h3>
-                      <p className={`text-sm font-medium ${colorClasses[service.color].text}`}>
+                      <p className={`text-sm font-medium ${serviceColors[service.color].text}`}>
                         {service.subtitle}
                       </p>
                     </div>
@@ -207,7 +171,7 @@ export default function ServicesGrid() {
                         href={subService.href}
                         className="flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 transition-colors group/link"
                       >
-                        <CheckCircle2 className={`w-4 h-4 ${colorClasses[service.color].icon} flex-shrink-0`} />
+                        <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].icon} flex-shrink-0`} />
                         <span className="group-hover/link:translate-x-1 transition-transform">
                           {subService.name}
                         </span>
@@ -217,7 +181,7 @@ export default function ServicesGrid() {
 
                   <Link
                     href={service.href}
-                    className={`inline-flex items-center gap-2 ${colorClasses[service.color].text} font-medium text-sm hover:gap-3 transition-all group/cta`}
+                    className={`inline-flex items-center gap-2 ${serviceColors[service.color].text} font-medium text-sm hover:gap-3 transition-all group/cta`}
                   >
                     <span>Bekijk alle diensten</span>
                     <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" />

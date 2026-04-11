@@ -3,6 +3,7 @@
 import { m } from 'framer-motion'
 import { Building2, User, Briefcase, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { serviceColors, type ServiceColorKey } from '@/lib/colors'
 
 const clientTypes = [
   {
@@ -27,25 +28,6 @@ const clientTypes = [
     color: 'emerald' as const,
   },
 ]
-
-const colorMap = {
-  blue: {
-    border: 'border-primary-blue/20 hover:border-primary-blue/40',
-    bg: 'bg-primary-blue/10',
-    text: 'text-primary-blue',
-  },
-  violet: {
-    border: 'border-primary-violet/20 hover:border-primary-violet/40',
-    bg: 'bg-primary-violet/10',
-    text: 'text-primary-violet',
-  },
-  emerald: {
-    border: 'border-primary-emerald/20 hover:border-primary-emerald/40',
-    bg: 'bg-primary-emerald/10',
-    text: 'text-primary-emerald',
-  },
-}
-
 const idealFit = [
   'U wilt één betrouwbare IT-partner in plaats van meerdere leveranciers',
   'U zoekt persoonlijk contact, geen grote helpdesk waar u een nummer bent',
@@ -83,17 +65,17 @@ export default function IdealClientProfile() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`bg-white p-6 sm:p-8 rounded-2xl border ${colorMap[client.color].border} shadow-sm hover:shadow-md transition-all group h-full`}
+              className={`bg-white p-6 sm:p-8 rounded-2xl border ${serviceColors[client.color].border} shadow-sm hover:shadow-md transition-all group h-full`}
             >
-              <div className={`w-14 h-14 rounded-xl ${colorMap[client.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <client.icon className={`w-7 h-7 ${colorMap[client.color].text}`} />
+              <div className={`w-14 h-14 rounded-xl ${serviceColors[client.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <client.icon className={`w-7 h-7 ${serviceColors[client.color].text}`} />
               </div>
               <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 mb-3">{client.title}</h3>
               <p className="text-slate-600 mb-6 leading-relaxed">{client.description}</p>
               <div className="space-y-3">
                 {client.needs.map((need) => (
                   <div key={need} className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle2 className={`w-4 h-4 ${colorMap[client.color].text} flex-shrink-0`} />
+                    <CheckCircle2 className={`w-4 h-4 ${serviceColors[client.color].text} flex-shrink-0`} />
                     <span>{need}</span>
                   </div>
                 ))}

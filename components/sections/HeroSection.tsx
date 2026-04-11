@@ -11,6 +11,18 @@ import {
   HeadphonesIcon,
 } from 'lucide-react'
 
+const usps = [
+  { icon: HeadphonesIcon, text: 'Eén vast aanspreekpunt' },
+  { icon: CheckCircle2, text: 'Transparante tarieven' },
+  { icon: Clock, text: 'Reactie binnen 24 uur' },
+]
+
+const stats = [
+  { value: '10+', label: 'Jaar Ervaring' },
+  { value: '24u', label: 'Responstijd' },
+  { value: '100%', label: 'Vrijblijvend' },
+]
+
 export default function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0B1121]">
@@ -47,8 +59,6 @@ export default function HeroSection() {
               Vertrouwd door bedrijven in heel Nederland
             </div>
           </m.div>
-
-          {/* H1 */}
           <m.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,11 +89,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap justify-center gap-3 mb-10"
           >
-            {[
-              { icon: HeadphonesIcon, text: 'Eén vast aanspreekpunt' },
-              { icon: CheckCircle2, text: 'Transparante tarieven' },
-              { icon: Clock, text: 'Reactie binnen 24 uur' },
-            ].map((usp) => (
+            {usps.map((usp) => (
               <div
                 key={usp.text}
                 className="flex items-center gap-2 text-slate-300 bg-white/[0.04] px-4 py-2 rounded-full border border-white/[0.06]"

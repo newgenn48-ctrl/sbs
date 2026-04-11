@@ -1,7 +1,7 @@
 'use client'
 
 import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { Star, Quote, CheckCircle2 } from 'lucide-react'
+import { Star, Quote } from 'lucide-react'
 import { useRef, useEffect } from 'react'
 
 const testimonials = [

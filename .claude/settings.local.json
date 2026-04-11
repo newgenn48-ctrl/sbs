@@ -35,7 +35,17 @@
       "Bash(grep -rn '\\\\${.*\\\\.color}' app/ --include=\"*.tsx\")",
       "Bash(grep -v \"//\")",
       "Bash(sed -i '240s/text-slate-500/text-slate-400/' app/website-laten-maken/WebsitePageClient.tsx)",
-      "Bash(sed -i '257s/text-slate-500/text-slate-400/' app/website-laten-maken/WebsitePageClient.tsx)"
+      "Bash(sed -i '257s/text-slate-500/text-slate-400/' app/website-laten-maken/WebsitePageClient.tsx)",
+      "Bash(npx next:*)",
+      "Bash(npx eslint:*)",
+      "Bash(ls eslint* .eslintrc*)",
+      "Bash(ls next.config*)",
+      "Bash(grep -n \"color:\" lib/data/*.ts)",
+      "Bash(grep -l \"color: string\" lib/data/*.ts)",
+      "Bash(grep -l \"ServiceColorKey\" lib/data/*.ts)",
+      "Bash(grep -l \"@/lib/colors\" lib/data/*.ts)",
+      "Bash(grep -n \"'#\" lib/data/*.ts)",
+      "Bash(grep \"color:\" lib/data/*.ts)"
     ]
   }
 }

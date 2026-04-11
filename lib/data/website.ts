@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Palette, Zap, Search, Smartphone, FileText, Lock,
   Users, Rocket, Code2
@@ -13,7 +14,7 @@ interface WebService {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface PriceInfo {

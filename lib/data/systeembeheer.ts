@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import type { LucideIcon } from 'lucide-react'
 import {
   Server, Network, Wifi, Database, PhoneCall, Cloud, Video, Bell,
@@ -13,7 +14,7 @@ interface Service {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface WhyItem {

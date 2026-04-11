@@ -2,7 +2,7 @@
 
 import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Calendar, CheckCircle2, Clock, Shield, Users, Phone, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Clock, Shield, Users, Phone, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 const benefits = [
@@ -55,7 +55,7 @@ export default function CTASection() {
             <div className="relative bg-[#0f1629] rounded-3xl">
               <div className="p-8 sm:p-12 lg:p-16">
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
-                  {/* Left */}
+                  
                   <div className="text-center lg:text-left">
                     <m.div
                       initial={{ opacity: 0, y: 10 }}
@@ -107,8 +107,6 @@ export default function CTASection() {
                       </a>
                     </div>
                   </div>
-
-                  {/* Right */}
                   <div className="hidden lg:block">
                     <div className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06]">
                       <h3 className="text-lg font-semibold text-white mb-6 text-center">

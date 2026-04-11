@@ -13,26 +13,23 @@ import {
   Headphones, Star, Activity, Shield,
   ShieldCheck
 } from 'lucide-react'
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
 import {
-  colorClasses, itCategories, supportModels, trustIndicators,
+  itCategories, supportModels, trustIndicators,
   whyChooseUs, processSteps, faqs
 } from '@/lib/data/it-support'
-import type { ColorKey } from '@/lib/data/it-support'
-
-// Deferred Canvas for better LCP
+import { serviceColors } from '@/lib/colors'
 // ============================================================================
 // COMPONENTS
 // ============================================================================
 
 const CategoryCard = ({ category, index }: { category: typeof itCategories[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${colorClasses[category.color].border} ${colorClasses[category.color].borderHover} transition-all group flex flex-col`}>
-      <div className={`w-14 h-14 rounded-2xl ${colorClasses[category.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <category.icon className={`w-7 h-7 ${colorClasses[category.color].text}`} />
+    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${serviceColors[category.color].border} ${serviceColors[category.color].borderHover} transition-all group flex flex-col`}>
+      <div className={`w-14 h-14 rounded-2xl ${serviceColors[category.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+        <category.icon className={`w-7 h-7 ${serviceColors[category.color].text}`} />
       </div>
 
       <h3 className="text-2xl font-bold mb-3">{category.title}</h3>
@@ -41,14 +38,14 @@ const CategoryCard = ({ category, index }: { category: typeof itCategories[0], i
       <ul className="space-y-2 mb-6 flex-grow">
         {category.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${colorClasses[category.color].text} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${serviceColors[category.color].text} flex-shrink-0`} />
             {feature}
           </li>
         ))}
       </ul>
 
       <Button
-        className={`w-full ${colorClasses[category.color].bg} ${colorClasses[category.color].bgHover} ${colorClasses[category.color].text} border ${colorClasses[category.color].btnBorder}`}
+        className={`w-full ${serviceColors[category.color].bg} ${serviceColors[category.color].bgHover} ${serviceColors[category.color].text} border ${serviceColors[category.color].btnBorder}`}
         asChild
       >
         <Link href={category.link}>
@@ -62,9 +59,9 @@ const CategoryCard = ({ category, index }: { category: typeof itCategories[0], i
 
 const SupportModelCard = ({ model, index }: { model: typeof supportModels[0], index: number }) => (
   <ScrollTrigger delay={index * 0.15}>
-    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${colorClasses[model.color].border} ${colorClasses[model.color].borderHover} transition-all group`}>
-      <div className={`w-14 h-14 rounded-2xl ${colorClasses[model.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <model.icon className={`w-7 h-7 ${colorClasses[model.color].text}`} />
+    <article className={`glass-effect p-5 sm:p-6 lg:p-8 rounded-2xl h-full border ${serviceColors[model.color].border} ${serviceColors[model.color].borderHover} transition-all group`}>
+      <div className={`w-14 h-14 rounded-2xl ${serviceColors[model.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+        <model.icon className={`w-7 h-7 ${serviceColors[model.color].text}`} />
       </div>
 
       <h3 className="text-2xl font-bold mb-3">{model.title}</h3>
@@ -73,7 +70,7 @@ const SupportModelCard = ({ model, index }: { model: typeof supportModels[0], in
       <ul className="space-y-3">
         {model.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-3 text-sm">
-            <CheckCircle2 className={`w-4 h-4 ${colorClasses[model.color].text} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${serviceColors[model.color].text} flex-shrink-0`} />
             <span className="text-slate-600">{feature}</span>
           </li>
         ))}
@@ -136,8 +133,6 @@ export default function ITSupportPageClient() {
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
-
-            {/* Content */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -177,11 +172,11 @@ export default function ITSupportPageClient() {
               </ul>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <Clock className="w-4 h-4 text-primary-blue" />
                   <span>Snelle responstijd</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                   <span>Persoonlijke aanpak</span>
                 </div>
@@ -366,8 +361,6 @@ export default function ITSupportPageClient() {
                   </div>
                 </m.div>
               </m.div>
-
-              {/* Content */}
               <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}

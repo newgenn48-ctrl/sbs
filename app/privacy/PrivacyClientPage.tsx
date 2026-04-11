@@ -2,7 +2,7 @@
 
 import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
-import { Shield, Lock, Eye, FileText, Mail, Calendar } from 'lucide-react'
+import { Shield, Mail, Calendar } from 'lucide-react'
 import Link from 'next/link'
 
 const sections = [

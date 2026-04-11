@@ -2,7 +2,7 @@
 
 import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
-import { Cookie, Mail, Calendar, CheckCircle2 } from 'lucide-react'
+import { Cookie, Mail, Calendar } from 'lucide-react'
 import Link from 'next/link'
 
 const cookieTypes = [

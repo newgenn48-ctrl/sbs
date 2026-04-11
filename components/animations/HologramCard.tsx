@@ -21,8 +21,6 @@ export default function HologramCard({
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 hologram-effect opacity-50" />
       </div>
-
-      {/* Content */}
       <div className="relative z-10">{children}</div>
 
       {/* Corner accents */}

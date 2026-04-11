@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import { FAQItem } from '@/components/ui/FAQItem'
 import {
   Globe, CheckCircle2, ArrowRight,
-  Zap, Palette, Lock, Search,
-  Smartphone, FileText,
+  Zap, Palette, Search,
+  Smartphone,
   Users,
   Target,
   Sparkles,
@@ -20,7 +20,7 @@ import { useRef, useState, useEffect } from 'react'
 import {
   services, priceInfo, whyChooseUs, processSteps, faqs
 } from '@/lib/data/website'
-import { serviceColors, type ServiceColorKey } from '@/lib/colors'
+import { serviceColors } from '@/lib/colors'
 
 // ============================================================================
 // COMPONENTS
@@ -58,13 +58,13 @@ function AnimatedNumber({ value, suffix = '' }: { value: string; suffix?: string
 
 const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
   <ScrollTrigger delay={index * 0.08}>
-    <article className={`relative bg-white p-6 sm:p-7 rounded-2xl h-full border ${serviceColors[service.color as ServiceColorKey].border} ${serviceColors[service.color as ServiceColorKey].borderHover} transition-all duration-300 group card-hover`}>
+    <article className={`relative bg-white p-6 sm:p-7 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all duration-300 group card-hover`}>
       {/* Subtle gradient on hover */}
       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color === 'violet' ? 'from-primary-violet/[0.03]' : service.color === 'emerald' ? 'from-primary-emerald/[0.03]' : service.color === 'blue' ? 'from-primary-blue/[0.03]' : 'from-amber-500/[0.03]'} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
       <div className="relative z-10">
-        <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color as ServiceColorKey].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-          <service.icon className={`w-6 h-6 ${serviceColors[service.color as ServiceColorKey].text}`} />
+        <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+          <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
         </div>
 
         <h3 className="text-lg font-bold mb-2 text-slate-900">{service.title}</h3>
@@ -73,7 +73,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
         <ul className="space-y-2">
           {service.features.map((feature, i) => (
             <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-              <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color as ServiceColorKey].text} flex-shrink-0`} />
+              <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
               {feature}
             </li>
           ))}

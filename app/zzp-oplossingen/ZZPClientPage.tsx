@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 
 import { FAQItem } from '@/components/ui/FAQItem'
-import { serviceColors, type ServiceColorKey } from '@/lib/colors'
+import { serviceColors } from '@/lib/colors'
 import { services, processSteps, whyUs, faqs } from '@/lib/data/zzp'
 // ============================================================================
 // COMPONENTS
@@ -23,7 +23,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
   <ScrollTrigger delay={index * 0.1}>
     <div className="glass-effect p-6 rounded-2xl h-full border border-primary-violet/20 hover:border-primary-violet/40 transition-all">
       <div className="w-14 h-14 rounded-xl bg-primary-violet/10 flex items-center justify-center mb-5">
-        <service.icon className={`w-7 h-7 ${serviceColors[service.color as ServiceColorKey].text}`} />
+        <service.icon className={`w-7 h-7 ${serviceColors[service.color].text}`} />
       </div>
 
       <h3 className="text-xl font-bold mb-3">{service.title}</h3>
@@ -95,8 +95,6 @@ export default function ZZPClientPage() {
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Content */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -135,11 +133,11 @@ export default function ZZPClientPage() {
               </ul>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <Target className="w-4 h-4 text-primary-violet" />
                   <span>ZZP specialist</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <TrendingUp className="w-4 h-4 text-primary-emerald" />
                   <span>Vanaf €99/mnd</span>
                 </div>

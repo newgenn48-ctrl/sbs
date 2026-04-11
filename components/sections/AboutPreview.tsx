@@ -86,8 +86,6 @@ export default function AboutPreview() {
                 <AnimatedStat value={24} suffix="u" label="Responstijd" />
               </div>
             </m.div>
-
-            {/* Content */}
             <m.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}

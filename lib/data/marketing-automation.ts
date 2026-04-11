@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Mail, Workflow, Target, Filter, Users,
   BarChart3, Clock, RefreshCw, TrendingUp,
@@ -14,7 +15,7 @@ interface AutomationService {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface WhyAutomationItem {

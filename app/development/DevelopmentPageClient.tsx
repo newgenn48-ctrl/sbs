@@ -8,19 +8,18 @@ import { Badge } from '@/components/ui/badge'
 import {
   Code2, CheckCircle2, ArrowRight, Zap
 } from 'lucide-react'
-import React from 'react'
 import Link from 'next/link'
 import { developmentServices, whyCustomDev, technologies, processSteps } from '@/lib/data/development'
-import { serviceColors, type ServiceColorKey } from '@/lib/colors'
+import { serviceColors } from '@/lib/colors'
 // ============================================================================
 // COMPONENTS
 // ============================================================================
 
 const ServiceCard = ({ service, index }: { service: typeof developmentServices[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-6 lg:p-8 rounded-2xl h-full border ${serviceColors[service.color as ServiceColorKey].border} ${serviceColors[service.color as ServiceColorKey].borderHover} transition-all group flex flex-col`}>
-      <div className={`w-14 h-14 rounded-2xl ${serviceColors[service.color as ServiceColorKey].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-7 h-7 ${serviceColors[service.color as ServiceColorKey].text}`} />
+    <article className={`glass-effect p-6 lg:p-8 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group flex flex-col`}>
+      <div className={`w-14 h-14 rounded-2xl ${serviceColors[service.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+        <service.icon className={`w-7 h-7 ${serviceColors[service.color].text}`} />
       </div>
 
       <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
@@ -29,14 +28,14 @@ const ServiceCard = ({ service, index }: { service: typeof developmentServices[0
       <ul className="space-y-2 mb-6 flex-grow">
         {service.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color as ServiceColorKey].text} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
             {feature}
           </li>
         ))}
       </ul>
 
       <Button
-        className={`w-full ${serviceColors[service.color as ServiceColorKey].bg} hover:${serviceColors[service.color as ServiceColorKey].bgHover} ${serviceColors[service.color as ServiceColorKey].text} border ${serviceColors[service.color as ServiceColorKey].btnBorder}`}
+        className={`w-full ${serviceColors[service.color].bg} hover:${serviceColors[service.color].bgHover} ${serviceColors[service.color].text} border ${serviceColors[service.color].btnBorder}`}
         asChild
       >
         <Link href={service.link}>
@@ -103,7 +102,6 @@ export default function DevelopmentPageClient() {
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-            {/* Content - Linker kolom */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}

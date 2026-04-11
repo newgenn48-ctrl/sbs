@@ -288,8 +288,6 @@ export default function DemoClientPage() {
                       placeholder="Bijv. een webshop voor kleding, een portfolio website..."
                     />
                   </div>
-
-                  {/* Submit */}
                   <Button
                     type="submit"
                     size="lg"

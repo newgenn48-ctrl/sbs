@@ -408,8 +408,6 @@ export default function WebsitesPageClient() {
                     </div>
                   </m.div>
                 </m.div>
-
-                {/* Content */}
                 <m.div
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}

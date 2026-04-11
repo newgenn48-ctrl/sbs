@@ -10,21 +10,20 @@ import {
   Mail, Target, TrendingUp,
   Clock, BarChart3, Workflow
 } from 'lucide-react'
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
 import { services, whyAutomation, processSteps, faqs } from '@/lib/data/marketing-automation'
-import { serviceColors, type ServiceColorKey } from '@/lib/colors'
+import { serviceColors } from '@/lib/colors'
 // ============================================================================
 // COMPONENTS
 // ============================================================================
 
 const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
   <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color as ServiceColorKey].border} ${serviceColors[service.color as ServiceColorKey].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color as ServiceColorKey].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color as ServiceColorKey].text}`} />
+    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
+      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
       </div>
 
       <h3 className="text-xl font-bold mb-2">{service.title}</h3>
@@ -33,7 +32,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0], index: n
       <ul className="space-y-2">
         {service.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color as ServiceColorKey].text} flex-shrink-0`} />
+            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
             {feature}
           </li>
         ))}
@@ -97,7 +96,6 @@ export default function MarketingAutomationClientPage() {
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-            {/* Content - Linker kolom */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}

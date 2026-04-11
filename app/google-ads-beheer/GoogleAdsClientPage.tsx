@@ -9,7 +9,6 @@ import {
   BarChart3, CheckCircle2, ArrowRight,
   Target, TrendingUp, DollarSign
 } from 'lucide-react'
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FAQItem } from '@/components/ui/FAQItem'
@@ -94,8 +93,6 @@ export default function GoogleAdsClientPage() {
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Content */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}

@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Zap, FileText, Link as LinkIcon, Globe,
   Target, BarChart, TrendingUp, Award,
@@ -14,7 +15,7 @@ interface SEOService {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface WhySEOItem {

@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Search, Target, MousePointer, TrendingUp,
   LineChart, Eye, Zap, Filter, BarChart3
@@ -13,7 +14,7 @@ interface GoogleAdsService {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface WhyGoogleAdsItem {

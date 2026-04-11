@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Globe, Layers, ShoppingCart, Zap, Lock,
   Palette, Gauge, Users, Code2, Rocket
@@ -14,7 +15,7 @@ interface DevelopmentService {
   description: string
   features: string[]
   link: string
-  color: string
+  color: ServiceColorKey
   cta: string
 }
 

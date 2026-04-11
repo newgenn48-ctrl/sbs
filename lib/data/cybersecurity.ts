@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Shield, Clock, Eye, Key,
   Users, FileCheck, HardDrive,
@@ -15,7 +16,7 @@ interface CyberService {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface WhyChooseUsItem {

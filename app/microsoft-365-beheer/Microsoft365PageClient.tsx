@@ -9,7 +9,6 @@ import {
   Cloud, CheckCircle2, ArrowRight,
   Clock, Star, Zap, Phone
 } from 'lucide-react'
-import React from 'react'
 import Link from 'next/link'
 import { m365Apps, services, benefits, processSteps, whyUs } from '@/lib/data/microsoft-365'
 import { serviceColors } from '@/lib/colors'
@@ -119,8 +118,6 @@ export default function Microsoft365PageClient() {
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Content */}
             <m.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -158,11 +155,11 @@ export default function Microsoft365PageClient() {
               </ul>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <Clock className="w-4 h-4 text-primary-blue" />
                   <span>Snelle implementatie</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-500">
+                <div className="flex items-center gap-2 text-slate-300">
                   <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                   <span>Microsoft Partner</span>
                 </div>

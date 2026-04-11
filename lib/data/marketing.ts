@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   BarChart3, Search, MessageCircle, Zap,
   FileSearch, Settings, Rocket, TrendingUp,
@@ -14,7 +15,7 @@ interface MarketingService {
   title: string
   description: string
   href: string
-  color: string
+  color: ServiceColorKey
   features: string[]
 }
 

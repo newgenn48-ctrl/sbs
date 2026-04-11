@@ -5,12 +5,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {
-  Users,
   Target,
   Heart,
   Zap,
   Shield,
-  Clock,
   CheckCircle2,
   ArrowRight,
   Lightbulb,
@@ -24,11 +22,10 @@ import {
   Megaphone,
 } from 'lucide-react'
 
-// 3D Components - dynamically imported to reduce initial bundle
 import HeroVisual from '@/components/ui/HeroVisual'
 import { serviceColors, type ServiceColorKey } from '@/lib/colors'
 
-const values = [
+const values: { icon: typeof Heart; title: string; description: string; color: ServiceColorKey; gradient: string }[] = [
   {
     icon: Heart,
     title: 'Persoonlijke Aanpak',
@@ -59,33 +56,25 @@ const values = [
   },
 ]
 
-
-
-const aboutServices = [
-  { name: 'IT Beheer', icon: Globe, color: 'blue' as ServiceColorKey },
-  { name: 'Web Development', icon: Code, color: 'violet' as ServiceColorKey },
-  { name: 'AI & Automatisering', icon: Brain, color: 'emerald' as ServiceColorKey },
-  { name: 'Online Marketing', icon: Megaphone, color: 'warm' as ServiceColorKey },
+const aboutServices: { name: string; icon: typeof Globe; color: ServiceColorKey }[] = [
+  { name: 'IT Beheer', icon: Globe, color: 'blue' },
+  { name: 'Web Development', icon: Code, color: 'violet' },
+  { name: 'AI & Automatisering', icon: Brain, color: 'emerald' },
+  { name: 'Online Marketing', icon: Megaphone, color: 'warm' },
 ]
-
-
 
 export default function AboutClientPage() {
   return (
     <main className="min-h-screen bg-white overflow-hidden">
       {/* ========== HERO SECTION ========== */}
       <section className="relative min-h-screen flex items-center overflow-hidden text-white">
-        {/* Background */}
+        
         <div className="absolute inset-0 z-0 bg-[#0B1121]">
           <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600/[0.07] rounded-full blur-[100px]" />
           <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet-600/[0.05] rounded-full blur-[100px]" />
         </div>
-
-        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121]/50 to-white z-[1]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1121]/80 via-transparent to-[#0B1121]/80 z-[1]" />
-
-        {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20">
           <div className="max-w-4xl">
             <m.div
@@ -191,15 +180,10 @@ export default function AboutClientPage() {
         <div className="absolute inset-0 z-0 opacity-40">
           <HeroVisual variant="about" className="opacity-30" />
         </div>
-
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-white via-slate-50/90 to-white z-[1]" />
-
-        {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Text Content */}
               <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -243,8 +227,6 @@ export default function AboutClientPage() {
                   ))}
                 </div>
               </m.div>
-
-              {/* Visual Card */}
               <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -297,11 +279,7 @@ export default function AboutClientPage() {
         <div className="absolute inset-0 z-0 opacity-40">
           <HeroVisual variant="about" className="opacity-20" />
         </div>
-
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/95 to-white z-[1]" />
-
-        {/* Content */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
           <m.div
             initial={{ opacity: 0, y: 20 }}
@@ -338,8 +316,8 @@ export default function AboutClientPage() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-5 transition-opacity`} />
 
                   <div className="relative z-10">
-                    <div className={`w-16 h-16 rounded-2xl ${serviceColors[value.color as ServiceColorKey].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                      <value.icon className={`w-8 h-8 ${serviceColors[value.color as ServiceColorKey].text}`} />
+                    <div className={`w-16 h-16 rounded-2xl ${serviceColors[value.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                      <value.icon className={`w-8 h-8 ${serviceColors[value.color].text}`} />
                     </div>
                     <h3 className="text-xl font-display font-bold text-slate-900 mb-3">{value.title}</h3>
                     <p className="text-slate-500 leading-relaxed">{value.description}</p>

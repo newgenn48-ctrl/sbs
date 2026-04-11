@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import type { LucideIcon } from 'lucide-react'
 import {
   User, Building2, Globe, Mail, Headphones, ShieldCheck,
@@ -14,7 +15,7 @@ interface TargetGroup {
   subtitle: string
   description: string
   benefits: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface Service {
@@ -22,7 +23,7 @@ interface Service {
   title: string
   description: string
   features: string[]
-  color: string
+  color: ServiceColorKey
 }
 
 interface ProcessStep {

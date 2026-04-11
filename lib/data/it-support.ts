@@ -1,3 +1,4 @@
+import type { ServiceColorKey } from '@/lib/colors'
 import {
   Server, Cloud, Shield, Monitor,
   Clock, Wrench, UserCheck, ThumbsUp,
@@ -11,50 +12,13 @@ import type { LucideIcon } from 'lucide-react'
 // TYPES
 // ============================================================================
 
-export const colorClasses = {
-  'blue': {
-    border: 'border-primary-blue/20',
-    borderHover: 'hover:border-primary-blue/40',
-    bg: 'bg-primary-blue/10',
-    bgHover: 'hover:bg-primary-blue/20',
-    text: 'text-primary-blue',
-    btnBorder: 'border-primary-blue/30',
-  },
-  'violet': {
-    border: 'border-primary-violet/20',
-    borderHover: 'hover:border-primary-violet/40',
-    bg: 'bg-primary-violet/10',
-    bgHover: 'hover:bg-primary-violet/20',
-    text: 'text-primary-violet',
-    btnBorder: 'border-primary-violet/30',
-  },
-  'emerald': {
-    border: 'border-primary-emerald/20',
-    borderHover: 'hover:border-primary-emerald/40',
-    bg: 'bg-primary-emerald/10',
-    bgHover: 'hover:bg-primary-emerald/20',
-    text: 'text-primary-emerald',
-    btnBorder: 'border-primary-emerald/30',
-  },
-  'warm': {
-    border: 'border-amber-500/20',
-    borderHover: 'hover:border-amber-500/40',
-    bg: 'bg-amber-500/10',
-    bgHover: 'hover:bg-amber-500/20',
-    text: 'text-amber-600',
-    btnBorder: 'border-amber-500/30',
-  },
-} as const
-
-export type ColorKey = keyof typeof colorClasses
-
 interface ITCategory {
   icon: LucideIcon
   title: string
   description: string
   features: string[]
   link: string
-  color: ColorKey
+  color: ServiceColorKey
   cta: string
 }
 
@@ -63,7 +27,7 @@ interface SupportModel {
   title: string
   description: string
   features: string[]
-  color: ColorKey
+  color: ServiceColorKey
 }
 
 interface TrustIndicator {
