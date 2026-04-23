@@ -40,11 +40,6 @@
   --font-display: var(--font-plus-jakarta-sans), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), monospace;
 
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
   @keyframes shimmer-slide {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
@@ -457,8 +452,6 @@
     border-radius: inherit;
     padding: 1px;
     background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(124,58,237,0.15), rgba(16,185,129,0.1));
-    background-size: 200% 200%;
-    animation: gradient-shift 6s ease infinite;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;

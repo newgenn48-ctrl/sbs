@@ -88,7 +88,10 @@
       "Bash(awk 'NR==135' \"C:/Users/konia/OneDrive - Stichting Hogeschool Utrecht/project-new/app/zzp-oplossingen/ZZPClientPage.tsx\")",
       "Bash(xxd)",
       "Bash(python *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(xargs -I{} sh -c 'echo \"=== {} ===\"; grep -l \"Array.prototype.at\\\\|Array.prototype.flat\\\\|Object.fromEntries\\\\|Object.hasOwn\\\\|trimStart\\\\|trimEnd\" \"{}\" 2>/dev/null && echo \"HAS POLYFILLS\" || echo \"clean\"')"
     ]
   }
 }

@@ -51,8 +51,8 @@ export default function CTASection() {
         >
           {/* Main card with animated gradient border */}
           <div className="relative rounded-3xl overflow-hidden">
-            {/* Animated gradient border */}
-            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-primary-blue via-primary-violet to-primary-emerald opacity-60" style={{ backgroundSize: '200% 200%', animation: 'gradient-shift 4s ease infinite' }} />
+            {/* Gradient border */}
+            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-primary-blue via-primary-violet to-primary-emerald opacity-60" />
 
             <div className="relative bg-[#0f1629] rounded-3xl">
               <div className="p-8 sm:p-12 lg:p-16">
