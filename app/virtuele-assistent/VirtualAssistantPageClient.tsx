@@ -1,452 +1,281 @@
-﻿'use client'
+'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { FAQItem } from '@/components/ui/FAQItem'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Phone, CheckCircle2, ArrowRight,
-  Clock, Mic, Headphones
+  SiOpenai, SiElevenlabs, SiTwilio, SiGooglecalendar,
+  SiWhatsapp, SiCalendly, SiHubspot, SiSlack,
+} from 'react-icons/si'
+import {
+  PhoneCall, Mic, Calendar, MessageSquare, CheckCircle2,
+  Building2, Briefcase, Globe, Bell, ShieldCheck,
 } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { services, whyAssistant, processSteps, faqs } from '@/lib/data/virtual-assistant'
-import { serviceColors } from '@/lib/colors'
+
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/virtual-assistant'
+
+const techStack = [
+  { icon: SiOpenai, name: 'OpenAI Voice' },
+  { icon: SiElevenlabs, name: 'ElevenLabs' },
+  { icon: SiTwilio, name: 'Twilio' },
+  { icon: SiGooglecalendar, name: 'Google Calendar' },
+  { icon: SiCalendly, name: 'Calendly' },
+  { icon: SiWhatsapp, name: 'WhatsApp' },
+  { icon: SiHubspot, name: 'HubSpot' },
+  { icon: SiSlack, name: 'Slack' },
+]
 
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Active call transcript / voice assistant in action
 // ============================================================================
-
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
-      </div>
-
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyCard = ({ item, index }: { item: typeof whyAssistant[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-amber-500/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+function VoiceCallMockup() {
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-amber-500/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-amber-500/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-amber-600" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-amber-500 text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-blue/15">
+        {/* Header — active call */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="relative">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-blue to-primary-violet flex items-center justify-center shadow-lg shadow-primary-blue/30">
+              <PhoneCall className="w-4 h-4 text-white" />
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary-emerald border-2 border-[#0d1025]">
+              <div className="absolute inset-0 rounded-full bg-primary-emerald animate-ping" />
+            </div>
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Live gesprek</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span className="font-mono">+31 6 14 &bull;&bull;&bull; &bull;&bull;&bull;</span>
+              <span>·</span>
+              <span>01:24</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            {[...Array(4)].map((_, i) => (
+              <m.div
+                key={i}
+                animate={{ scaleY: [0.3, 1, 0.5, 0.8, 0.3] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
+                className="w-0.5 h-3 bg-primary-emerald rounded-full origin-center"
+              />
+            ))}
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
+
+        {/* Transcript */}
+        <div className="p-4 space-y-3 min-h-[280px]">
+          {/* Caller */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex gap-2.5"
+          >
+            <div className="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-[10px] font-bold text-slate-300">JB</span>
+            </div>
+            <div className="flex-1">
+              <div className="text-[10px] text-slate-500 mb-1 font-mono">Beller · 00:08</div>
+              <div className="p-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
+                <p className="text-xs text-slate-300 leading-relaxed">“Hoi, ik wil graag een afspraak maken voor volgende week.”</p>
+              </div>
+            </div>
+          </m.div>
+
+          {/* Assistant */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex gap-2.5"
+          >
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary-blue to-primary-violet flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Mic className="w-3.5 h-3.5 text-white" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] text-primary-blue font-mono font-semibold">Assistent · 00:11</span>
+                <span className="text-[9px] text-slate-600 font-mono">NL</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-gradient-to-r from-primary-blue/10 to-primary-violet/5 border border-primary-blue/20">
+                <p className="text-xs text-slate-200 leading-relaxed">“Natuurlijk, ik kijk even in de agenda. Heeft u een voorkeur voor ochtend of middag?”</p>
+              </div>
+            </div>
+          </m.div>
+
+          {/* Caller */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+            className="flex gap-2.5"
+          >
+            <div className="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-[10px] font-bold text-slate-300">JB</span>
+            </div>
+            <div className="flex-1">
+              <div className="text-[10px] text-slate-500 mb-1 font-mono">Beller · 00:18</div>
+              <div className="p-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06]">
+                <p className="text-xs text-slate-300 leading-relaxed">“Dinsdagochtend zou ideaal zijn.”</p>
+              </div>
+            </div>
+          </m.div>
+
+          {/* Action taken */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6 }}
+            className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-primary-emerald/10 border border-primary-emerald/20"
+          >
+            <div className="flex items-center gap-2">
+              <Calendar className="w-3.5 h-3.5 text-primary-emerald" />
+              <span className="text-[11px] font-semibold text-white">Afspraak ingepland</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <CheckCircle2 className="w-3.5 h-3.5 text-primary-emerald" />
+              <span className="text-[10px] text-primary-emerald font-mono">di 10:00</span>
+            </div>
+          </m.div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald animate-pulse" />
+              <span className="text-xs text-slate-400">Nederlands</span>
+            </div>
+            <span className="text-slate-700">|</span>
+            <span className="text-xs text-slate-500 font-mono">24/7 online</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <MessageSquare className="w-3 h-3 text-primary-blue" />
+            <span className="text-[10px] text-slate-500 font-mono">Transcript opgeslagen</span>
+          </div>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function VirtualAssistantPageClient() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Virtuele Assistent"
+        title={<>Een Assistent{' '}<span className="text-gradient">Die Nooit De Telefoon Mist.</span></>}
+        subtitle="Een AI-stem die uw telefoon opneemt, afspraken inplant en leads kwalificeert — 24/7, in het Nederlands, zonder wachtrij."
+        ctaLabel="Gratis Telefonie-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<VoiceCallMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <TechStackBar items={techStack} label="Wij bouwen in" />
 
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-amber-500/10 text-amber-600 border-amber-500/30">
-                <Headphones className="w-4 h-4 mr-2 inline" />
-                Virtuele Assistent
-              </Badge>
+      <BeloftesStatsBar stats={whyChooseUs} />
 
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                AI Assistent voor{' '}
-                <span className="block text-gradient mt-2">
-                  24/7 Bereikbaarheid
-                </span>
-              </h1>
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Bedrijven waar elke gemiste oproep<br /><span className="text-gradient">een gemiste klant is.</span></>}
+        description="Wij bouwen voice-assistenten voor iedereen die bellend contact belangrijk vindt maar niet altijd een mens beschikbaar heeft — in de zorg, advies, retail en daarbuiten."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Andere branche? Als bellers vaak dezelfde vragen stellen of afspraken willen maken, werkt een voice-assistent."
+      />
 
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                <strong className="text-white">Virtuele assistent</strong> die telefoontjes beantwoordt, afspraken plant
-                en uw agenda beheert. <strong className="text-white">24 uur per dag, 7 dagen per week</strong>.
-              </p>
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Complete voice-setup,<br /><span className="text-gradient">dag en nacht live.</span></>}
+        description="Alle 30 punten hieronder zitten standaard in het maandabonnement. Stem, scripts, integraties en finetuning — alles inbegrepen."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'Een goed eerste contact beslist vaak of iemand klant wordt. 24/7 beschikbaar zijn is geen luxe meer.',
+        }}
+      />
 
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Natuurlijke AI-stem die bellers te woord staat</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Automatisch afspraken inplannen en verzetten</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Integratie met uw agenda en CRM</span>
-                </li>
-              </ul>
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van audit naar <span className="text-gradient">altijd-bereikbaar.</span></>}
+        steps={processSteps}
+      />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-amber-500 to-primary-blue hover:opacity-90 shadow-lg shadow-amber-500/25"
-                  asChild
-                >
-                  <Link href="/contact?service=virtual-assistant">
-                    Gratis Demo Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise voice-AI,<br /><span className="text-gradient">zonder callcenter-prijs.</span></>}
+        description={<>Grote organisaties zetten voice-AI in om duizenden oproepen per dag af te handelen met <strong className="text-slate-800">OpenAI, ElevenLabs en Twilio</strong>. Voor MKB leek dat onbereikbaar — wij leveren dezelfde stack als maandabonnement op maat.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze technologie wordt gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'Enterprise callcenters', color: 'text-primary-blue' },
+            { icon: PhoneCall, label: 'Financiële instellingen', color: 'text-primary-emerald' },
+            { icon: Calendar, label: 'Booking-platforms', color: 'text-primary-violet' },
+            { icon: Globe, label: 'Internationale helpdesks', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde voice-stack',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: PhoneCall, text: 'Elke beller krijgt direct antwoord, 24/7' },
+          { icon: Calendar, text: 'Afspraken ingepland terwijl u werkt' },
+          { icon: ShieldCheck, text: 'AVG-proof, beller wordt geïnformeerd' },
+          { icon: Bell, text: 'Escalatie naar mens wanneer nodig' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
 
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 via-primary-blue/10 to-transparent blur-3xl rounded-full" />
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering op maat"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Vraag Offerte Aan"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis telefonie-audit inclusief live demo — geheel vrijblijvend."
+        riskReversal={['Gratis telefonie-audit', 'Maandelijks opzegbaar']}
+        scarcity="Beperkte capaciteit voor nieuwe voice-trajecten"
+        confidenceTitle={<>Vaste maandprijs. <span className="text-slate-400 font-normal">Geen uurtje-factuurtje.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Uw nummer, uw scripts, uw data — altijd van u."
+      />
 
-              <HeroVisual variant="virtual-assistant" />
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="blue" />
 
-              {/* Floating cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Beschikbaarheid</p>
-                    <p className="text-lg font-bold">24/7 Online</p>
-                  </div>
-                </div>
-              </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-amber-500/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                    <Mic className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Voice</p>
-                    <p className="text-lg font-bold">Natuurlijk</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== VIDEO SECTIE ==================== */}
-      <section className="py-24 bg-slate-50/50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-amber-500/20 shadow-2xl">
-                  <video
-                    className="w-full h-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                  >
-                    <source src="/virtuele-assistent.mp4" type="video/mp4" />
-                    Uw browser ondersteunt geen video.
-                  </video>
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div>
-                  <Badge className="mb-4 bg-amber-500/10 text-amber-600 border-amber-500/30">
-                    <Mic className="w-4 h-4 mr-2" />
-                    AI Voice Technology
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Natuurlijke <span className="text-gradient">gesprekken</span>
-                  </h2>
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    Onze virtuele assistent voert natuurlijke gesprekken die niet van een mens te onderscheiden zijn.
-                    Met geavanceerde spraaktechnologie begrijpt de assistent uw bellers en reageert gepast.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Natuurlijke AI-stem in meerdere talen</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Begrijpt context en nuance in gesprekken</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Escalatie naar medewerker wanneer nodig</span>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== AFBEELDING SECTIE ==================== */}
-      <section className="py-24">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <ScrollTrigger delay={0.2}>
-                <div>
-                  <Badge className="mb-4 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                    <Clock className="w-4 h-4 mr-2" />
-                    24/7 Beschikbaar
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Altijd <span className="text-gradient">bereikbaar</span>
-                  </h2>
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    Mis nooit meer een belangrijk telefoontje. Uw virtuele assistent staat 24 uur per dag,
-                    7 dagen per week klaar om uw bellers te woord te staan en afspraken in te plannen.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Geen gemiste oproepen meer</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Automatische afspraakplanning in uw agenda</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-emerald mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600">Directe notificaties bij urgente oproepen</span>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-primary-emerald/20 shadow-2xl">
-                  <Image
-                    src="/virtuele-assistent.webp"
-                    alt="Virtuele assistent - 24/7 telefonische bereikbaarheid"
-                    width={1200}
-                    height={800}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Assistent Mogelijkheden</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Wat kan uw <span className="text-gradient">virtuele assistent</span>?
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van telefoonbeantwoording tot agenda beheer - ontdek alle mogelijkheden.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM VIRTUELE ASSISTENT ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-amber-500/10 bg-gradient-to-b from-amber-500/5 to-transparent">
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom een Virtuele Assistent</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    De voordelen van een <span className="text-gradient">AI assistent</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyAssistant.map((item, index) => (
-                  <WhyCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-16">
-                <Badge className="mb-4">Ons Proces</Badge>
-                <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Van concept naar <span className="text-gradient">werkende assistent</span>
-                </h2>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <ProcessStepCard key={index} step={step} index={index} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">virtuele assistenten</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="warm" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-amber-500/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis Demo
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar voor{' '}
-                <span className="text-gradient">24/7 bereikbaarheid?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Vraag een gratis demo aan en hoor hoe uw virtuele assistent klinkt.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-amber-500 to-primary-blue hover:opacity-90 shadow-lg shadow-amber-500/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=virtual-assistant">
-                    Vraag Gratis Demo
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Demo binnen 48 uur
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Hoor uw assistent
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Elke gemiste oproep is een gemiste kans.<br /><span className="text-gradient">Dat stopt vandaag.</span></>}
+        ctaLabel="Vraag Telefonie-Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

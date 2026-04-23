@@ -93,7 +93,7 @@ export const services: WebService[] = [
 ]
 
 export const priceInfo: PriceInfo = {
-  price: 'Vanaf €585',
+  price: 'Vanaf € 695',
   description: 'Professionele website volledig op maat (excl. BTW)',
   features: [
     'Custom design op maat',
@@ -110,29 +110,29 @@ export const priceInfo: PriceInfo = {
 export const whyChooseUs: WhyChooseUsItem[] = [
   {
     icon: Rocket,
-    title: 'Eerste ontwerp binnen 24 uur',
-    description: 'Ontvang binnen 24 uur een eerste ontwerp van uw nieuwe homepage. Geheel vrijblijvend — bevalt het niet, geen kosten.',
+    title: 'Ontwerp in 24 uur',
+    description: 'Gratis en vrijblijvend.',
     stat: '24u',
     statLabel: 'eerste ontwerp'
   },
   {
     icon: Palette,
-    title: 'Modern & uniek design',
-    description: 'Geen standaard templates. Uw website wordt volledig op maat ontworpen met een strakke, moderne uitstraling die uw merk versterkt.',
+    title: 'Uniek design',
+    description: 'Geen templates. 100% op maat.',
     stat: '100%',
     statLabel: 'maatwerk'
   },
   {
     icon: FileText,
-    title: 'Vaste prijs, geen verrassingen',
-    description: 'U weet vooraf exact wat het kost. Geen uurtje-factuurtje, geen bijkomende kosten. Wat we afspreken, dat betaalt u.',
-    stat: '€',
-    statLabel: 'vaste prijs'
+    title: 'Vaste prijs',
+    description: 'Vooraf duidelijk. Geen verrassingen.',
+    stat: '0',
+    statLabel: 'verborgen kosten'
   },
   {
     icon: Users,
-    title: 'Eén vast aanspreekpunt',
-    description: 'U belt, appt of mailt uw vaste developer direct. Geen callcenter, geen ticket-systeem. Voor, tijdens én na het project.',
+    title: 'Eén aanspreekpunt',
+    description: 'Uw vaste developer. Direct bereikbaar.',
     stat: '1',
     statLabel: 'aanspreekpunt'
   },
@@ -160,7 +160,7 @@ export const processSteps: ProcessStep[] = [
   {
     step: '04',
     title: 'Live & Support',
-    description: 'Wij regelen alles: hosting, domein, lancering. En daarna zijn wij er nog steeds.',
+    description: 'Wij zorgen voor de lancering en hosting. Daarna 2 maanden gratis support voor een soepele start.',
     icon: Rocket
   },
 ]
@@ -187,8 +187,8 @@ export const faqs: FAQ[] = [
     a: 'Altijd. Extra pagina\'s, blog, webshop, nieuwe functionaliteiten — uw website groeit mee met uw bedrijf.'
   },
   {
-    q: 'Regelen jullie ook hosting en domein?',
-    a: 'Ja. Domein, hosting, SSL, e-mail — wij regelen de complete technische setup. Eén aanspreekpunt voor alles.'
+    q: 'Wat is wel en niet inbegrepen qua hosting en domein?',
+    a: 'Inbegrepen: de website, hosting op Nederlandse servers, SSL-certificaat en training. Niet inbegrepen: uw domeinnaam (www.uwbedrijf.nl) en zakelijke e-mail — die regelt u zelf bij een provider naar keuze. Wij koppelen uw domein moeiteloos aan de nieuwe website.'
   },
   {
     q: 'Wat als ik het ontwerp niet mooi vind?',
@@ -196,6 +196,6 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Krijg ik support na oplevering?',
-    a: 'Ja. Kleine aanpassingen, vragen en technische support zijn inbegrepen. U staat er niet alleen voor.'
+    a: 'Ja. De eerste 2 maanden krijgt u gratis support via e-mail, telefoon of WhatsApp — reactie binnen 24 uur. Kleine aanpassingen en vragen zijn inbegrepen, met altijd dezelfde vaste contactpersoon.'
   },
 ]

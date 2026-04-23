@@ -1,8 +1,7 @@
 'use client'
 
-import { m, animate } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Award, Clock, Users } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
 
 const trustItems = [
   { icon: Award, text: '10+ Jaar Ervaring' },

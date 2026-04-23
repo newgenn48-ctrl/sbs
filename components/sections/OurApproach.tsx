@@ -2,7 +2,6 @@
 
 import { m } from 'framer-motion'
 import { MessageSquare, FileSearch, Rocket, HeartHandshake } from 'lucide-react'
-import Link from 'next/link'
 
 const processSteps = [
   {

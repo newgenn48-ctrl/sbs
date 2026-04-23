@@ -1,648 +1,185 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
-import React, { useState } from 'react'
-import { m, AnimatePresence } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import HologramCard from '@/components/animations/HologramCard'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { m } from 'framer-motion'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import CategoryCardsSection from '@/components/sections/landing/CategoryCardsSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Globe,
-  Code2,
-  Palette,
-  Gauge,
-  ShoppingCart,
-  ArrowRight,
-  CheckCircle2,
-  XCircle,
-  FileText,
-  FileLock2,
-  Rocket,
-  ChevronDown,
-  ShieldCheck,
-  Zap,
-  Infinity,
-  Scale,
-  Puzzle,
-  ThumbsDown,
-  ThumbsUp,
-  Sparkles,
-  Target,
-  Clock,
-  Award
+  Globe, ShoppingCart, LayoutDashboard, Code2,
+  Gauge, ShieldCheck, Palette,
 } from 'lucide-react'
-import Link from 'next/link'
 
-const problemItems = [
-  "Mijn website is traag, onveilig en gebouwd op een log WordPress thema.",
-  "Het ontwerp is een 13-in-een-dozijn template en straalt geen autoriteit uit.",
-  "Ik ben afhankelijk van dure, trage plugins die constant updates vereisen.",
-  "Mijn site is niet vindbaar en levert geen leads of klanten op."
-];
-
-const solutionItems = [
-  "Een vlijmscherpe, custom-coded website die gegarandeerd onder 2 seconden laadt.",
-  "Een uniek, high-end design dat uw merkidentiteit perfect vertaalt en vertrouwen wekt.",
-  "Nul afhankelijkheid van externe plugins. Alle functionaliteit is maatwerk.",
-  "Een solide technisch SEO-fundament voor duurzame online dominantie."
-];
-
-const promiseItems = [
-    { icon: Gauge, title: 'Gegarandeerde Performance', description: 'Uw site laadt gegarandeerd onder 2 seconden, een cruciale factor voor SEO en gebruikerservaring.' },
-    { icon: FileLock2, title: '100% Eigendom, 0% Lock-in', description: 'U bent volledig eigenaar van de code, zonder afhankelijkheid van thema- of plugin-licenties.' },
-    { icon: FileText, title: 'Vaste, Transparante Prijzen', description: 'Geen onverwachte kosten voor licenties of premium plugins. U weet precies waar u aan toe bent.' },
-    { icon: Rocket, title: 'Toekomstbestendige Architectuur', description: 'Gebouwd op een modern, schaalbaar fundament dat meegroeit met uw ambities, niet ertegen vecht.' }
-];
-
-const packages = [
+const cards = [
   {
-    name: 'Basis Website',
-    price: 'Vanaf €1.199',
-    description: 'Een professionele online start',
-    pages: '1-3 pagina\'s',
-    features: [
-      { title: 'Modern, responsive design', details: 'Een visueel aantrekkelijk ontwerp dat perfect werkt op desktops, tablets en mobiele telefoons.' },
-      { title: 'Basis SEO optimalisatie', details: 'We implementeren de essentiële SEO-technieken zodat zoekmachines uw site kunnen vinden en indexeren.' },
-      { title: 'Contactformulier', details: 'Een eenvoudig en effectief formulier waarmee bezoekers direct contact met u kunnen opnemen.' },
-      { title: 'SSL certificaat', details: 'Essentiële beveiliging (het slotje in de browser) die het vertrouwen van bezoekers verhoogt.' },
-      { title: '1 maand support', details: 'Technische ondersteuning en hulp bij vragen gedurende de eerste maand na livegang.' }
-    ]
-  },
-  {
-    name: 'Business Website',
-    price: 'Vanaf €2.495',
-    description: 'Voor groeiende ondernemingen',
-    pages: '5-8 pagina\'s',
-    features: [
-      { title: 'Alle features van Basis', details: 'De solide fundering van het basispakket is volledig inbegrepen.' },
-      { title: 'Custom design op maat', details: 'Een uniek ontwerp dat volledig is afgestemd op uw merkidentiteit, zonder gebruik van templates.' },
-      { title: 'Eenvoudig CMS (bv. Strapi)', details: 'Beheer zelf eenvoudig teksten en afbeeldingen via een gebruiksvriendelijk en snel Content Management Systeem.' },
-      { title: 'Blog functionaliteit', details: 'Deel uw expertise en trek meer bezoekers aan met een geïntegreerde, SEO-vriendelijke blogmodule.' },
-      { title: 'Marketing integraties', details: 'Koppelingen met tools zoals Google Analytics, Mailchimp & HubSpot.' },
-      { title: '3 maanden support', details: 'Uitgebreide technische ondersteuning en advies voor een periode van drie maanden.' }
+    icon: Globe,
+    eyebrow: 'Zakelijke website',
+    title: 'Website Laten Maken',
+    description: 'Custom-coded, razendsnel en SEO-proof. De perfecte online basis voor MKB en ZZP die zich professioneel willen presenteren.',
+    bullets: [
+      'Laadtijd onder 2 seconden gegarandeerd',
+      'Uniek design — geen templates',
+      '100% eigenaar van code en content',
     ],
-    recommended: true
+    price: '€785',
+    href: '/website-laten-maken',
+    gradient: 'from-primary-emerald to-primary-blue',
+    accent: 'text-primary-emerald',
+    badge: 'Meest gekozen',
   },
   {
-    name: 'Maatwerk Applicatie',
-    price: 'Vanaf €7.995',
-    description: 'Complexe web applicaties',
-    pages: 'Onbeperkt',
-    features: [
-      { title: 'Alles uit Business', details: 'Alle voordelen van het Business-pakket, uitgebreid met geavanceerde functionaliteiten.' },
-      { title: 'Shopify E-commerce', details: 'Volledige webshopfunctionaliteit op het krachtige en schaalbare Shopify-platform.' },
-      { title: 'API koppelingen', details: 'Integraties met externe software, zoals uw CRM, boekhoudpakket of andere bedrijfssystemen.' },
-      { title: 'Advanced analytics', details: 'Diepgaande tracking en rapportages om het gedrag van uw bezoekers te analyseren en te optimaliseren.' },
-      { title: 'Performance monitoring', details: 'Continue, proactieve monitoring van de snelheid en prestaties van uw applicatie.' },
-      { title: '12 maanden support', details: 'Een volledig jaar van prioritaire ondersteuning, onderhoud en strategisch advies.' }
-    ]
-  }
+    icon: ShoppingCart,
+    eyebrow: 'E-commerce',
+    title: 'Webshop Laten Maken',
+    description: 'Converterende webshops met een snelle checkout, slimme productpagina’s en koppelingen met uw voorraad en boekhouding.',
+    bullets: [
+      'Shopify of maatwerk — wij adviseren',
+      'iDEAL, creditcard, Klarna out-of-the-box',
+      'Gekoppeld aan uw CRM en boekhouding',
+    ],
+    price: '€785',
+    href: '/webshop-laten-maken',
+    gradient: 'from-primary-blue to-primary-violet',
+    accent: 'text-primary-blue',
+  },
+  {
+    icon: LayoutDashboard,
+    eyebrow: 'Maatwerk software',
+    title: 'Webapplicatie Laten Maken',
+    description: 'Klantportals, dashboards en interne tools — op maat gebouwd rond uw proces, met API-koppelingen en custom logica.',
+    bullets: [
+      'Login, rollen en rechten standaard',
+      'API-integraties met uw bestaande tools',
+      'Gebouwd op moderne, schaalbare stack',
+    ],
+    price: 'Op offerte',
+    href: '/webapplicatie-laten-maken',
+    gradient: 'from-primary-violet to-primary-blue',
+    accent: 'text-primary-violet',
+  },
 ]
 
-const technologies = [
-  { icon: Code2, name: 'Custom Code', desc: 'Geen trage templates/plugins' },
-  { icon: Palette, name: 'Uniek Design', desc: 'Perfecte merkidentiteit' },
-  { icon: Zap, name: 'Extreme Performance', desc: '<2s laadtijd, wereldwijd' },
-  { icon: ShoppingCart, name: 'Shopify E-commerce', desc: 'Krachtige, schaalbare webshops' }
-]
-
-const comparisonData = {
-  features: [
-    { name: 'Performance', custom: 'Extreem snel, <2s laadtijd', standard: 'Traag, afhankelijk van server & plugins', icon: Zap },
-    { name: 'Veiligheid', custom: 'Modern, robuust & proactief beveiligd', standard: 'Kwetsbaar, constant doelwit van hackers', icon: ShieldCheck },
-    { name: 'Design', custom: '100% uniek, onbeperkte mogelijkheden', standard: 'Gelimiteerd door aangekocht thema', icon: Palette },
-    { name: 'Schaalbaarheid', custom: 'Gebouwd om mee te groeien met uw bedrijf', standard: 'Beperkt, wordt complex en duur bij groei', icon: Scale },
-    { name: 'Onderhoud', custom: 'Minimaal, geen constante plugin-updates', standard: 'Hoog, wekelijkse updates vereist', icon: Puzzle },
-    { name: 'Lange Termijn Kosten', custom: 'Lagere TCO, geen licentiekosten', standard: 'Hoge TCO door licenties & onderhoud', icon: Infinity },
-  ]
-}
-
-const faqItems = [
-  {
-    question: "Waarom gebruiken jullie geen WordPress of templates?",
-    answer: "Simpel: performance, veiligheid en maatwerk. WordPress is een fantastische tool voor bloggers, maar voor serieuze bedrijfswebsites is het vaak traag, onveilig en beperkend. Door 100% custom code te schrijven, hebben we volledige controle over de snelheid, beveiligen we de site proactief en zijn we niet gelimiteerd door een aangekocht thema."
-  },
-  {
-    question: "Is een custom website niet veel duurder?",
-    answer: "De initiële investering kan hoger zijn dan een simpele template-website, maar op de lange termijn is het bijna altijd goedkoper. U betaalt niet voor dure, jaarlijkse licenties voor thema's en premium plugins. Bovendien levert een snellere, professionelere website significant meer klanten en omzet op."
-  },
-  {
-    question: "Waarom Shopify voor E-commerce?",
-    answer: "Wij geloven in het kiezen van de beste tool voor de klus. Voor e-commerce is Shopify de onbetwiste wereldleider. Ze bieden ongeëvenaarde schaalbaarheid, veiligheid en een ecosysteem van apps dat elke denkbare functionaliteit mogelijk maakt."
-  },
-  {
-    question: "Wat gebeurt er na de supportperiode?",
-    answer: "Na de inbegrepen supportperiode bent u volledig vrij. U kunt zelf klein onderhoud doen, of een onderhoudscontract bij ons afsluiten voor continue monitoring, updates en support. We bieden flexibele pakketten die passen bij uw behoefte."
-  }
-]
-
-interface InfoCardProps {
-  title: string;
-  items: string[];
-  variant: 'problem' | 'solution';
-}
-
-const InfoCard: React.FC<InfoCardProps> = ({ title, items, variant }) => {
-  const isProblem = variant === 'problem';
-  const titleColor = isProblem ? 'text-red-400' : 'text-primary-emerald';
-  const borderColor = isProblem ? 'border-red-500/20' : 'border-primary-emerald/20';
-  const Icon = isProblem ? XCircle : CheckCircle2;
-  const iconColor = isProblem ? 'text-red-500' : 'text-primary-emerald';
-
+// ============================================================================
+// HERO VISUAL — Trio-mockup van website / shop / app
+// ============================================================================
+function WebTrioMockup() {
   return (
-    <div className={`glass-effect p-8 rounded-2xl ${borderColor} h-full`}>
-      <h2 className={`text-3xl font-display font-bold mb-6 ${titleColor}`}>{title}</h2>
-      <ul className="space-y-4 text-slate-600">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-start gap-3">
-            <Icon className={`${iconColor} mt-1 h-5 w-5 flex-shrink-0`} />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    <div className="relative">
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/15 to-primary-violet/10 rounded-3xl blur-3xl opacity-40" />
 
-interface Feature {
-  title: string;
-  details: string;
-}
-
-interface FeatureAccordionProps {
-  feature: Feature;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-const FeatureAccordion: React.FC<FeatureAccordionProps> = ({ feature, isOpen, onToggle }) => (
-  <div className="border-b border-primary-emerald/10 py-2">
-    <button onClick={onToggle} className="flex items-center justify-between w-full text-left text-sm">
-      <span className="font-medium text-slate-700 flex items-start gap-2">
-        <CheckCircle2 className="h-4 w-4 text-primary-emerald mt-0.5 flex-shrink-0" />
-        {feature.title}
-      </span>
-      <ChevronDown className={`transform transition-transform duration-300 text-primary-emerald ${isOpen ? 'rotate-180' : ''}`} />
-    </button>
-    <AnimatePresence>
-      {isOpen && (
-        <m.div
-          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-          animate={{ opacity: 1, height: 'auto', marginTop: '8px' }}
-          exit={{ opacity: 0, height: 0, marginTop: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-        >
-          <p className="text-xs text-slate-500 pl-6 pr-4">{feature.details}</p>
-        </m.div>
-      )}
-    </AnimatePresence>
-  </div>
-);
-
-interface PricingCardProps {
-  pkg: typeof packages[0];
-}
-
-const PricingCard: React.FC<PricingCardProps> = ({ pkg }) => {
-  const [openFeature, setOpenFeature] = useState<number | null>(0);
-
-  const toggleFeature = (index: number) => {
-    setOpenFeature(openFeature === index ? null : index);
-  };
-
-  return (
-    <HologramCard className={`h-full flex flex-col ${pkg.recommended ? 'scale-105' : ''}`}>
-      <div className="p-8 flex flex-col flex-grow">
-        {pkg.recommended && (
-          <Badge className="mb-4 bg-primary-emerald/20 text-primary-emerald border-primary-emerald">
-            Populairste Keuze
-          </Badge>
-        )}
-
-        <h3 className="text-2xl font-display font-bold mb-2">
-          {pkg.name}
-        </h3>
-
-        <div className="mb-2">
-          <span className="text-4xl font-bold text-gradient">{pkg.price}</span>
-        </div>
-
-        <p className="text-primary-blue mb-2">{pkg.pages}</p>
-        <p className="text-slate-500 mb-6 flex-grow">{pkg.description}</p>
-
-        <div className="space-y-1 mb-8">
-          {pkg.features.map((feature, i) => (
-            <FeatureAccordion
-              key={i}
-              feature={feature}
-              isOpen={openFeature === i}
-              onToggle={() => toggleFeature(i)}
-            />
-          ))}
-        </div>
-
-        <Button
-          className={`w-full mt-auto ${
-            pkg.recommended
-              ? 'bg-gradient-to-r from-primary-emerald to-primary-blue'
-              : 'bg-slate-100 hover:bg-slate-200'
-          }`}
-        >
-          Start Project
-        </Button>
-      </div>
-    </HologramCard>
-  );
-};
-
-const FaqAccordion = ({ item, isOpen, onToggle }: { item: typeof faqItems[0], isOpen: boolean, onToggle: () => void }) => (
-  <div className="border-b border-primary-emerald/10 py-4">
-    <button onClick={onToggle} className="flex items-center justify-between w-full text-left">
-      <span className="font-medium text-lg text-slate-700">{item.question}</span>
-      <ChevronDown className={`transform transition-transform duration-300 text-primary-emerald h-6 w-6 ${isOpen ? 'rotate-180' : ''}`} />
-    </button>
-    <AnimatePresence>
-      {isOpen && (
-        <m.div
-          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-          animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
-          exit={{ opacity: 0, height: 0, marginTop: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-        >
-          <p className="text-slate-500 pr-8">{item.answer}</p>
-        </m.div>
-      )}
-    </AnimatePresence>
-  </div>
-);
-
-export default function WebsitesPageClient() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
-  return (
-    <div className="min-h-screen bg-white text-slate-900">
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] pt-32 flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-50 via-slate-50 to-white">
-          <HeroVisual variant="websites" />
-        </div>
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
+      <div className="relative grid grid-cols-3 gap-3">
+        {[
+          { icon: Globe, color: 'from-primary-emerald to-primary-blue', label: 'Website', delay: 0.3 },
+          { icon: ShoppingCart, color: 'from-primary-blue to-primary-violet', label: 'Webshop', delay: 0.5 },
+          { icon: LayoutDashboard, color: 'from-primary-violet to-primary-blue', label: 'Webapp', delay: 0.7 },
+        ].map((item, i) => (
           <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
+            key={i}
+            initial={{ opacity: 0, y: 20, rotate: i === 1 ? 0 : (i === 0 ? -4 : 4) }}
+            animate={{ opacity: 1, y: 0, rotate: i === 1 ? 0 : (i === 0 ? -4 : 4) }}
+            transition={{ delay: item.delay, duration: 0.7 }}
+            className={`aspect-[3/4] rounded-2xl bg-[#0d1025] border border-white/10 shadow-2xl p-4 flex flex-col ${i === 1 ? 'scale-110 z-10' : ''}`}
           >
-            <Badge className="mb-4 bg-primary-emerald/20 text-primary-emerald border-primary-emerald">
-              High-Performance Web Development
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
-              <span className="text-gradient">Geen Templates.</span>
-              <br />
-              <span className="text-slate-900">Puur Maatwerk.</span>
-            </h1>
-            <p className="text-xl text-slate-500 mb-8 leading-relaxed">
-              Wij bouwen geen trage WordPress sites. Wij creëren 100% custom, high-performance digitale ervaringen die uw concurrentie ver achter zich laten.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
-              >
-                Ontdek het Verschil
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary-emerald/50 hover:bg-primary-emerald/10"
-              >
-                Vraag een Demo aan
-              </Button>
+            {/* Window dots */}
+            <div className="flex gap-1 mb-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/60" />
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
+            </div>
+
+            {/* Icon */}
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg mb-3`}>
+              <item.icon className="w-5 h-5 text-white" />
+            </div>
+
+            {/* Fake content bars */}
+            <div className="space-y-1.5 flex-1">
+              <div className="h-1.5 w-full rounded-full bg-white/15" />
+              <div className="h-1.5 w-3/4 rounded-full bg-white/10" />
+              <div className="h-1.5 w-1/2 rounded-full bg-white/10" />
+            </div>
+
+            {/* Label */}
+            <div className="mt-3 pt-2 border-t border-white/5">
+              <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">{item.label}</div>
             </div>
           </m.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// MAIN PAGE
+// ============================================================================
+export default function WebsitesPageClient() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
+
+      <HeroSection
+        eyebrow="Websites, Webshops & Webapps"
+        title={<>Online{' '}<span className="text-gradient">Die Écht Iets Oplevert.</span></>}
+        subtitle="Drie soorten web-projecten onder één dak. Van professionele site tot converterende webshop tot maatwerk applicatie — custom-coded, razendsnel, en volledig uw eigendom."
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=website"
+        tags={['Custom code, geen templates', '<2s laadtijd', '100% eigenaar van uw code']}
+        visual={<WebTrioMockup />}
+      />
+
+      <CategoryCardsSection
+        sectionNumber="/ 01"
+        eyebrow="Drie soorten projecten"
+        title={<>Kies wat past bij <span className="text-gradient">uw ambitie.</span></>}
+        description="Of u nu een zakelijke site, webshop of maatwerk applicatie wilt — wij bouwen het op moderne stack met focus op snelheid, conversie en eigenaarschap."
+        cards={cards}
+        footer={
+          <p className="text-sm text-slate-500">
+            Twijfelt u welke past? <span className="text-slate-700 font-semibold">Bel ons</span> — we adviseren altijd de simpelste oplossing die uw doel haalt.
+          </p>
+        }
+      />
+
+      <section className="relative py-20 sm:py-28 bg-[#0B1121] overflow-hidden">
+        <div className="divider-hairline-dark absolute top-0 left-0 right-0" />
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-emerald mb-4">/ 02 · Waarom wij</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight mb-6 leading-[1.1]">
+            Geen WordPress-nachtmerries.<br />
+            <span className="text-gradient">Geen templates. Geen lock-in.</span>
+          </h2>
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
+            Wij bouwen web-projecten zoals grote tech-bedrijven dat doen: custom code op een moderne stack, zonder trage plugins, zonder licentie-gijzeling, en altijd met u als eigenaar van de code.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              { icon: Gauge, label: 'Extreme performance', detail: '<2s laadtijd, wereldwijd' },
+              { icon: ShieldCheck, label: 'Proactieve security', detail: 'Geen plugin-kwetsbaarheden' },
+              { icon: Palette, label: 'Uniek design', detail: 'Nooit een template' },
+              { icon: Code2, label: '100% eigenaar', detail: 'Uw code, uw repo' },
+            ].map((item, i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+              >
+                <item.icon className="w-6 h-6 text-primary-emerald mb-3 mx-auto" />
+                <div className="text-sm font-bold text-white mb-1">{item.label}</div>
+                <div className="text-xs text-slate-500">{item.detail}</div>
+              </m.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <div className="relative z-10">
-        {/* Features Grid */}
-        <section className="py-20 relative">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <ScrollTrigger>
-              <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  <span className="text-gradient">De Fundamenten van Succes</span>
-                </h2>
-                <p className="text-xl text-slate-500">
-                  Technologie gekozen voor maximale impact en ROI.
-                </p>
-              </div>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {technologies.map((tech, index) => (
-                <ScrollTrigger key={index} delay={index * 0.1}>
-                  <m.div
-                    whileHover={{ scale: 1.05, rotateY: 5 }}
-                    className="glass-effect p-6 rounded-xl border border-primary-emerald/20 hover:border-primary-emerald/50 transition-all text-center"
-                  >
-                    <tech.icon className="h-12 w-12 text-primary-emerald mx-auto mb-4" />
-                    <h3 className="text-lg font-bold mb-2">{tech.name}</h3>
-                    <p className="text-slate-500 text-sm">{tech.desc}</p>
-                  </m.div>
-                </ScrollTrigger>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Video Sectie */}
-        <section className="py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/50 to-white" />
-
-          <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                {/* Video */}
-                <m.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="relative"
-                >
-                  <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-primary-emerald/10">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/20 to-primary-violet/20 rounded-2xl blur-xl opacity-50" />
-                    <div className="relative bg-slate-50 rounded-2xl overflow-hidden">
-                      <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="none"
-                        className="w-full h-auto"
-                      >
-                        <source src="/website-laten-maken.mp4" type="video/mp4" />
-                      </video>
-                    </div>
-                  </div>
-
-                  {/* Floating badge */}
-                  <m.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                    className="absolute -bottom-4 -right-4 lg:-right-8"
-                  >
-                    <div className="bg-slate-50/90 backdrop-blur-xl border border-primary-emerald/30 rounded-xl px-4 py-3 shadow-lg">
-                      <p className="text-primary-emerald font-semibold text-lg">100%</p>
-                      <p className="text-slate-500 text-sm">Maatwerk</p>
-                    </div>
-                  </m.div>
-                </m.div>
-                <m.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <Badge className="mb-4 px-4 py-2 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                    <Sparkles className="w-4 h-4 mr-2 inline" />
-                    Website Laten Maken
-                  </Badge>
-
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
-                    <span className="text-slate-900">Uw Visie, </span>
-                    <span className="text-gradient">Onze Code</span>
-                  </h2>
-
-                  <p className="text-slate-500 text-lg mb-6 leading-relaxed">
-                    Een website die niet alleen mooi is, maar ook écht werkt. Geen templates,
-                    geen compromissen - puur maatwerk dat uw bedrijf laat groeien.
-                  </p>
-
-                  <p className="text-slate-500 mb-8 leading-relaxed">
-                    Van strategie tot livegang begeleiden wij u door het hele proces.
-                    Het resultaat? Een razendsnelle, conversiegerichte website die uw
-                    concurrentie ver achter zich laat.
-                  </p>
-
-                  {/* Quick features */}
-                  <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                    {[
-                      { icon: Zap, text: 'Laadtijd onder 2 seconden' },
-                      { icon: Target, text: 'Conversie geoptimaliseerd' },
-                      { icon: Clock, text: 'Oplevering binnen 4 weken' },
-                      { icon: Award, text: 'SEO-proof fundament' },
-                    ].map((item, index) => (
-                      <m.div
-                        key={item.text}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 + index * 0.1 }}
-                        className="flex items-center gap-3"
-                      >
-                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-emerald/10 flex items-center justify-center">
-                          <item.icon className="w-4 h-4 text-primary-emerald" />
-                        </div>
-                        <span className="text-slate-600 text-sm">{item.text}</span>
-                      </m.div>
-                    ))}
-                  </div>
-
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
-                    asChild
-                  >
-                    <Link href="/contact?service=website">
-                      Start Uw Project
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Link>
-                  </Button>
-                </m.div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Problem & Solution */}
-        <section className="py-20 relative bg-slate-50">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              <ScrollTrigger>
-                <InfoCard title="Herkent u dit?" items={problemItems} variant="problem" />
-              </ScrollTrigger>
-              <ScrollTrigger>
-                <InfoCard title="De Oplossing" items={solutionItems} variant="solution" />
-              </ScrollTrigger>
-            </div>
-          </div>
-        </section>
-
-        {/* Comparison Section */}
-        <section className="py-20 relative">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <ScrollTrigger>
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  <span className="text-gradient">Onze Aanpak vs. De Standaard</span>
-                </h2>
-                <p className="text-xl text-slate-500 max-w-3xl mx-auto">
-                  Waarom een custom website op de lange termijn de slimmere investering is.
-                </p>
-              </div>
-            </ScrollTrigger>
-            <div className="max-w-4xl mx-auto">
-              <div className="glass-effect rounded-2xl p-2 md:p-4">
-                <div className="hidden md:grid grid-cols-3 gap-4 font-bold text-lg text-center p-4">
-                  <div></div>
-                  <div className="flex items-center justify-center gap-2">
-                    <ThumbsUp className="text-primary-emerald" /> Onze Aanpak
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <ThumbsDown className="text-red-400" /> Standaard (WordPress)
-                  </div>
-                </div>
-                {comparisonData.features.map((feature, index) => (
-                  <ScrollTrigger key={index} delay={index * 0.1}>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center md:text-left p-4 border-t border-primary-emerald/10">
-                      <div className="font-bold flex items-center gap-3">
-                        <feature.icon className="h-6 w-6 text-primary-emerald" />
-                        {feature.name}
-                      </div>
-                      <div className="text-slate-600 md:text-center">
-                        <span className="md:hidden font-bold text-primary-emerald/80">Onze Aanpak: </span>{feature.custom}
-                      </div>
-                      <div className="text-slate-500 md:text-center">
-                        <span className="md:hidden font-bold text-red-400/80">Standaard: </span>{feature.standard}
-                      </div>
-                    </div>
-                  </ScrollTrigger>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Packages */}
-        <section className="py-20 relative bg-slate-50">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <ScrollTrigger>
-              <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  <span className="text-gradient">Transparante Pakketten</span>
-                </h2>
-                <p className="text-xl text-slate-500">
-                  Duidelijke prijzen voor meetbare resultaten.
-                </p>
-              </div>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
-              {packages.map((pkg, index) => (
-                <ScrollTrigger key={index} delay={index * 0.1}>
-                  <PricingCard pkg={pkg} />
-                </ScrollTrigger>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Our Promise Section */}
-        <section className="py-20">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-              <ScrollTrigger>
-                  <div className="text-center mb-12">
-                      <h2 className="text-4xl md:text-5xl font-display font-bold mb-4"><span className="text-gradient">Onze Website Belofte</span></h2>
-                      <p className="text-xl text-slate-500 max-w-3xl mx-auto">Vier garanties waarop u kunt bouwen. Dit is de standaard die u van ons mag verwachten.</p>
-                  </div>
-              </ScrollTrigger>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                  {promiseItems.map((promise, index) => (
-                      <ScrollTrigger key={index} delay={index * 0.1}>
-                          <div className="glass-effect p-6 rounded-2xl h-full border border-primary-emerald/20 text-center">
-                              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary-emerald/10 mx-auto mb-4">
-                                  <promise.icon className="h-6 w-6 text-primary-emerald" />
-                              </div>
-                              <h3 className="text-xl font-display font-bold mb-2">{promise.title}</h3>
-                              <p className="text-slate-500 text-sm">{promise.description}</p>
-                          </div>
-                      </ScrollTrigger>
-                  ))}
-              </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-20 relative bg-slate-50">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <ScrollTrigger>
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  <span className="text-gradient">Veelgestelde Vragen</span>
-                </h2>
-                <p className="text-xl text-slate-500 max-w-3xl mx-auto">
-                  Antwoorden op de meest voorkomende vragen.
-                </p>
-              </div>
-            </ScrollTrigger>
-            <div className="max-w-3xl mx-auto">
-              {faqItems.map((item, index) => (
-                <ScrollTrigger key={index} delay={index * 0.1}>
-                  <FaqAccordion
-                    item={item}
-                    isOpen={openFaq === index}
-                    onToggle={() => toggleFaq(index)}
-                  />
-                </ScrollTrigger>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 relative">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-            <ScrollTrigger>
-              <div className="max-w-4xl mx-auto text-center glass-effect p-12 rounded-3xl border border-primary-emerald/20">
-                <Globe className="h-16 w-16 text-primary-emerald mx-auto mb-6" />
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-                  <span className="text-gradient">Klaar voor een Echte Website?</span>
-                </h2>
-                <p className="text-xl text-slate-500 mb-8">
-                  Stop met het verspillen van geld aan trage, onveilige template-sites. Investeer in een digitale ervaring die resultaat oplevert.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
-                  >
-                    Plan Strategie Sessie
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-primary-emerald/50 hover:bg-primary-emerald/10"
-                  >
-                    Bekijk Ons Werk
-                  </Button>
-                </div>
-              </div>
-            </ScrollTrigger>
-          </div>
-        </section>
-      </div>
+      <FinalCTA
+        title={<>Klaar voor een online aanwezigheid <span className="text-gradient">die niet afstraalt?</span></>}
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=website"
+      />
     </div>
   )
 }

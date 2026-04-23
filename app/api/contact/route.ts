@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
-// Simple in-memory rate limiter
-const rateLimit = new Map<string, { count: number; resetTime: number }>()
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
-const RATE_LIMIT_WINDOW = 15 * 60 * 1000 // 15 minutes
-const RATE_LIMIT_MAX = 5 // Max 5 requests per window
+const rateLimit = new Map<string, { count: number; resetTime: number }>()
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000
+const RATE_LIMIT_MAX = 5
+const MAX_BODY_BYTES = 32 * 1024 // 32KB — more than enough for a contact form, blocks oversized payloads
 
 function checkRateLimit(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
   const now = Date.now()
@@ -40,6 +42,22 @@ interface ContactFormData {
   company?: string
   service?: string
   message: string
+  // Honeypot field — bots often fill any `website` input, legitimate users can't see it
+  website?: string
+}
+
+function genericError() {
+  return NextResponse.json(
+    { error: 'Er is een fout opgetreden. Probeer het later opnieuw.' },
+    { status: 500 }
+  )
+}
+
+function logError(context: string, err: unknown) {
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.error(`[contact-api:${context}]`, err)
+  }
 }
 
 // Validate email format
@@ -64,13 +82,48 @@ function sanitize(input: string): string {
     .trim()
 }
 
+const ALLOWED_ORIGIN_HOSTS = new Set([
+  'startbeheer.nl',
+  'www.startbeheer.nl',
+  'localhost',
+  '127.0.0.1',
+])
+
+function isAllowedOrigin(url: string | null): boolean {
+  if (!url) return false
+  try {
+    return ALLOWED_ORIGIN_HOSTS.has(new URL(url).hostname)
+  } catch {
+    return false
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    // Get client IP for rate limiting
+    if (request.method !== 'POST') {
+      return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
+    }
+
+    // CSRF-protection via Origin/Referer check (same-site only)
+    const origin = request.headers.get('origin')
+    const referer = request.headers.get('referer')
+    if (!isAllowedOrigin(origin) && !isAllowedOrigin(referer)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const contentType = request.headers.get('content-type') || ''
+    if (!contentType.includes('application/json')) {
+      return NextResponse.json({ error: 'Unsupported media type' }, { status: 415 })
+    }
+
+    const contentLength = parseInt(request.headers.get('content-length') || '0', 10)
+    if (contentLength > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: 'Bericht is te groot' }, { status: 413 })
+    }
+
     const forwarded = request.headers.get('x-forwarded-for')
     const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown'
 
-    // Check rate limit
     const rateLimitResult = checkRateLimit(ip)
     if (!rateLimitResult.allowed) {
       const retryAfter = Math.ceil(rateLimitResult.resetIn / 1000)
@@ -83,14 +136,28 @@ export async function POST(request: NextRequest) {
             'X-RateLimit-Limit': RATE_LIMIT_MAX.toString(),
             'X-RateLimit-Remaining': '0',
             'X-RateLimit-Reset': Math.ceil((Date.now() + rateLimitResult.resetIn) / 1000).toString(),
-          }
+          },
         }
       )
     }
 
-    const body: ContactFormData = await request.json()
+    let body: ContactFormData
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: 'Ongeldige aanvraag' }, { status: 400 })
+    }
 
-    // Validate required fields
+    if (typeof body !== 'object' || body === null) {
+      return NextResponse.json({ error: 'Ongeldige aanvraag' }, { status: 400 })
+    }
+
+    // Honeypot — bots fill hidden `website` field, humans can't see it
+    if (body.website && body.website.trim().length > 0) {
+      // Respond 200 to not tip off bots, but don't send mail
+      return NextResponse.json({ success: true }, { status: 200 })
+    }
+
     if (!body.name || !body.email || !body.message) {
       return NextResponse.json(
         { error: 'Naam, email en bericht zijn verplicht' },
@@ -98,23 +165,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate email
+    if (typeof body.name !== 'string' || typeof body.email !== 'string' || typeof body.message !== 'string') {
+      return NextResponse.json({ error: 'Ongeldige waarden' }, { status: 400 })
+    }
+
+    if (body.name.length > 200 || body.email.length > 200) {
+      return NextResponse.json({ error: 'Naam of e-mail is te lang' }, { status: 400 })
+    }
+
     if (!isValidEmail(body.email)) {
-      return NextResponse.json(
-        { error: 'Ongeldig e-mailadres' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Ongeldig e-mailadres' }, { status: 400 })
     }
 
-    // Validate phone if provided
     if (body.phone && !isValidPhone(body.phone)) {
-      return NextResponse.json(
-        { error: 'Ongeldig telefoonnummer' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Ongeldig telefoonnummer' }, { status: 400 })
     }
 
-    // Validate message length
     if (body.message.length < 10) {
       return NextResponse.json(
         { error: 'Bericht moet minimaal 10 tekens bevatten' },
@@ -139,11 +205,15 @@ export async function POST(request: NextRequest) {
       message: sanitize(body.message),
     }
 
-    // Create transporter
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.SMTP_FROM || !process.env.SMTP_TO) {
+      logError('config', 'Missing SMTP environment variables')
+      return genericError()
+    }
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '465'),
-      secure: true, // SSL
+      port: parseInt(process.env.SMTP_PORT || '465', 10),
+      secure: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -261,12 +331,14 @@ Dit bericht is verzonden via het contactformulier op startbeheer.nl
 
     return NextResponse.json(
       { success: true, message: 'Bericht succesvol verzonden' },
-      { status: 200 }
+      { status: 200, headers: { 'Cache-Control': 'no-store' } }
     )
-  } catch {
-    return NextResponse.json(
-      { error: 'Er is een fout opgetreden. Probeer het later opnieuw.' },
-      { status: 500 }
-    )
+  } catch (err) {
+    logError('handler', err)
+    return genericError()
   }
+}
+
+export async function GET() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
 }

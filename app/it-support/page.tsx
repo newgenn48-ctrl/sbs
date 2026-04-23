@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Professionele IT support voor het MKB. Remote hulp binnen minuten of on-site ondersteuning. Vast aanspreekpunt, flexibele contracten.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/it-support',
   },
   twitter: {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: 'Professionele IT support voor het MKB. Remote of on-site, flexibele contracten.',
   },
   alternates: {
-    canonical: 'https://startbeheer.nl/it-support'
+    canonical: '/it-support'
   },
   robots: {
     index: true,

@@ -3,7 +3,7 @@
 import { m } from 'framer-motion'
 import { Building2, User, Briefcase, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { serviceColors, type ServiceColorKey } from '@/lib/colors'
+import { serviceColors } from '@/lib/colors'
 
 const clientTypes = [
   {
@@ -113,7 +113,7 @@ export default function IdealClientProfile() {
 
             <div className="text-center">
               <Link
-                href="/contact"
+                href="/gratis-advies"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-blue to-primary-violet rounded-full text-white font-medium hover:shadow-lg hover:shadow-primary-blue/25 transition-all duration-300 group"
               >
                 <span>Ontdek wat wij voor u kunnen betekenen</span>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Professioneel online marketing bureau voor het MKB. Google Ads, SEO, Social Media en Marketing Automation in een geïntegreerde aanpak.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/marketing',
   },
   twitter: {

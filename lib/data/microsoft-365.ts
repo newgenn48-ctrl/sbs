@@ -1,206 +1,182 @@
-import type { LucideIcon } from 'lucide-react'
 import {
-  Mail, HardDrive, Video, FileText, Calendar, Shield,
-  RefreshCw, Settings, Headphones, Cloud, Users, Lock,
-  TrendingUp, Zap, Target, Award, Building2
+  Mail, HardDrive, FileText, Calendar,
+  Building2, Briefcase, Stethoscope, Store, Factory, Scale,
+  Headphones, ShieldCheck, Cloud, RefreshCw, Lock, Users,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-// ============================================================================
-// TYPES
-// ============================================================================
+export const heroTags = [
+  'Migratie zonder dataverlies',
+  'Security standaard ingericht',
+  'Nederlandse M365-specialisten',
+]
 
-interface M365App {
-  icon: LucideIcon
-  name: string
-  description: string
-  color: string
-}
+export const whyChooseUs = [
+  { icon: Cloud, title: 'Overal werken', description: 'E-mail, bestanden en Teams op elk apparaat — veilig.', stat: '100%', statLabel: 'cloud-native' },
+  { icon: Lock, title: 'Security vanaf dag 1', description: 'MFA, Conditional Access en AVG-compliance ingericht.', stat: 'Hardened', statLabel: 'configuratie' },
+  { icon: FileText, title: 'Vaste prijs', description: 'Maandabonnement inclusief licenties en beheer.', stat: '0', statLabel: 'verborgen kosten' },
+  { icon: Headphones, title: 'Eén aanspreekpunt', description: 'Uw vaste M365-specialist. Direct bereikbaar.', stat: '1', statLabel: 'aanspreekpunt' },
+]
 
-interface Service {
-  icon: LucideIcon
-  title: string
-  description: string
-  features: string[]
-}
+export const targetAudience: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: Building2, title: 'MKB op oude systemen', description: 'Werkt u nog met on-premise Exchange, losse mailservers of Google Workspace? Wij migreren naar M365 zonder gedoe.' },
+  { icon: Briefcase, title: 'Professionele diensten', description: 'Accountants, advocaten, consultants — veilige e-mail en documentdeling met cliënten, altijd auditable.' },
+  { icon: Stethoscope, title: 'Zorg & Praktijk', description: 'M365 ingericht voor AVG-compliance, met zorg-specifieke policies en data-locatie in Europa.' },
+  { icon: Store, title: 'Retail & Horeca', description: 'Werknemers met gedeelde M365-accounts, front-of-house én kantoor — licenties slim verdeeld.' },
+  { icon: Factory, title: 'Productie & Logistiek', description: 'Kantoor, vloer en mobiele teams op één tenant — consistent én veilig.' },
+  { icon: Scale, title: 'Juridisch & Notariaat', description: 'eDiscovery, Data Loss Prevention en retentie-policies geconfigureerd voor gevoelige dossiers.' },
+]
 
-interface Benefit {
-  icon: LucideIcon
-  title: string
-  description: string
-}
-
-interface ProcessStep {
-  step: string
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-interface WhyItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  stat: string
-  statLabel: string
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-export const m365Apps: M365App[] = [
+export const includedChecklist = [
   {
-    icon: Mail,
-    name: 'Exchange Online',
-    description: 'Professionele zakelijke e-mail met 50GB opslag, gedeelde agenda\'s en contacten. Overal toegang via web, desktop en mobiel.',
-    color: '#0078D4'
+    icon: RefreshCw,
+    category: 'Migratie & implementatie',
+    color: 'from-primary-blue/10 to-primary-blue/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Migratie van Gmail, Exchange, IMAP of Google Workspace',
+      'E-mail, contacten en agenda’s zonder dataverlies',
+      'SharePoint en OneDrive inrichten',
+      'Migratie in het weekend voor minimale verstoring',
+      'Rollback-plan als iets onverwachts gebeurt',
+    ],
   },
   {
-    icon: Video,
-    name: 'Microsoft Teams',
-    description: 'Videobellen, chatten en samenwerken in \u00E9\u00E9n platform. De centrale hub voor al uw teamcommunicatie.',
-    color: '#6264A7'
+    icon: Mail,
+    category: 'E-mail & communicatie',
+    color: 'from-primary-violet/10 to-primary-violet/5',
+    iconColor: 'text-primary-violet',
+    items: [
+      'Exchange Online volledig ingericht',
+      'Gedeelde mailboxen en distributielijsten',
+      'E-mail-signaturen centraal beheerd',
+      'SPF, DKIM en DMARC correct ingesteld',
+      'Teams voor chat, calls en meetings',
+    ],
   },
   {
     icon: HardDrive,
-    name: 'OneDrive',
-    description: '1TB cloudopslag per gebruiker. Bestanden veilig opslaan, delen en synchroniseren tussen al uw apparaten.',
-    color: '#0078D4'
+    category: 'Bestanden & samenwerking',
+    color: 'from-primary-emerald/10 to-primary-emerald/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'OneDrive per gebruiker (1TB)',
+      'SharePoint-sites voor teams en projecten',
+      'Permissies en externe deling op maat',
+      'Versiebeheer en herstel bij fouten',
+      'Koppeling met Teams voor directe toegang',
+    ],
   },
   {
-    icon: FileText,
-    name: 'SharePoint',
-    description: 'Intranet en documentbeheer voor uw organisatie. Centrale plek voor bedrijfsinformatie en samenwerking.',
-    color: '#038387'
-  },
-  {
-    icon: Calendar,
-    name: 'Outlook & Agenda',
-    description: 'E-mail, agenda en taken ge\u00EFntegreerd. Plan vergaderingen, beheer uw tijd en blijf georganiseerd.',
-    color: '#0078D4'
-  },
-  {
-    icon: Shield,
-    name: 'Security & Compliance',
-    description: 'Ingebouwde beveiliging, AVG-compliance en data loss prevention. Uw data is veilig.',
-    color: '#D83B01'
-  },
-]
-
-export const services: Service[] = [
-  {
-    icon: RefreshCw,
-    title: 'Migratie & Implementatie',
-    description: 'Soepele overgang naar Microsoft 365. Van Google Workspace, on-premise Exchange of andere systemen - wij migreren uw e-mail, bestanden en agenda\'s zonder dataverlies.',
-    features: ['E-mail migratie', 'Data migratie', 'Gebruikers training', 'Minimale downtime']
-  },
-  {
-    icon: Settings,
-    title: 'Configuratie & Optimalisatie',
-    description: 'Microsoft 365 optimaal inrichten voor uw organisatie. Security policies, gebruikersbeheer, groepen en alle instellingen precies zoals u het wilt.',
-    features: ['Tenant configuratie', 'Security policies', 'Groepen & rechten', 'Best practices']
-  },
-  {
-    icon: Headphones,
-    title: 'Beheer & Support',
-    description: 'Doorlopend beheer van uw M365 omgeving. Wij handelen gebruikersaanvragen af, lossen problemen op en houden alles up-to-date.',
-    features: ['Gebruikersbeheer', 'Licentie beheer', 'Troubleshooting', 'Updates & patches']
-  },
-  {
-    icon: Shield,
-    title: 'Security & Compliance',
-    description: 'Beveilig uw Microsoft 365 omgeving. Multi-factor authenticatie, conditional access, data loss prevention en AVG-compliance.',
-    features: ['MFA implementatie', 'Conditional access', 'DLP policies', 'Audit logging']
-  },
-]
-
-export const benefits: Benefit[] = [
-  {
-    icon: Cloud,
-    title: 'Overal Werken',
-    description: 'Toegang tot al uw bestanden, e-mail en applicaties vanaf elk apparaat, waar u ook bent.'
+    icon: ShieldCheck,
+    category: 'Security & compliance',
+    color: 'from-primary-warm/10 to-primary-warm/5',
+    iconColor: 'text-primary-warm',
+    items: [
+      'Multi-factor authentication verplicht',
+      'Conditional Access (locatie, apparaat, risico)',
+      'Data Loss Prevention (DLP) policies',
+      'Anti-phishing en Safe Links / Safe Attachments',
+      'AVG-proof configuratie en documentatie',
+    ],
   },
   {
     icon: Users,
-    title: 'Betere Samenwerking',
-    description: 'Teams, SharePoint en OneDrive maken samenwerken eenvoudig - intern en met externe partners.'
+    category: 'Gebruikers- & licentiebeheer',
+    color: 'from-primary-blue/10 to-primary-violet/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Gebruikers aanmaken en wijzigen',
+      'Groepen, rollen en rechten op maat',
+      'Licentie-optimalisatie (geen overbodige seats)',
+      'Onboarding: account klaar op dag 1',
+      'Offboarding: veilig en AVG-proof afhandelen',
+    ],
   },
   {
-    icon: Lock,
-    title: 'Enterprise Security',
-    description: 'Microsoft investeert miljarden in security. Profiteer van dezelfde beveiliging als grote enterprises.'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Schaalbaar',
-    description: 'Eenvoudig gebruikers toevoegen of verwijderen. Betaal alleen voor wat u gebruikt.'
-  },
-  {
-    icon: RefreshCw,
-    title: 'Altijd Up-to-date',
-    description: 'Automatische updates zorgen dat u altijd de nieuwste features en security patches heeft.'
-  },
-  {
-    icon: Zap,
-    title: 'Verhoogde Productiviteit',
-    description: 'Ge\u00EFntegreerde tools die naadloos samenwerken. Minder schakelen, meer gedaan krijgen.'
+    icon: Headphones,
+    category: 'Support & doorontwikkeling',
+    color: 'from-primary-emerald/10 to-primary-blue/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Vaste M365-specialist, geen callcenter',
+      'Snelle hulp bij vragen en incidenten',
+      'Gebruikerstraining voor Teams, SharePoint, Outlook',
+      'Maandelijks status- en security-rapport',
+      'Advies bij nieuwe M365-features',
+    ],
   },
 ]
 
-export const processSteps: ProcessStep[] = [
+export const processSteps = [
   {
     step: '01',
-    title: 'Inventarisatie',
-    description: 'We analyseren uw huidige situatie, wensen en eisen voor de perfecte M365 configuratie.',
-    icon: Target
+    title: 'M365-audit',
+    description: 'Wij analyseren uw huidige e-mail, bestanden en agenda’s. U krijgt een rapport met risico’s, besparing en migratieplan.',
+    icon: Cloud,
   },
   {
     step: '02',
     title: 'Planning',
-    description: 'Een gedetailleerd migratieplan met tijdlijn, zodat u precies weet wat u kunt verwachten.',
-    icon: Calendar
+    description: 'Gedetailleerd migratieplan met tijdlijn, verantwoordelijkheden en licentie-advies. U weet precies wat er gaat gebeuren.',
+    icon: Calendar,
   },
   {
     step: '03',
     title: 'Migratie',
-    description: 'Wij voeren de migratie uit - meestal in het weekend om verstoring te minimaliseren.',
-    icon: RefreshCw
+    description: 'Wij voeren de migratie in het weekend uit om verstoring te minimaliseren. Maandagochtend draait iedereen op M365.',
+    icon: RefreshCw,
   },
   {
     step: '04',
-    title: 'Training & Support',
-    description: 'Uw team leert de nieuwe tools kennen. En wij blijven beschikbaar voor vragen.',
-    icon: Users
+    title: 'Support & beheer',
+    description: 'Doorlopend beheer, gebruikers-support en maandelijkse security-check. U heeft één vast aanspreekpunt.',
+    icon: Headphones,
   },
 ]
 
-export const whyUs: WhyItem[] = [
+export const priceInfo = {
+  price: 'Op offerte',
+  description: 'Microsoft 365 is nooit standaard. Vaste maandprijs op maat van aantal gebruikers, migratie-complexiteit en gewenst support-niveau.',
+}
+
+export const confidencePoints = [
+  { title: 'Licenties op uw naam', description: 'Uw tenant, uw data — altijd overdraagbaar' },
+  { title: 'Maandelijks opzegbaar', description: 'Geen jaarcontract op ons beheer' },
+  { title: 'Transparante migratie', description: 'Vaste migratieprijs vooraf — geen nacalculaties' },
+]
+
+export const faqs = [
   {
-    icon: Award,
-    title: 'Microsoft Partner',
-    description: 'Gecertificeerd Microsoft Partner met jarenlange M365 ervaring.',
-    stat: 'Certified',
-    statLabel: 'Microsoft Partner'
+    q: 'Wat kost Microsoft 365-beheer?',
+    a: 'Vaste prijs per gebruiker per maand, inclusief licenties én beheer. Na een gratis M365-audit ontvangt u een heldere offerte met drie smaken: basis, standaard en premium. U weet vooraf precies wat u betaalt.',
   },
   {
-    icon: Building2,
-    title: 'MKB Specialist',
-    description: 'Wij begrijpen de uitdagingen van het MKB en stemmen onze aanpak daarop af.',
-    stat: '500+',
-    statLabel: 'MKB klanten'
+    q: 'Kunnen jullie ons migreren vanuit Google Workspace of Exchange?',
+    a: 'Ja. Wij migreren vanuit Gmail, Google Workspace, on-premise Exchange, IMAP of andere M365-tenants. E-mail, contacten, agenda’s en bestanden gaan mee zonder dataverlies. Migratie in het weekend voor minimale verstoring.',
   },
   {
-    icon: Headphones,
-    title: 'Persoonlijke Support',
-    description: 'Geen helpdesk in het buitenland. Directe toegang tot Nederlandse M365 experts.',
-    stat: '<1 uur',
-    statLabel: 'responstijd'
+    q: 'Hoe zit het met security en AVG?',
+    a: 'Wij richten M365 standaard in met MFA, Conditional Access, DLP, Safe Links en AVG-proof policies. Data-opslag in Europa, audit-logging aan, en een documentatie-pakket voor uw AVG-administratie.',
   },
   {
-    icon: Target,
-    title: 'Vaste Prijzen',
-    description: 'Transparante tarieven voor migratie en beheer. Geen verrassingen achteraf.',
-    stat: '100%',
-    statLabel: 'transparant'
+    q: 'Wat als een medewerker uit dienst gaat?',
+    a: 'Offboarding doen wij AVG-proof: account direct deactiveren, licentie vrijmaken, mailbox archiveren of doorsturen, OneDrive-bestanden overdragen, en apparaat extern wipen. Gedocumenteerd zodat u kunt aantonen dat het correct is gedaan.',
+  },
+  {
+    q: 'Moeten we alle medewerkers dezelfde licentie geven?',
+    a: 'Nee. Wij adviseren licentie-mix op basis van rol: Business Basic voor frontline, Business Standard voor kantoor, Business Premium voor gebruikers met gevoelige data. Dat scheelt fors in kosten zonder in te leveren op functionaliteit.',
+  },
+  {
+    q: 'Geven jullie ook training aan medewerkers?',
+    a: 'Ja. Bij migratie is training inbegrepen: Teams, Outlook, SharePoint en OneDrive. Daarna op aanvraag korte sessies of video-handleidingen. Uw medewerkers zijn binnen een week productief in M365.',
+  },
+  {
+    q: 'Wat als Microsoft zelf uitvalt?',
+    a: 'Microsoft garandeert 99,9% uptime (SLA). Bij storingen aan Microsoft-kant informeren wij u direct en monitoren de herstelstatus. Voor kritieke e-mail adviseren we desgewenst een secundair kanaal (bv. Teams of mobiel).',
+  },
+  {
+    q: 'Kunnen wij het beheer zelf overnemen?',
+    a: 'Ja. De tenant staat op uw naam, licenties op uw naam. Bij beëindiging dragen wij het beheer over met volledige documentatie. U of een andere partij kan direct verder — geen lock-in.',
   },
 ]

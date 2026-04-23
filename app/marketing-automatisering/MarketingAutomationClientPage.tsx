@@ -1,414 +1,286 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Zap, CheckCircle2, ArrowRight,
-  Mail, Target, TrendingUp,
-  Clock, BarChart3, Workflow
+  SiHubspot, SiMailchimp, SiZapier, SiSalesforce,
+  SiGoogleanalytics, SiGooglesheets, SiSlack, SiNotion,
+} from 'react-icons/si'
+import {
+  Mail, Workflow, Target, Filter, TrendingUp, BarChart3,
+  Building2, Briefcase, Zap, ArrowDown, Clock,
 } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { FAQItem } from '@/components/ui/FAQItem'
-import { services, whyAutomation, processSteps, faqs } from '@/lib/data/marketing-automation'
-import { serviceColors } from '@/lib/colors'
+
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/marketing-automation'
+
+const techStack = [
+  { icon: SiHubspot, name: 'HubSpot' },
+  { icon: SiMailchimp, name: 'Mailchimp' },
+  { icon: SiSalesforce, name: 'Salesforce' },
+  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiGoogleanalytics, name: 'Analytics 4' },
+  { icon: SiGooglesheets, name: 'Google Sheets' },
+  { icon: SiSlack, name: 'Slack' },
+  { icon: SiNotion, name: 'Notion' },
+]
+
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Automation flow diagram
 // ============================================================================
-
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
-      </div>
-
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyCard = ({ item, index }: { item: typeof whyAutomation[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-blue/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-blue" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+function AutomationMockup() {
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-blue/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-violet/20 via-primary-blue/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-blue/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-blue" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-blue text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-violet/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-violet to-primary-blue flex items-center justify-center shadow-lg shadow-primary-violet/30">
+            <Workflow className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Welkomst-flow</div>
+            <div className="flex items-center gap-1.5">
+              <div className="relative">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald" />
+                <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-primary-emerald animate-ping" />
+              </div>
+              <span className="text-[11px] text-slate-500">Actief · 7 stappen</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <TrendingUp className="w-3 h-3" />
+            68%
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
+
+        <div className="p-4 space-y-2">
+          {/* Trigger */}
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="p-3 rounded-lg bg-gradient-to-r from-primary-blue/15 to-primary-violet/10 border border-primary-blue/20"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-blue/20 flex items-center justify-center flex-shrink-0">
+                <Target className="w-4 h-4 text-primary-blue" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-0.5">Trigger</div>
+                <div className="text-xs font-semibold text-white">Nieuwe inschrijving</div>
+              </div>
+              <span className="text-[10px] text-primary-emerald font-mono font-bold">START</span>
+            </div>
+          </m.div>
+
+          {/* Arrow */}
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="flex justify-center"
+          >
+            <ArrowDown className="w-3.5 h-3.5 text-slate-600" />
+          </m.div>
+
+          {/* Email 1 */}
+          <m.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-violet/20 flex items-center justify-center flex-shrink-0">
+                <Mail className="w-4 h-4 text-primary-violet" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-xs font-semibold text-white">Welkomst-mail</div>
+                  <span className="text-[9px] text-slate-500 font-mono">+0 min</span>
+                </div>
+                <div className="h-1 w-32 rounded-full bg-white/15 mt-1" />
+              </div>
+              <span className="text-[10px] text-primary-emerald font-mono">92%</span>
+            </div>
+          </m.div>
+
+          {/* Wait + arrow */}
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            className="flex items-center justify-center gap-2 text-[10px] text-slate-500"
+          >
+            <Clock className="w-3 h-3" />
+            <span className="font-mono">Wacht 2 dagen</span>
+          </m.div>
+
+          {/* Email 2 */}
+          <m.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.0 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-emerald/20 flex items-center justify-center flex-shrink-0">
+                <Mail className="w-4 h-4 text-primary-emerald" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-xs font-semibold text-white">Tips & inzichten</div>
+                  <span className="text-[9px] text-slate-500 font-mono">+2 dg</span>
+                </div>
+                <div className="h-1 w-28 rounded-full bg-white/15 mt-1" />
+              </div>
+              <span className="text-[10px] text-primary-emerald font-mono">78%</span>
+            </div>
+          </m.div>
+
+          {/* Branch indicator */}
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3 }}
+            className="flex items-center justify-center gap-2 text-[10px] text-slate-500"
+          >
+            <Filter className="w-3 h-3" />
+            <span className="font-mono">IF geopend → aanbod / ELSE → herinnering</span>
+          </m.div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <Zap className="w-3.5 h-3.5 text-primary-warm" />
+            <span className="text-xs text-slate-400">Conversie</span>
+            <span className="text-xs font-bold text-primary-emerald">23%</span>
+          </div>
+          <span className="text-xs text-slate-600 font-mono">24/7 op autopilot</span>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function MarketingAutomationClientPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-blue/10 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Marketing Automation"
+        title={<>E-mails{' '}<span className="text-gradient">Die Verkopen Terwijl U Slaapt.</span></>}
+        subtitle="Slimme e-mailflows die leads opwarmen, klanten terughalen en omzet automatiseren — 24/7, zonder handwerk."
+        ctaLabel="Gratis Journey-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<AutomationMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <TechStackBar items={techStack} label="Wij bouwen in" />
 
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-primary-blue/10 text-primary-blue border-primary-blue/30">
-                <Zap className="w-4 h-4 mr-2 inline" />
-                Efficiëntie & Schaalbare Groei
-              </Badge>
+      <BeloftesStatsBar stats={whyChooseUs} />
 
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Stop met Leads Laten Lekken,{' '}
-                <span className="block text-gradient mt-2">
-                  Automatiseer uw Groei
-                </span>
-              </h1>
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Bedrijven met contacten,<br /><span className="text-gradient">maar geen tijd om te mailen.</span></>}
+        description="Wij automatiseren e-mailflows voor iedereen die meer omzet uit bestaande contacten wil halen — zonder elke week e-mails te schrijven."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Andere branche? Als u contacten heeft en verkoopt, kan automation voor u werken."
+      />
 
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                Wij ontwerpen en implementeren <strong className="text-white">intelligente systemen</strong> die uw leads converteren, uw klanten binden en uw team <strong className="text-white">enorm veel tijd besparen</strong>.
-              </p>
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Complete automation-setup,<br /><span className="text-gradient">op autopilot.</span></>}
+        description="Alle 30+ punten hieronder zitten in het maandabonnement. Strategie, bouw, copy en rapportage — alles inbegrepen."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'E-mail is nog steeds het meest winstgevende marketingkanaal. Maar alleen als u het goed doet.',
+        }}
+      />
 
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Automatische lead nurturing & opvolging</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Naadloze CRM & sales integratie</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Realtime analytics & ROI tracking</span>
-                </li>
-              </ul>
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van journey-audit naar <span className="text-gradient">winstgevende flows.</span></>}
+        steps={processSteps}
+      />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-blue to-primary-violet hover:opacity-90 shadow-lg shadow-primary-blue/25"
-                  asChild
-                >
-                  <Link href="/contact?service=marketing-automation">
-                    Gratis Automation Scan
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise-automation,<br /><span className="text-gradient">voor elke ondernemer.</span></>}
+        description={<>Grote e-commerce bedrijven gebruiken <strong className="text-slate-800">Klaviyo, HubSpot en Salesforce</strong> voor geavanceerde flows die miljoenen euros automatiseren. Voor MKB is dat vaak onbereikbaar — wij brengen dezelfde setups als toegankelijk maandabonnement.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze aanpak wordt bijvoorbeeld gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'E-commerce giganten', color: 'text-primary-blue' },
+            { icon: Mail, label: 'SaaS-bedrijven', color: 'text-primary-emerald' },
+            { icon: Target, label: 'Media-platforms', color: 'text-primary-violet' },
+            { icon: BarChart3, label: 'B2B merken', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde flow-strategie',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: Workflow, text: 'Flows die 24/7 draaien, ook als u slaapt' },
+          { icon: Filter, text: 'Segmentatie op echt gedrag, niet gokwerk' },
+          { icon: Mail, text: 'E-mails die leest als een persoon, niet als marketing' },
+          { icon: TrendingUp, text: 'Doorlopende A/B-testen en optimalisatie' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
 
-              <div className="mt-6 text-sm text-slate-500">
-                <p>✓ Analyse van uw processen ✓ Kansen-rapport ✓ Software-advies</p>
-              </div>
-            </m.div>
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering op maat"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Vraag Offerte Aan"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis journey-audit binnen 1 week — geheel vrijblijvend."
+        riskReversal={['Gratis journey-audit', 'Maandelijks opzegbaar']}
+        scarcity="Beperkte capaciteit voor nieuwe klanten per maand"
+        confidenceTitle={<>Vaste maandprijs. <span className="text-slate-400 font-normal">Geen uurtje-factuurtje.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Uw lijst, uw flows, uw data — altijd van u."
+      />
 
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-blue/20 via-primary-violet/10 to-transparent blur-3xl rounded-full" />
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="violet" />
 
-              <HeroVisual variant="marketing-automation" />
-
-              {/* Floating cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Conversie</p>
-                    <p className="text-lg font-bold">+35%</p>
-                  </div>
-                </div>
-              </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-blue/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-blue/20 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary-blue" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Tijdsbesparing</p>
-                    <p className="text-lg font-bold">15u/week</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== AFBEELDING SECTIE ==================== */}
-      <section className="py-24 bg-slate-50/50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-primary-blue/20 shadow-2xl">
-                  <Image
-                    src="/marketing-automatisering.webp"
-                    alt="Marketing automatisering workflow"
-                    width={1200}
-                    height={800}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div>
-                  <Badge className="mb-4 bg-primary-blue/10 text-primary-blue border-primary-blue/30">
-                    <Workflow className="w-4 h-4 mr-2" />
-                    Slimmer Werken
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Marketing op <span className="text-gradient">autopilot</span>
-                  </h2>
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    Automatiseer repetitieve taken en laat uw marketing 24/7 doorwerken. Van lead nurturing tot e-mail campagnes - alles zonder handmatige tussenkomst.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-blue/10 flex items-center justify-center flex-shrink-0">
-                        <Mail className="w-5 h-5 text-primary-blue" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Email workflows</p>
-                        <p className="text-sm text-slate-500">Automatische follow-ups</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <Target className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Lead scoring</p>
-                        <p className="text-sm text-slate-500">Prioriteer de beste leads</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
-                        <BarChart3 className="w-5 h-5 text-primary-violet" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">ROI inzicht</p>
-                        <p className="text-sm text-slate-500">Meet wat werkt</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Automation Expertise</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                De bouwstenen van een <span className="text-gradient">zelfsturend marketing-ecosysteem</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van lead nurturing tot sales handoff - onze complete suite van automation diensten.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM AUTOMATION ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-blue/10 bg-gradient-to-b from-primary-blue/5 to-transparent">
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Automation</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    De voordelen van <span className="text-gradient">Marketing Automation</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyAutomation.map((item, index) => (
-                  <WhyCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-16">
-                <Badge className="mb-4">Ons Proces</Badge>
-                <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Van analyse naar <span className="text-gradient">geautomatiseerd systeem</span>
-                </h2>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <ProcessStepCard key={index} step={step} index={index} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">Marketing Automation</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="blue" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-blue/10 via-transparent to-primary-violet/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-blue/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Op Offerte
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om te{' '}
-                <span className="text-gradient">automatiseren?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Vraag een gratis automation scan aan en ontdek hoeveel tijd en omzet u kunt winnen.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-blue to-primary-violet hover:opacity-90 shadow-lg shadow-primary-blue/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=marketing-automation">
-                    Gratis Scan Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Advies binnen 48 uur
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Maatwerk oplossing
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>80% van uw omzet komt van bestaande contacten.<br /><span className="text-gradient">Benut u dat?</span></>}
+        ctaLabel="Vraag Journey-Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

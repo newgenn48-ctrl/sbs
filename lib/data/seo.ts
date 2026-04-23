@@ -1,169 +1,183 @@
-import type { ServiceColorKey } from '@/lib/colors'
 import {
-  Zap, FileText, Link as LinkIcon, Globe,
-  Target, BarChart, TrendingUp, Award,
-  Shield, Search
+  FileText, Users, Search, TrendingUp,
+  Building2, Stethoscope, Store, GraduationCap, Scale,
+  Headphones, BarChart3,
+  Link2, BookOpen, MapPin,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
-// ============================================================================
-// TYPES
-// ============================================================================
+export const heroTags = [
+  'Meer organisch verkeer',
+  'Duurzame groei',
+  'Maandelijkse rapportages',
+]
 
-interface SEOService {
-  icon: LucideIcon
-  title: string
-  description: string
-  features: string[]
-  color: ServiceColorKey
-}
+export const whyChooseUs = [
+  { icon: TrendingUp, title: 'Meetbare groei', description: 'Elke maand groei in posities en verkeer.', stat: '3x', statLabel: 'meer verkeer' },
+  { icon: Search, title: 'Diepgaande audit', description: 'Alle technische én inhoudelijke kansen in kaart.', stat: '100+', statLabel: 'checkpunten' },
+  { icon: FileText, title: 'Vaste prijs', description: 'Maandabonnement zonder verrassingen.', stat: '0', statLabel: 'verborgen kosten' },
+  { icon: Users, title: 'Eén aanspreekpunt', description: 'Uw vaste SEO-expert. Direct bereikbaar.', stat: '1', statLabel: 'aanspreekpunt' },
+]
 
-interface WhySEOItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  stat: string
-  statLabel: string
-}
+export const targetAudience: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: Store, title: 'Webshops & Retail', description: 'Product- en categoriepagina’s hoger in Google, meer organisch verkeer en verkoop.' },
+  { icon: Scale, title: 'Advocatuur & Advies', description: 'Vindbaar op specifieke praktijkgebieden en lokale zoekopdrachten in uw regio.' },
+  { icon: Stethoscope, title: 'Zorg & Praktijk', description: 'Lokale patiënten bereiken via "fysiotherapeut + stad" en specialisatie-zoekopdrachten.' },
+  { icon: GraduationCap, title: 'Opleiders & Trainers', description: 'Gevonden worden op cursus-, vaardigheid- en regiozoekopdrachten.' },
+  { icon: Building2, title: 'B2B Dienstverleners', description: 'Gekwalificeerd verkeer aantrekken via zoekwoorden die kopers écht gebruiken.' },
+  { icon: MapPin, title: 'Lokale ondernemers', description: 'Topposities in Google Maps en "near me" zoekopdrachten.' },
+]
 
-interface ProcessStep {
-  step: string
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-interface FAQ {
-  q: string
-  a: string
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// SEO diensten
-export const services: SEOService[] = [
+export const includedChecklist = [
   {
-    icon: Zap,
-    title: 'Technische SEO',
-    description: 'Een waterdicht technisch fundament dat Google begrijpt en snel kan crawlen.',
-    features: ['Core Web Vitals optimalisatie', 'Schema markup', 'Crawl budget optimalisatie', 'Internationale SEO'],
-    color: 'blue'
+    icon: Search,
+    category: 'Technische SEO',
+    color: 'from-primary-blue/10 to-primary-blue/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Site-snelheid optimaliseren (Core Web Vitals)',
+      'Mobile-first check en aanpassingen',
+      'Sitemap en robots.txt inrichten',
+      'Structured data (Schema.org) per pagina',
+      'Crawl-budget optimaliseren',
+    ],
   },
   {
-    icon: FileText,
-    title: 'Content Strategie',
-    description: 'Content die niet alleen informeert, maar ook autoriteit en rankings bouwt.',
-    features: ['Diepgaand keyword research', 'Content gap analyse', 'Topical authority mapping', '10x content creatie'],
-    color: 'emerald'
+    icon: BookOpen,
+    category: 'Keyword & content',
+    color: 'from-primary-violet/10 to-primary-violet/5',
+    iconColor: 'text-primary-violet',
+    items: [
+      'Grondig keyword-onderzoek voor uw branche',
+      'Content-strategie met realistische targets',
+      'Pagina-titels en meta-beschrijvingen op maat',
+      'Interne linking-structuur geoptimaliseerd',
+      'Content-briefings voor nieuwe teksten',
+    ],
   },
   {
-    icon: LinkIcon,
-    title: 'Linkbuilding',
-    description: 'Hoogwaardige backlinks die vertrouwen en autoriteit opbouwen.',
-    features: ['Digitale PR campagnes', 'Link-earning strategieën', 'Concurrentie backlink analyse', 'Broken link recovery'],
-    color: 'violet'
+    icon: Link2,
+    category: 'Autoriteit & backlinks',
+    color: 'from-primary-emerald/10 to-primary-emerald/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Analyse van uw huidige backlink-profiel',
+      'Kwalitatieve link-building strategie',
+      'Lokale citations (Google, Bing, branche-sites)',
+      'Partnerships en gastpublicaties',
+      'Monitoring op schadelijke backlinks',
+    ],
   },
   {
-    icon: Globe,
-    title: 'Local SEO',
-    description: 'Domineer lokale zoekresultaten en Google Maps voor uw regio.',
-    features: ['Google Business optimalisatie', 'Lokale citations', 'Review management', 'Local pack rankings'],
-    color: 'warm'
+    icon: MapPin,
+    category: 'Lokale SEO',
+    color: 'from-primary-warm/10 to-primary-warm/5',
+    iconColor: 'text-primary-warm',
+    items: [
+      'Google Business-profiel optimaliseren',
+      'NAP-consistentie (naam, adres, telefoon)',
+      'Lokale landingspagina’s per regio/stad',
+      'Review-management strategie',
+      'Lokale backlinks en vermeldingen',
+    ],
   },
   {
-    icon: Target,
-    title: 'Keyword Research',
-    description: 'Ontdek de zoekwoorden waar uw klanten daadwerkelijk naar zoeken.',
-    features: ['Search intent analyse', 'Long-tail opportunities', 'Concurrentie keyword analyse', 'Keyword clustering'],
-    color: 'blue'
+    icon: BarChart3,
+    category: 'Meten & rapporteren',
+    color: 'from-primary-blue/10 to-primary-violet/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Google Search Console inrichten',
+      'Google Analytics 4 koppelen',
+      'Posities van 50+ keywords live volgen',
+      'Maandelijkse rapportage met inzichten',
+      'Live dashboard voor uzelf',
+    ],
   },
   {
-    icon: BarChart,
-    title: 'Reporting & Analyse',
-    description: 'Transparante rapportage met focus op resultaten die ertoe doen.',
-    features: ['Live dashboard 24/7', 'Traffic & conversie tracking', 'ROI rapportage', 'Maandelijkse strategiesessies'],
-    color: 'emerald'
+    icon: Headphones,
+    category: 'Support & advies',
+    color: 'from-primary-emerald/10 to-primary-blue/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Vaste SEO-expert, geen callcenter',
+      'Maandelijks strategiegesprek',
+      'Antwoord binnen 24 uur op vragen',
+      'Content-aanpassingen in overleg',
+      'Advies bij nieuwe pagina’s of producten',
+    ],
   },
 ]
 
-// Waarom SEO
-export const whySEO: WhySEOItem[] = [
-  {
-    icon: TrendingUp,
-    title: 'Duurzame Groei',
-    description: 'SEO bouwt een fundament dat maanden en jaren blijft renderen, geen tijdelijke boost.',
-    stat: 'Langetermijn',
-    statLabel: 'investering'
-  },
-  {
-    icon: Award,
-    title: 'Gratis Verkeer',
-    description: 'Organisch verkeer kost geen klik-kosten. Elke bezoeker is pure winst.',
-    stat: '€0',
-    statLabel: 'per klik'
-  },
-  {
-    icon: Shield,
-    title: 'Autoriteit Opbouwen',
-    description: 'Hoge rankings positioneren u als expert en marktleider in uw vakgebied.',
-    stat: 'Top 3',
-    statLabel: 'posities'
-  },
-  {
-    icon: BarChart,
-    title: 'Lagere Kosten',
-    description: 'Minder afhankelijk van betaalde advertenties met steeds hogere kosten.',
-    stat: '-60%',
-    statLabel: 'ad spend'
-  },
-]
-
-// Het proces
-export const processSteps: ProcessStep[] = [
+export const processSteps = [
   {
     step: '01',
-    title: 'SEO Audit',
-    description: 'Diepgaande analyse van uw website, concurrentie en groeikansen.',
-    icon: Search
+    title: 'SEO-audit',
+    description: 'Grondige audit van uw site — technisch, content, links en concurrentie. Rapport binnen 1 week.',
+    icon: Search,
   },
   {
     step: '02',
-    title: 'Strategie',
-    description: 'Datagedreven SEO-strategie afgestemd op uw bedrijfsdoelen.',
-    icon: Target
+    title: 'Strategie & plan',
+    description: 'Samen met u stellen we doelen en prioriteiten — welke zoekwoorden, welke pagina’s, welk tempo.',
+    icon: FileText,
   },
   {
     step: '03',
-    title: 'Implementatie',
-    description: 'Technische optimalisaties, content creatie en linkbuilding campagnes.',
-    icon: Zap
+    title: 'Optimaliseren',
+    description: 'Wij voeren maand-na-maand de technische én inhoudelijke verbeteringen door.',
+    icon: TrendingUp,
   },
   {
     step: '04',
-    title: 'Monitoring',
-    description: 'Continue optimalisatie op basis van data en Google updates.',
-    icon: TrendingUp
+    title: 'Meten & bijsturen',
+    description: 'Elke maand rapportage over groei, posities en verkeer. Strategie bijsturen waar nodig.',
+    icon: BarChart3,
   },
 ]
 
-// FAQ
-export const faqs: FAQ[] = [
+export const priceInfo = {
+  price: 'Op offerte',
+  description: 'SEO is nooit één-grootte-past-alles. Maandabonnement op maat van uw branche, concurrentie en ambities.',
+}
+
+export const confidencePoints = [
+  { title: 'Maandabonnement', description: 'Vaste maandprijs met concrete activiteiten en deliverables' },
+  { title: 'Gratis SEO-audit', description: 'Eerst weten wat er nodig is, dan pas een offerte' },
+  { title: 'Alles inbegrepen', description: 'Audit, optimalisatie, rapportages en strategie zonder extra kosten' },
+]
+
+export const faqs = [
   {
-    q: 'Hoe lang duurt het voordat we resultaten zien?',
-    a: 'SEO is een marathon, geen sprint. Technische verbeteringen kunnen binnen weken effect hebben, maar duurzame autoriteit en top rankings duren meestal 3-6 maanden. Dit is een investering in structurele groei, in tegenstelling tot betaalde advertenties die stoppen zodra u stopt met betalen.'
+    q: 'Wat kost SEO?',
+    a: 'Dat werkt op offerte via een maandabonnement. De prijs hangt af van uw branche, concurrentie-intensiteit en ambities. Na een gratis SEO-audit ontvangt u een vaste maandprijs met concrete activiteiten en deliverables.',
   },
   {
-    q: 'Garanderen jullie nummer 1 posities?',
-    a: 'Nee, en elk bureau dat dit doet is onbetrouwbaar. Google\'s algoritme is complex en verandert constant. Wat we wel garanderen is meetbare verbetering in organische zichtbaarheid, verkeer en leads door bewezen white-hat SEO-strategieën toe te passen.'
+    q: 'Hoe lang duurt het voor ik resultaat zie?',
+    a: 'SEO is een lange-termijn strategie. Eerste kleinere winsten (long-tail keywords, technische verbeteringen) zijn vaak binnen 1-2 maanden zichtbaar. Voor competitieve zoekwoorden duurt het meestal 4-8 maanden voor echte positie-verbetering.',
   },
   {
-    q: 'Gebruiken jullie alleen white-hat SEO methoden?',
-    a: 'Absoluut. We gebruiken alleen door Google goedgekeurde, duurzame strategieën. Geen riskante trucjes, spam of manipulatie. Onze focus ligt op het bouwen van echte waarde en autoriteit die bestand is tegen alle Google updates.'
+    q: 'Garanderen jullie een #1 positie?',
+    a: 'Nee — en iedereen die dat wel doet, liegt. Google’s algoritme is complex en verandert constant. Wij garanderen wel: grondige aanpak, transparante rapportage en duurzame groei in verkeer en rankings op relevante zoekwoorden.',
   },
   {
-    q: 'Hoe meten jullie het succes van een SEO-campagne?',
-    a: 'We kijken verder dan alleen rankings. Onze rapportages focussen op wat echt belangrijk is: groei in organisch verkeer, toename in conversies (leads, verkopen), en verbetering van uw keyword footprint. Alles wordt bijgehouden in een transparant live-dashboard dat u 24/7 kunt raadplegen.'
+    q: 'Wat is het verschil met Google Ads?',
+    a: 'Google Ads zijn betaalde advertenties — u betaalt per klik en verdwijnt zodra u stopt. SEO is organisch: u investeert in content en techniek, en blijft daarna maandenlang verkeer krijgen zonder per-klik kosten. Vaak werken ze goed samen.',
+  },
+  {
+    q: 'Moet ik mijn website herschrijven?',
+    a: 'Zelden helemaal. Meestal passen we bestaande pagina’s strategisch aan en voegen we waar nodig nieuwe content toe. Bij zware technische problemen (verouderd CMS, trage site) adviseren we eerst dat op te lossen.',
+  },
+  {
+    q: 'Werken jullie met blog-teksten?',
+    a: 'Ja. Wij doen keyword-research en content-briefings, en kunnen zelf teksten schrijven of uw schrijver begeleiden. Content is ongeveer 40% van modern SEO — we nemen het serieus.',
+  },
+  {
+    q: 'Kunnen jullie ook lokale SEO doen?',
+    a: 'Ja. Google Business-profiel, lokale landingspagina’s, citations in branche-sites, review-management — alles wat nodig is om lokaal gevonden te worden in Google Maps en "near me" zoekopdrachten.',
+  },
+  {
+    q: 'Kan ik stoppen wanneer ik wil?',
+    a: 'Ja. Maandelijks opzegbaar. Bij beëindiging leveren we alle setups (Search Console, Analytics, content) aan u over — u bent eigenaar van het werk, niet gijzelaar.',
   },
 ]

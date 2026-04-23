@@ -78,7 +78,7 @@ export default function Header() {
 
           <div className="hidden lg:flex items-center">
             <Button className="bg-gradient-to-r from-primary-blue to-primary-violet hover:brightness-110 transition-all shadow-lg shadow-primary-blue/20 text-white" asChild>
-              <Link href="/contact">
+              <Link href="/gratis-advies">
                 Gratis Advies
               </Link>
             </Button>
@@ -147,7 +147,7 @@ export default function Header() {
                     </div>
                   ))}
                   <Button className="bg-gradient-to-r from-primary-blue to-primary-violet hover:brightness-110 transition-all mt-4 text-white" asChild>
-                    <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>Gratis Advies</Link>
+                    <Link href="/gratis-advies" onClick={() => setIsMobileMenuOpen(false)}>Gratis Advies</Link>
                   </Button>
                 </div>
               </SheetContent>

@@ -3,8 +3,8 @@
 import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   Play,
   AlertCircle,
@@ -33,6 +33,7 @@ interface FormErrors {
 
 export default function DemoClientPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -40,9 +41,17 @@ export default function DemoClientPage() {
     company: '',
     type: '',
     details: '',
+    website: '', // honeypot
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
+
+  useEffect(() => {
+    const typeParam = searchParams.get('type')
+    if (typeParam && demoTypes.some(t => t.value === typeParam)) {
+      setFormState(prev => ({ ...prev, type: typeParam }))
+    }
+  }, [searchParams])
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
@@ -83,6 +92,7 @@ export default function DemoClientPage() {
           email: formState.email,
           phone: formState.phone,
           company: formState.company,
+          website: formState.website,
           service: `Demo aanvraag: ${formState.type}`,
           message: `Demo aanvraag voor: ${formState.type}\n\nExtra details: ${formState.details || 'Geen extra details opgegeven.'}`,
         }),
@@ -164,8 +174,21 @@ export default function DemoClientPage() {
             >
               <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot — hidden from users, visible to bots */}
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                    <label htmlFor="demo-website">Website (niet invullen)</label>
+                    <input
+                      id="demo-website"
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formState.website}
+                      onChange={handleChange}
+                    />
+                  </div>
                   {errors.general && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+                    <div role="alert" className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
                       <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                       <p className="text-red-600 text-sm">{errors.general}</p>
                     </div>
@@ -181,6 +204,7 @@ export default function DemoClientPage() {
                         <button
                           key={type.value}
                           type="button"
+                          aria-pressed={formState.type === type.value}
                           onClick={() => {
                             setFormState(prev => ({ ...prev, type: type.value }))
                             if (errors.type) setErrors(prev => ({ ...prev, type: undefined }))
@@ -196,7 +220,7 @@ export default function DemoClientPage() {
                         </button>
                       ))}
                     </div>
-                    {errors.type && <p className="mt-1 text-sm text-red-500">{errors.type}</p>}
+                    {errors.type && <p id="demo-type-error" role="alert" className="mt-1 text-sm text-red-500">{errors.type}</p>}
                   </div>
 
                   {/* Name + Email */}
@@ -212,12 +236,14 @@ export default function DemoClientPage() {
                         autoComplete="name"
                         value={formState.name}
                         onChange={handleChange}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? 'demo-name-error' : undefined}
                         className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
                           errors.name ? 'border-red-300 focus:border-red-400 focus:ring-red-400' : 'border-slate-200 focus:border-primary-blue focus:ring-primary-blue'
                         }`}
                         placeholder="Uw naam"
                       />
-                      {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                      {errors.name && <p id="demo-name-error" className="mt-1 text-sm text-red-500">{errors.name}</p>}
                     </div>
                     <div>
                       <label htmlFor="demo-email" className="block text-sm font-medium text-slate-700 mb-1.5">
@@ -230,12 +256,14 @@ export default function DemoClientPage() {
                         autoComplete="email"
                         value={formState.email}
                         onChange={handleChange}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? 'demo-email-error' : undefined}
                         className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
                           errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-400' : 'border-slate-200 focus:border-primary-blue focus:ring-primary-blue'
                         }`}
                         placeholder="uw@email.nl"
                       />
-                      {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                      {errors.email && <p id="demo-email-error" className="mt-1 text-sm text-red-500">{errors.email}</p>}
                     </div>
                   </div>
 

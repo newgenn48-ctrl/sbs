@@ -1,408 +1,271 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  BarChart3, CheckCircle2, ArrowRight,
-  Target, TrendingUp, DollarSign
+  SiGoogleads, SiGoogleanalytics, SiGoogletagmanager, SiGoogle,
+  SiYoutube, SiMeta, SiGoogledisplayandvideo360, SiGooglesheets,
+} from 'react-icons/si'
+import {
+  Target, TrendingUp, BarChart3, MousePointerClick,
+  Building2, Briefcase, DollarSign, ArrowUp, Eye,
 } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { FAQItem } from '@/components/ui/FAQItem'
-import { services, whyGoogleAds, processSteps, faqs } from '@/lib/data/google-ads'
-// ============================================================================
-// COMPONENTS
-// ============================================================================
 
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className="glass-effect p-5 sm:p-6 rounded-2xl h-full border border-primary-emerald/20 hover:border-primary-emerald/40 transition-all group">
-      <div className="w-12 h-12 rounded-xl bg-primary-emerald/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-        <service.icon className="w-6 h-6 text-primary-emerald" />
-      </div>
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/google-ads'
 
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyCard = ({ item, index }: { item: typeof whyGoogleAds[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-emerald/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-emerald/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-emerald" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-emerald/30 to-transparent z-0" />
-      )}
-
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-emerald/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-emerald" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-emerald text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
-        </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
-      </div>
-    </div>
-  </ScrollTrigger>
-)
+const techStack = [
+  { icon: SiGoogleads, name: 'Google Ads' },
+  { icon: SiGoogleanalytics, name: 'Analytics 4' },
+  { icon: SiGoogletagmanager, name: 'Tag Manager' },
+  { icon: SiGoogle, name: 'Business Profile' },
+  { icon: SiYoutube, name: 'YouTube Ads' },
+  { icon: SiMeta, name: 'Meta Ads' },
+  { icon: SiGoogledisplayandvideo360, name: 'Display & Video' },
+  { icon: SiGooglesheets, name: 'Data Studio' },
+]
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// HERO VISUAL — Live ad campaign dashboard
 // ============================================================================
-
-export default function GoogleAdsClientPage() {
+function AdsMockup() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="relative">
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-warm/20 via-primary-blue/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-emerald/10 via-transparent to-transparent" />
-
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                <BarChart3 className="w-4 h-4 mr-2 inline" />
-                Google Ads Beheer
-              </Badge>
-
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Domineer Google,{' '}
-                <span className="block text-gradient mt-2">
-                  Converteer Meer Klanten
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                <strong className="text-white">Winstgevende Google Ads campagnes</strong> die uw ideale klanten
-                aantrekken op het moment dat ze op zoek zijn. <strong className="text-white">Data-gedreven en resultaatgericht</strong>.
-              </p>
-
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Gemiddeld 3x meer conversies</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Live dashboard met alle resultaten</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Geen vaste contracten</span>
-                </li>
-              </ul>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25"
-                  asChild
-                >
-                  <Link href="/contact?service=google-ads">
-                    Gratis Campagne Audit
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
-
-            {/* 3D Visualization */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/10 to-transparent blur-3xl rounded-full" />
-
-              <HeroVisual variant="google-ads" />
-
-              {/* Floating cards */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Gem. ROAS</p>
-                    <p className="text-lg font-bold">4.2x</p>
-                  </div>
-                </div>
-              </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-blue/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-blue/20 flex items-center justify-center">
-                    <Target className="w-5 h-5 text-primary-blue" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Conversie</p>
-                    <p className="text-lg font-bold">+320%</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-warm/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-warm to-primary-emerald flex items-center justify-center shadow-lg shadow-primary-warm/30">
+            <Target className="w-5 h-5 text-white" />
           </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== AFBEELDING SECTIE ==================== */}
-      <section className="py-24 bg-slate-50/50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-primary-emerald/20 shadow-2xl">
-                  <Image
-                    src="/google-ads-beheer.webp"
-                    alt="Google Ads dashboard en campagne beheer"
-                    width={1200}
-                    height={800}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div>
-                  <Badge className="mb-4 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                    <TrendingUp className="w-4 h-4 mr-2" />
-                    Meetbare Resultaten
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Elke euro <span className="text-gradient">verantwoord</span>
-                  </h2>
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    Google Ads kan een goudmijn zijn, maar alleen met de juiste strategie. Wij zorgen dat uw advertentiebudget rendeert met meetbare resultaten.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <Target className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Gerichte targeting</p>
-                        <p className="text-sm text-slate-500">Bereik exact uw doelgroep</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-blue/10 flex items-center justify-center flex-shrink-0">
-                        <BarChart3 className="w-5 h-5 text-primary-blue" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Transparante rapportage</p>
-                        <p className="text-sm text-slate-500">Realtime inzicht in prestaties</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
-                        <DollarSign className="w-5 h-5 text-primary-violet" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">ROI focus</p>
-                        <p className="text-sm text-slate-500">Maximaal rendement per klik</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Campagne Dashboard</div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[11px] text-slate-500">Voorbeeld · laatste 7 dagen</span>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Onze Expertise</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Wat we doen met <span className="text-gradient">Google Ads</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van zoekwoord analyse tot conversie optimalisatie - wij beheren al uw campagnes.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM GOOGLE ADS ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-emerald/10 bg-gradient-to-b from-primary-emerald/5 to-transparent">
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Google Ads</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    De voordelen van <span className="text-gradient">Google Ads</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyGoogleAds.map((item, index) => (
-                  <WhyCard key={index} item={item} index={index} />
-                ))}
+        <div className="p-4 space-y-3">
+          {/* 3 KPI cards */}
+          <div className="grid grid-cols-3 gap-2">
+            <m.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="p-3 rounded-lg bg-gradient-to-br from-primary-blue/15 to-primary-blue/5 border border-primary-blue/20"
+            >
+              <MousePointerClick className="w-4 h-4 text-primary-blue mb-1.5" />
+              <div className="text-[10px] text-slate-400 mb-0.5">Klikken</div>
+              <div className="text-sm font-bold text-white">—</div>
+              <div className="flex items-center gap-0.5 mt-1">
+                <ArrowUp className="w-2.5 h-2.5 text-primary-emerald" />
+                <span className="text-[9px] text-primary-emerald font-mono">trend ↑</span>
               </div>
-            </div>
+            </m.div>
+            <m.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="p-3 rounded-lg bg-gradient-to-br from-primary-emerald/15 to-primary-emerald/5 border border-primary-emerald/20"
+            >
+              <TrendingUp className="w-4 h-4 text-primary-emerald mb-1.5" />
+              <div className="text-[10px] text-slate-400 mb-0.5">Leads</div>
+              <div className="text-sm font-bold text-white">—</div>
+              <div className="flex items-center gap-0.5 mt-1">
+                <ArrowUp className="w-2.5 h-2.5 text-primary-emerald" />
+                <span className="text-[9px] text-primary-emerald font-mono">trend ↑</span>
+              </div>
+            </m.div>
+            <m.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="p-3 rounded-lg bg-gradient-to-br from-primary-warm/15 to-primary-warm/5 border border-primary-warm/20"
+            >
+              <DollarSign className="w-4 h-4 text-primary-warm mb-1.5" />
+              <div className="text-[10px] text-slate-400 mb-0.5">CPA</div>
+              <div className="text-sm font-bold text-white">€ —</div>
+              <div className="flex items-center gap-0.5 mt-1">
+                <svg className="w-2.5 h-2.5 text-primary-emerald rotate-180" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l8 8h-5v8h-6v-8H4z"/></svg>
+                <span className="text-[9px] text-primary-emerald font-mono">trend ↓</span>
+              </div>
+            </m.div>
           </div>
-        </div>
-      </section>
 
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-16">
-                <Badge className="mb-4">Ons Proces</Badge>
-                <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Van analyse naar <span className="text-gradient">resultaat</span>
-                </h2>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <ProcessStepCard key={index} step={step} index={index} />
+          {/* Performance chart */}
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-3.5 h-3.5 text-primary-warm" />
+                <span className="text-xs font-semibold text-white">Conversie-trend</span>
+              </div>
+              <span className="text-[10px] text-slate-500 font-mono">7 dagen</span>
+            </div>
+            {/* Line chart abstraction */}
+            <div className="flex items-end gap-1 h-14">
+              {[22, 28, 32, 30, 42, 52, 68].map((height, i) => (
+                <m.div
+                  key={i}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${height}%` }}
+                  transition={{ delay: 1.1 + i * 0.08, duration: 0.5 }}
+                  className="flex-1 rounded-t bg-gradient-to-t from-primary-warm/30 via-primary-warm/60 to-primary-emerald"
+                />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </m.div>
 
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">Google Ads</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="emerald" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-emerald/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-emerald/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis Audit
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om te{' '}
-                <span className="text-gradient">groeien?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Vraag een gratis campagne audit aan en ontdek hoeveel potentie er nog in uw Google Ads zit.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=google-ads">
-                    Gratis Audit Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Resultaat binnen 48 uur
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Concrete aanbevelingen
-                </span>
-              </div>
+          {/* Active campaigns */}
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+            className="flex items-center gap-2 p-2.5 rounded-lg bg-primary-emerald/10 border border-primary-emerald/20"
+          >
+            <div className="flex-1 min-w-0">
+              <div className="text-xs font-semibold text-white mb-0.5">Meerdere campagnes</div>
+              <div className="h-1 w-32 rounded-full bg-white/15" />
             </div>
-          </ScrollTrigger>
+            <span className="text-[10px] text-primary-emerald font-mono font-bold">VOORBEELD</span>
+          </m.div>
         </div>
-      </section>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <Eye className="w-3.5 h-3.5 text-primary-blue" />
+            <span className="text-xs text-slate-400">ROAS</span>
+            <span className="text-xs font-bold text-primary-emerald">trend ↑</span>
+          </div>
+          <span className="text-xs text-slate-600 font-mono">Budget-efficiënt</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// MAIN PAGE
+// ============================================================================
+export default function GoogleAdsClientPage() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
+
+      <HeroSection
+        eyebrow="Google Ads & Betaald Verkeer"
+        title={<>Google Ads{' '}<span className="text-gradient">Die Leads Opleveren.</span></>}
+        subtitle="Slimme campagnes voor MKB. Meer klikken, lagere kosten per lead — en een eerlijk maandabonnement zonder verborgen fees."
+        ctaLabel="Gratis Campagne-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<AdsMockup />}
+      />
+
+      <TechStackBar items={techStack} label="Wij adverteren op" />
+
+      <BeloftesStatsBar stats={whyChooseUs} />
+
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>MKB dat <span className="text-gradient">nú klanten wil,</span><br />niet over 6 maanden.</>}
+        description="Wij beheren Google Ads voor iedereen die snel zichtbaar wil zijn voor koopbereide zoekers — zonder budget te verbranden."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Andere branche? Als mensen op Google naar uw diensten zoeken, kunnen wij helpen."
+      />
+
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Volledig beheer,<br /><span className="text-gradient">vanaf eerste klik tot laatste euro.</span></>}
+        description="Alle 30+ punten hieronder zitten in het beheer-abonnement. Advertentie-budget betaalt u direct aan Google — geen opslag."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'Slechte ads verspillen budget. Goede ads verdienen zichzelf terug. Wij bouwen het tweede.',
+        }}
+      />
+
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van audit naar <span className="text-gradient">profitable campagnes.</span></>}
+        steps={processSteps}
+      />
+
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise-ads,<br /><span className="text-gradient">voor elk MKB.</span></>}
+        description={<>Grote adverteerders hebben hele teams voor <strong className="text-slate-800">Google Ads, Meta Ads en Display-campagnes</strong> met dagelijkse optimalisatie. Voor MKB is dat vaak onbereikbaar — wij brengen dezelfde aanpak, als toegankelijk maandabonnement.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze aanpak wordt bijvoorbeeld gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'Grote retailers', color: 'text-primary-blue' },
+            { icon: Target, label: 'E-commerce giganten', color: 'text-primary-emerald' },
+            { icon: DollarSign, label: 'Financiële merken', color: 'text-primary-violet' },
+            { icon: BarChart3, label: 'Media-bedrijven', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde strategie',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: Target, text: 'Slimme targeting op koop-intentie' },
+          { icon: DollarSign, text: 'Lagere CPA door constante optimalisatie' },
+          { icon: BarChart3, text: 'Live dashboard voor transparantie' },
+          { icon: TrendingUp, text: 'Groeien waar het werkt, snoeien waar het niet werkt' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
+
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Gratis Audit Aanvragen"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis campagne-audit binnen 1 week — geheel vrijblijvend."
+        riskReversal={['Gratis campagne-audit', 'Maandelijks opzegbaar']}
+        scarcity="Beperkte capaciteit voor nieuwe klanten per maand"
+        confidenceTitle={<>Vanaf €345 per maand. <span className="text-slate-400 font-normal">Advertentie-budget apart.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="U betaalt Google voor klikken. Wij zorgen dat elke klik telt."
+      />
+
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="warm" />
+
+      <FinalCTA
+        title={<>Uw concurrenten staan al bovenaan Google.<br /><span className="text-gradient">Waar bent u?</span></>}
+        ctaLabel="Vraag Gratis Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

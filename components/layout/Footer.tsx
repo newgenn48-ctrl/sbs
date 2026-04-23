@@ -98,7 +98,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-slate-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-sm">
-              &copy; {new Date().getFullYear()} Start Beheer Solutions. Alle rechten voorbehouden.
+              © {new Date().getFullYear()} Start Beheer Solutions. Alle rechten voorbehouden.
             </p>
             <div className="text-sm text-slate-500">
               Gemaakt met &#9829; door Start Beheer Solutions

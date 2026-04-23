@@ -201,7 +201,7 @@ export default function ServicesGrid() {
           <div className="inline-block bg-slate-50 px-8 py-6 rounded-2xl border border-slate-200">
             <p className="text-slate-600 mb-4">Niet zeker welke diensten u nodig heeft?</p>
             <Link
-              href="/contact"
+              href="/gratis-advies"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-blue to-primary-violet rounded-full text-white font-medium hover:shadow-lg hover:shadow-primary-blue/25 transition-all duration-300 group"
             >
               <span>Vraag gratis advies aan</span>

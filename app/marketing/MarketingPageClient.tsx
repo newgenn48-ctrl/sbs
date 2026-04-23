@@ -1,442 +1,228 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import CategoryCardsSection from '@/components/sections/landing/CategoryCardsSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  ArrowRight, CheckCircle2, TrendingUp, Target, Link2
+  Search, Target, Instagram, Mail, TrendingUp,
+  LineChart, Megaphone, Users,
 } from 'lucide-react'
-import Link from 'next/link'
-import { FAQItem } from '@/components/ui/FAQItem'
-import { services, integratedApproach, processSteps, whyUs, faqs } from '@/lib/data/marketing'
+
+const cards = [
+  {
+    icon: Search,
+    eyebrow: 'Organisch vindbaar',
+    title: 'SEO Specialist',
+    description: 'Duurzame vindbaarheid in Google. Content, techniek en autoriteit — zodat u vanzelf gevonden wordt door wie u zoekt.',
+    bullets: [
+      'Technische SEO-audit als basis',
+      'Content die rankt én converteert',
+      'Maandelijks rapport met concrete wins',
+    ],
+    price: 'Op offerte',
+    href: '/seo-specialist',
+    gradient: 'from-primary-emerald to-primary-blue',
+    accent: 'text-primary-emerald',
+  },
+  {
+    icon: Target,
+    eyebrow: 'Direct resultaat',
+    title: 'Google Ads Beheer',
+    description: 'Leads binnen dagen, niet maanden. Search- en Performance Max-campagnes die u écht klanten opleveren.',
+    bullets: [
+      'Campagnes gericht op ROI, niet vertoningen',
+      'Wekelijkse optimalisatie en bidstrategie',
+      'Transparant dashboard — u ziet alles',
+    ],
+    price: 'Vanaf €345',
+    href: '/google-ads-beheer',
+    gradient: 'from-primary-blue to-primary-violet',
+    accent: 'text-primary-blue',
+    badge: 'Snelste ROI',
+  },
+  {
+    icon: Instagram,
+    eyebrow: 'Zichtbaar blijven',
+    title: 'Social Media Marketing',
+    description: 'Consistent aanwezig op Instagram, LinkedIn en meer. Content, publicatie en community-management — u hoeft niet om te kijken.',
+    bullets: [
+      '3x per week professionele content',
+      'Community-management inbegrepen',
+      'Maandrapport met groei en engagement',
+    ],
+    price: 'Vanaf €495',
+    href: '/social-media-marketing',
+    gradient: 'from-primary-violet to-primary-blue',
+    accent: 'text-primary-violet',
+  },
+  {
+    icon: Mail,
+    eyebrow: 'E-mail op autopilot',
+    title: 'Marketing Automation',
+    description: 'Slimme e-mailflows die leads opwarmen, klanten terughalen en omzet automatiseren — 24/7, zonder handwerk.',
+    bullets: [
+      'Welkomst-, cart- en nurture-flows',
+      'Segmentatie op gedrag en interesse',
+      'HubSpot, Klaviyo of ActiveCampaign',
+    ],
+    price: 'Op offerte',
+    href: '/marketing-automatisering',
+    gradient: 'from-primary-warm to-primary-violet',
+    accent: 'text-primary-warm',
+  },
+]
+
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Marketing channels converging to conversion
 // ============================================================================
-
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <Link href={service.href} className="block h-full">
-      <article className="glass-effect p-6 rounded-2xl h-full border border-primary-violet/20 hover:border-primary-violet/40 transition-all group cursor-pointer hover:scale-[1.02]">
-        <div className="w-14 h-14 rounded-xl bg-primary-violet/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <service.icon className="w-7 h-7 text-primary-violet" />
-        </div>
-
-        <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-        <p className="text-slate-500 mb-4">{service.description}</p>
-
-        <ul className="space-y-2 mb-6">
-          {service.features.map((feature, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-              <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex items-center text-primary-violet font-medium group-hover:gap-3 gap-2 transition-all">
-          Bekijk dienst
-          <ArrowRight className="w-4 h-4" />
-        </div>
-      </article>
-    </Link>
-  </ScrollTrigger>
-)
-
-const WhyUsCard = ({ item, index }: { item: typeof whyUs[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-emerald/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-emerald/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-emerald" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-violet">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+function MarketingFunnelMockup() {
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-violet/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-violet/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-violet" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-violet text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-blue/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-blue to-primary-violet flex items-center justify-center shadow-lg">
+            <Megaphone className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Marketing mix</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span>Voorbeeld dashboard</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <TrendingUp className="w-3 h-3" />
+            trend
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
+
+        {/* Channels */}
+        <div className="p-4 space-y-2">
+          {[
+            { icon: Search, label: 'SEO', detail: 'Organisch zichtbaar worden', stat: 'trend ↑', color: 'emerald', delay: 0.3 },
+            { icon: Target, label: 'Google Ads', detail: 'Direct bovenaan in Google', stat: 'CPA ↓', color: 'blue', delay: 0.5 },
+            { icon: Instagram, label: 'Social', detail: 'Merkvoorkeur opbouwen', stat: 'bereik ↑', color: 'violet', delay: 0.7 },
+            { icon: Mail, label: 'E-mail', detail: 'Geautomatiseerde flows', stat: 'open ↑', color: 'warm', delay: 0.9 },
+          ].map((c, i) => {
+            const colorMap: Record<string, { bg: string; text: string }> = {
+              emerald: { bg: 'bg-primary-emerald/20', text: 'text-primary-emerald' },
+              blue: { bg: 'bg-primary-blue/20', text: 'text-primary-blue' },
+              violet: { bg: 'bg-primary-violet/20', text: 'text-primary-violet' },
+              warm: { bg: 'bg-primary-warm/20', text: 'text-primary-warm' },
+            }
+            const cl = colorMap[c.color]
+            return (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: c.delay }}
+                className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-8 h-8 rounded-lg ${cl.bg} flex items-center justify-center flex-shrink-0`}>
+                    <c.icon className={`w-4 h-4 ${cl.text}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-semibold text-white">{c.label}</div>
+                    <div className="text-[10px] text-slate-500">{c.detail}</div>
+                  </div>
+                  <span className={`text-[10px] font-mono ${cl.text} font-bold`}>{c.stat}</span>
+                </div>
+              </m.div>
+            )
+          })}
+        </div>
+
+        {/* Footer — conversion */}
+        <div className="border-t border-white/[0.06] px-4 py-3 bg-gradient-to-r from-primary-emerald/10 to-primary-blue/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Users className="w-3.5 h-3.5 text-primary-emerald" />
+              <span className="text-xs text-slate-300 font-semibold">Nieuwe klanten</span>
+            </div>
+            <span className="text-sm font-bold text-white font-mono">trend ↑</span>
+          </div>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function MarketingPageClient() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-blue/15 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Online Marketing"
+        title={<>Marketing{' '}<span className="text-gradient">Die Klanten Oplevert.</span></>}
+        subtitle="SEO, Google Ads, social en e-mail — wij combineren wat past bij uw bedrijf en budget. Geen campagne-circus, wel meetbare groei."
+        ctaLabel="Plan Een Gratis Marketing-Audit"
+        ctaHref="/gratis-advies"
+        tags={['Transparante rapportage', 'ROI-gedreven', 'Geen jaarcontracten']}
+        visual={<MarketingFunnelMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-primary-violet/10 text-primary-violet border-primary-violet/30">
-                <TrendingUp className="w-4 h-4 mr-2 inline" />
-                Online Marketing Bureau
-              </Badge>
+      <CategoryCardsSection
+        sectionNumber="/ 01"
+        eyebrow="Vier marketing-kanalen"
+        title={<>De juiste mix voor <span className="text-gradient">uw doelen.</span></>}
+        description="SEO voor de lange termijn, Ads voor direct resultaat, social voor merkvoorkeur, e-mail voor conversie. Vaak werken ze samen — wij adviseren welke combinatie bij u past."
+        cards={cards}
+        footer={
+          <p className="text-sm text-slate-500">
+            Weet u niet welke mix past? <span className="text-slate-700 font-semibold">Vraag een gratis marketing-audit</span> — wij brengen uw situatie in kaart.
+          </p>
+        }
+      />
 
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Online Marketing{' '}
-                <span className="block text-gradient mt-2">
-                  die Écht Werkt
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                Wij bouwen een <strong className="text-white">geïntegreerd marketing-ecosysteem</strong> voor het MKB.
-                Van Google Ads en SEO tot Social Media – alles versterkt elkaar voor maximale groei.
-              </p>
-
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span><strong>Google Ads, SEO, Social & Automation</strong> in één strategie</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Meetbare resultaten met <strong>live dashboard</strong></span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span><strong>Geen vaste contracten</strong> – maandelijks opzegbaar</span>
-                </li>
-              </ul>
-
-              <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-slate-300">
-                  <Target className="w-4 h-4 text-primary-violet" />
-                  <span>MKB specialist</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-300">
-                  <TrendingUp className="w-4 h-4 text-primary-emerald" />
-                  <span>Bewezen ROI</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25"
-                  asChild
-                >
-                  <Link href="/contact?service=marketing">
-                    Gratis Strategie Gesprek
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
-
-            {/* 3D Visualization */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <HeroVisual variant="marketing" />
-
-              {/* Floating cards */}
+      <section className="relative py-20 sm:py-28 bg-[#0B1121] overflow-hidden">
+        <div className="divider-hairline-dark absolute top-0 left-0 right-0" />
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-blue mb-4">/ 02 · Onze aanpak</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight mb-6 leading-[1.1]">
+            Marketing zonder jargon.<br />
+            <span className="text-gradient">Meetbaar resultaat.</span>
+          </h2>
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
+            Wij geloven in transparantie, niet in mystiek. U krijgt elke maand een helder rapport: wat werkte, wat niet, en wat we komende maand gaan testen. Geen vanity-metrics, wel echte cijfers.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              { icon: LineChart, label: 'Meetbaar', detail: 'Elke euro traceerbaar' },
+              { icon: TrendingUp, label: 'Groeigericht', detail: 'Lange termijn, niet quick-win' },
+              { icon: Target, label: 'Geen ruis', detail: 'Focus op ROI-kanalen' },
+              { icon: Users, label: 'Uw eigendom', detail: 'Accounts, data en content van u' },
+            ].map((item, i) => (
               <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.06]"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Gem. ROI</p>
-                    <p className="text-lg font-bold">4.5x</p>
-                  </div>
-                </div>
+                <item.icon className="w-6 h-6 text-primary-blue mb-3 mx-auto" />
+                <div className="text-sm font-bold text-white mb-1">{item.label}</div>
+                <div className="text-xs text-slate-500">{item.detail}</div>
               </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-violet/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-violet/20 flex items-center justify-center">
-                    <Target className="w-5 h-5 text-primary-violet" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Kanalen</p>
-                    <p className="text-lg font-bold">4 Geïntegreerd</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== SEO INTRO SECTIE ==================== */}
-      <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-primary-violet/5 via-transparent to-primary-blue/5 border border-slate-200">
-              <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-primary-violet/30 rounded-tl-2xl" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-primary-blue/30 rounded-br-2xl" />
-
-              <div className="text-center">
-                <h2 id="seo-intro-title" className="text-2xl md:text-3xl font-bold mb-6">
-                  Online marketing bureau voor het <span className="text-gradient">MKB</span>
-                </h2>
-                <p className="text-lg text-slate-500 leading-relaxed">
-                  Als <strong className="text-slate-600">online marketing bureau</strong> helpen wij MKB-bedrijven groeien met een geïntegreerde aanpak.
-                  Of u nu zoekt naar <strong className="text-slate-600">Google Ads beheer</strong>, professionele <strong className="text-slate-600">SEO services</strong>,
-                  effectieve <strong className="text-slate-600">social media marketing</strong> of slimme <strong className="text-slate-600">marketing automation</strong> –
-                  wij combineren deze kanalen tot één krachtig groei-ecosysteem dat meetbare resultaten oplevert.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN OVERZICHT ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Onze Marketing Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vier specialisaties, één <span className="text-gradient">geïntegreerd systeem</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Kies een specialisatie of combineer ze voor het vliegwieleffect. Elke dienst is ook los af te nemen.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-
-          <ScrollTrigger>
-            <div className="text-center mt-12">
-              <p className="text-slate-500 mb-4">
-                Niet zeker welke combinatie past bij uw situatie?
-              </p>
-              <Button variant="outline" asChild>
-                <Link href="/contact?service=marketing-advies">
-                  Vraag Gratis Advies
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
-
-      {/* ==================== GEÏNTEGREERDE AANPAK ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="integrated-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-5xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-12">
-                <Badge className="mb-4 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                  <Link2 className="w-3 h-3 mr-2" />
-                  Geïntegreerde Aanpak
-                </Badge>
-                <h2 id="integrated-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Kanalen die elkaar <span className="text-gradient">versterken</span>
-                </h2>
-                <p className="text-slate-500 max-w-2xl mx-auto">
-                  Onze marketing kanalen werken niet los van elkaar, maar versterken elkaar voor maximaal resultaat.
-                </p>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {integratedApproach.map((item, index) => (
-                <ScrollTrigger key={index} delay={index * 0.1}>
-                  <div className="p-6 rounded-xl bg-slate-100 border border-slate-200 hover:border-primary-emerald/30 transition-all h-full">
-                    <h3 className="text-xl font-bold mb-3 text-primary-emerald">{item.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </ScrollTrigger>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WERKWIJZE/PROCES ==================== */}
-      <section className="py-24" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary-violet to-transparent rounded-full" />
-
-              <div className="pt-8">
-                <ScrollTrigger>
-                  <header className="text-center mb-16">
-                    <Badge className="mb-4">Onze Werkwijze</Badge>
-                    <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                      Van strategie naar <span className="text-gradient">meetbaar resultaat</span>
-                    </h2>
-                    <p className="text-slate-500 max-w-2xl mx-auto">
-                      Een gestructureerde aanpak die zorgt voor voorspelbare groei.
-                    </p>
-                  </header>
-                </ScrollTrigger>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {processSteps.map((step, index) => (
-                    <ProcessStepCard key={index} step={step} index={index} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM START BEHEER ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-emerald/10 bg-gradient-to-b from-primary-emerald/5 to-transparent">
-              <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-primary-violet/50 to-transparent rounded-full" />
-              <div className="absolute right-0 bottom-1/4 w-1 h-24 bg-gradient-to-t from-primary-emerald/50 to-transparent rounded-full" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Start Beheer</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Marketing met een <span className="text-gradient">persoonlijke aanpak</span>
-                  </h2>
-                  <p className="text-slate-500 max-w-2xl mx-auto">
-                    Wij zijn geen grote anonieme marketing agency. Bij ons krijgt u een vast team dat uw bedrijf écht begrijpt.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyUs.map((item, index) => (
-                  <WhyUsCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">online marketing uitbesteden</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="violet" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-violet/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-violet/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis & Vrijblijvend
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om uw marketing{' '}
-                <span className="text-gradient">te laten groeien?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Plan een gratis strategie gesprek en ontdek hoe wij uw online marketing naar het volgende niveau tillen.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=marketing">
-                    Plan Gratis Gesprek
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Advies op maat
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Reactie binnen 24 uur
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Meer klanten, minder marketing-ruis.<br /><span className="text-gradient">Klaar om te groeien?</span></>}
+        ctaLabel="Plan Gratis Marketing-Audit"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

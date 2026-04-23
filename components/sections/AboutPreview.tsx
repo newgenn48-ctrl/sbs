@@ -73,6 +73,7 @@ export default function AboutPreview() {
                     playsInline
                     preload="none"
                     className="w-full h-full object-cover"
+                    aria-label="Video over Start Beheer Solutions"
                   >
                     <source src="/hero-video.mp4" type="video/mp4" />
                   </video>

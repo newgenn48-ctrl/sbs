@@ -1,467 +1,298 @@
-﻿'use client'
+'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { FAQItem } from '@/components/ui/FAQItem'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Monitor, CheckCircle2, ArrowRight,
-  Clock, Shield,
-  FileCheck, ShieldCheck, BookOpen
+  SiDell, SiHp, SiLenovo, SiApple, SiLogitech, SiOkta,
+  SiSlack, SiNotion,
+} from 'react-icons/si'
+import { FaMicrosoft, FaWindows } from 'react-icons/fa'
+import { HiPlus } from 'react-icons/hi'
+import {
+  Laptop, Headphones, UserPlus, ShieldCheck, CheckCircle2,
+  Building2, Briefcase, Smartphone, Clock, UserCheck, Monitor,
 } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { services, whyChooseUs, processSteps, faqs } from '@/lib/data/werkplekbeheer'
-import { serviceColors } from '@/lib/colors'
+
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/werkplekbeheer'
+
+const techStack = [
+  { icon: FaMicrosoft, name: 'Microsoft 365' },
+  { icon: FaWindows, name: 'Windows 11' },
+  { icon: SiApple, name: 'macOS' },
+  { icon: SiDell, name: 'Dell' },
+  { icon: SiHp, name: 'HP' },
+  { icon: SiLenovo, name: 'Lenovo' },
+  { icon: SiLogitech, name: 'Logitech' },
+  { icon: SiOkta, name: 'Okta / MFA' },
+  { icon: SiSlack, name: 'Slack' },
+  { icon: SiNotion, name: 'Notion' },
+  { icon: HiPlus, name: 'En nog veel meer' },
+]
+
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Werkplek / onboarding ticket mockup
 // ============================================================================
+function WorkplaceMockup() {
+  const tickets = [
+    { user: 'Nieuwe collega', role: 'Onboarding', status: 'done', icon: UserPlus, color: 'emerald', time: 'dag 1', detail: 'Laptop + M365 geleverd' },
+    { user: 'Medewerker', role: 'Support', status: 'progress', icon: Headphones, color: 'blue', time: 'bezig', detail: 'VPN-verbinding fixen' },
+    { user: 'Medewerker', role: 'Upgrade', status: 'scheduled', icon: Laptop, color: 'violet', time: 'gepland', detail: 'Naar Windows 11' },
+  ]
 
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
-      </div>
-
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyUsCard = ({ item, index }: { item: typeof whyChooseUs[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-emerald/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-emerald/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-emerald" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-blue">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-emerald/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/15 to-primary-violet/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-emerald/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-emerald" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-emerald text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-emerald/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-emerald to-primary-blue flex items-center justify-center shadow-lg shadow-primary-emerald/30">
+            <Monitor className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Werkplek-dashboard</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <div className="relative">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald" />
+                <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-primary-emerald animate-ping" />
+              </div>
+              <span>Werkplek-overzicht</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <CheckCircle2 className="w-3 h-3" />
+            SLA
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
+
+        <div className="p-4 space-y-2">
+          {tickets.map((t, i) => {
+            const colorClasses: Record<string, { bg: string; text: string; border: string }> = {
+              emerald: { bg: 'bg-primary-emerald/20', text: 'text-primary-emerald', border: 'border-primary-emerald/20' },
+              blue: { bg: 'bg-primary-blue/20', text: 'text-primary-blue', border: 'border-primary-blue/20' },
+              violet: { bg: 'bg-primary-violet/20', text: 'text-primary-violet', border: 'border-primary-violet/20' },
+            }
+            const c = colorClasses[t.color]
+            const Icon = t.icon
+            return (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.15 }}
+                className={`p-3 rounded-lg bg-white/[0.03] border border-white/[0.06] ${t.status === 'progress' ? `bg-gradient-to-r from-primary-blue/10 to-primary-violet/5 ${c.border}` : ''}`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-8 h-8 rounded-lg ${c.bg} flex items-center justify-center flex-shrink-0`}>
+                    <Icon className={`w-4 h-4 ${c.text}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-xs font-semibold text-white">{t.user}</span>
+                      <span className={`text-[9px] font-mono ${c.text} uppercase tracking-wider`}>{t.role}</span>
+                    </div>
+                    <div className="text-[10px] text-slate-400">{t.detail}</div>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    {t.status === 'done' && (
+                      <>
+                        <CheckCircle2 className="w-4 h-4 text-primary-emerald ml-auto mb-0.5" />
+                        <div className="text-[9px] text-slate-500 font-mono">{t.time}</div>
+                      </>
+                    )}
+                    {t.status === 'progress' && (
+                      <>
+                        <m.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                          className="w-2 h-2 rounded-full bg-primary-blue ml-auto mb-1"
+                        />
+                        <div className="text-[9px] text-primary-blue font-mono font-semibold">{t.time}</div>
+                      </>
+                    )}
+                    {t.status === 'scheduled' && (
+                      <>
+                        <Clock className="w-4 h-4 text-primary-violet ml-auto mb-0.5" />
+                        <div className="text-[9px] text-slate-500 font-mono">{t.time}</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </m.div>
+            )
+          })}
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-2 pt-1">
+            <m.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+            >
+              <div className="flex items-center gap-1 mb-0.5">
+                <Laptop className="w-3 h-3 text-primary-blue" />
+                <span className="text-[9px] text-slate-500 uppercase tracking-wider">Devices</span>
+              </div>
+              <div className="text-xs font-bold text-white font-mono">—</div>
+            </m.div>
+            <m.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}
+              className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+            >
+              <div className="flex items-center gap-1 mb-0.5">
+                <Smartphone className="w-3 h-3 text-primary-violet" />
+                <span className="text-[9px] text-slate-500 uppercase tracking-wider">Mobiel</span>
+              </div>
+              <div className="text-xs font-bold text-white font-mono">—</div>
+            </m.div>
+            <m.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1 }}
+              className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+            >
+              <div className="flex items-center gap-1 mb-0.5">
+                <ShieldCheck className="w-3 h-3 text-primary-emerald" />
+                <span className="text-[9px] text-slate-500 uppercase tracking-wider">MFA</span>
+              </div>
+              <div className="text-xs font-bold text-white font-mono">100%</div>
+            </m.div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <UserCheck className="w-3.5 h-3.5 text-primary-emerald" />
+            <span className="text-xs text-slate-400">Vaste beheerder</span>
+            <span className="text-xs font-bold text-white">Mark</span>
+          </div>
+          <span className="text-xs text-slate-600 font-mono">SLA 15m respons</span>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function WerkplekbeheerClientPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-emerald/10 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Werkplekbeheer"
+        title={<>Werkplekken Die{' '}<span className="text-gradient">Gewoon Aan Staan.</span></>}
+        subtitle="Laptops, software, onboarding en support — één aanspreekpunt die uw medewerkers bij naam kent. Nieuwe collega op dag 1 productief."
+        ctaLabel="Gratis Werkplek-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<WorkplaceMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                <Monitor className="w-4 h-4 mr-2 inline" />
-                Werkplekbeheer Uitbesteden
-              </Badge>
+      <TechStackBar items={techStack} label="Wij werken met" />
 
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Werkplekbeheer{' '}
-                <span className="block text-gradient mt-2">
-                  Uitbesteden
-                </span>
-              </h1>
+      <BeloftesStatsBar stats={whyChooseUs} />
 
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                Alle <strong className="text-white">werkplekken</strong> van uw medewerkers professioneel beheerd.
-                Van <strong className="text-white">laptops</strong> en <strong className="text-white">software</strong> tot <strong className="text-white">helpdesk support</strong> - wij zorgen dat uw team productief kan werken.
-              </p>
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Bedrijven waar medewerkers <br /><span className="text-gradient">niet met IT willen worstelen.</span></>}
+        description="Wij nemen werkplekbeheer over voor bedrijven die willen groeien zonder IT-hoofdpijn — van 5 tot 150+ medewerkers, op kantoor, thuis of onderweg."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Andere branche of setup? Bel of mail — wij maken altijd een plan op maat van uw team."
+      />
 
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Laptops, desktops en mobiele apparaten</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Werkplek installatie en migratie</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>On- en offboarding van medewerkers</span>
-                </li>
-              </ul>
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Complete werkplek-zorg,<br /><span className="text-gradient">vast bedrag per werkplek.</span></>}
+        description="Alle 30 punten hieronder zitten standaard in het maandabonnement. Hardware, software, support en security — alles inbegrepen."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'Uw medewerkers moeten werken. Niet uren aan IT-support kwijt zijn.',
+        }}
+      />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25"
-                  asChild
-                >
-                  <Link href="/contact?service=werkplekbeheer">
-                    Gratis Adviesgesprek
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van audit naar <span className="text-gradient">werkplek-ontzorging.</span></>}
+        steps={processSteps}
+      />
 
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-            >
-              <HeroVisual variant="werkplekbeheer" />
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise werkplek-beheer,<br /><span className="text-gradient">op MKB-schaal.</span></>}
+        description={<>Grote organisaties hebben IT-teams met MDM, Intune, strakke <strong className="text-slate-800">onboarding-processen en 15-minuten SLA</strong>. Voor MKB is dat vaak onbetaalbaar — wij leveren dezelfde ontzorging als vaste prijs per werkplek.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze aanpak wordt gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'Enterprise IT', color: 'text-primary-blue' },
+            { icon: Laptop, label: 'Tech-bedrijven', color: 'text-primary-emerald' },
+            { icon: Headphones, label: 'Managed Services', color: 'text-primary-violet' },
+            { icon: ShieldCheck, label: 'Security-teams', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde werkplek-aanpak',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: UserPlus, text: 'Nieuwe collega op dag 1 productief' },
+          { icon: Headphones, text: 'Support die uw mensen bij naam kent' },
+          { icon: ShieldCheck, text: 'MFA, encryptie en MDM standaard' },
+          { icon: Laptop, text: 'Hardware en licenties op úw naam' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
 
-              {/* Floating status cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="hidden md:block absolute bottom-8 right-4 glass-effect rounded-xl p-4 border border-primary-emerald/20 max-w-[240px]"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Geen gedoe</p>
-                    <p className="text-lg font-bold text-slate-900">Wij regelen het</p>
-                  </div>
-                </div>
-              </m.div>
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering op maat"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Vraag Offerte Aan"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis werkplek-audit binnen 1 week — geheel vrijblijvend."
+        riskReversal={['Vaste prijs per werkplek', 'Maandelijks opzegbaar']}
+        scarcity="Beperkte capaciteit voor nieuwe beheer-trajecten"
+        confidenceTitle={<>Per werkplek, per maand. <span className="text-slate-400 font-normal">Schaalt met u mee.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Licenties en hardware op uw naam. U zit nooit vast."
+      />
 
-              <m.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
-                className="hidden md:block absolute top-8 left-4 glass-effect rounded-xl p-4 border border-primary-blue/20 max-w-[200px]"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-blue/20 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary-blue" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Responstijd</p>
-                    <p className="text-sm font-bold text-slate-900">Snel geholpen</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="emerald" />
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== SEO INTRO ==================== */}
-      <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-primary-emerald/5 via-transparent to-primary-blue/5 border border-slate-200">
-              <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-primary-emerald/30 rounded-tl-2xl" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-primary-blue/30 rounded-br-2xl" />
-
-              <div className="text-center">
-                <h2 id="seo-intro-title" className="text-2xl md:text-3xl font-bold mb-6">
-                  Werkplekbeheer voor het <span className="text-gradient">MKB</span>
-                </h2>
-                <p className="text-lg text-slate-500 leading-relaxed">
-                  Uw medewerkers verdienen werkplekken die gewoon werken. Geen trage laptops, geen software problemen, geen gedoe met nieuwe accounts.
-                  Wij nemen het <strong className="text-slate-600">werkplekbeheer</strong> uit handen: van <strong className="text-slate-600">device management</strong> tot <strong className="text-slate-600">helpdesk support</strong>.
-                  Zodat uw team productief kan zijn.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Onze Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Compleet <span className="text-gradient">Werkplekbeheer</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van laptop tot telefoon, van installatie tot support. Alles wat uw medewerkers nodig hebben om productief te werken.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM WIJ ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-emerald/10 bg-gradient-to-b from-primary-emerald/5 to-transparent">
-              <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-primary-emerald/50 to-transparent rounded-full" />
-              <div className="absolute right-0 bottom-1/4 w-1 h-24 bg-gradient-to-t from-primary-blue/50 to-transparent rounded-full" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Start Beheer</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Werkplekbeheer met een <span className="text-gradient">persoonlijke aanpak</span>
-                  </h2>
-                  <p className="text-slate-500 max-w-2xl mx-auto">
-                    Uw medewerkers verdienen een helpdesk die hen kent. Geen ticket-nummers, maar echte hulp.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyChooseUs.map((item, index) => (
-                  <WhyUsCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary-emerald to-transparent rounded-full" />
-
-              <div className="pt-8">
-                <ScrollTrigger>
-                  <header className="text-center mb-16">
-                    <Badge className="mb-4">Zo Werkt Het</Badge>
-                    <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                      Van inventarisatie naar <span className="text-gradient">zorgeloos beheer</span>
-                    </h2>
-                    <p className="text-slate-500 max-w-2xl mx-auto">
-                      Een helder proces. Wij nemen het beheer over, uw medewerkers werken door.
-                    </p>
-                  </header>
-                </ScrollTrigger>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {processSteps.map((step, index) => (
-                    <ProcessStepCard key={index} step={step} index={index} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== TRUST INDICATORS ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="trust-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <ScrollTrigger>
-                <div>
-                  <Badge className="mb-4 bg-primary-emerald/10 text-primary-emerald border-primary-emerald/30">
-                    <ShieldCheck className="w-3 h-3 mr-2" />
-                    Betrouwbaar & Veilig
-                  </Badge>
-                  <h2 id="trust-title" className="text-3xl md:text-4xl font-bold mb-6">
-                    Wat u van ons mag <span className="text-gradient">verwachten</span>
-                  </h2>
-                  <p className="text-slate-500 mb-8 leading-relaxed">
-                    Uw medewerkers en hun data in goede handen. Wij zorgen voor veilige werkplekken en zijn er wanneer u ons nodig heeft.
-                  </p>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 border border-slate-100">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <Shield className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Beveiligde werkplekken</h3>
-                        <p className="text-sm text-slate-500">Antivirus, updates en veilige configuratie</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 border border-slate-100">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <FileCheck className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Duidelijke afspraken</h3>
-                        <p className="text-sm text-slate-500">SLA op maat met heldere responstijden</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 border border-slate-100">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-base mb-1">Volledig overzicht</h3>
-                        <p className="text-sm text-slate-500">Inventaris van alle apparaten en software</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <Image
-                    src="/werkplekbeheer-uitbesteden.webp"
-                    alt="Professioneel werkplekbeheer - IT support voor MKB"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-slate-50/20 to-transparent rounded-2xl" />
-
-                  {/* Overlay content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="glass-effect p-4 rounded-xl border border-primary-emerald/20">
-                      <h3 className="text-lg font-bold mb-3">Geen gedoe</h3>
-                      <ul className="space-y-2">
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-                          <span className="text-slate-600">Eén vast aanspreekpunt</span>
-                        </li>
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-                          <span className="text-slate-600">Maandelijks opzegbaar</span>
-                        </li>
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-                          <span className="text-slate-600">Transparante prijzen</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">werkplekbeheer</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="emerald" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-emerald/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-emerald/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis & Vrijblijvend
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Werkplekbeheer{' '}
-                <span className="text-gradient">uitbesteden?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Plan een gratis adviesgesprek. We bespreken hoe we uw medewerkers het beste kunnen ondersteunen.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=werkplekbeheer">
-                    Plan Gratis Adviesgesprek
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Advies op maat
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Reactie binnen 24 uur
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Elk IT-probleem kost uur productiviteit.<br /><span className="text-gradient">Dat kan anders.</span></>}
+        ctaLabel="Vraag Werkplek-Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

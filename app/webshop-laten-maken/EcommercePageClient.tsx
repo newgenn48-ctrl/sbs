@@ -1,501 +1,353 @@
-﻿'use client'
+'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
-import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { FAQItem } from '@/components/ui/FAQItem'
+import { m, animate, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { useRef } from 'react'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  ShoppingCart, CheckCircle2, ArrowRight,
-  Zap, Lock, TrendingUp, Globe, Target
+  SiNextdotjs, SiReact, SiTailwindcss, SiStripe, SiTypescript, SiVercel,
+  SiShopify, SiWoocommerce,
+} from 'react-icons/si'
+import { HiPlus } from 'react-icons/hi'
+import {
+  ShoppingCart, CreditCard, Building2, Store, Briefcase,
+  TrendingUp, Zap, ShieldCheck, Rocket,
 } from 'lucide-react'
-import Link from 'next/link'
-import { services, priceInfo, whyChooseUs, processSteps, faqs } from '@/lib/data/ecommerce'
-import { serviceColors } from '@/lib/colors'
+
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/webshop'
+
 // ============================================================================
-// COMPONENTS
+// TECH STACK (headless commerce)
 // ============================================================================
+const techStack = [
+  { icon: SiShopify, name: 'Shopify' },
+  { icon: SiWoocommerce, name: 'WooCommerce' },
+  { icon: SiNextdotjs, name: 'Next.js' },
+  { icon: SiReact, name: 'React' },
+  { icon: SiStripe, name: 'Stripe' },
+  { icon: SiTailwindcss, name: 'Tailwind CSS' },
+  { icon: SiTypescript, name: 'TypeScript' },
+  { icon: SiVercel, name: 'Vercel' },
+  { icon: HiPlus, name: 'En nog veel meer' },
+]
 
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
+// ============================================================================
+// HERO VISUAL — 3D abstracte gradient-cards met iconen (geen producten/prijzen)
+// ============================================================================
+function AbstractCard({
+  gradient,
+  icon: Icon,
+  size = 'md',
+}: {
+  gradient: string
+  icon: typeof ShoppingCart
+  size?: 'sm' | 'md' | 'lg'
+}) {
+  const sizeMap = {
+    sm: 'w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]',
+    md: 'w-[180px] h-[180px] sm:w-[210px] sm:h-[210px] lg:w-[230px] lg:h-[230px]',
+    lg: 'w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] lg:w-[260px] lg:h-[260px]',
+  }
+  const iconSizeMap = {
+    sm: 'w-10 h-10',
+    md: 'w-14 h-14 sm:w-16 sm:h-16',
+    lg: 'w-16 h-16 sm:w-20 sm:h-20',
+  }
+
+  return (
+    <div className={`${sizeMap[size]} rounded-3xl bg-gradient-to-br ${gradient} relative overflow-hidden shadow-[0_30px_70px_-20px_rgba(15,23,42,0.35),0_15px_40px_-15px_rgba(16,185,129,0.25)] border border-white/10`}>
+      <div className="absolute inset-0 bg-dot-pattern opacity-25" />
+      <div className="absolute top-0 right-0 w-2/3 h-2/3 rounded-full blur-2xl bg-white/15" />
+      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 rounded-full blur-xl bg-black/10" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Icon className={`${iconSizeMap[size]} text-white/85`} strokeWidth={1.5} />
+      </div>
+    </div>
+  )
+}
+
+function ProductShowcase3D() {
+  const ref = useRef<HTMLDivElement>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 20 })
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 20 })
+  const rotateY = useTransform(springX, [-400, 400], [-10, 10])
+  const rotateX = useTransform(springY, [-300, 300], [5, -5])
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={(e) => {
+        if (!ref.current) return
+        const r = ref.current.getBoundingClientRect()
+        mouseX.set(e.clientX - r.left - r.width / 2)
+        mouseY.set(e.clientY - r.top - r.height / 2)
+      }}
+      onMouseLeave={() => {
+        animate(mouseX, 0, { duration: 1.2 })
+        animate(mouseY, 0, { duration: 1.2 })
+      }}
+      className="relative w-full h-[420px] sm:h-[480px] lg:h-[520px] flex items-center justify-center"
+      style={{ perspective: '2000px' }}
+    >
+      {/* Ambient glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[70%] h-[60%] rounded-full blur-[100px] bg-gradient-to-br from-primary-emerald/20 via-primary-blue/15 to-primary-violet/10" />
       </div>
 
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const PriceCard = () => (
-  <ScrollTrigger>
-    <div className="glass-effect p-8 md:p-10 rounded-2xl border border-primary-emerald/30 hover:border-primary-emerald/50 transition-all max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <Badge className="mb-4 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-          Transparante Prijzen
-        </Badge>
-        <p className="text-4xl md:text-5xl font-bold text-primary-emerald mb-2">{priceInfo.price}</p>
-        <p className="text-slate-500">{priceInfo.description}</p>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-3 mb-8">
-        {priceInfo.features.map((feature, i) => (
-          <div key={i} className="flex items-center gap-2 text-slate-600">
-            <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-            {feature}
-          </div>
-        ))}
-      </div>
-
-      <div className="text-center">
-        <Button
-          size="lg"
-          className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25"
-          asChild
+      {/* 3D stage — 3 abstract gradient-cards */}
+      <m.div
+        className="relative mobile-flat-3d"
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      >
+        {/* Card 1 — links-achter, ShoppingCart */}
+        <m.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            transform: 'rotateY(18deg) rotateX(-6deg) translateZ(-60px) translateX(-140px) translateY(-30px)',
+            transformStyle: 'preserve-3d',
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mobile-flat-3d hidden sm:block"
         >
-          <Link href="/demo?type=webshop">
-            Gratis Demo Aanvragen
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Link>
-        </Button>
-        <p className="text-sm text-slate-500 mt-4">
-          Exacte prijs hangt af van uw wensen en complexiteit
-        </p>
-      </div>
-    </div>
-  </ScrollTrigger>
-)
+          <AbstractCard
+            gradient="from-primary-blue/60 to-primary-violet/50"
+            icon={ShoppingCart}
+            size="sm"
+          />
+        </m.div>
 
-const WhyUsCard = ({ item, index }: { item: typeof whyChooseUs[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-emerald/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-emerald/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-emerald" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
+        {/* Card 2 — midden, CreditCard (groter, focus) */}
+        <m.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+          style={{
+            transform: 'rotateY(-4deg) rotateX(2deg) translateZ(40px)',
+            transformStyle: 'preserve-3d',
+          }}
+          className="relative z-10 mobile-flat-3d"
+        >
+          <AbstractCard
+            gradient="from-primary-emerald/60 to-primary-blue/55"
+            icon={CreditCard}
+            size="lg"
+          />
+        </m.div>
 
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-emerald/30 to-transparent z-0" />
-      )}
+        {/* Card 3 — rechts-voor, TrendingUp */}
+        <m.div
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+          style={{
+            transform: 'rotateY(-22deg) rotateX(4deg) translateZ(90px) translateX(150px) translateY(40px)',
+            transformStyle: 'preserve-3d',
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mobile-flat-3d hidden sm:block"
+        >
+          <AbstractCard
+            gradient="from-primary-violet/60 to-primary-warm/50"
+            icon={TrendingUp}
+            size="sm"
+          />
+        </m.div>
+      </m.div>
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-emerald/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-emerald" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-emerald text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      {/* Floating badges rondom */}
+      <m.div
+        initial={{ opacity: 0, scale: 0.8, y: -10 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+        className="hidden sm:flex absolute top-[10%] left-[3%] lg:left-[5%] items-center gap-2 px-3 py-2 rounded-xl bg-[#FFFDF8]/95 backdrop-blur-sm border border-slate-200/60 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.15)]"
+      >
+        <div className="relative">
+          <div className="w-2 h-2 rounded-full bg-primary-emerald" />
+          <div className="absolute inset-0 w-2 h-2 rounded-full bg-primary-emerald animate-ping" />
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm leading-relaxed">{step.description}</p>
-      </div>
+        <span className="text-xs font-mono text-slate-700">Afrekenen</span>
+        <span className="text-xs font-mono font-bold text-primary-emerald">0.8s</span>
+      </m.div>
+
+      <m.div
+        initial={{ opacity: 0, scale: 0.8, y: -10 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.7, duration: 0.6 }}
+        className="hidden sm:flex absolute top-[15%] right-[3%] lg:right-[5%] items-center gap-2 px-3 py-2 rounded-xl bg-[#FFFDF8]/95 backdrop-blur-sm border border-slate-200/60 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.15)]"
+      >
+        <ShieldCheck className="w-3.5 h-3.5 text-primary-blue" />
+        <span className="text-xs font-mono text-slate-700">PCI-veilig</span>
+      </m.div>
+
+      <m.div
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+        className="hidden sm:flex absolute bottom-[18%] left-[4%] lg:left-[8%] items-center gap-2 px-3 py-2 rounded-xl bg-[#FFFDF8]/95 backdrop-blur-sm border border-slate-200/60 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.15)]"
+      >
+        <CreditCard className="w-3.5 h-3.5 text-primary-violet" />
+        <span className="text-xs font-mono text-slate-700">iDEAL · PayPal</span>
+      </m.div>
+
+      <m.div
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 1.0, duration: 0.6 }}
+        className="hidden sm:flex absolute bottom-[22%] right-[4%] lg:right-[8%] items-center gap-2 px-3 py-2 rounded-xl bg-[#FFFDF8]/95 backdrop-blur-sm border border-slate-200/60 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.15)]"
+      >
+        <TrendingUp className="w-3.5 h-3.5 text-primary-warm" />
+        <span className="text-xs font-mono text-slate-700">Conversie</span>
+        <span className="text-xs font-mono font-bold text-primary-emerald">+38%</span>
+      </m.div>
+
+      {/* Mobile-only: compact badge onderaan */}
+      <m.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        className="flex sm:hidden absolute bottom-4 left-1/2 -translate-x-1/2 items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B1121] text-white shadow-[0_8px_20px_-8px_rgba(15,23,42,0.3)]"
+      >
+        <div className="relative">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald" />
+          <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-primary-emerald animate-ping" />
+        </div>
+        <span className="text-[11px] font-mono">Laadtijd 0.8s</span>
+      </m.div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function EcommercePageClient() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-emerald/10 via-transparent to-transparent" />
+      {/* HERO */}
+      <HeroSection
+        eyebrow="E-commerce & Online Verkopen"
+        title={<>Webshop Laten Maken{' '}<span className="text-gradient">Die Verkoopt.</span></>}
+        subtitle="Razendsnelle webshops met moderne techniek. Uw producten online, perfect vindbaar, simpel te beheren."
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=webshop"
+        tags={heroTags}
+        visual={<ProductShowcase3D />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      {/* TECH STACK */}
+      <TechStackBar items={techStack} />
 
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-white/[0.06] text-slate-300 border-white/[0.08]">
-                <ShoppingCart className="w-4 h-4 mr-2 inline" />
-                E-commerce Ontwikkeling
-              </Badge>
+      {/* BELOFTES */}
+      <BeloftesStatsBar stats={whyChooseUs} />
 
-              <h1 id="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Webshop Laten Maken?{' '}
-                <span className="block text-gradient mt-2">
-                  Shopify & WooCommerce
-                </span>
-              </h1>
+      {/* 01 · VOOR WIE */}
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Van kleine maker<br />tot grote retailer —<br /><span className="text-gradient">winkels die serieus online willen.</span></>}
+        description="Wij bouwen webshops voor iedereen die meer wil dan een basic catalogus. Van eerste product tot duizenden artikelen."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Verkoopt u iets anders? Geen probleem — wij bouwen voor élke online verkoper."
+      />
 
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                <strong className="text-white">E-commerce oplossingen</strong> die verkopen.
-                Wij bouwen webshops op Shopify en WooCommerce die bezoekers omzetten in klanten.
-              </p>
+      {/* 02 · CHECKLIST */}
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Alles wat u nodig heeft<br /><span className="text-gradient">om te verkopen.</span></>}
+        description={'Alle 30+ punten hieronder zitten standaard in de prijs. Geen verborgen kosten, geen "oh dat is een extra pakket". Wat u ziet, krijgt u.'}
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'Wij geloven dat een webshop niet afhankelijk moet zijn van dure plug-ins. Wat u écht nodig heeft, krijgt u gewoon.',
+        }}
+      />
 
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Shopify of WooCommerce - wij adviseren</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Alle betaalmethodes geïntegreerd</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Geoptimaliseerd voor conversie</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Binnen 24 uur gratis demo</span>
-                </li>
-              </ul>
+      {/* 03 · PROCES */}
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Binnen 2-4 weken <span className="text-gradient">online.</span></>}
+        steps={processSteps}
+      />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25"
-                  asChild
-                >
-                  <Link href="/demo?type=webshop">
-                    Gratis Demo Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
+      {/* 04 · MISSIE */}
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise-webshops,<br /><span className="text-gradient">voor elke ondernemer.</span></>}
+        description={<>Grote online retailers gebruiken moderne headless-tech als <strong className="text-slate-800">Next.js, React en Stripe</strong> — snel, veilig, schaalbaar. Een kleine ondernemer verdient exact dezelfde kwaliteit, zonder enterprise-prijs.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze techniek wordt bijvoorbeeld gebruikt door:',
+          sources: [
+            { icon: Store, label: 'Grote retailers', color: 'text-primary-blue' },
+            { icon: ShoppingCart, label: 'Online merken', color: 'text-primary-emerald' },
+            { icon: TrendingUp, label: 'Schaalbare shops', color: 'text-primary-violet' },
+            { icon: Briefcase, label: 'B2B platforms', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde basis-techniek',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: Zap, text: 'Razendsnelle afrekenflow, meer verkopen per bezoeker' },
+          { icon: ShieldCheck, text: 'Veilig betalen volgens PCI-standaarden' },
+          { icon: Rocket, text: 'Klaar voor groei — van 10 tot 10.000 producten' },
+          { icon: CreditCard, text: 'Alle gangbare betaalmethoden en koppelingen' },
+        ]}
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=webshop"
+      />
 
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-emerald/20 via-primary-blue/10 to-transparent blur-3xl rounded-full" />
+      {/* 05 · PRIJS */}
+      <PrijsSection
+        sectionNumber="/ 05"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=webshop"
+        ctaSubtext="Eerste ontwerp binnen 24 uur — geheel vrijblijvend."
+        riskReversal={['Eerste ontwerp gratis', 'Niet tevreden = geen kosten']}
+        scarcity="Beperkt aantal projecten per maand"
+        confidenceTitle={<>Wat u betaalt, krijgt u. <span className="text-slate-400 font-normal">Geen meer, geen minder.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Wat we afspreken, betaalt u. Niks meer."
+      />
 
-              <HeroVisual variant="webshop" />
+      {/* 06 · FAQ */}
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="violet" />
 
-              {/* Floating cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Conversie</p>
-                    <p className="text-lg font-bold">Geoptimaliseerd</p>
-                  </div>
-                </div>
-              </m.div>
+      {/* 07 · CONTACT */}
 
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-blue/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-blue/20 flex items-center justify-center">
-                    <ShoppingCart className="w-5 h-5 text-primary-blue" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Platform</p>
-                    <p className="text-lg font-bold">Shopify/WooCommerce</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
+      {/* FINAL CTA */}
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== VIDEO SECTIE ==================== */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/50 to-white" />
-
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Video */}
-              <m.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative aspect-video rounded-2xl overflow-hidden border border-primary-emerald/20 shadow-2xl shadow-primary-emerald/10"
-              >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="none"
-                  className="w-full h-full object-cover"
-                  title="Webshop ontwikkeling demo"
-                  aria-label="Video demonstratie van onze webshop ontwikkeling"
-                >
-                  <source src="/website-laten-maken.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent" />
-
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
-                  <Badge className="bg-primary-emerald/90 text-slate-900 border-0">
-                    <Zap className="w-3 h-3 mr-1" />
-                    Snel Laden
-                  </Badge>
-                  <Badge className="bg-primary-blue/90 text-slate-900 border-0">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    Conversie Geoptimaliseerd
-                  </Badge>
-                </div>
-              </m.div>
-              <m.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <Badge className="mb-4 bg-white/[0.06] text-slate-300 border-white/[0.08]">
-                  <Target className="w-4 h-4 mr-2 inline" />
-                  Resultaatgericht
-                </Badge>
-
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6">
-                  <span className="text-slate-900">Webshop die </span>
-                  <span className="text-gradient">verkoopt</span>
-                </h2>
-
-                <p className="text-slate-500 text-lg mb-6 leading-relaxed">
-                  Een mooie webshop is niet genoeg. Uw webshop moet bezoekers omzetten in klanten.
-                  Daarom focussen wij op conversie: snelle laadtijden, intuïtieve checkout en vertrouwen.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {[
-                    { icon: Zap, text: 'Snelle laadtijden' },
-                    { icon: Lock, text: 'Veilig betalen' },
-                    { icon: TrendingUp, text: 'Conversie geoptimaliseerd' },
-                    { icon: Globe, text: 'SEO-vriendelijk' },
-                  ].map((item, index) => (
-                    <m.div
-                      key={index}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center gap-2 text-slate-600"
-                    >
-                      <item.icon className="w-5 h-5 text-primary-emerald" />
-                      <span className="text-sm">{item.text}</span>
-                    </m.div>
-                  ))}
-                </div>
-
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:scale-105 transition-transform"
-                  asChild
-                >
-                  <Link href="/demo">
-                    Gratis Demo Aanvragen
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </m.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">E-commerce Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Alles voor een <span className="text-gradient">succesvolle webshop</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van design tot betalingen, van voorraad tot verzending - wij regelen alle aspecten van uw webshop.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== PRIJS ==================== */}
-      <section className="py-24" aria-labelledby="prijs-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Investering</Badge>
-              <h2 id="prijs-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Webshop laten maken: <span className="text-gradient">wat kost het?</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Transparante prijzen, geen verrassingen achteraf. U ontvangt altijd een offerte op maat.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <PriceCard />
-        </div>
-      </section>
-
-      {/* ==================== WAAROM WIJ ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-emerald/10 bg-gradient-to-b from-primary-emerald/5 to-transparent">
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Start Beheer</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Waarom klanten voor <span className="text-gradient">ons kiezen</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyChooseUs.map((item, index) => (
-                  <WhyUsCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-16">
-                <Badge className="mb-4">Ons Proces</Badge>
-                <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Van idee naar <span className="text-gradient">verkoopsucces</span>
-                </h2>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <ProcessStepCard key={index} step={step} index={index} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">e-commerce</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="emerald" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-emerald/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-emerald/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis & Vrijblijvend
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Webshop laten maken?{' '}
-                <span className="text-gradient">Start vandaag!</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Vraag een vrijblijvende offerte aan. We bespreken uw producten en maken een plan voor uw webshop.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-emerald to-primary-blue hover:opacity-90 shadow-lg shadow-primary-emerald/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/demo?type=webshop">
-                    Gratis Demo Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Offerte binnen 48 uur
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Vaste prijsafspraak
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Uw concurrenten verkopen al online.<br /><span className="text-gradient">Waar bent u?</span></>}
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo?type=webshop"
+      />
     </div>
   )
 }

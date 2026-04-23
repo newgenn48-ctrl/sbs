@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Error({
   error,
@@ -10,19 +11,23 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    // Optionally log to an error reporting service
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.error('[route-error]', error)
+    }
   }, [error])
 
   return (
-    <section className="min-h-[60vh] flex items-center justify-center px-4">
+    <section className="min-h-[60vh] flex items-center justify-center px-4 py-20">
       <div className="text-center max-w-md">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-destructive/10 mb-6">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-50 mb-6">
           <svg
-            className="w-8 h-8 text-destructive"
+            className="w-8 h-8 text-red-500"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -31,24 +36,28 @@ export default function Error({
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold mb-3">Er ging iets mis</h1>
-        <p className="text-muted-foreground mb-8">
-          Er is een onverwachte fout opgetreden. Probeer het opnieuw of ga terug
-          naar de homepagina.
+        <h1 className="text-2xl font-bold text-slate-900 mb-3">Er ging iets mis</h1>
+        <p className="text-slate-600 mb-8 leading-relaxed">
+          Er is een onverwachte fout opgetreden. Probeer het opnieuw of ga terug naar de homepagina.
         </p>
+        {error.digest && (
+          <p className="text-xs text-slate-400 font-mono mb-6">
+            Foutreferentie: {error.digest}
+          </p>
+        )}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={reset}
-            className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+            className="px-6 py-3 rounded-lg bg-gradient-to-r from-primary-blue to-primary-violet text-white font-semibold hover:brightness-110 transition-all"
           >
             Probeer opnieuw
           </button>
-          <a
+          <Link
             href="/"
-            className="px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+            className="px-6 py-3 rounded-lg border border-slate-200 text-slate-900 font-semibold hover:bg-slate-50 transition-colors"
           >
             Naar homepagina
-          </a>
+          </Link>
         </div>
       </div>
     </section>

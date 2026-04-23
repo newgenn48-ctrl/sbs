@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Automatiseer repetitieve taken en workflows. RPA en AI-gedreven proces automatisering voor MKB.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/proces-automatisering',
   },
   twitter: {

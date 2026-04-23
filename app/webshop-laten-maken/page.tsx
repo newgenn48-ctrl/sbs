@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Webshop laten maken? Wij bouwen e-commerce oplossingen op Shopify en WooCommerce die verkopen. Betalingsintegraties en conversie optimalisatie.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/webshop-laten-maken',
   },
   twitter: {

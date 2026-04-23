@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Bereik topposities in Google met onze SEO-diensten. Wij optimaliseren uw website technisch, inhoudelijk en qua autoriteit voor duurzame, organische groei.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/seo-specialist',
   },
   twitter: {

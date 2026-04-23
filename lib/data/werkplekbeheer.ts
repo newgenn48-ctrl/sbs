@@ -1,183 +1,182 @@
-import type { ServiceColorKey } from '@/lib/colors'
-import type { LucideIcon } from 'lucide-react'
 import {
-  Laptop, Download, Headphones, UserPlus, UserMinus, Smartphone,
-  PackageOpen, MoveRight, Clock, UserCheck, Wrench, FileCheck,
-  Settings, RefreshCw
+  Laptop, Download, UserPlus, Smartphone,
+  Building2, Briefcase, Stethoscope, Store, Factory, Scale,
+  Headphones, ShieldCheck, Monitor, FileCheck, Clock, UserCheck,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-// ============================================================================
-// TYPES
-// ============================================================================
+export const heroTags = [
+  'Medewerkers snel productief',
+  'IT-support op één nummer',
+  'Onboarding & offboarding geregeld',
+]
 
-interface Service {
-  icon: LucideIcon
-  title: string
-  description: string
-  features: string[]
-  color: ServiceColorKey
-}
+export const whyChooseUs = [
+  { icon: Clock, title: 'Snelle hulp', description: 'Remote support binnen minuten — geen wachtrij, geen scripts.', stat: '< 15m', statLabel: 'respons' },
+  { icon: Laptop, title: 'Snelle uitrol', description: 'Nieuwe medewerker? Werkplek klaar binnen 1-2 dagen.', stat: '1-2', statLabel: 'werkdagen' },
+  { icon: FileCheck, title: 'Vaste prijs', description: 'Vast bedrag per werkplek per maand — geen verrassingen.', stat: '0', statLabel: 'verborgen kosten' },
+  { icon: UserCheck, title: 'Eén aanspreekpunt', description: 'Uw vaste werkplekbeheerder. Kent uw mensen bij naam.', stat: '1', statLabel: 'aanspreekpunt' },
+]
 
-interface WhyItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  stat: string
-  statLabel: string
-}
+export const targetAudience: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: Building2, title: 'Groeiend MKB', description: 'Veel nieuwe medewerkers per kwartaal? Wij zorgen dat iedereen dag 1 productief is.' },
+  { icon: Briefcase, title: 'Professionele diensten', description: 'Accountants, advocaten, consultants — werkplekken die altijd moeten werken tijdens klantwerk.' },
+  { icon: Stethoscope, title: 'Zorg & Praktijk', description: 'Praktijksoftware, patiëntdata, mobiele werkplekken — beheer met aandacht voor compliance.' },
+  { icon: Store, title: 'Retail & Horeca', description: 'Kantoor én winkelvloer. Laptops, kassa-pc’s, tablets — allemaal centraal beheerd.' },
+  { icon: Factory, title: 'Productie & Logistiek', description: 'Kantoorwerkplekken, productie-terminals en mobiele scanners — alles in één contract.' },
+  { icon: Scale, title: 'Juridisch & Notariaat', description: 'Veilige werkplekken voor gevoelige dossiers, met encryptie en strikte toegangscontrole.' },
+]
 
-interface ProcessStep {
-  step: string
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-interface FAQ {
-  q: string
-  a: string
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-export const services: Service[] = [
+export const includedChecklist = [
   {
     icon: Laptop,
-    title: 'Device Management',
-    description: 'Beheer van alle werkplekken: laptops, desktops en thin clients. Installatie, configuratie en onderhoud.',
-    features: ['Nieuwe werkplek inrichten', 'Hardware troubleshooting', 'Vervanging bij defect', 'Inventarisbeheer'],
-    color: 'emerald'
+    category: 'Device management',
+    color: 'from-primary-blue/10 to-primary-blue/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Windows, macOS en Linux werkplekken',
+      'Installatie, configuratie en onderhoud',
+      'Hardware-troubleshooting en vervanging',
+      'Inventaris-overzicht altijd actueel',
+      'Lifecycle-planning (vervangingstermijn)',
+    ],
   },
   {
     icon: Download,
-    title: 'Software Beheer',
-    description: 'Installatie en updates van alle software die uw medewerkers nodig hebben. Altijd up-to-date en gelicentieerd.',
-    features: ['Software installatie', 'Updates & patches', 'Licentie beheer', 'Applicatie support'],
-    color: 'blue'
-  },
-  {
-    icon: Headphones,
-    title: 'Helpdesk & Support',
-    description: 'Uw medewerkers kunnen bij ons terecht voor al hun IT-vragen. Remote of on-site hulp wanneer nodig.',
-    features: ['Remote support', 'Telefonische hulp', 'On-site wanneer nodig', 'Snelle responstijd'],
-    color: 'violet'
+    category: 'Software & licenties',
+    color: 'from-primary-violet/10 to-primary-violet/5',
+    iconColor: 'text-primary-violet',
+    items: [
+      'Microsoft 365, branche-apps, browsers',
+      'Updates en security-patches automatisch',
+      'Licentie-beheer op uw naam',
+      'Adobe, boekhoudpakket, CRM — wat u ook gebruikt',
+      'Standaard-image voor snelle uitrol',
+    ],
   },
   {
     icon: UserPlus,
-    title: 'Onboarding',
-    description: 'Nieuwe medewerker? Wij zorgen dat de werkplek klaar staat. Laptop, accounts, software - alles geregeld.',
-    features: ['Werkplek configuratie', 'Account aanmaken', 'Software installatie', 'Introductie IT'],
-    color: 'warm'
+    category: 'Onboarding & offboarding',
+    color: 'from-primary-emerald/10 to-primary-emerald/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Werkplek klaar op dag 1 van nieuwe medewerker',
+      'Accounts, e-mail en toegangsrechten geregeld',
+      'Welkom-mail met IT-instructies',
+      'Offboarding: data backup en veilige wipe',
+      'Accounts direct deactiveren bij vertrek',
+    ],
   },
   {
-    icon: UserMinus,
-    title: 'Offboarding',
-    description: 'Medewerker uit dienst? Wij zorgen voor veilige overdracht en opschoning van accounts en apparaten.',
-    features: ['Data backup', 'Account deactivatie', 'Apparaat innemen', 'Veilige data wissing'],
-    color: 'emerald'
+    icon: Headphones,
+    category: 'Helpdesk & support',
+    color: 'from-primary-warm/10 to-primary-warm/5',
+    iconColor: 'text-primary-warm',
+    items: [
+      'Bellen, mailen of ticket aanmaken',
+      'Remote support binnen minuten',
+      'On-site bij hardware-problemen',
+      'Vervangende hardware bij defect',
+      'Duidelijke SLA per support-niveau',
+    ],
   },
   {
     icon: Smartphone,
-    title: 'Mobiele Apparaten',
-    description: 'Zakelijke telefoons en tablets beheren. Beveiliging, apps en integratie met uw bedrijfsomgeving.',
-    features: ['Telefoon configuratie', 'App beheer', 'Beveiliging instellen', 'E-mail & agenda sync'],
-    color: 'blue'
+    category: 'Mobiel & hybride werken',
+    color: 'from-primary-blue/10 to-primary-violet/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Zakelijke telefoons en tablets beheren',
+      'Mobile Device Management (MDM)',
+      'E-mail en agenda veilig op elk toestel',
+      'Remote wipe bij verlies of diefstal',
+      'Thuiswerken met VPN of Zero Trust',
+    ],
   },
   {
-    icon: PackageOpen,
-    title: 'Werkplek Installatie',
-    description: 'Nieuwe werkplekken opzetten? Wij installeren en configureren alles: hardware, software, accounts en netwerk.',
-    features: ['Hardware setup', 'Software installatie', 'Netwerk configuratie', 'Gebruiker klaar maken'],
-    color: 'violet'
-  },
-  {
-    icon: MoveRight,
-    title: 'Werkplek Migratie',
-    description: 'Overstappen naar nieuwe systemen of hardware? Wij migreren data, instellingen en applicaties zonder productiviteitsverlies.',
-    features: ['Data migratie', 'Applicatie overdracht', 'Instellingen behouden', 'Minimale downtime'],
-    color: 'warm'
+    icon: ShieldCheck,
+    category: 'Security op de werkplek',
+    color: 'from-primary-emerald/10 to-primary-blue/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Endpoint-bescherming (antivirus, anti-malware)',
+      'Encryptie van harde schijven',
+      'Multi-factor authentication standaard',
+      'Automatische schermvergrendeling',
+      'Phishing-training voor medewerkers',
+    ],
   },
 ]
 
-export const whyChooseUs: WhyItem[] = [
-  {
-    icon: Clock,
-    title: 'Snelle Support',
-    description: 'Uw medewerkers krijgen snel hulp bij IT-problemen. Geen lange wachttijden.',
-    stat: 'Direct',
-    statLabel: 'beschikbaar'
-  },
-  {
-    icon: UserCheck,
-    title: 'Persoonlijke Aanpak',
-    description: 'Wij kennen uw medewerkers en hun werkplekken. Geen anonieme helpdesk.',
-    stat: '1',
-    statLabel: 'vast aanspreekpunt'
-  },
-  {
-    icon: Wrench,
-    title: 'Alles Inbegrepen',
-    description: 'Van installatie tot support, van onboarding tot offboarding. Compleet werkplekbeheer.',
-    stat: '100%',
-    statLabel: 'ontzorging'
-  },
-  {
-    icon: FileCheck,
-    title: 'Duidelijk Overzicht',
-    description: 'U weet precies welke apparaten en software u heeft. Altijd actueel.',
-    stat: 'Helder',
-    statLabel: 'inventaris'
-  },
-]
-
-export const processSteps: ProcessStep[] = [
+export const processSteps = [
   {
     step: '01',
-    title: 'Inventarisatie',
-    description: 'We brengen alle werkplekken in kaart: hardware, software, gebruikers.',
-    icon: Settings
+    title: 'Werkplek-audit',
+    description: 'Wij brengen alle werkplekken, software en licenties in kaart. U krijgt een rapport met risico’s en standaardisatie-kansen.',
+    icon: FileCheck,
   },
   {
     step: '02',
-    title: 'Standaardisatie',
-    description: 'We bepalen samen de ideale werkplek-configuratie voor uw organisatie.',
-    icon: FileCheck
+    title: 'Standaard op maat',
+    description: 'Samen definiëren we de ideale werkplek per rol. Welke hardware, welke software, welke toegang — helder op papier.',
+    icon: Monitor,
   },
   {
     step: '03',
-    title: 'Overname Beheer',
-    description: 'We nemen het beheer over en zorgen dat alles up-to-date en veilig is.',
-    icon: RefreshCw
+    title: 'Overname & inrichting',
+    description: 'Wij nemen het beheer over. Licenties op uw naam, inventaris ingevoerd, support-lijnen opgezet — zonder verstoring.',
+    icon: Laptop,
   },
   {
     step: '04',
-    title: 'Doorlopende Support',
-    description: 'Uw medewerkers kunnen bij ons terecht. Wij regelen de rest.',
-    icon: Headphones
+    title: 'Doorlopende ontzorging',
+    description: 'Medewerkers bellen of mailen ons. Onboarding, offboarding, incidenten — u hoort alleen het eindresultaat.',
+    icon: Headphones,
   },
 ]
 
-export const faqs: FAQ[] = [
+export const priceInfo = {
+  price: 'Op offerte',
+  description: 'Werkplekbeheer is nooit standaard. Vaste prijs per werkplek per maand op maat van software, hardware en gewenst support-niveau.',
+}
+
+export const confidencePoints = [
+  { title: 'Prijs per werkplek', description: 'Groeit u? Betaalt u meer. Krimpt u? Betaalt u minder' },
+  { title: 'U blijft eigenaar', description: 'Licenties en hardware op uw naam — altijd' },
+  { title: 'Maandelijks opzegbaar', description: 'Geen jaarcontract. Werkt het niet, stopt u' },
+]
+
+export const faqs = [
+  {
+    q: 'Wat kost werkplekbeheer?',
+    a: 'Vaste prijs per werkplek per maand. Hoogte hangt af van software-behoefte, support-niveau (office-only of 24/7) en hardware-afspraken. Na een gratis werkplek-audit ontvangt u een heldere offerte — u weet vooraf precies wat elke werkplek kost.',
+  },
   {
     q: 'Hoe snel kan een nieuwe medewerker aan de slag?',
-    a: 'Bij standaard onboarding is een nieuwe werkplek binnen 1-2 werkdagen klaar. Bij spoed kunnen we vaak dezelfde dag nog een laptop inrichten. We stemmen dit af op uw wensen.'
+    a: 'Standaard onboarding: werkplek klaar binnen 1-2 werkdagen. Bij spoed vaak dezelfde dag, mits de hardware beschikbaar is. Wij leveren een welkom-instructie mee zodat de eerste dag soepel verloopt.',
   },
   {
-    q: 'Hoe werkt een werkplek migratie?',
-    a: 'We plannen de migratie samen in. Eerst maken we een complete backup, dan installeren we de nieuwe werkplek met alle software en instellingen. Data en profielen worden overgezet. Uw medewerker merkt minimale onderbreking.'
-  },
-  {
-    q: 'Kunnen jullie meerdere werkplekken tegelijk installeren?',
-    a: 'Zeker. Bij grotere projecten - zoals een kantoorverhuizing of hardware refresh - plannen we de uitrol in fases. Zo verstoren we het dagelijks werk minimaal en blijft iedereen productief.'
+    q: 'Werken jullie met alle merken laptops?',
+    a: 'Ja. Dell, HP, Lenovo, Apple — wat u ook gebruikt. We adviseren graag op basis van use-case en budget, maar u bepaalt. Geen verplichte merken of leveranciers.',
   },
   {
     q: 'Hoe werkt de support voor medewerkers?',
-    a: 'Medewerkers kunnen bellen, mailen of een ticket aanmaken. We helpen eerst remote - vaak is het probleem zo opgelost. Als dat niet lukt, komen we on-site of sturen we vervangende hardware.'
+    a: 'Uw medewerkers bellen, mailen of openen een ticket. Wij helpen eerst remote — meestal is het probleem binnen minuten opgelost. Lukt dat niet? Dan komen we on-site of leveren we vervangende hardware.',
   },
   {
-    q: 'Wat kost werkplekbeheer per medewerker?',
-    a: 'De kosten hangen af van het pakket dat u kiest en het aantal werkplekken. We werken met vaste maandelijkse tarieven per werkplek, zodat u precies weet waar u aan toe bent. Vraag een offerte aan voor een prijsindicatie op maat.'
+    q: 'Wat gebeurt er bij een kantoorverhuizing of hardware-refresh?',
+    a: 'Grote projecten plannen we in fases zodat uw team productief blijft. Data, instellingen en profielen gaan mee. Oude hardware wordt veilig afgevoerd of overgedragen aan een recycler — AVG-proof gedocumenteerd.',
+  },
+  {
+    q: 'Kunnen jullie ook mobiele telefoons en tablets beheren?',
+    a: 'Ja. Via Mobile Device Management regelen we zakelijke e-mail, apps en beveiliging. Bij verlies of diefstal kan het toestel direct op afstand gewipet worden. Werkt met iPhone, Android en iPad.',
+  },
+  {
+    q: 'Wat bij offboarding van een medewerker?',
+    a: 'Op de afgesproken datum: accounts direct deactiveren, data backuppen, toegang intrekken, apparaat veilig wipen of doorgeven aan opvolger. Gedocumenteerd zodat u altijd kunt aantonen dat het AVG-proof is verlopen.',
+  },
+  {
+    q: 'Wat is het verschil met systeembeheer?',
+    a: 'Werkplekbeheer = de voorkant: laptops, PC’s, mobiele apparaten en software van uw medewerkers. Systeembeheer = de achterkant: servers, netwerk, backup, WiFi. Wij leveren ze los of samen — volledige IT-ontzorging in één contract.',
   },
 ]

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'AI-gedreven virtuele assistent voor MKB. Automatische telefoonbeantwoording, afspraakplanning en agenda beheer. 24/7 bereikbaar zonder extra personeel.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/virtuele-assistent',
   },
   twitter: {

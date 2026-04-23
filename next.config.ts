@@ -16,9 +16,11 @@ const nextConfig: NextConfig = {
   // Target modern browsers only - eliminates legacy polyfills
   transpilePackages: [],
 
-  // Compiler optimizations
+  // Compiler optimizations — strip console.log/debug/info/warn in prod, keep error/warn for observability
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? { exclude: ['error', 'warn'] }
+      : false,
   },
 
   images: {
@@ -75,10 +77,6 @@ const nextConfig: NextConfig = {
             value: 'DENY',
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
@@ -87,14 +85,18 @@ const nextConfig: NextConfig = {
             value: 'same-origin-allow-popups',
           },
           {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-site',
+          },
+          {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=()',
           },
           {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              // Note: unsafe-inline/eval required for Next.js + Framer Motion + Three.js
+              // Note: unsafe-inline/eval required for Next.js + Framer Motion
               // Consider implementing nonces for stricter CSP in production
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://www.googleadservices.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",

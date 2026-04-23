@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Werkplekbeheer uitbesteden? Veilige, gestandaardiseerde en optimaal presterende werkplekken met proactief beheer.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/werkplekbeheer-uitbesteden',
   },
   twitter: {

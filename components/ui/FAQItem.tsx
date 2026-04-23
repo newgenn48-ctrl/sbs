@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useId } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
@@ -22,14 +22,19 @@ interface FAQItemProps {
 
 export function FAQItem({ q, a, color = 'blue' }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const id = useId()
+  const buttonId = `faq-btn-${id}`
+  const panelId = `faq-panel-${id}`
 
   return (
     <div className="border-b border-slate-200">
       <button
         type="button"
+        id={buttonId}
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center text-left py-5"
         aria-expanded={isOpen}
+        aria-controls={panelId}
       >
         <h3 className="font-semibold text-lg text-slate-700 pr-4">{q}</h3>
         <ChevronDown
@@ -40,6 +45,9 @@ export function FAQItem({ q, a, color = 'blue' }: FAQItemProps) {
       <AnimatePresence>
         {isOpen && (
           <m.div
+            id={panelId}
+            role="region"
+            aria-labelledby={buttonId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

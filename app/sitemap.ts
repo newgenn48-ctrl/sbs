@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/contact',
     '/oplossingen',
+    '/demo',
+    '/gratis-advies',
   ]
 
   // IT Services
@@ -74,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Helper function to determine priority
   const getPriority = (route: string): number => {
     if (route === '') return 1.0 // Homepage
-    if (route === '/contact' || route === '/oplossingen') return 0.9 // Important pages
+    if (route === '/contact' || route === '/oplossingen' || route === '/demo' || route === '/gratis-advies') return 0.9 // Important pages
     if (servicePages.includes(route)) return 0.9 // All service pages
     if (route === '/about') return 0.8 // About page
     if (legalPages.includes(route)) return 0.3 // Legal pages

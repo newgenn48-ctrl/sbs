@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Systeembeheer uitbesteden? Wij beheren uw servers, netwerk en cloud-omgeving proactief. Voorkom downtime en maximaliseer prestaties.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/systeembeheer-uitbesteden',
   },
   twitter: {

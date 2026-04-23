@@ -1,174 +1,183 @@
-import type { ServiceColorKey } from '@/lib/colors'
 import {
-  Shield, Clock, Eye, Key,
-  Users, FileCheck, HardDrive,
-  Headphones, Settings, RefreshCw,
-  ShieldCheck, Scan
+  FileText, Users, ShieldCheck,
+  Building2, Briefcase, Stethoscope, Store, GraduationCap, Scale,
+  Search, Headphones, AlertTriangle,
+  Database, Fingerprint, ClipboardCheck, BookOpen,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
-// ============================================================================
-// TYPES
-// ============================================================================
-
-interface CyberService {
-  icon: LucideIcon
-  title: string
-  description: string
-  features: string[]
-  color: ServiceColorKey
-}
-
-interface WhyChooseUsItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  stat: string
-  statLabel: string
-}
-
-interface ProcessStep {
-  step: string
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-interface FAQ {
-  q: string
-  a: string
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-// Cybersecurity diensten
-export const services: CyberService[] = [
-  {
-    icon: Scan,
-    title: 'Security Audit',
-    description: 'Een grondige analyse van uw IT-beveiliging. We identificeren kwetsbaarheden en geven concrete aanbevelingen.',
-    features: ['Netwerk scan', 'Configuratie check', 'Rapport met prioriteiten', 'Actieplan'],
-    color: 'blue'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Endpoint Security',
-    description: 'Bescherming van alle werkplekken tegen malware, virussen en andere bedreigingen. Centraal beheerd.',
-    features: ['Antivirus & antimalware', 'Firewall beheer', 'Updates automatiseren', 'Monitoring'],
-    color: 'blue'
-  },
-  {
-    icon: Users,
-    title: 'Security Awareness Training',
-    description: 'Train uw medewerkers om phishing en social engineering te herkennen. De mens is vaak de zwakste schakel.',
-    features: ['Phishing simulaties', 'Interactieve trainingen', 'Bewustwording campagnes', 'Certificering medewerkers'],
-    color: 'violet'
-  },
-  {
-    icon: Key,
-    title: 'Toegangsbeheer',
-    description: 'Wie heeft toegang tot wat? Multi-factor authenticatie en goed wachtwoordbeleid beschermen uw data.',
-    features: ['MFA implementatie', 'Wachtwoordbeleid', 'Rechten beheer', 'Single sign-on'],
-    color: 'warm'
-  },
-  {
-    icon: HardDrive,
-    title: 'Backup & Recovery',
-    description: 'Veilige backups zodat u snel kunt herstellen na een incident. Ransomware hoeft geen ramp te zijn.',
-    features: ['Automatische backups', 'Off-site opslag', 'Regelmatige tests', 'Snelle recovery'],
-    color: 'emerald'
-  },
-  {
-    icon: Eye,
-    title: 'Monitoring & Response',
-    description: 'We houden uw systemen in de gaten en reageren snel bij verdachte activiteit.',
-    features: ['Log monitoring', 'Alerting', 'Incident response', 'Forensisch onderzoek'],
-    color: 'blue'
-  },
+export const heroTags = [
+  'Grondige audit in 1-2 dagen',
+  'Training in plain Nederlands',
+  'Concrete actieplannen',
 ]
 
-// Waarom cybersecurity
-export const whyChooseUs: WhyChooseUsItem[] = [
+export const whyChooseUs = [
+  { icon: Search, title: 'Grondige nulmeting', description: 'Alle risico’s zwart op wit.', stat: '48u', statLabel: 'rapport gereed' },
+  { icon: BookOpen, title: 'Praktische training', description: 'Uw team leert phishing herkennen.', stat: '100%', statLabel: 'medewerkers' },
+  { icon: FileText, title: 'Vaste prijs', description: 'Per audit of training. Geen verrassingen.', stat: '0', statLabel: 'verborgen kosten' },
+  { icon: Users, title: 'Eén aanspreekpunt', description: 'Uw vaste security-expert. Direct bereikbaar.', stat: '1', statLabel: 'aanspreekpunt' },
+]
+
+export const targetAudience: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: Scale, title: 'Advocatuur & Accountancy', description: 'Klantvertrouwelijkheid, AVG en tuchtrecht — audits en training niet optioneel.' },
+  { icon: Stethoscope, title: 'Zorg & Praktijk', description: 'NEN 7510 audits en bewustwording voor personeel dat met patiëntdata werkt.' },
+  { icon: Store, title: 'Webshops & Retail', description: 'PCI-compliance checks en phishing-training voor klantenservice-teams.' },
+  { icon: GraduationCap, title: 'Onderwijs', description: 'NEN 7510 voor scholen, awareness-training voor docenten en ICT-coördinatoren.' },
+  { icon: Building2, title: 'MKB met gevoelige data', description: 'HR, klantdata, intellectueel eigendom — weten waar u zwak staat is stap 1.' },
+  { icon: Briefcase, title: 'Bedrijven na een incident', description: 'Na een near-miss of aanval: uitgebreide audit én team-training voor herhalingspreventie.' },
+]
+
+export const includedChecklist = [
   {
-    icon: Shield,
-    title: 'Praktische Aanpak',
-    description: 'Geen overdreven complexiteit. Wij focussen op de maatregelen die voor uw organisatie het meeste verschil maken.',
-    stat: 'Focus',
-    statLabel: 'op wat werkt'
+    icon: ClipboardCheck,
+    category: 'Security audit (nulmeting)',
+    color: 'from-primary-blue/10 to-primary-blue/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Grondige check van firewall, servers en apparaten',
+      'Wachtwoord-policy en MFA-gebruik beoordeeld',
+      'Back-up setup getest op herstelbaarheid',
+      'AVG en NEN-compliance geaudit',
+      'Uitgebreid rapport met risico’s en prioriteiten',
+    ],
   },
   {
-    icon: Clock,
-    title: 'Snelle Hulp',
-    description: 'Bij een incident bent u niet alleen. Wij helpen u snel de schade te beperken en te herstellen.',
-    stat: 'Direct',
-    statLabel: 'beschikbaar'
+    icon: BookOpen,
+    category: 'Awareness-training',
+    color: 'from-primary-violet/10 to-primary-violet/5',
+    iconColor: 'text-primary-violet',
+    items: [
+      'Interactieve training (1-2 uur) op locatie of online',
+      'Plain Nederlands, geen tech-jargon',
+      'Phishing-simulaties — leer door te doen',
+      'Certificaat per medewerker na afronding',
+      'Updates bij nieuwe aanvalstechnieken',
+    ],
   },
   {
-    icon: FileCheck,
-    title: 'Compliance',
-    description: 'AVG, NIS2, ISO 27001 - wij helpen u voldoen aan de eisen die voor uw branche gelden.',
-    stat: 'AVG',
-    statLabel: 'compliant'
+    icon: Fingerprint,
+    category: 'Toegang & identiteit',
+    color: 'from-primary-emerald/10 to-primary-emerald/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Multi-factor authenticatie (MFA) uitrollen',
+      'Password manager inrichten voor uw team',
+      'Single sign-on (SSO) waar mogelijk',
+      'Rechten per medewerker op maat',
+      'Checklist voor uitdiensttreding',
+    ],
+  },
+  {
+    icon: Database,
+    category: 'Data & backup',
+    color: 'from-primary-warm/10 to-primary-warm/5',
+    iconColor: 'text-primary-warm',
+    items: [
+      'Back-up strategie op maat (3-2-1 regel)',
+      'Ransomware-bestendige kluis-backup',
+      'Kwartaal-test van herstelprocedure',
+      'Encryptie van gevoelige data',
+      'AVG-proof verwerking met logging',
+    ],
+  },
+  {
+    icon: AlertTriangle,
+    category: 'Incident-respons plan',
+    color: 'from-primary-blue/10 to-primary-violet/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Stappenplan: wat doen bij een aanval?',
+      'Contactpersonen en rollen helder vastgelegd',
+      'Communicatietemplate voor klanten',
+      'Draaiboek voor datalek-melding (AP)',
+      'Jaarlijkse oefening met uw team',
+    ],
   },
   {
     icon: Headphones,
-    title: 'Nederlandse Support',
-    description: 'Geen buitenlandse helpdesk. Persoonlijk contact met IT-beveiligingsexperts die uw taal spreken.',
-    stat: '100%',
-    statLabel: 'Nederlands'
+    category: 'Support & opvolging',
+    color: 'from-primary-emerald/10 to-primary-blue/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Vaste contactpersoon, geen callcenter',
+      'Antwoord binnen 24 uur op vragen',
+      'Kwartaalreview na implementatie',
+      'Hulp bij vragen na training',
+      'Advies bij nieuwe tools of leveranciers',
+    ],
   },
 ]
 
-// Het proces
-export const processSteps: ProcessStep[] = [
+export const processSteps = [
   {
     step: '01',
-    title: 'Assessment',
-    description: 'We brengen uw huidige beveiliging in kaart en identificeren de belangrijkste risico\'s.',
-    icon: Scan,
+    title: 'Kennismaking',
+    description: 'Gratis gesprek over uw bedrijf, huidige setup en grootste zorgen — zonder jargon.',
+    icon: Users,
   },
   {
     step: '02',
-    title: 'Prioriteiten',
-    description: 'Samen bepalen we welke maatregelen het meeste impact hebben voor uw situatie.',
-    icon: FileCheck
+    title: 'Nulmeting',
+    description: 'Grondige audit op locatie of remote. Binnen 48 uur ontvangt u een rapport met risico’s en aanbevelingen.',
+    icon: Search,
   },
   {
     step: '03',
-    title: 'Implementatie',
-    description: 'We voeren de beveiligingsmaatregelen stap voor stap door met minimale verstoring.',
-    icon: Settings
+    title: 'Training & actieplan',
+    description: 'Awareness-training voor uw team en concrete stappen om de grootste risico’s weg te nemen.',
+    icon: BookOpen,
   },
   {
     step: '04',
-    title: 'Onderhoud',
-    description: 'Beveiliging is geen eenmalige actie. Wij houden uw systemen veilig.',
-    icon: RefreshCw
+    title: 'Implementatie & review',
+    description: 'Wij helpen met implementatie en komen terug voor een review na 3 maanden.',
+    icon: ShieldCheck,
   },
 ]
 
-// FAQ
-export const faqs: FAQ[] = [
+export const priceInfo = {
+  price: 'Op offerte',
+  description: 'Audits en trainingen zijn nooit standaard. Vaste prijs per audit of training, geen uurtje-factuurtje.',
+}
+
+export const confidencePoints = [
+  { title: 'Vaste prijs per audit', description: 'Nulmeting, rapport en adviesgesprek in één pakket' },
+  { title: 'Vaste prijs per training', description: 'Awareness-training voor uw team met certificaten' },
+  { title: 'Gratis intakegesprek', description: 'Eerst weten wat u nodig heeft, dan pas een offerte' },
+]
+
+export const faqs = [
   {
-    q: 'Hoe weet ik of mijn bedrijf goed beveiligd is?',
-    a: 'Een security audit geeft u inzicht in de huidige staat van uw beveiliging. We testen uw systemen, bekijken configuraties en rapporteren over gevonden kwetsbaarheden met concrete aanbevelingen.'
+    q: 'Wat kost een security-audit?',
+    a: 'Dat werkt op offerte. De prijs hangt af van grootte van uw bedrijf, aantal apparaten en de diepgang van de audit. Na een gratis intakegesprek ontvangt u een vaste prijs. Een standaard MKB-audit is meestal binnen 1-2 dagen afgerond.',
   },
   {
-    q: 'Is cybersecurity niet alleen voor grote bedrijven?',
-    a: 'Juist niet. Kleine bedrijven zijn aantrekkelijke doelwitten omdat ze vaak minder goed beveiligd zijn. Gelukkig hoeft goede beveiliging niet duur te zijn - het gaat om de juiste basismaatregelen.'
+    q: 'Wat kost een awareness-training?',
+    a: 'Ook op offerte, afhankelijk van teamgrootte en gewenste diepgang. Een basistraining (1-2 uur) voor een team van 10-20 mensen zit meestal tussen €495 en €1.250 excl. BTW, inclusief phishing-simulaties en certificaten.',
   },
   {
-    q: 'Waarom is security awareness training belangrijk?',
-    a: '85% van alle cyberaanvallen begint met een menselijke fout, zoals het klikken op een phishing link. Goed getrainde medewerkers herkennen bedreigingen en weten hoe ze moeten handelen. Dit is vaak uw beste verdediging.'
+    q: 'Mijn bedrijf is klein — is een audit wel nodig?',
+    a: '43% van cyberaanvallen treft juist kleine bedrijven, omdat hackers weten dat de beveiliging daar zwakker is. Eén ransomware-aanval kost gemiddeld €30.000+ en weken downtime. Een audit kost een fractie daarvan en maakt concreet waar uw grootste risico’s liggen.',
   },
   {
-    q: 'Wat kost een ransomware aanval?',
-    a: 'Gemiddeld kost een ransomware aanval een MKB bedrijf tussen de 50.000 en 250.000 euro aan schade, losgeld, herstelkosten en gemiste omzet. Preventie is vele malen goedkoper dan herstel.'
+    q: 'Wat gebeurt er tijdens een nulmeting?',
+    a: 'Wij checken in 1-2 dagen uw firewall, wachtwoord-beleid, MFA-gebruik, back-up setup, apparaatbeveiliging en medewerker-bewustwording. U krijgt een rapport met concrete risico’s, prioriteiten en een actieplan.',
   },
   {
-    q: 'Hoe lang duurt het om basis beveiliging op orde te krijgen?',
-    a: 'De belangrijkste maatregelen - MFA, goede backups, endpoint security - kunnen we vaak binnen enkele weken implementeren. Een volledig beveiligingsplan is een doorlopend proces.'
+    q: 'Zit er implementatie bij?',
+    a: 'Optioneel. De audit en training zijn onafhankelijk. Wilt u dat wij ook helpen bij het doorvoeren van de aanbevelingen (MFA uitrollen, backup opzetten, enz.)? Dat kan tegen vaste prijzen per onderdeel.',
+  },
+  {
+    q: 'Hoe werkt de awareness-training?',
+    a: 'Interactieve sessie van 1-2 uur op locatie of online. Uw team leert phishing herkennen door echte voorbeelden en simulaties. Na afloop krijgt elke medewerker een certificaat. Updates sturen wij bij nieuwe aanvalstechnieken.',
+  },
+  {
+    q: 'Kunnen jullie ook 24/7 monitoring bieden?',
+    a: 'Nee, wij zijn geen managed security provider. Wij doen audits, trainingen en implementatie. Voor 24/7 SOC-diensten verwijzen wij naar gespecialiseerde partners — vaak is dat voor MKB ook niet nodig als de basis op orde is.',
+  },
+  {
+    q: 'Hoe vaak moet een audit herhaald worden?',
+    a: 'Jaarlijks is standaard voor MKB. Bij grote wijzigingen (nieuwe software, personeelsgroei, verhuizing) raden we een tussentijdse check aan. Compliance-eisen (NEN 7510, AVG) kunnen frequentere audits vereisen.',
   },
 ]

@@ -1,399 +1,230 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import CategoryCardsSection from '@/components/sections/landing/CategoryCardsSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Code2, CheckCircle2, ArrowRight, Zap
+  Globe, ShoppingCart, LayoutDashboard, Workflow, Sparkles,
+  Code2, Zap, Database, Cpu,
 } from 'lucide-react'
-import Link from 'next/link'
-import { developmentServices, whyCustomDev, technologies, processSteps } from '@/lib/data/development'
-import { serviceColors } from '@/lib/colors'
+
+const cards = [
+  {
+    icon: Globe,
+    eyebrow: 'Zakelijke website',
+    title: 'Website Laten Maken',
+    description: 'Custom-coded, razendsnel en SEO-proof. Voor bedrijven die zich professioneel willen presenteren.',
+    bullets: [
+      'Laadtijd onder 2 seconden',
+      'Uniek design, geen templates',
+      '100% eigenaar van de code',
+    ],
+    price: '€785',
+    href: '/website-laten-maken',
+    gradient: 'from-primary-emerald to-primary-blue',
+    accent: 'text-primary-emerald',
+  },
+  {
+    icon: ShoppingCart,
+    eyebrow: 'E-commerce',
+    title: 'Webshop Laten Maken',
+    description: 'Converterende webshops met snelle checkout en koppelingen met uw voorraad en boekhouding.',
+    bullets: [
+      'Shopify of volledig maatwerk',
+      'iDEAL, creditcard, Klarna',
+      'Gekoppeld aan CRM en boekhouding',
+    ],
+    price: '€785',
+    href: '/webshop-laten-maken',
+    gradient: 'from-primary-blue to-primary-violet',
+    accent: 'text-primary-blue',
+  },
+  {
+    icon: LayoutDashboard,
+    eyebrow: 'Maatwerk software',
+    title: 'Webapplicatie Laten Maken',
+    description: 'Klantportals, dashboards en interne tools, op maat gebouwd rond uw proces en met API-koppelingen.',
+    bullets: [
+      'Login, rollen en rechten standaard',
+      'API-integraties op maat',
+      'Moderne, schaalbare stack',
+    ],
+    price: 'Op offerte',
+    href: '/webapplicatie-laten-maken',
+    gradient: 'from-primary-violet to-primary-blue',
+    accent: 'text-primary-violet',
+    badge: 'Maatwerk',
+  },
+  {
+    icon: Workflow,
+    eyebrow: 'Automatisering op maat',
+    title: 'Proces Automatisering',
+    description: 'Elk handmatig proces op maat geautomatiseerd — van simpele Zapier-flows tot complexe custom builds.',
+    bullets: [
+      'No-code waar kan, custom waar moet',
+      'Koppelingen met elk systeem of tool',
+      'Vooraf berekende ROI per flow',
+    ],
+    price: 'Op offerte',
+    href: '/proces-automatisering',
+    gradient: 'from-primary-warm to-primary-violet',
+    accent: 'text-primary-warm',
+  },
+]
+
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Code + architectuur layered mockup
 // ============================================================================
+function CodeStackMockup() {
+  const codeLines = [
+    { indent: 0, content: 'export async function handler(req, res) {', color: 'text-primary-violet' },
+    { indent: 1, content: 'const data = await db.query(sql);', color: 'text-slate-300' },
+    { indent: 1, content: 'const result = transform(data);', color: 'text-slate-300' },
+    { indent: 1, content: 'return res.json({', color: 'text-primary-blue' },
+    { indent: 2, content: 'ok: true, data: result', color: 'text-primary-emerald' },
+    { indent: 1, content: '});', color: 'text-primary-blue' },
+    { indent: 0, content: '}', color: 'text-primary-violet' },
+  ]
 
-const ServiceCard = ({ service, index }: { service: typeof developmentServices[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-6 lg:p-8 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group flex flex-col`}>
-      <div className={`w-14 h-14 rounded-2xl ${serviceColors[service.color].bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-7 h-7 ${serviceColors[service.color].text}`} />
-      </div>
-
-      <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-      <p className="text-slate-500 mb-6">{service.description}</p>
-
-      <ul className="space-y-2 mb-6 flex-grow">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <Button
-        className={`w-full ${serviceColors[service.color].bg} hover:${serviceColors[service.color].bgHover} ${serviceColors[service.color].text} border ${serviceColors[service.color].btnBorder}`}
-        asChild
-      >
-        <Link href={service.link}>
-          {service.cta}
-          <ArrowRight className="ml-2 w-4 h-4" />
-        </Link>
-      </Button>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyUsCard = ({ item, index }: { item: typeof whyCustomDev[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-violet/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-violet/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-violet" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-violet/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-violet/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-violet" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-violet text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-blue/15">
+        {/* Header — code editor chrome */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+          </div>
+          <div className="flex-1 flex items-center gap-2">
+            <Code2 className="w-3.5 h-3.5 text-slate-500" />
+            <span className="text-[11px] text-slate-500 font-mono">api/handler.ts</span>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <Zap className="w-3 h-3" />
+            &lt; 50ms
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm leading-relaxed">{step.description}</p>
+
+        {/* Code */}
+        <div className="p-4 font-mono text-xs space-y-1">
+          {codeLines.map((line, i) => (
+            <m.div
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 + i * 0.08 }}
+              className="flex items-center gap-3"
+            >
+              <span className="text-slate-700 text-[10px] w-4 text-right">{i + 1}</span>
+              <div style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
+                <span className={line.color}>{line.content}</span>
+              </div>
+            </m.div>
+          ))}
+        </div>
+
+        {/* Stack indicators */}
+        <div className="border-t border-white/[0.06] px-4 py-3 bg-white/[0.02]">
+          <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-semibold">Stack</div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { icon: Code2, label: 'Next.js + TS', color: 'text-primary-blue' },
+              { icon: Database, label: 'Postgres', color: 'text-primary-emerald' },
+              { icon: Cpu, label: 'Edge-ready', color: 'text-primary-violet' },
+            ].map((s, i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 + i * 0.1 }}
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-white/[0.03] border border-white/[0.05]"
+              >
+                <s.icon className={`w-3 h-3 ${s.color}`} />
+                <span className="text-[10px] text-slate-300 font-medium">{s.label}</span>
+              </m.div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function DevelopmentPageClient() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-blue/15 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Development"
+        title={<>Software Op Maat.{' '}<span className="text-gradient">Gebouwd Om Te Werken.</span></>}
+        subtitle="Websites, webshops, applicaties en automatiseringen — custom-coded, met moderne stack en zonder template-ballast. U bent eigenaar van elk stukje code."
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo"
+        tags={['100% custom code', 'Moderne stack', 'Eigenaar van uw code']}
+        visual={<CodeStackMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <CategoryCardsSection
+        sectionNumber="/ 01"
+        eyebrow="Vier soorten development"
+        title={<>Van simpele site tot <span className="text-gradient">complexe automatisering.</span></>}
+        description="Elk project is anders. Wij bouwen wat u nodig heeft — geen over-engineering, geen template-trucs. Gewoon solide software die haar werk doet."
+        cards={cards}
+        footer={
+          <p className="text-sm text-slate-500">
+            Niet zeker wat uw project is? <span className="text-slate-700 font-semibold">Beschrijf het</span> — wij adviseren vrijblijvend welke aanpak past.
+          </p>
+        }
+      />
 
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-white/[0.06] text-slate-300 border-white/[0.08]">
-                <Code2 className="w-4 h-4 mr-2 inline" />
-                Web Development
-              </Badge>
-
-              <h1 id="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Websites &{' '}
-                <span className="block text-gradient mt-2">
-                  Webapplicaties
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                <strong className="text-white">Custom development</strong> voor bedrijven die het verschil willen maken.
-                Geen templates, geen compromissen - alleen <strong className="text-white">maatwerk</strong> dat resultaat oplevert.
-              </p>
-
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Professionele websites die converteren</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Webapplicaties op maat voor uw processen</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>E-commerce oplossingen die verkopen</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Binnen 24 uur gratis demo</span>
-                </li>
-              </ul>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25"
-                  asChild
-                >
-                  <Link href="/demo">
-                    Gratis Demo Aanvragen
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                </div>
-            </m.div>
-
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <HeroVisual variant="development" />
-
-              {/* Floating cards - hidden on mobile */}
+      <section className="relative py-20 sm:py-28 bg-[#0B1121] overflow-hidden">
+        <div className="divider-hairline-dark absolute top-0 left-0 right-0" />
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-blue mb-4">/ 02 · Onze engineering-principes</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight mb-6 leading-[1.1]">
+            Geen spaghetti-code.<br />
+            <span className="text-gradient">Geen vendor lock-in.</span>
+          </h2>
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
+            Wij schrijven code zoals een goede timmerman bouwt: netjes, onderhoudbaar, en bedoeld om lang mee te gaan. Ook als wij er ooit niet meer zijn, kan iedere andere ontwikkelaar er verder mee.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              { icon: Code2, label: 'Moderne stack', detail: 'Next.js, TypeScript, Postgres' },
+              { icon: Zap, label: 'Extreme snelheid', detail: 'Edge-ready, < 100ms response' },
+              { icon: Database, label: 'Uw eigen infra', detail: 'Hosting op uw naam' },
+              { icon: Sparkles, label: 'Uitbreidbaar', detail: 'Groei zonder herbouw' },
+            ].map((item, i) => (
               <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.06]"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Performance</p>
-                    <p className="text-lg font-bold">Razendsnel</p>
-                  </div>
-                </div>
+                <item.icon className="w-6 h-6 text-primary-blue mb-3 mx-auto" />
+                <div className="text-sm font-bold text-white mb-1">{item.label}</div>
+                <div className="text-xs text-slate-500">{item.detail}</div>
               </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-violet/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-violet/20 flex items-center justify-center">
-                    <Code2 className="w-5 h-5 text-primary-violet" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400">Code</p>
-                    <p className="text-lg font-bold">100% Custom</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== SEO INTRO ==================== */}
-      <section className="py-16" aria-labelledby="seo-intro-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-primary-violet/5 via-transparent to-primary-blue/5 border border-slate-200">
-              <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-primary-violet/30 rounded-tl-2xl" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-primary-blue/30 rounded-br-2xl" />
-
-              <div className="text-center">
-                <h2 id="seo-intro-title" className="text-2xl md:text-3xl font-bold mb-6">
-                  Web Development die het <span className="text-gradient">verschil maakt</span>
-                </h2>
-                <p className="text-lg text-slate-500 leading-relaxed">
-                  Wij geloven niet in templates en standaard oplossingen. Elk bedrijf is uniek en verdient een website of applicatie die dat weerspiegelt.
-                  Onze <strong className="text-slate-600">custom development</strong> aanpak levert websites die niet alleen mooi zijn, maar ook
-                  <strong className="text-slate-600"> razendsnel</strong>, <strong className="text-slate-600">veilig</strong> en <strong className="text-slate-600">schaalbaar</strong>.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Onze Development Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Van concept tot <span className="text-gradient">lancering</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Of u nu een website, webapplicatie of webshop nodig heeft - wij bouwen het op maat voor uw specifieke situatie.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-            {developmentServices.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ==================== WAAROM CUSTOM ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-violet/10 bg-gradient-to-b from-primary-violet/5 to-transparent">
-              <div className="absolute left-0 top-1/4 w-1 h-24 bg-gradient-to-b from-primary-violet/50 to-transparent rounded-full" />
-              <div className="absolute right-0 bottom-1/4 w-1 h-24 bg-gradient-to-t from-primary-emerald/50 to-transparent rounded-full" />
-
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Custom Development</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    Geen templates, geen <span className="text-gradient">compromissen</span>
-                  </h2>
-                  <p className="text-slate-500 max-w-2xl mx-auto">
-                    Template websites zijn traag, onveilig en zien er allemaal hetzelfde uit. Wij bouwen alles vanaf scratch voor optimale prestaties.
-                  </p>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyCustomDev.map((item, index) => (
-                  <WhyUsCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== TECHNOLOGIEËN ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="tech-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Onze Stack</Badge>
-              <h2 id="tech-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Moderne <span className="text-gradient">technologieën</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                We werken met de nieuwste en beste technologieën voor optimale performance en developer experience.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-            {technologies.map((tech, index) => (
-              <ScrollTrigger key={index} delay={index * 0.05}>
-                <div className="glass-effect p-4 rounded-xl border border-slate-200 hover:border-primary-violet/30 transition-all text-center">
-                  <p className="font-bold text-slate-900 mb-1">{tech.name}</p>
-                  <p className="text-xs text-slate-400">{tech.description}</p>
-                </div>
-              </ScrollTrigger>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary-violet to-transparent rounded-full" />
-
-              <div className="pt-8">
-                <ScrollTrigger>
-                  <header className="text-center mb-16">
-                    <Badge className="mb-4">Ons Proces</Badge>
-                    <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                      Van idee naar <span className="text-gradient">realiteit</span>
-                    </h2>
-                    <p className="text-slate-500 max-w-2xl mx-auto">
-                      Een bewezen proces dat zorgt voor succesvolle projecten.
-                    </p>
-                  </header>
-                </ScrollTrigger>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {processSteps.map((step, index) => (
-                    <ProcessStepCard key={index} step={step} index={index} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-violet/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-violet/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis & Vrijblijvend
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar voor een website die{' '}
-                <span className="text-gradient">écht werkt?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Plan een gratis adviesgesprek. We bespreken uw wensen en adviseren de beste aanpak voor uw project.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/demo">
-                    Start Uw Project
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Advies op maat
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Reactie binnen 24 uur
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Idee voor een project?<br /><span className="text-gradient">Wij bouwen het voor u.</span></>}
+        ctaLabel="Gratis Demo Aanvragen"
+        ctaHref="/demo"
+      />
     </div>
   )
 }

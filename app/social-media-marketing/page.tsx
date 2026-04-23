@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Effectieve social media marketing die uw doelgroep engageert en converteert.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/social-media-marketing',
   },
   twitter: {

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Website Laten Maken | Professioneel & op Maat | Start Beheer',
-    description: 'Website laten maken? Professionele websites op maat vanaf €785. Custom design, SEO-geoptimaliseerd, mobile-first.',
+    description: 'Website laten maken? Professionele websites op maat vanaf €585 excl. BTW. Custom design, SEO-geoptimaliseerd, mobile-first.',
     type: 'website',
     locale: 'nl_NL',
     siteName: 'Start Beheer Solutions',
@@ -95,10 +95,10 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Regelen jullie ook hosting en domein?',
+      name: 'Wat is wel en niet inbegrepen qua hosting en domein?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja. Domein, hosting, SSL, e-mail — wij regelen de complete technische setup. Eén aanspreekpunt voor alles.'
+        text: 'Inbegrepen: de website, hosting op Nederlandse servers, SSL-certificaat en training. Niet inbegrepen: uw domeinnaam (www.uwbedrijf.nl) en zakelijke e-mail — die regelt u zelf bij een provider naar keuze. Wij koppelen uw domein moeiteloos aan de nieuwe website.'
       }
     },
     {
@@ -114,7 +114,7 @@ const faqSchema = {
       name: 'Krijg ik support na oplevering?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja. Kleine aanpassingen, vragen en technische support zijn inbegrepen. U staat er niet alleen voor.'
+        text: 'Ja. De eerste 2 maanden krijgt u gratis support via e-mail, telefoon of WhatsApp — reactie binnen 24 uur. Kleine aanpassingen en vragen zijn inbegrepen, met altijd dezelfde vaste contactpersoon.'
       }
     }
   ]
@@ -197,6 +197,37 @@ const breadcrumbSchema = {
   ],
 }
 
+// LocalBusiness Schema — boost Dutch local SEO
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://startbeheer.nl/#organization',
+  name: 'Start Beheer Solutions',
+  description: 'Webdesign en development voor ZZP en MKB in Nederland. Professionele websites op maat vanaf €585.',
+  url: 'https://startbeheer.nl',
+  telephone: '+31687874001',
+  priceRange: '€€',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Nederland'
+  },
+  serviceArea: {
+    '@type': 'Country',
+    name: 'Nederland'
+  },
+  knowsLanguage: ['nl', 'en'],
+  makesOffer: {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name: 'Website Laten Maken',
+      description: 'Professionele website op maat met moderne techniek'
+    },
+    price: '585',
+    priceCurrency: 'EUR'
+  }
+}
+
 export default function WebsitePage() {
   return (
     <>
@@ -211,6 +242,10 @@ export default function WebsitePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <WebsitePageClient />
     </>

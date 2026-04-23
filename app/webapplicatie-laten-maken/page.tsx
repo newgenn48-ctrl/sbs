@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Webapplicatie laten maken? Wij bouwen op maat gemaakte webapplicaties die uw bedrijfsprocessen stroomlijnen.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/webapplicatie-laten-maken',
   },
   twitter: {

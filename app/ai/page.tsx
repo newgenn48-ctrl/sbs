@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Professionele AI-oplossingen voor het MKB. Chatbots, process automation en AI analytics met meetbare ROI.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/ai',
   },
   twitter: {

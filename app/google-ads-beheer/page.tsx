@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Professioneel Google Ads beheer. Krijg meer gekwalificeerde leads via gerichte advertentiecampagnes.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/google-ads-beheer',
   },
   twitter: {

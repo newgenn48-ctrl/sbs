@@ -1,409 +1,312 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
 import {
-  Workflow, CheckCircle2, ArrowRight,
-  Cog, Clock, FileText, Database
+  SiZapier, SiMake, SiAirtable, SiSlack, SiNotion,
+  SiGooglesheets, SiPython, SiOpenai, SiHubspot,
+  SiSalesforce, SiStripe, SiShopify, SiGmail,
+  SiNodedotjs, SiPostgresql, SiGithub,
+} from 'react-icons/si'
+import { HiPlus } from 'react-icons/hi'
+import {
+  Workflow, Database, FileText, CheckCircle2, ArrowDown,
+  Settings, Zap, TrendingUp, Building2, Briefcase, Sparkles, Target,
 } from 'lucide-react'
-import Link from 'next/link'
-import { FAQItem } from '@/components/ui/FAQItem'
-import { services, whyAutomation, processSteps, faqs } from '@/lib/data/process-automation'
-import { serviceColors } from '@/lib/colors'
+
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/process-automation'
+
+const techStack = [
+  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiMake, name: 'Make' },
+  { icon: SiPython, name: 'Python' },
+  { icon: SiNodedotjs, name: 'Node.js' },
+  { icon: SiOpenai, name: 'OpenAI' },
+  { icon: SiGithub, name: 'GitHub' },
+  { icon: SiAirtable, name: 'Airtable' },
+  { icon: SiGooglesheets, name: 'Sheets' },
+  { icon: SiPostgresql, name: 'PostgreSQL' },
+  { icon: SiHubspot, name: 'HubSpot' },
+  { icon: SiSalesforce, name: 'Salesforce' },
+  { icon: SiStripe, name: 'Stripe' },
+  { icon: SiShopify, name: 'Shopify' },
+  { icon: SiGmail, name: 'Gmail' },
+  { icon: SiSlack, name: 'Slack' },
+  { icon: SiNotion, name: 'Notion' },
+  { icon: HiPlus, name: 'En nog veel meer' },
+]
+
 // ============================================================================
-// COMPONENTS
+// HERO VISUAL — Workflow automation diagram
 // ============================================================================
-
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <article className={`glass-effect p-5 sm:p-6 rounded-2xl h-full border ${serviceColors[service.color].border} ${serviceColors[service.color].borderHover} transition-all group`}>
-      <div className={`w-12 h-12 rounded-xl ${serviceColors[service.color].bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <service.icon className={`w-6 h-6 ${serviceColors[service.color].text}`} />
-      </div>
-
-      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-      <p className="text-slate-500 mb-4 text-sm">{service.description}</p>
-
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className={`w-4 h-4 ${serviceColors[service.color].text} flex-shrink-0`} />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </article>
-  </ScrollTrigger>
-)
-
-const WhyCard = ({ item, index }: { item: typeof whyAutomation[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-4 sm:p-6 rounded-2xl border border-slate-200 hover:border-primary-violet/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-3 sm:mb-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-violet/10 flex items-center justify-center">
-          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-violet" />
-        </div>
-        <div className="text-right">
-          <p className="text-xl sm:text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-base sm:text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStepCard = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
+function WorkflowMockup() {
+  return (
     <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-violet/30 to-transparent z-0" />
-      )}
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-violet/20 via-primary-blue/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-violet/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-violet" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-violet text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-violet/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-violet to-primary-blue flex items-center justify-center shadow-lg shadow-primary-violet/30">
+            <Workflow className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Voorbeeld: maatwerk-flow</div>
+            <div className="flex items-center gap-1.5">
+              <div className="relative">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald" />
+                <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-primary-emerald animate-ping" />
+              </div>
+              <span className="text-[11px] text-slate-500">Uw proces · uw regels</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <TrendingUp className="w-3 h-3" />
+            100%
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
+
+        <div className="p-4 space-y-2">
+          {/* Trigger */}
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="p-3 rounded-lg bg-gradient-to-r from-primary-blue/15 to-primary-violet/10 border border-primary-blue/20"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-blue/20 flex items-center justify-center flex-shrink-0">
+                <Zap className="w-4 h-4 text-primary-blue" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-0.5">Trigger</div>
+                <div className="text-xs font-semibold text-white">Nieuwe order in webshop</div>
+              </div>
+              <span className="text-[10px] text-primary-emerald font-mono font-bold">START</span>
+            </div>
+          </m.div>
+
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.55 }}
+            className="flex justify-center"
+          >
+            <ArrowDown className="w-3.5 h-3.5 text-slate-600" />
+          </m.div>
+
+          {/* Action 1 — CRM */}
+          <m.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-violet/20 flex items-center justify-center flex-shrink-0">
+                <Database className="w-4 h-4 text-primary-violet" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-xs font-semibold text-white">Klant opslaan in CRM</div>
+                </div>
+                <div className="h-1 w-32 rounded-full bg-white/15 mt-1" />
+              </div>
+              <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
+            </div>
+          </m.div>
+
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.85 }}
+            className="flex justify-center"
+          >
+            <ArrowDown className="w-3.5 h-3.5 text-slate-600" />
+          </m.div>
+
+          {/* Action 2 — Invoice */}
+          <m.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.0 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-emerald/20 flex items-center justify-center flex-shrink-0">
+                <FileText className="w-4 h-4 text-primary-emerald" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-xs font-semibold text-white">Factuur genereren &amp; versturen</div>
+                </div>
+                <div className="h-1 w-28 rounded-full bg-white/15 mt-1" />
+              </div>
+              <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
+            </div>
+          </m.div>
+
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.15 }}
+            className="flex justify-center"
+          >
+            <ArrowDown className="w-3.5 h-3.5 text-slate-600" />
+          </m.div>
+
+          {/* Action 3 — Notify team */}
+          <m.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.3 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-primary-warm/20 flex items-center justify-center flex-shrink-0">
+                <Settings className="w-4 h-4 text-primary-warm" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <div className="text-xs font-semibold text-white">Team-notificatie &amp; log</div>
+                </div>
+                <div className="h-1 w-24 rounded-full bg-white/15 mt-1" />
+              </div>
+              <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
+            </div>
+          </m.div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <Zap className="w-3.5 h-3.5 text-primary-warm" />
+            <span className="text-xs text-slate-400">Tijdwinst</span>
+            <span className="text-xs font-bold text-primary-emerald">12u/wk</span>
+          </div>
+          <span className="text-xs text-slate-600 font-mono">0 fouten · 24/7 actief</span>
+        </div>
       </div>
     </div>
-  </ScrollTrigger>
-)
+  )
+}
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// MAIN PAGE
 // ============================================================================
-
 export default function ProcessAutomationPageClient() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white" aria-labelledby="hero-title">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-blue/15 via-transparent to-transparent" />
+      <HeroSection
+        eyebrow="Proces Automatisering"
+        title={<>Automatiseren{' '}<span className="text-gradient">Volledig Op Maat.</span></>}
+        subtitle="Elk bedrijf werkt anders. Wij bouwen automatiseringen op maat — van simpele flow tot complexe integratie — altijd rond úw proces, nooit uit een template."
+        ctaLabel="Gratis Proces-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<WorkflowMockup />}
+      />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <TechStackBar items={techStack} label="Wij bouwen in" />
 
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-primary-violet/10 text-primary-violet border-primary-violet/30">
-                <Workflow className="w-4 h-4 mr-2 inline" />
-                Proces Automatisering
-              </Badge>
+      <BeloftesStatsBar stats={whyChooseUs} />
 
-              <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Automatiseer{' '}
-                <span className="block text-gradient mt-2">
-                  Uw Workflows
-                </span>
-              </h1>
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Voor iedereen met een proces<br /><span className="text-gradient">dat beter kan.</span></>}
+        description="Wij bouwen op maat, dus branche of tool-stack maakt ons niet uit. Heeft u iets dat elke week handmatig gebeurt en regels volgt? Dan kunnen we het automatiseren."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Andere branche of uniek proces? Juist daarvoor is maatwerk. Bel of mail uw situatie — wij beoordelen vrijblijvend."
+      />
 
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                Stop met repetitieve taken. <strong className="text-white">Automatiseer uw processen</strong> en
-                bespaar tot <strong className="text-white">40% van uw tijd</strong>. Wij bouwen workflows die voor u werken.
-              </p>
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Maatwerk-automatisering,<br /><span className="text-gradient">volledig begeleid.</span></>}
+        description="Alle 30 punten hieronder zitten standaard in elk traject. Audit, maatwerk-bouw, documentatie en doorontwikkeling — alles inbegrepen."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'Automatisering is geen doel. Tijd terug voor het echte werk is het doel.',
+        }}
+      />
 
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Data automatisch synchroniseren</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Documenten automatisch verwerken</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Rapportages automatisch genereren</span>
-                </li>
-              </ul>
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van audit naar <span className="text-gradient">automatische workflow.</span></>}
+        steps={processSteps}
+      />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25"
-                  asChild
-                >
-                  <Link href="/contact?service=automation">
-                    Gratis Process Scan
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-            </m.div>
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Maatwerk-automation,<br /><span className="text-gradient">zonder enterprise-prijs.</span></>}
+        description={<>Grote bedrijven laten hun processen op maat automatiseren met <strong className="text-slate-800">no-code én custom code</strong>. Voor MKB en ZZP leek dat onbereikbaar — wij brengen dezelfde maatwerk-aanpak als betaalbaar, begeleid traject.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze aanpak wordt bijvoorbeeld gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'Enterprise IT', color: 'text-primary-blue' },
+            { icon: Database, label: 'Finance-afdelingen', color: 'text-primary-emerald' },
+            { icon: Sparkles, label: 'Operations-teams', color: 'text-primary-violet' },
+            { icon: Target, label: 'Shared Services', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde maatwerk-aanpak',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: Sparkles, text: 'Gebouwd rond úw proces — geen template' },
+          { icon: Database, text: 'Custom koppelingen met elk systeem of tool' },
+          { icon: FileText, text: 'Documentatie zodat u zelf verder kunt' },
+          { icon: TrendingUp, text: 'Vooraf berekende ROI per automatisering' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
 
-            {/* 3D Visualization - Rechter kolom */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px]"
-              aria-hidden="true"
-            >
-              <HeroVisual variant="automation" />
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering op maat"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Vraag Offerte Aan"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis proces-audit binnen 1 week — geheel vrijblijvend."
+        riskReversal={['Gratis proces-audit', 'ROI vooraf berekend']}
+        scarcity="Beperkte capaciteit voor nieuwe automatiseringstrajecten"
+        confidenceTitle={<>Vaste projectprijs. <span className="text-slate-400 font-normal">Geen uurtje-factuurtje.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Gebouwd in uw eigen tools. U bent nooit gegijzeld."
+      />
 
-              {/* Floating cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Tijdwinst</p>
-                    <p className="text-lg font-bold">40% besparing</p>
-                  </div>
-                </div>
-              </m.div>
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="violet" />
 
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-violet/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-violet/20 flex items-center justify-center">
-                    <Cog className="w-5 h-5 text-primary-violet" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Processen</p>
-                    <p className="text-lg font-bold">Geautomatiseerd</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== VIDEO SECTIE ==================== */}
-      <section className="py-24 bg-slate-50/50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <ScrollTrigger>
-                <div className="relative rounded-2xl overflow-hidden border border-primary-violet/20 shadow-2xl">
-                  <video
-                    className="w-full h-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                  >
-                    <source src="/proces-automatisering.mp4" type="video/mp4" />
-                  </video>
-                </div>
-              </ScrollTrigger>
-
-              <ScrollTrigger delay={0.2}>
-                <div>
-                  <Badge className="mb-4 bg-primary-violet/10 text-primary-violet border-primary-violet/30">
-                    <Workflow className="w-4 h-4 mr-2" />
-                    Efficiëntie Boost
-                  </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                    Stop met <span className="text-gradient">handmatig werk</span>
-                  </h2>
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    Repetitieve taken kosten tijd en zijn foutgevoelig. Automatiseer uw bedrijfsprocessen en laat systemen het werk doen terwijl u focust op groei.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
-                        <FileText className="w-5 h-5 text-primary-violet" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Document processing</p>
-                        <p className="text-sm text-slate-500">Automatische verwerking</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-blue/10 flex items-center justify-center flex-shrink-0">
-                        <Database className="w-5 h-5 text-primary-blue" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Data synchronisatie</p>
-                        <p className="text-sm text-slate-500">Systemen altijd up-to-date</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-5 h-5 text-primary-emerald" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-slate-900">Tijdsbesparing</p>
-                        <p className="text-sm text-slate-500">Uren per week vrijmaken</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollTrigger>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== DIENSTEN ==================== */}
-      <section className="py-24" aria-labelledby="diensten-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-16">
-              <Badge className="mb-4">Automatisering Diensten</Badge>
-              <h2 id="diensten-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Wat kunnen wij <span className="text-gradient">automatiseren</span>?
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Van simpele taken tot complexe workflows - ontdek alle mogelijkheden van proces automatisering.
-              </p>
-            </header>
-          </ScrollTrigger>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WAAROM AUTOMATISERING ==================== */}
-      <section className="py-24" aria-labelledby="waarom-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative p-6 sm:p-10 lg:p-12 rounded-3xl border border-primary-violet/10 bg-gradient-to-b from-primary-violet/5 to-transparent">
-              <ScrollTrigger>
-                <header className="text-center mb-12">
-                  <Badge className="mb-4">Waarom Automatiseren</Badge>
-                  <h2 id="waarom-title" className="text-3xl md:text-4xl font-bold mb-4">
-                    De voordelen van <span className="text-gradient">proces automatisering</span>
-                  </h2>
-                </header>
-              </ScrollTrigger>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {whyAutomation.map((item, index) => (
-                  <WhyCard key={index} item={item} index={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== HOE HET WERKT ==================== */}
-      <section className="py-24 bg-slate-50" aria-labelledby="proces-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <header className="text-center mb-16">
-                <Badge className="mb-4">Ons Proces</Badge>
-                <h2 id="proces-title" className="text-3xl md:text-4xl font-bold mb-4">
-                  Van handmatig naar <span className="text-gradient">volledig geautomatiseerd</span>
-                </h2>
-              </header>
-            </ScrollTrigger>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <ProcessStepCard key={index} step={step} index={index} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FAQ ==================== */}
-      <section className="py-24" aria-labelledby="faq-title">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <header className="text-center mb-12">
-              <Badge className="mb-4">Veelgestelde Vragen</Badge>
-              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-4">
-                Vragen over <span className="text-gradient">proces automatisering</span>?
-              </h2>
-            </header>
-          </ScrollTrigger>
-
-          <div className="max-w-3xl mx-auto">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} color="violet" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden" aria-labelledby="cta-title">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-violet/10 via-transparent to-primary-blue/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-6 sm:p-10 md:p-16 rounded-2xl sm:rounded-3xl border border-primary-violet/20">
-              <Badge className="mb-4 sm:mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis Process Scan
-              </Badge>
-
-              <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-                Klaar om tijd te{' '}
-                <span className="text-gradient">besparen?</span>
-              </h2>
-
-              <p className="text-lg sm:text-xl text-slate-500 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Vraag een gratis process scan aan. We identificeren uw grootste automatiseringskansen.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary-violet to-primary-blue hover:opacity-90 shadow-lg shadow-primary-violet/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=automation">
-                    Vraag Process Scan Aan
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Geen verplichtingen
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Scan binnen 48 uur
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Concrete verbeterpunten
-                </span>
-              </div>
-            </div>
-          </ScrollTrigger>
-        </div>
-      </section>
+      <FinalCTA
+        title={<>Elke week dezelfde taak handmatig doen?<br /><span className="text-gradient">Dat kan beter.</span></>}
+        ctaLabel="Vraag Proces-Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

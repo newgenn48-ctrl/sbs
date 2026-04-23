@@ -1,168 +1,182 @@
-import type { ServiceColorKey } from '@/lib/colors'
-import type { LucideIcon } from 'lucide-react'
 import {
-  TrendingUp, Users, PieChart, Activity, AlertCircle, Lightbulb,
-  Eye, Zap, Target, Database, Settings
+  FileText, Users, TrendingUp, Target, Eye, Database,
+  Building2, Briefcase, Stethoscope, Store, GraduationCap, Factory,
+  Headphones, BarChart3, PieChart, Lightbulb, AlertCircle,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-// ============================================================================
-// TYPES
-// ============================================================================
+export const heroTags = [
+  'Data in grafieken die kloppen',
+  'Voorspellingen op basis van uw data',
+  'Beslissen op onderbuik mag voorbij',
+]
 
-interface Service {
-  icon: LucideIcon
-  title: string
-  description: string
-  features: string[]
-  color: ServiceColorKey
-}
+export const whyChooseUs = [
+  { icon: Eye, title: 'Eindelijk overzicht', description: 'Één dashboard voor alle belangrijke cijfers — live.', stat: '1', statLabel: 'plek voor alles' },
+  { icon: TrendingUp, title: 'Voorspellingen die kloppen', description: 'Trends zichtbaar vóórdat ze in de omzet verschijnen.', stat: '85%', statLabel: 'accuratesse' },
+  { icon: FileText, title: 'Vaste prijs', description: 'Projectprijs of maandabonnement — altijd vooraf duidelijk.', stat: '0', statLabel: 'verborgen kosten' },
+  { icon: Users, title: 'Eén aanspreekpunt', description: 'Uw vaste data-analist. Direct bereikbaar.', stat: '1', statLabel: 'aanspreekpunt' },
+]
 
-interface WhyItem {
-  icon: LucideIcon
-  title: string
-  description: string
-  stat: string
-  statLabel: string
-}
+export const targetAudience: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: Store, title: 'Webshops & Retail', description: 'Welk product levert écht winst op? Welke campagne, welk kanaal? Data-gedreven keuzes i.p.v. gokken.' },
+  { icon: Briefcase, title: 'B2B Dienstverleners', description: 'Pipeline-analyse, deal-voorspelling en klantwaarde — voor sales die weet waar te focussen.' },
+  { icon: Stethoscope, title: 'Zorg & Praktijk', description: 'Bezetting, no-shows en patiëntstromen inzichtelijk — plannen op basis van cijfers, niet op gevoel.' },
+  { icon: Factory, title: 'Productie & Logistiek', description: 'Voorraad, levertijden en uitval-patronen herkennen voordat ze problemen worden.' },
+  { icon: GraduationCap, title: 'Opleiders & SaaS', description: 'Churn-voorspelling en activatie-analyse — weet welke klanten vertrekken vóórdat ze gaan.' },
+  { icon: Building2, title: 'MKB met veel losse data', description: 'Rapporten in Excel, cijfers in 5 systemen? Wij brengen alles samen in één dashboard.' },
+]
 
-interface ProcessStep {
-  step: string
-  title: string
-  description: string
-  icon: LucideIcon
-}
-
-interface FAQ {
-  q: string
-  a: string
-}
-
-// ============================================================================
-// DATA
-// ============================================================================
-
-export const services: Service[] = [
+export const includedChecklist = [
+  {
+    icon: Database,
+    category: 'Data-integratie',
+    color: 'from-primary-blue/10 to-primary-blue/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Koppeling met uw bestaande systemen',
+      'CRM, webshop, boekhouding, marketing',
+      'Real-time synchronisatie of dagelijks',
+      'Data-kwaliteitscontrole en opschoning',
+      'Historische data migreren waar mogelijk',
+    ],
+  },
+  {
+    icon: BarChart3,
+    category: 'Dashboards & rapportage',
+    color: 'from-primary-violet/10 to-primary-violet/5',
+    iconColor: 'text-primary-violet',
+    items: [
+      'Live dashboards per rol (directie, sales, marketing)',
+      'KPI’s die u écht nuttig vindt, niet standaard',
+      'Drill-down van totaal naar detail',
+      'Geautomatiseerde maandrapporten via e-mail',
+      'Mobiel-vriendelijke weergave',
+    ],
+  },
   {
     icon: TrendingUp,
-    title: 'Voorspellende Analyses',
-    description: 'AI die trends voorspelt voordat ze zichtbaar zijn. Anticipeer op veranderingen.',
-    features: ['Sales forecasting', 'Demand prediction', 'Trend identificatie', 'Seizoenspatronen'],
-    color: 'blue'
-  },
-  {
-    icon: Users,
-    title: 'Klantinzichten',
-    description: 'Begrijp uw klanten beter. Segmentatie, gedragsanalyse en churn voorspelling.',
-    features: ['Klantsegmentatie', 'Gedragsanalyse', 'Churn prediction', 'Customer lifetime value'],
-    color: 'violet'
-  },
-  {
-    icon: PieChart,
-    title: 'Business Intelligence',
-    description: 'Real-time dashboards met KPIs en metrics die er toe doen.',
-    features: ['Real-time dashboards', 'Custom KPIs', 'Drill-down analyse', 'Benchmark data'],
-    color: 'emerald'
-  },
-  {
-    icon: Activity,
-    title: 'Performance Analytics',
-    description: 'Meet en optimaliseer de prestaties van uw campagnes en kanalen.',
-    features: ['Marketing ROI', 'Channel performance', 'Conversion tracking', 'Attribution modelling'],
-    color: 'warm'
+    category: 'Voorspellende modellen',
+    color: 'from-primary-emerald/10 to-primary-emerald/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Sales-forecast voor komende weken/maanden',
+      'Voorraad- en vraagvoorspelling',
+      'Churn-prediction: wie vertrekt waarschijnlijk?',
+      'Customer lifetime value per segment',
+      'Modellen die bijleren met nieuwe data',
+    ],
   },
   {
     icon: AlertCircle,
-    title: 'Anomalie Detectie',
-    description: 'Automatische detectie van afwijkingen en onverwachte patronen in uw data.',
-    features: ['Fraud detection', 'Error alerts', 'Outlier detection', 'Quality monitoring'],
-    color: 'blue'
+    category: 'Anomalie-detectie & alerts',
+    color: 'from-primary-warm/10 to-primary-warm/5',
+    iconColor: 'text-primary-warm',
+    items: [
+      'Automatische alerts bij uitschieters',
+      'Fraude-detectie op transactiepatronen',
+      'Kwaliteits- en procesmonitoring',
+      'Threshold-alerts op KPI’s',
+      'E-mail of Slack-notificatie bij afwijkingen',
+    ],
   },
   {
     icon: Lightbulb,
-    title: 'AI Recommendations',
-    description: 'Concrete aanbevelingen op basis van uw data. Van pricing tot content.',
-    features: ['Pricing optimization', 'Product recommendations', 'Content suggestions', 'Next best action'],
-    color: 'violet'
+    category: 'Aanbevelingen & inzichten',
+    color: 'from-primary-blue/10 to-primary-violet/5',
+    iconColor: 'text-primary-blue',
+    items: [
+      'Prijs-optimalisatie per product of segment',
+      'Cross-sell en upsell suggesties',
+      'Next-best-action per klant',
+      'Kwartaal-analyse met concrete acties',
+      'Inzichten in normale taal — geen jargon',
+    ],
+  },
+  {
+    icon: Headphones,
+    category: 'Support & doorontwikkeling',
+    color: 'from-primary-emerald/10 to-primary-blue/5',
+    iconColor: 'text-primary-emerald',
+    items: [
+      'Vaste data-analist, geen callcenter',
+      'Training voor uw team in het dashboard',
+      'Antwoord binnen 24 uur op vragen',
+      'Uitbreiding bij nieuwe databronnen',
+      'Kwartaalsessie: wat zien we, wat nu?',
+    ],
   },
 ]
 
-export const whyAnalytics: WhyItem[] = [
-  {
-    icon: Eye,
-    title: 'Diepe Inzichten',
-    description: 'AI ontdekt patronen die menselijk oog niet ziet.',
-    stat: '10x',
-    statLabel: 'meer inzicht'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Voorspellend',
-    description: 'Voorspel trends voordat ze zichtbaar worden.',
-    stat: '85%',
-    statLabel: 'accuratesse'
-  },
-  {
-    icon: Zap,
-    title: 'Real-time',
-    description: 'Direct inzicht, geen wachten op rapporten.',
-    stat: 'Live',
-    statLabel: 'data'
-  },
-  {
-    icon: Target,
-    title: 'Actionable',
-    description: 'Concrete aanbevelingen, niet alleen data.',
-    stat: 'ROI',
-    statLabel: 'focused'
-  },
-]
-
-export const processSteps: ProcessStep[] = [
+export const processSteps = [
   {
     step: '01',
-    title: 'Data Audit',
-    description: 'We inventariseren uw databronnen en bepalen de mogelijkheden.',
-    icon: Database
+    title: 'Data-audit',
+    description: 'Wij brengen in kaart welke data u heeft, waar ze staan en wat ze waard zijn. U ontvangt een roadmap met concrete inzichten.',
+    icon: Database,
   },
   {
     step: '02',
-    title: 'Strategie',
-    description: 'We bepalen welke inzichten het meest waardevol zijn voor uw bedrijf.',
-    icon: Target
+    title: 'Strategie & KPIs',
+    description: 'Samen bepalen we welke cijfers er écht toe doen. Geen bulk aan metrics — de 10 die uw beslissingen sturen.',
+    icon: Target,
   },
   {
     step: '03',
-    title: 'Implementatie',
-    description: 'We bouwen dashboards en AI-modellen op maat.',
-    icon: Settings
+    title: 'Bouwen & integreren',
+    description: 'Wij bouwen dashboards, koppelen databronnen en trainen AI-modellen. Eerste dashboard staat binnen 2-4 weken.',
+    icon: PieChart,
   },
   {
     step: '04',
-    title: 'Optimalisatie',
-    description: 'Continue verbetering van modellen en inzichten.',
-    icon: TrendingUp
+    title: 'Optimaliseren',
+    description: 'Maandelijks bijsturen: modellen hertrainen, dashboards verfijnen, nieuwe vragen toevoegen. Data wordt scherper over tijd.',
+    icon: TrendingUp,
   },
 ]
 
-export const faqs: FAQ[] = [
+export const priceInfo = {
+  price: 'Op offerte',
+  description: 'Analytics is nooit standaard. Projectprijs of maandabonnement op maat van uw databronnen, complexiteit en gewenste voorspellingen.',
+}
+
+export const confidencePoints = [
+  { title: 'U blijft eigenaar van data', description: 'Uw data, uw dashboards, altijd exporteerbaar' },
+  { title: 'Transparante modellen', description: 'Geen black-box — wij leggen uit hoe voorspellingen werken' },
+  { title: 'AVG-proof', description: 'Opslag in EU, encryptie, strikte toegangscontrole' },
+]
+
+export const faqs = [
+  {
+    q: 'Wat kost AI analytics?',
+    a: 'Dat werkt op offerte. Simpele dashboards beginnen vanaf enkele duizenden euro’s, complexe voorspellende modellen met real-time data zijn projectmatig of maandabonnement. Na een gratis data-audit ontvangt u een vaste prijs met concrete inzichten als voorbeeld.',
+  },
+  {
+    q: 'Welke tools gebruiken jullie?',
+    a: 'We werken met moderne stacks: Looker, Metabase, PowerBI, Plausible/Matomo (privacy-first web-analytics), PostHog en custom Python/SQL waar nodig. Data-warehouses op Snowflake of BigQuery voor serieuze schaal. We kiezen wat past bij uw budget en volume.',
+  },
   {
     q: 'Welke data hebben jullie nodig?',
-    a: 'Dat hangt af van de doelstellingen. Typisch werken we met CRM data, sales data, website analytics, marketing data, en operationele data. We kunnen vrijwel elk data formaat verwerken en integreren met bestaande systemen.'
+    a: 'Typisch: CRM-data, orders/transacties, marketing-data (Google Ads, Meta, Analytics 4), website-gedrag en operationele data. Hoe meer historie, hoe beter voorspellingen. Minimaal 6-12 maanden aan data geeft de beste modellen.',
   },
   {
     q: 'Hoe accuraat zijn de voorspellingen?',
-    a: 'De accuratesse hangt af van de kwaliteit en hoeveelheid data, en de complexiteit van wat voorspeld wordt. Typisch behalen onze modellen 75-90% accuratesse. We zijn altijd transparant over de betrouwbaarheid en monitoren de prestaties continu.'
+    a: 'Afhankelijk van data-kwaliteit en complexiteit halen onze modellen 75-90% accuratesse. We zijn altijd transparant: u ziet de betrouwbaarheidsinterval per voorspelling. Modellen worden continu gemonitord en hertraind als de realiteit verandert.',
+  },
+  {
+    q: 'Kunnen mijn medewerkers de dashboards zelf aanpassen?',
+    a: 'Ja. We bouwen in tools waar uw team zelf filters kan aanpassen, grafieken kan toevoegen en eigen rapporten kan bouwen. Voor nieuwe databronnen of complexe AI-modellen zijn wij er — maar dagelijks werken doet u zelf.',
   },
   {
     q: 'Is onze data veilig?',
-    a: 'Absoluut. Alle data wordt verwerkt conform AVG en opgeslagen in beveiligde omgevingen in Europa. We werken met encryptie en strikte toegangscontroles. U behoudt volledige eigendom van uw data.'
+    a: 'Ja. Alles wordt verwerkt conform AVG, opgeslagen in Europa, encryptie in transit en at-rest, en met strikte toegangscontroles. Verwerkersovereenkomst standaard. U behoudt volledige eigendom en kunt data op elk moment exporteren of laten verwijderen.',
   },
   {
-    q: 'Kunnen we de dashboards zelf aanpassen?',
-    a: 'Ja, we bouwen dashboards die u zelf kunt aanpassen en uitbreiden. U krijgt training en documentatie. Voor complexe aanpassingen of nieuwe AI-modellen kunt u altijd bij ons terecht.'
+    q: 'Hoe lang duurt het tot eerste resultaten?',
+    a: 'Eerste dashboards zijn binnen 2-4 weken live. Voorspellende modellen hebben 4-8 weken nodig om betrouwbaar te worden — afhankelijk van data-volume en complexiteit. Quick wins doen we eerst zodat u snel waarde ziet.',
   },
   {
-    q: 'Hoe lang duurt het voordat we resultaten zien?',
-    a: 'De eerste dashboards en inzichten zijn meestal binnen 2-4 weken operationeel. Voorspellende modellen hebben wat meer tijd nodig om te trainen - reken op 4-8 weken voor betrouwbare voorspellingen, afhankelijk van de complexiteit en beschikbare data.'
+    q: 'Wat als onze databronnen veranderen?',
+    a: 'Dat is normaal. Wij documenteren elke koppeling zodat wijzigingen snel aangepast kunnen worden. Nieuwe bronnen toevoegen gebeurt incrementeel. U betaalt alleen voor wat we bouwen — geen verplichte uitbreidingen.',
   },
 ]

@@ -20,6 +20,8 @@ const services = [
   'SEO Services',
 ]
 
+const bottomTexts = ['Geen verplichtingen', 'Direct een plan van aanpak', 'Concrete resultaten']
+
 export default function CTASection() {
   return (
     <section className="py-24 relative bg-[#0B1121] overflow-hidden">
@@ -92,7 +94,7 @@ export default function CTASection() {
                         className="bg-white text-[#0B1121] hover:bg-slate-100 font-semibold px-8 shadow-none hover-glow"
                         asChild
                       >
-                        <Link href="/contact">
+                        <Link href="/gratis-advies">
                           Plan Gratis Adviesgesprek
                           <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
@@ -144,7 +146,7 @@ export default function CTASection() {
             transition={{ delay: 0.3 }}
             className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-slate-400"
           >
-            {['Geen verplichtingen', 'Direct een plan van aanpak', 'Concrete resultaten'].map((text) => (
+            {bottomTexts.map((text) => (
               <span key={text} className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 {text}

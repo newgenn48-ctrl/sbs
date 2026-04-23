@@ -1,409 +1,267 @@
 'use client'
 
-import HeroVisual from '@/components/ui/HeroVisual'
 import { m } from 'framer-motion'
-import ScrollTrigger from '@/components/animations/ScrollTrigger'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import TechStackBar from '@/components/sections/landing/TechStackBar'
+import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
+import VoorWieSection from '@/components/sections/landing/VoorWieSection'
+import ChecklistSection from '@/components/sections/landing/ChecklistSection'
+import ProcesSection from '@/components/sections/landing/ProcesSection'
+import MissieSection from '@/components/sections/landing/MissieSection'
+import PrijsSection from '@/components/sections/landing/PrijsSection'
+import FAQSection from '@/components/sections/landing/FAQSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
+
+import { FaMicrosoft, FaEnvelope, FaLock, FaCloud, FaShieldAlt } from 'react-icons/fa'
+import { SiOkta } from 'react-icons/si'
+import { HiPlus } from 'react-icons/hi'
 import {
-  Cloud, CheckCircle2, ArrowRight,
-  Clock, Star, Zap, Phone
+  Mail, Video, HardDrive, FileText, Shield,
+  Building2, Briefcase, Users, CheckCircle2, Lock, Cloud as CloudIcon,
 } from 'lucide-react'
-import Link from 'next/link'
-import { m365Apps, services, benefits, processSteps, whyUs } from '@/lib/data/microsoft-365'
-import { serviceColors } from '@/lib/colors'
-// ============================================================================
-// COMPONENTS
-// ============================================================================
 
-const AppCard = ({ app, index }: { app: typeof m365Apps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-6 rounded-2xl border border-slate-200 hover:border-primary-blue/30 transition-all h-full group">
-      <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-        style={{ backgroundColor: `${app.color}20` }}
-      >
-        <app.icon className="w-6 h-6" style={{ color: app.color }} />
-      </div>
-      <h3 className="text-lg font-bold mb-2">{app.name}</h3>
-      <p className="text-slate-500 text-sm">{app.description}</p>
-    </div>
-  </ScrollTrigger>
-)
+import {
+  heroTags, whyChooseUs, targetAudience, includedChecklist,
+  processSteps, priceInfo, confidencePoints, faqs,
+} from '@/lib/data/microsoft-365'
 
-const ServiceCard = ({ service, index }: { service: typeof services[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-8 rounded-2xl border border-primary-blue/20 hover:border-primary-blue/40 transition-all h-full">
-      <div className="w-14 h-14 rounded-2xl bg-primary-blue/10 flex items-center justify-center mb-6">
-        <service.icon className="w-7 h-7 text-primary-blue" />
-      </div>
-      <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-      <p className="text-slate-500 mb-6">{service.description}</p>
-      <ul className="space-y-2">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <CheckCircle2 className="w-4 h-4 text-primary-emerald flex-shrink-0" />
-            {feature}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </ScrollTrigger>
-)
-
-const BenefitCard = ({ benefit, index }: { benefit: typeof benefits[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.05}>
-    <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-100 transition-colors">
-      <div className="w-10 h-10 rounded-lg bg-primary-violet/10 flex items-center justify-center flex-shrink-0">
-        <benefit.icon className="w-5 h-5 text-primary-violet" />
-      </div>
-      <div>
-        <h3 className="font-bold mb-1">{benefit.title}</h3>
-        <p className="text-slate-500 text-sm">{benefit.description}</p>
-      </div>
-    </div>
-  </ScrollTrigger>
-)
-
-const ProcessStep = ({ step, index }: { step: typeof processSteps[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="relative">
-      {index < 3 && (
-        <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-primary-blue/30 to-transparent z-0" />
-      )}
-      <div className="relative z-10 text-center">
-        <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-primary-blue/30 flex items-center justify-center mx-auto mb-4 relative">
-          <step.icon className="w-8 h-8 text-primary-blue" />
-          <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary-blue text-sm font-bold flex items-center justify-center text-white">
-            {step.step}
-          </span>
-        </div>
-        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-        <p className="text-slate-500 text-sm max-w-[200px] mx-auto">{step.description}</p>
-      </div>
-    </div>
-  </ScrollTrigger>
-)
-
-const WhyUsCard = ({ item, index }: { item: typeof whyUs[0], index: number }) => (
-  <ScrollTrigger delay={index * 0.1}>
-    <div className="glass-effect p-6 rounded-2xl border border-slate-200 hover:border-primary-blue/30 transition-all h-full">
-      <div className="flex items-start justify-between mb-4">
-        <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center">
-          <item.icon className="w-6 h-6 text-primary-blue" />
-        </div>
-        <div className="text-right">
-          <p className="text-2xl font-bold text-primary-emerald">{item.stat}</p>
-          <p className="text-xs text-slate-400">{item.statLabel}</p>
-        </div>
-      </div>
-      <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-      <p className="text-slate-500 text-sm">{item.description}</p>
-    </div>
-  </ScrollTrigger>
-)
+const techStack = [
+  { icon: FaMicrosoft, name: 'Microsoft 365' },
+  { icon: FaEnvelope, name: 'Exchange Online' },
+  { icon: FaCloud, name: 'SharePoint' },
+  { icon: FaLock, name: 'Entra ID' },
+  { icon: FaShieldAlt, name: 'Defender' },
+  { icon: SiOkta, name: 'MFA' },
+  { icon: HiPlus, name: 'En nog veel meer' },
+]
 
 // ============================================================================
-// MAIN PAGE COMPONENT
+// HERO VISUAL — M365 tenant security & migration dashboard
 // ============================================================================
-
-export default function Microsoft365PageClient() {
+function M365TenantMockup() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="relative">
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
 
-      {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center text-white">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1121] via-[#0B1121] to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0078D4]/10 via-transparent to-transparent" />
-
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 pt-32 pb-20 md:pt-28 lg:pt-32 lg:pb-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <m.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-6 px-4 py-2 bg-[#0078D4]/10 text-[#0078D4] border-[#0078D4]/30">
-                <Cloud className="w-4 h-4 mr-2 inline" />
-                Microsoft Partner
-              </Badge>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1]">
-                Microsoft 365
-                <span className="block text-gradient mt-2">
-                  optimaal benut
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-slate-300 mb-6 leading-relaxed">
-                Haal meer uit uw Microsoft 365 investering. Van migratie tot dagelijks beheer - wij zorgen dat Teams, SharePoint, OneDrive en Exchange perfect werken voor uw organisatie.
-              </p>
-
-              <ul className="space-y-3 mb-8 text-slate-300">
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Soepele migratie zonder dataverlies</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Optimale configuratie voor uw organisatie</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary-emerald flex-shrink-0" />
-                  <span>Doorlopend beheer en Nederlandse support</span>
-                </li>
-              </ul>
-
-              <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8 text-sm">
-                <div className="flex items-center gap-2 text-slate-300">
-                  <Clock className="w-4 h-4 text-primary-blue" />
-                  <span>Snelle implementatie</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-300">
-                  <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                  <span>Microsoft Partner</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-[#0078D4] to-primary-violet hover:opacity-90 shadow-lg shadow-[#0078D4]/25"
-                  asChild
-                >
-                  <Link href="/contact?service=microsoft-365">
-                    Gratis M365 Advies
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                </div>
-            </m.div>
-
-            {/* 3D Visualization */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[400px] md:h-[500px] lg:h-[550px]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0078D4]/20 via-primary-violet/10 to-transparent blur-3xl rounded-full" />
-
-              <HeroVisual variant="microsoft365" />
-
-              {/* Floating cards - hidden on mobile */}
-              <m.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="hidden md:block absolute bottom-8 left-4 glass-effect-dark px-4 py-3 rounded-xl border border-primary-emerald/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary-emerald/20 flex items-center justify-center">
-                    <Cloud className="w-5 h-5 text-primary-emerald" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Cloud</p>
-                    <p className="text-lg font-bold">Altijd toegang</p>
-                  </div>
-                </div>
-              </m.div>
-
-              <m.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="hidden md:block absolute top-8 right-4 glass-effect-dark px-4 py-3 rounded-xl border border-[#0078D4]/30"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-[#0078D4]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Productiviteit</p>
-                    <p className="text-lg font-bold">Verhoogd</p>
-                  </div>
-                </div>
-              </m.div>
-            </m.div>
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-blue/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-blue to-primary-violet flex items-center justify-center shadow-lg shadow-primary-blue/30">
+            <FaMicrosoft className="w-4 h-4 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">M365 Tenant</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span>Voorbeeld · beheerde M365-tenant</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-mono text-primary-emerald bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <CheckCircle2 className="w-3 h-3" />
+            Hardened
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
-      </section>
-
-      {/* ==================== M365 APPS ==================== */}
-      <section className="py-24 bg-slate-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <div className="text-center mb-16">
-              <Badge className="mb-4">Microsoft 365 Apps</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Alles wat u nodig heeft in <span className="text-gradient">één platform</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Microsoft 365 biedt een complete suite van productiviteitstools die naadloos samenwerken.
-              </p>
-            </div>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {m365Apps.map((app, index) => (
-              <AppCard key={index} app={app} index={index} />
+        <div className="p-4 space-y-3">
+          {/* Apps row */}
+          <div className="grid grid-cols-4 gap-2">
+            {[
+              { icon: Mail, label: 'Exchange', color: 'text-primary-blue', bg: 'bg-primary-blue/15' },
+              { icon: Video, label: 'Teams', color: 'text-primary-violet', bg: 'bg-primary-violet/15' },
+              { icon: HardDrive, label: 'OneDrive', color: 'text-primary-blue', bg: 'bg-primary-blue/15' },
+              { icon: FileText, label: 'SharePoint', color: 'text-primary-emerald', bg: 'bg-primary-emerald/15' },
+            ].map((app, i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + i * 0.08 }}
+                className={`aspect-square rounded-lg ${app.bg} border border-white/[0.06] flex flex-col items-center justify-center gap-1.5`}
+              >
+                <app.icon className={`w-5 h-5 ${app.color}`} />
+                <span className="text-[9px] text-slate-300 font-medium">{app.label}</span>
+              </m.div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ==================== SERVICES ==================== */}
-      <section className="py-24">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <div className="text-center mb-16">
-              <Badge className="mb-4">Onze Diensten</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Van migratie tot <span className="text-gradient">dagelijks beheer</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Wij ondersteunen u in elke fase van uw Microsoft 365 journey.
-              </p>
-            </div>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== BENEFITS ==================== */}
-      <section className="py-24 bg-slate-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            <ScrollTrigger>
-              <div>
-                <Badge className="mb-4 bg-primary-violet/20 text-primary-violet border-primary-violet/30">Voordelen</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Waarom <span className="text-gradient">Microsoft 365?</span>
-                </h2>
-                <p className="text-slate-500 mb-8">
-                  Microsoft 365 is meer dan alleen Office. Het is een compleet platform voor moderne werkplekken dat groeit met uw organisatie.
-                </p>
-                <Button asChild>
-                  <Link href="/contact?service=microsoft-365">
-                    Ontdek de mogelijkheden
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
+          {/* Security row */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="p-3 rounded-lg bg-gradient-to-r from-primary-blue/10 to-primary-violet/5 border border-primary-blue/20"
+          >
+            <div className="flex items-center gap-2 mb-2.5">
+              <div className="w-7 h-7 rounded-lg bg-primary-blue/20 flex items-center justify-center">
+                <Shield className="w-4 h-4 text-primary-blue" />
               </div>
-            </ScrollTrigger>
-
-            <div className="grid gap-2">
-              {benefits.map((benefit, index) => (
-                <BenefitCard key={index} benefit={benefit} index={index} />
+              <span className="text-xs font-semibold text-white">Security baseline</span>
+              <span className="ml-auto text-[10px] text-primary-emerald font-mono">Active</span>
+            </div>
+            <div className="space-y-1.5">
+              {[
+                { label: 'Multi-factor auth', status: '100%' },
+                { label: 'Conditional Access', status: '12 rules' },
+                { label: 'DLP & Safe Links', status: 'on' },
+              ].map((s, i) => (
+                <div key={i} className="flex items-center justify-between text-[10px]">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3 h-3 text-primary-emerald" />
+                    <span className="text-slate-300">{s.label}</span>
+                  </div>
+                  <span className="text-primary-emerald font-mono">{s.status}</span>
+                </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </m.div>
 
-      {/* ==================== PROCESS ==================== */}
-      <section className="py-24">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <div className="text-center mb-16">
-              <Badge className="mb-4">Ons Proces</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Van start tot <span className="text-gradient">productief</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Een gestructureerde aanpak voor een succesvolle Microsoft 365 implementatie.
-              </p>
-            </div>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {processSteps.map((step, index) => (
-              <ProcessStep key={index} step={step} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== WHY US ==================== */}
-      <section className="py-24 bg-slate-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
-          <ScrollTrigger>
-            <div className="text-center mb-16">
-              <Badge className="mb-4">Waarom Start Beheer</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Uw <span className="text-gradient">Microsoft 365 partner</span>
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Gecertificeerde expertise gecombineerd met persoonlijke aandacht voor uw organisatie.
-              </p>
-            </div>
-          </ScrollTrigger>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {whyUs.map((item, index) => (
-              <WhyUsCard key={index} item={item} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== CTA ==================== */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0078D4]/10 via-transparent to-primary-violet/10" />
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollTrigger>
-            <div className="max-w-4xl mx-auto text-center glass-effect p-12 md:p-16 rounded-3xl border border-[#0078D4]/20">
-              <Badge className="mb-6 bg-primary-emerald/20 text-primary-emerald border-primary-emerald/30">
-                Gratis Adviesgesprek
-              </Badge>
-
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                Klaar om meer uit <span className="text-gradient">M365 te halen?</span>
-              </h2>
-
-              <p className="text-xl text-slate-500 mb-8 max-w-2xl mx-auto">
-                Plan een vrijblijvend gesprek. Wij analyseren uw huidige situatie en adviseren over de beste aanpak voor uw organisatie.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-[#0078D4] to-primary-violet hover:opacity-90 shadow-lg shadow-[#0078D4]/25 text-lg px-8"
-                  asChild
-                >
-                  <Link href="/contact?service=microsoft-365">
-                    Plan Gratis Adviesgesprek
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                </div>
-
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Vrijblijvend advies
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Microsoft Partner
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary-emerald" />
-                  Nederlandse support
-                </span>
+          {/* Migration progress */}
+          <m.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0 }}
+            className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <CloudIcon className="w-3.5 h-3.5 text-primary-emerald" />
+                <span className="text-xs font-semibold text-white">Migratie</span>
+                <span className="text-[9px] text-slate-500 font-mono">Gmail → M365</span>
               </div>
+              <span className="text-[10px] text-primary-emerald font-mono font-bold">Klaar</span>
             </div>
-          </ScrollTrigger>
+            <div className="h-1 w-full rounded-full bg-white/10 overflow-hidden">
+              <m.div
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ delay: 1.2, duration: 1.2 }}
+                className="h-full bg-gradient-to-r from-primary-emerald to-primary-blue"
+              />
+            </div>
+            <div className="flex justify-between mt-1.5 text-[9px] text-slate-500 font-mono">
+              <span>Mailboxen</span>
+              <span>Data</span>
+              <span>Foutvrij</span>
+            </div>
+          </m.div>
         </div>
-      </section>
+
+        {/* Footer */}
+        <div className="border-t border-white/[0.06] px-4 py-3 flex items-center justify-between bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <Lock className="w-3.5 h-3.5 text-primary-emerald" />
+            <span className="text-xs text-slate-400">Data-locatie</span>
+            <span className="text-xs font-bold text-white">EU</span>
+          </div>
+          <span className="text-xs text-slate-600 font-mono">AVG-proof · EU tenant</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// MAIN PAGE
+// ============================================================================
+export default function Microsoft365PageClient() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
+
+      <HeroSection
+        eyebrow="Microsoft 365"
+        title={<>Microsoft 365{' '}<span className="text-gradient">Ingericht, Veilig, Beheerd.</span></>}
+        subtitle="Migratie, configuratie en doorlopend beheer van uw M365-omgeving — door Nederlandse specialisten. Security standaard, AVG-proof en klaar voor groei."
+        ctaLabel="Gratis M365-Audit"
+        ctaHref="/gratis-advies"
+        tags={heroTags}
+        visual={<M365TenantMockup />}
+      />
+
+      <TechStackBar items={techStack} label="Wij werken met" />
+
+      <BeloftesStatsBar stats={whyChooseUs} />
+
+      <VoorWieSection
+        sectionNumber="/ 01"
+        eyebrow="Voor Wie"
+        title={<>Bedrijven die van M365<br /><span className="text-gradient">meer willen dan losse licenties.</span></>}
+        description="Wij bedienen MKB en professionele dienstverleners die M365 willen migreren, strak willen inrichten of uit handen willen geven — altijd met security als fundament."
+        stickyStat={{ label: 'Focus', value: 'MKB & ZZP' }}
+        audiences={targetAudience}
+        disclaimer="Ook werkzaam voor andere branches. Bel of mail uw situatie — wij beoordelen vrijblijvend."
+      />
+
+      <ChecklistSection
+        sectionNumber="/ 02"
+        eyebrow="Wat U Krijgt"
+        title={<>Volledig M365-beheer,<br /><span className="text-gradient">security-first.</span></>}
+        description="Alle 30 punten hieronder zitten standaard. Migratie, configuratie, security en support — alles inbegrepen bij het maandabonnement."
+        categories={includedChecklist}
+        footer={{
+          strong: '30 punten.',
+          text: 'Allemaal standaard. Allemaal inbegrepen.',
+          italic: 'M365 aankopen is makkelijk. Er écht mee werken vereist meer.',
+        }}
+      />
+
+      <ProcesSection
+        sectionNumber="/ 03"
+        eyebrow="Ons Proces"
+        title={<>Van audit naar <span className="text-gradient">M365-ontzorging.</span></>}
+        steps={processSteps}
+      />
+
+      <MissieSection
+        sectionNumber="/ 04"
+        eyebrow="Onze missie"
+        title={<>Enterprise M365-beheer,<br /><span className="text-gradient">voor MKB-budget.</span></>}
+        description={<>Grote organisaties hebben M365-specialisten die <strong className="text-slate-800">Conditional Access, DLP en Defender</strong> strak configureren. Voor MKB is dat zelden binnen handbereik — wij brengen dezelfde diepgang als vaste maandprijs.</>}
+        flowDiagram={{
+          sourceLabel: 'Deze aanpak wordt gebruikt door:',
+          sources: [
+            { icon: Building2, label: 'Enterprise IT', color: 'text-primary-blue' },
+            { icon: Shield, label: 'Security-teams', color: 'text-primary-emerald' },
+            { icon: Users, label: 'M365-consultants', color: 'text-primary-violet' },
+            { icon: CloudIcon, label: 'Microsoft Partners', color: 'text-primary-warm' },
+          ],
+          connectorLabel: 'Dezelfde M365-aanpak',
+          targetLabel: 'Wij maken hem beschikbaar voor:',
+          targets: [
+            { icon: Briefcase, label: "ZZP'er", gradient: 'from-primary-violet to-primary-blue' },
+            { icon: Building2, label: 'MKB', gradient: 'from-primary-blue to-primary-emerald' },
+          ],
+        }}
+        features={[
+          { icon: Lock, text: 'MFA, Conditional Access en DLP standaard' },
+          { icon: Mail, text: 'E-mail migratie zonder dataverlies' },
+          { icon: Shield, text: 'AVG-proof configuratie, EU-opslag' },
+          { icon: Users, text: 'Onboarding en offboarding AVG-compliant' },
+        ]}
+        ctaLabel="Start Met Een Audit"
+        ctaHref="/gratis-advies"
+      />
+
+      <PrijsSection
+        sectionNumber="/ 05"
+        eyebrow="Investering op maat"
+        price={priceInfo.price}
+        priceDescription={priceInfo.description}
+        ctaLabel="Vraag Offerte Aan"
+        ctaHref="/gratis-advies"
+        ctaSubtext="Gratis M365-audit binnen 1 week — geheel vrijblijvend."
+        riskReversal={['Gratis M365-audit', 'Maandelijks opzegbaar']}
+        scarcity="Beperkte capaciteit voor nieuwe migratie-trajecten"
+        confidenceTitle={<>Per gebruiker, per maand. <span className="text-slate-400 font-normal">Schaalt met u mee.</span></>}
+        confidencePoints={confidencePoints}
+        confidenceQuote="Licenties op uw naam, tenant op uw naam — geen lock-in."
+      />
+
+      <FAQSection sectionNumber="/ 06" faqs={faqs} color="blue" />
+
+      <FinalCTA
+        title={<>M365 goed ingericht bespaart tijd én risico.<br /><span className="text-gradient">Tijd om het op orde te krijgen.</span></>}
+        ctaLabel="Vraag M365-Audit Aan"
+        ctaHref="/gratis-advies"
+      />
     </div>
   )
 }

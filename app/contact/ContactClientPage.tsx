@@ -1,323 +1,196 @@
 'use client'
 
 import { m } from 'framer-motion'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import {
-  Send,
-  MessageSquare,
-  AlertCircle,
-  Loader2
-} from 'lucide-react'
-import { services } from '@/lib/navigation'
+import HeroSection from '@/components/sections/landing/HeroSection'
+import ContactSection from '@/components/sections/landing/ContactSection'
+import FinalCTA from '@/components/sections/landing/FinalCTA'
 
-interface FormErrors {
-  name?: string
-  email?: string
-  phone?: string
-  message?: string
-  general?: string
+import {
+  Mail, Phone, MapPin, Clock, MessageSquare, Send,
+  Calendar, CheckCircle2,
+} from 'lucide-react'
+
+// ============================================================================
+// HERO VISUAL — Contact card / response timeline
+// ============================================================================
+function ContactMockup() {
+  return (
+    <div className="relative">
+      <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
+
+      <div className="relative bg-[#0d1025] rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl shadow-primary-blue/15">
+        {/* Header */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-blue to-primary-violet flex items-center justify-center shadow-lg">
+            <MessageSquare className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-bold text-white tracking-tight">Na uw bericht</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-emerald animate-pulse" />
+              <span>Responsgarantie binnen 24u</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Timeline */}
+        <div className="p-4 space-y-2">
+          {[
+            { time: '0m', label: 'Bericht ontvangen', detail: 'Automatische bevestiging in uw inbox', color: 'emerald', delay: 0.3 },
+            { time: '< 24u', label: 'Persoonlijke reactie', detail: 'Van uw vaste aanspreekpunt', color: 'blue', delay: 0.5 },
+            { time: '2-3d', label: 'Kennismakingsgesprek', detail: 'Telefonisch of op uw locatie', color: 'violet', delay: 0.7 },
+            { time: '1 week', label: 'Voorstel of audit-rapport', detail: 'Concreet, vrijblijvend, heldere prijs', color: 'warm', delay: 0.9 },
+          ].map((item, i) => {
+            const colorMap: Record<string, { bg: string; text: string }> = {
+              emerald: { bg: 'bg-primary-emerald/20', text: 'text-primary-emerald' },
+              blue: { bg: 'bg-primary-blue/20', text: 'text-primary-blue' },
+              violet: { bg: 'bg-primary-violet/20', text: 'text-primary-violet' },
+              warm: { bg: 'bg-primary-warm/20', text: 'text-primary-warm' },
+            }
+            const c = colorMap[item.color]
+            const icons = [Send, Mail, Phone, CheckCircle2]
+            const Icon = icons[i]
+            return (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: item.delay }}
+                className="flex items-center gap-2.5 p-3 rounded-lg bg-white/[0.03] border border-white/[0.06]"
+              >
+                <div className={`w-8 h-8 rounded-lg ${c.bg} flex items-center justify-center flex-shrink-0`}>
+                  <Icon className={`w-4 h-4 ${c.text}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[10px] font-mono font-semibold ${c.text} uppercase tracking-wider`}>{item.time}</span>
+                    <span className="text-xs font-semibold text-white">{item.label}</span>
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">{item.detail}</div>
+                </div>
+              </m.div>
+            )
+          })}
+        </div>
+
+        {/* Footer — quick contact */}
+        <div className="border-t border-white/[0.06] px-4 py-3 bg-white/[0.02]">
+          <div className="grid grid-cols-3 gap-2 text-center">
+            {[
+              { icon: Mail, label: 'Mail' },
+              { icon: Phone, label: 'Bellen' },
+              { icon: Calendar, label: 'Plannen' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center justify-center gap-1.5 py-1.5 rounded border border-white/[0.06]">
+                <item.icon className="w-3 h-3 text-primary-emerald" />
+                <span className="text-[10px] text-slate-300 font-medium">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
+// ============================================================================
+// MAIN PAGE
+// ============================================================================
 export default function ContactClientPage() {
-  const router = useRouter()
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    service: '',
-    message: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [errors, setErrors] = useState<FormErrors>({})
-
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-
-    // Validate name
-    if (!formState.name.trim()) {
-      newErrors.name = 'Naam is verplicht'
-    } else if (formState.name.trim().length < 2) {
-      newErrors.name = 'Naam moet minimaal 2 tekens bevatten'
-    }
-
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!formState.email.trim()) {
-      newErrors.email = 'E-mail is verplicht'
-    } else if (!emailRegex.test(formState.email)) {
-      newErrors.email = 'Ongeldig e-mailadres'
-    }
-
-    // Validate phone (optional but must be valid if provided)
-    if (formState.phone.trim()) {
-      const phoneRegex = /^(\+31|0031|0)[1-9][0-9]{8}$/
-      const cleanPhone = formState.phone.replace(/[\s\-]/g, '')
-      if (!phoneRegex.test(cleanPhone)) {
-        newErrors.phone = 'Ongeldig telefoonnummer (bijv. 06-12345678)'
-      }
-    }
-
-    // Validate message
-    if (!formState.message.trim()) {
-      newErrors.message = 'Bericht is verplicht'
-    } else if (formState.message.trim().length < 10) {
-      newErrors.message = 'Bericht moet minimaal 10 tekens bevatten'
-    } else if (formState.message.length > 5000) {
-      newErrors.message = 'Bericht mag maximaal 5000 tekens bevatten'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setErrors({})
-
-    if (!validateForm()) {
-      return
-    }
-
-    setIsSubmitting(true)
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        setErrors({ general: data.error || 'Er is een fout opgetreden' })
-        return
-      }
-
-      router.push('/bedankt')
-    } catch {
-      setErrors({ general: 'Er is een fout opgetreden. Probeer het later opnieuw.' })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormState(prev => ({
-      ...prev,
-      [name]: value
-    }))
-    // Clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }))
-    }
-  }
-
   return (
-    <main className="min-h-screen bg-white flex items-center justify-center py-20 pt-32">
-      <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="glass-effect rounded-3xl overflow-hidden border border-primary-violet/20"
-        >
-          <div className="h-1 bg-gradient-to-r from-primary-blue via-primary-violet to-primary-emerald" />
+    <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
-          <div className="p-8 sm:p-12">
-            <div className="text-center mb-10">
-                  <Badge className="mb-4 px-4 py-2 bg-primary-blue/20 text-primary-blue border-primary-blue/30">
-                    <MessageSquare className="w-4 h-4 mr-2 inline" />
-                    Contact
-                  </Badge>
-                  <h1 className="text-2xl md:text-3xl font-display font-bold text-slate-900 mb-4">
-                    Neem Contact Op
-                  </h1>
-                  <p className="text-slate-600">
-                    Vul het formulier in en wij nemen zo snel mogelijk contact met u op.
-                  </p>
-                </div>
+      <HeroSection
+        eyebrow="Contact"
+        title={<>Bel Ons.{' '}<span className="text-gradient">Of Mail. Of Plan Direct.</span></>}
+        subtitle="Geen keuzemenu’s, geen callcenter. Stel uw vraag en u krijgt binnen 24 uur antwoord van een vast aanspreekpunt."
+        ctaLabel="Plan Een Gratis Gesprek"
+        ctaHref="#contact-form"
+        tags={['Reactie binnen 24 uur', 'Nederlandse specialisten', 'Altijd vrijblijvend']}
+        visual={<ContactMockup />}
+      />
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {errors.general && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-red-400 text-sm">{errors.general}</p>
-                    </div>
-                  )}
-
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                        Naam *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        autoComplete="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        aria-invalid={!!errors.name}
-                        aria-describedby={errors.name ? 'name-error' : undefined}
-                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
-                          errors.name
-                            ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
-                        }`}
-                        placeholder="Uw naam"
-                      />
-                      {errors.name && (
-                        <p id="name-error" className="mt-1 text-sm text-red-400">{errors.name}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                        E-mail *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        autoComplete="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        aria-invalid={!!errors.email}
-                        aria-describedby={errors.email ? 'email-error' : undefined}
-                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
-                          errors.email
-                            ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
-                        }`}
-                        placeholder="uw@email.nl"
-                      />
-                      {errors.email && (
-                        <p id="email-error" className="mt-1 text-sm text-red-400">{errors.email}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                        Telefoon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        autoComplete="tel"
-                        value={formState.phone}
-                        onChange={handleChange}
-                        aria-invalid={!!errors.phone}
-                        aria-describedby={errors.phone ? 'phone-error' : undefined}
-                        className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all ${
-                          errors.phone
-                            ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                            : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
-                        }`}
-                        placeholder="06-12345678"
-                      />
-                      {errors.phone && (
-                        <p id="phone-error" className="mt-1 text-sm text-red-400">{errors.phone}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">
-                        Bedrijfsnaam
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        autoComplete="organization"
-                        value={formState.company}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all"
-                        placeholder="Uw bedrijf"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
-                      Waar kunnen we u mee helpen?
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      autoComplete="off"
-                      value={formState.service}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all appearance-none"
-                    >
-                      <option value="" className="bg-white">Selecteer een dienst</option>
-                      {services.map((service) => (
-                        <option key={service} value={service} className="bg-white">
-                          {service}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                      Uw Bericht *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      autoComplete="off"
-                      rows={5}
-                      value={formState.message}
-                      onChange={handleChange}
-                      aria-invalid={!!errors.message}
-                      aria-describedby={errors.message ? 'message-error' : undefined}
-                      className={`w-full px-4 py-3 bg-slate-100 border rounded-xl text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 transition-all resize-none ${
-                        errors.message
-                          ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/50'
-                          : 'border-slate-200 focus:border-primary-blue/50 focus:ring-primary-blue/50'
-                      }`}
-                      placeholder="Vertel ons over uw vraag of project..."
-                    />
-                    {errors.message && (
-                      <p id="message-error" className="mt-1 text-sm text-red-400">{errors.message}</p>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-4">
-                    <p className="text-sm text-slate-500">
-                      * Verplichte velden
-                    </p>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting}
-                      className="bg-gradient-to-r from-primary-blue to-primary-violet hover:opacity-90 shadow-lg shadow-primary-blue/25 px-8 w-full sm:w-auto"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          Verzenden...
-                        </>
-                      ) : (
-                        <>
-                          Verstuur Bericht
-                          <Send className="ml-2 h-5 w-5" />
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </form>
+      {/* CONTACT DETAILS */}
+      <section className="relative py-20 sm:py-28">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+          <div className="mb-12 sm:mb-16 max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-xs font-mono text-slate-400 tracking-wider">/ 01</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-blue">Bereikbaarheid</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900 tracking-tight mb-4 leading-[1.1]">
+              Direct contact. <span className="text-gradient">Geen ruis.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+              Kies wat bij u past. Elke route komt uit bij een echte specialist — geen helpdesk, geen bot.
+            </p>
           </div>
-        </m.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {[
+              { icon: Phone, title: 'Bellen', value: '06 87 87 40 01', detail: 'Ma-vr 09:00 - 17:00', href: 'tel:+31687874001', color: 'from-primary-emerald to-primary-blue' },
+              { icon: Mail, title: 'E-mail', value: 'info@startbeheer.nl', detail: 'Reactie binnen 24 uur', href: 'mailto:info@startbeheer.nl', color: 'from-primary-blue to-primary-violet' },
+              { icon: Calendar, title: 'Plan online', value: 'Plan direct in', detail: 'Via onze demo-pagina', href: '/demo', color: 'from-primary-violet to-primary-blue' },
+            ].map((item, i) => (
+              <m.a
+                key={i}
+                href={item.href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group block p-6 sm:p-7 bg-white border border-slate-200 rounded-2xl hover:border-slate-300 transition-all hover:shadow-xl hover:shadow-slate-900/5"
+              >
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg mb-4 group-hover:scale-105 transition-transform`}>
+                  <item.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{item.title}</div>
+                <div className="text-lg font-bold text-slate-900 mb-1">{item.value}</div>
+                <div className="text-sm text-slate-500">{item.detail}</div>
+              </m.a>
+            ))}
+          </div>
+
+          {/* Address + Hours */}
+          <div className="grid sm:grid-cols-2 gap-5 mt-8">
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-primary-emerald/10 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-5 h-5 text-primary-emerald" />
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Adres</div>
+                <div className="text-sm font-bold text-slate-900 mb-0.5">Start Beheer Solutions</div>
+                <div className="text-sm text-slate-600">Utrecht, Nederland</div>
+              </div>
+            </div>
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-primary-blue/10 flex items-center justify-center flex-shrink-0">
+                <Clock className="w-5 h-5 text-primary-blue" />
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Openingstijden</div>
+                <div className="text-sm text-slate-600">Maandag - Vrijdag: 09:00 - 17:00</div>
+                <div className="text-sm text-slate-600">Buiten kantoortijd: SLA-klanten 24/7</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="contact-form" className="scroll-mt-24">
+        <ContactSection
+          sectionNumber="/ 02"
+          title={<>Of stel uw vraag <span className="text-gradient">per formulier.</span></>}
+          subtitle="Beschrijf kort waar u hulp bij wilt — we reageren binnen 24 uur met concrete vervolgstappen."
+          textareaPlaceholder="Waar kunnen we u mee helpen? (IT, marketing, AI, website, ...)..."
+        />
       </div>
-    </main>
+
+      <FinalCTA
+        title={<>Eerste gesprek is gratis.<br /><span className="text-gradient">Zet de eerste stap vandaag.</span></>}
+        ctaLabel="Plan Een Vrijblijvend Gesprek"
+        ctaHref="#contact-form"
+      />
+    </div>
   )
 }

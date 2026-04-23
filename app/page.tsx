@@ -1,8 +1,16 @@
+import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import HeroSection from '@/components/sections/HeroSection'
 import TrustBar from '@/components/sections/TrustBar'
 import ServicesGrid from '@/components/sections/ServicesGrid'
 import Script from 'next/script'
+
+export const metadata: Metadata = {
+  title: 'Start Beheer Solutions — IT, Websites, AI & Marketing voor ZZP en MKB',
+  description:
+    'Eén digitale partner voor MKB en ZZP: systeembeheer, websites & webshops, AI-automatisering en online marketing. Transparant, persoonlijk en zonder jargon.',
+  alternates: { canonical: '/' },
+}
 
 // Below-fold sections: dynamically imported to defer client JS
 const AboutPreview = dynamic(() => import('@/components/sections/AboutPreview'))
@@ -34,7 +42,7 @@ export default function HomePage() {
   }
 
   return (
-    <main>
+    <>
       <Script
         id="homepage-schema"
         type="application/ld+json"
@@ -48,6 +56,6 @@ export default function HomePage() {
       <OurApproach />
       <TestimonialsSection />
       <CTASection />
-    </main>
+    </>
   )
 }

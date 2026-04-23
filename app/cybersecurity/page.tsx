@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Professionele cybersecurity voor het MKB. Bescherm uw bedrijf tegen hackers, ransomware en datalekken.',
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Start Beheer',
+    siteName: 'Start Beheer Solutions',
     url: 'https://startbeheer.nl/cybersecurity',
   },
   twitter: {
