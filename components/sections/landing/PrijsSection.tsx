@@ -4,6 +4,7 @@ import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 export interface ConfidencePoint {
   title: string
@@ -45,15 +46,16 @@ export default function PrijsSection({
   confidencePoints,
   confidenceQuote,
 }: Props) {
+  const reduced = useReducedAmbient()
   return (
     <section className="relative">
       <div className="bg-[#0B1121] text-white pt-24 sm:pt-32 pb-24 sm:pb-32 relative overflow-hidden noise-overlay dark-edge-both">
         <div className="absolute inset-0 bg-dot-pattern opacity-40" />
         <m.div
-          className="absolute top-0 right-0 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] rounded-full blur-[120px] opacity-25"
+          className="absolute top-0 right-0 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] rounded-full blur-[70px] md:blur-[120px] opacity-25"
           style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%)' }}
-          animate={{ x: [0, 20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reduced ? undefined : { x: [0, 20, 0] }}
+          transition={reduced ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
         <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-20">
           {/* Risk-reversal badge */}

@@ -96,7 +96,9 @@
     color: transparent;
   }
 
-  /* === Glass Effects === */
+  /* === Glass Effects ===
+     Mobile: lower blur radius + raise bg opacity, since backdrop-filter is the
+     #1 paint-cost killer on mobile GPUs. Stacked blur + animation = jank. */
   .glass-effect {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
@@ -110,6 +112,19 @@
     backdrop-filter: blur(16px);
     background-color: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    .glass-effect {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.98);
+    }
+    .glass-effect-dark {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      background-color: rgba(30, 41, 59, 0.85);
+    }
   }
 
   /* === Patterns === */
@@ -242,12 +257,14 @@
       0 0 0 0 transparent;
     transition: box-shadow 0.4s ease, transform 0.4s ease;
   }
-  .card-premium:hover {
-    box-shadow:
-      0 0 0 1px rgba(37, 99, 235, 0.15),
-      0 8px 24px rgba(15, 23, 42, 0.06),
-      0 2px 6px rgba(37, 99, 235, 0.04);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .card-premium:hover {
+      box-shadow:
+        0 0 0 1px rgba(37, 99, 235, 0.15),
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        0 2px 6px rgba(37, 99, 235, 0.04);
+      transform: translateY(-2px);
+    }
   }
 
   /* === Card modern — spotlight + border ALTIJD zichtbaar, hover = ander effect === */
@@ -312,14 +329,16 @@
     z-index: 1;
     transition: background 0.4s ease;
   }
-  /* HOVER — compleet ander effect: top-accent-lijn + lift + scale + sterker shadow */
-  .card-modern:hover {
-    background-size: 100% 2px;
-    transform: translateY(-5px) scale(1.01);
-    box-shadow:
-      0 0 0 1px rgba(37, 99, 235, 0.18),
-      0 22px 50px rgba(15, 23, 42, 0.1),
-      0 10px 24px rgba(37, 99, 235, 0.1);
+  /* HOVER — alleen op pointer-devices, anders trigger touchtap een sticky pseudo-hover */
+  @media (hover: hover) {
+    .card-modern:hover {
+      background-size: 100% 2px;
+      transform: translateY(-5px) scale(1.01);
+      box-shadow:
+        0 0 0 1px rgba(37, 99, 235, 0.18),
+        0 22px 50px rgba(15, 23, 42, 0.1),
+        0 10px 24px rgba(37, 99, 235, 0.1);
+    }
   }
   /* Content boven spotlight/border layers */
   .card-modern > * {
@@ -384,14 +403,16 @@
     z-index: 1;
     transition: background 0.4s ease;
   }
-  .card-modern-dark:hover {
-    background-size: 100% 2px;
-    background-color: rgba(255, 255, 255, 0.05);
-    transform: translateY(-5px) scale(1.01);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-      0 20px 50px rgba(0, 0, 0, 0.3),
-      0 10px 24px rgba(37, 99, 235, 0.15);
+  @media (hover: hover) {
+    .card-modern-dark:hover {
+      background-size: 100% 2px;
+      background-color: rgba(255, 255, 255, 0.05);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 10px 24px rgba(37, 99, 235, 0.15);
+    }
   }
   .card-modern-dark > * {
     position: relative;
@@ -431,8 +452,10 @@
   .hover-glow {
     transition: box-shadow 0.3s ease;
   }
-  .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.15), 0 0 60px rgba(124, 58, 237, 0.08);
+  @media (hover: hover) {
+    .hover-glow:hover {
+      box-shadow: 0 0 30px rgba(37, 99, 235, 0.15), 0 0 60px rgba(124, 58, 237, 0.08);
+    }
   }
 
   /* ======================================================
@@ -479,14 +502,16 @@
     pointer-events: none;
     z-index: 10;
   }
-  .section-card-shimmer:hover::after {
-    animation: shimmer-slide 0.8s ease;
-  }
-  .section-card-shimmer:hover {
-    border-color: rgba(37, 99, 235, 0.2);
-    box-shadow:
-      0 4px 20px rgba(37, 99, 235, 0.06),
-      0 8px 40px rgba(124, 58, 237, 0.04);
+  @media (hover: hover) {
+    .section-card-shimmer:hover::after {
+      animation: shimmer-slide 0.8s ease;
+    }
+    .section-card-shimmer:hover {
+      border-color: rgba(37, 99, 235, 0.2);
+      box-shadow:
+        0 4px 20px rgba(37, 99, 235, 0.06),
+        0 8px 40px rgba(124, 58, 237, 0.04);
+    }
   }
 
   /* --- Dark section with glow border --- */
@@ -521,12 +546,14 @@
     transform-style: preserve-3d;
     perspective: 1000px;
   }
-  .card-3d:hover {
-    transform: translateY(-6px) rotateX(2deg) rotateY(-1deg);
-    box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.06),
-      0 8px 20px rgba(37, 99, 235, 0.04),
-      0 0 0 1px rgba(37, 99, 235, 0.08);
+  @media (hover: hover) {
+    .card-3d:hover {
+      transform: translateY(-6px) rotateX(2deg) rotateY(-1deg);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.06),
+        0 8px 20px rgba(37, 99, 235, 0.04),
+        0 0 0 1px rgba(37, 99, 235, 0.08);
+    }
   }
 
   /* --- Floating glow behind elements --- */
@@ -646,7 +673,20 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) and (hover: hover) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Mobile/tablet: laat de browser native scrollen — smooth scroll
+   geeft visuele jank en vertraagt anker-navigatie op touch. */
+
+/* Skip paint cost voor secties die nog niet in beeld zijn.
+   .lazy-paint moet handmatig op zware off-screen secties staan. */
+.lazy-paint {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 800px;
 }
 
 .appearance-none {

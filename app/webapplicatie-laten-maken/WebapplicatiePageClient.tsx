@@ -1,6 +1,7 @@
 'use client'
 
 import { m, animate, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import { useRef } from 'react'
 import HeroSection from '@/components/sections/landing/HeroSection'
 import TechStackBar from '@/components/sections/landing/TechStackBar'
@@ -90,6 +91,7 @@ function AbstractPanel({
 }
 
 function WebappShowcase3D() {
+  const reducedAmbient = useReducedAmbient()
   const ref = useRef<HTMLDivElement>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -124,8 +126,8 @@ function WebappShowcase3D() {
       >
         {/* Panel 1 — links-achter, Database */}
         <m.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reducedAmbient ? undefined : { y: [0, -10, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           style={{
             transform: 'rotateY(20deg) rotateX(-6deg) translateZ(-70px) translateX(-150px) translateY(-20px)',
             transformStyle: 'preserve-3d',
@@ -141,8 +143,8 @@ function WebappShowcase3D() {
 
         {/* Panel 2 — midden, LayoutDashboard (grootste) */}
         <m.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+          animate={reducedAmbient ? undefined : { y: [0, 10, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           style={{
             transform: 'rotateY(-4deg) rotateX(2deg) translateZ(40px)',
             transformStyle: 'preserve-3d',
@@ -158,8 +160,8 @@ function WebappShowcase3D() {
 
         {/* Panel 3 — rechts-voor, Cpu */}
         <m.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+          animate={reducedAmbient ? undefined : { y: [0, -8, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
           style={{
             transform: 'rotateY(-22deg) rotateX(4deg) translateZ(90px) translateX(160px) translateY(40px)',
             transformStyle: 'preserve-3d',

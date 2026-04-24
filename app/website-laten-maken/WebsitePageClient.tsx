@@ -1,6 +1,7 @@
 'use client'
 
 import { m, animate, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
@@ -374,6 +375,7 @@ function PhoneMockup() {
 }
 
 function ResponsiveShowcase() {
+  const reducedAmbient = useReducedAmbient()
   const ref = useRef<HTMLDivElement>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -423,8 +425,8 @@ function ResponsiveShowcase() {
       >
         {/* Desktop — boven op mobile, links op desktop */}
         <m.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reducedAmbient ? undefined : { y: [0, -10, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 7, repeat: Infinity, ease: 'easeInOut' }}
           style={{
             transform: 'rotateY(14deg) rotateX(-3deg) translateZ(-60px)',
             transformStyle: 'preserve-3d',
@@ -436,8 +438,8 @@ function ResponsiveShowcase() {
 
         {/* Tablet — alleen vanaf lg zichtbaar */}
         <m.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+          animate={reducedAmbient ? undefined : { y: [0, 8, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           style={{
             transform: 'rotateY(-3deg) rotateX(1deg) translateZ(20px)',
             transformStyle: 'preserve-3d',
@@ -449,8 +451,8 @@ function ResponsiveShowcase() {
 
         {/* Phone — onder op mobile, rechts op desktop */}
         <m.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+          animate={reducedAmbient ? undefined : { y: [0, -6, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
           style={{
             transform: 'rotateY(-22deg) rotateX(2deg) translateZ(80px)',
             transformStyle: 'preserve-3d',
@@ -588,6 +590,7 @@ function ResponsiveShowcase() {
 }
 
 export default function WebsitePageClient() {
+  const reducedAmbient = useReducedAmbient()
   return (
     <div className="min-h-screen bg-[#FAFAF5] text-slate-900 overflow-x-hidden">
 
@@ -901,10 +904,10 @@ export default function WebsitePageClient() {
       <section className="py-20 sm:py-28 lg:py-32 relative overflow-hidden">
         {/* Ambient glow achter de content */}
         <m.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[700px] h-[60vw] max-h-[500px] rounded-full blur-[140px] opacity-40 pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[700px] h-[60vw] max-h-[500px] rounded-full blur-[80px] md:blur-[140px] opacity-40 pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.1) 0%, rgba(37,99,235,0.06) 40%, transparent 70%)' }}
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reducedAmbient ? undefined : { scale: [1, 1.05, 1] }}
+          transition={reducedAmbient ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative">
@@ -1016,9 +1019,9 @@ export default function WebsitePageClient() {
       <section className="relative">
         <div className="bg-[#0B1121] text-white pt-24 sm:pt-32 pb-24 sm:pb-32 relative overflow-hidden noise-overlay dark-edge-both">
           <div className="absolute inset-0 bg-dot-pattern opacity-40" />
-          <m.div className="absolute top-0 right-0 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] rounded-full blur-[120px] opacity-25"
+          <m.div className="absolute top-0 right-0 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] rounded-full blur-[70px] md:blur-[120px] opacity-25"
             style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%)' }}
-            animate={{ x: [0, 20, 0] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />
+            animate={reducedAmbient ? undefined : { x: [0, 20, 0] }} transition={reducedAmbient ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }} />
           <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-20">
             {/* Risk-reversal badge bovenaan, centraal */}
             <m.div

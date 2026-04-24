@@ -45,10 +45,10 @@ export default function Header() {
         Skip naar hoofdinhoud
       </a>
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm'
-            : 'bg-dark/90 backdrop-blur-sm'
+            ? 'bg-white md:bg-white/95 md:backdrop-blur-md border-b border-slate-200 shadow-sm'
+            : 'bg-dark md:bg-dark/90 md:backdrop-blur-sm'
         }`}
       >
         <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">

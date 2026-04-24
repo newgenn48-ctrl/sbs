@@ -1,6 +1,7 @@
 'use client'
 
 import { m } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import HeroSection from '@/components/sections/landing/HeroSection'
 import CategoryCardsSection from '@/components/sections/landing/CategoryCardsSection'
 import FinalCTA from '@/components/sections/landing/FinalCTA'
@@ -63,6 +64,7 @@ const cards = [
 // HERO VISUAL — AI node / neural orb
 // ============================================================================
 function AINodeMockup() {
+  const reducedAmbient = useReducedAmbient()
   const nodes = [
     { icon: Bot, label: 'Chat', angle: 0, color: 'text-primary-violet', bg: 'bg-primary-violet/20', border: 'border-primary-violet/40' },
     { icon: PhoneCall, label: 'Voice', angle: 120, color: 'text-primary-blue', bg: 'bg-primary-blue/20', border: 'border-primary-blue/40' },
@@ -84,8 +86,8 @@ function AINodeMockup() {
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-violet/30 via-primary-blue/20 to-primary-emerald/30 blur-xl" />
           <Brain className="relative w-14 h-14 text-white" />
           <m.div
-            animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
+            animate={reducedAmbient ? undefined : { scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
+            transition={reducedAmbient ? undefined : { duration: 2.5, repeat: Infinity }}
             className="absolute inset-0 rounded-full border-2 border-primary-violet/40"
           />
         </div>

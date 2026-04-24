@@ -1,6 +1,7 @@
 'use client'
 
 import { m } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import HeroSection from '@/components/sections/landing/HeroSection'
 import TechStackBar from '@/components/sections/landing/TechStackBar'
 import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
@@ -41,6 +42,7 @@ const techStack = [
 // HERO VISUAL — Active call transcript / voice assistant in action
 // ============================================================================
 function VoiceCallMockup() {
+  const reducedAmbient = useReducedAmbient()
   return (
     <div className="relative">
       <div className="absolute -inset-6 bg-gradient-to-r from-primary-blue/20 via-primary-violet/15 to-primary-emerald/10 rounded-3xl blur-3xl opacity-40" />
@@ -68,8 +70,8 @@ function VoiceCallMockup() {
             {[...Array(4)].map((_, i) => (
               <m.div
                 key={i}
-                animate={{ scaleY: [0.3, 1, 0.5, 0.8, 0.3] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
+                animate={reducedAmbient ? undefined : { scaleY: [0.3, 1, 0.5, 0.8, 0.3] }}
+                transition={reducedAmbient ? undefined : { duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
                 className="w-0.5 h-3 bg-primary-emerald rounded-full origin-center"
               />
             ))}

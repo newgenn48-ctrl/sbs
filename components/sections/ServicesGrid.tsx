@@ -3,7 +3,7 @@
 import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { Shield, Code, BrainCircuit, Megaphone, ArrowRight, CheckCircle2 } from 'lucide-react'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { serviceColors, type ServiceColorKey } from '@/lib/colors'
 
 const services: Array<{
@@ -74,19 +74,26 @@ const services: Array<{
 ]
 
 function TiltCard({ children, className }: { children: React.ReactNode; className: string }) {
+  const [isTouch, setIsTouch] = useState(false)
+  useEffect(() => {
+    setIsTouch(window.matchMedia('(pointer: coarse), (max-width: 768px)').matches)
+  }, [])
+
+  if (isTouch) {
+    return <div className={className}>{children}</div>
+  }
+  return <TiltCardMotion className={className}>{children}</TiltCardMotion>
+}
+
+function TiltCardMotion({ children, className }: { children: React.ReactNode; className: string }) {
   const ref = useRef<HTMLDivElement>(null)
-  const isTouchRef = useRef(false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [4, -4]), { stiffness: 300, damping: 30 })
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-4, 4]), { stiffness: 300, damping: 30 })
 
-  useEffect(() => {
-    isTouchRef.current = window.matchMedia('(pointer: coarse)').matches
-  }, [])
-
   function handleMouse(e: React.MouseEvent) {
-    if (isTouchRef.current || !ref.current) return
+    if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
     x.set((e.clientX - rect.left) / rect.width - 0.5)
     y.set((e.clientY - rect.top) / rect.height - 0.5)

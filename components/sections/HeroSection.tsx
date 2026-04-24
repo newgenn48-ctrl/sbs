@@ -7,6 +7,7 @@ import {
   ArrowRight, CheckCircle2, Shield, Code, BrainCircuit, Megaphone,
   Sparkles, Users,
 } from 'lucide-react'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 const usps = [
   'Eén vast aanspreekpunt',
@@ -104,21 +105,22 @@ function OrchestrationMockup() {
 // MAIN HERO
 // ============================================================================
 export default function HeroSection() {
+  const reduced = useReducedAmbient()
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#0B1121]">
-      {/* Animated gradient mesh */}
+    <section className="relative min-h-[92svh] flex items-center overflow-hidden bg-[#0B1121]">
+      {/* Animated gradient mesh — static op mobile (blur+animate kost te veel paint) */}
       <div className="absolute inset-0 overflow-hidden">
         <m.div
-          className="absolute top-1/4 left-1/4 w-[80vw] max-w-[600px] h-[80vw] max-h-[600px] rounded-full blur-[120px]"
+          className="absolute top-1/4 left-1/4 w-[80vw] max-w-[600px] h-[80vw] max-h-[600px] rounded-full blur-[80px] md:blur-[120px]"
           style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }}
-          animate={{ x: [0, 40, 0], y: [0, -25, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reduced ? undefined : { x: [0, 40, 0], y: [0, -25, 0] }}
+          transition={reduced ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
         <m.div
-          className="absolute bottom-1/4 right-1/4 w-[70vw] max-w-[500px] h-[70vw] max-h-[500px] rounded-full blur-[100px]"
+          className="absolute bottom-1/4 right-1/4 w-[70vw] max-w-[500px] h-[70vw] max-h-[500px] rounded-full blur-[70px] md:blur-[100px]"
           style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)' }}
-          animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reduced ? undefined : { x: [0, -30, 0], y: [0, 25, 0] }}
+          transition={reduced ? undefined : { duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
       </div>
 

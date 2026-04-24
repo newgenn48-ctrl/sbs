@@ -20,11 +20,11 @@ export default function FloatingContact() {
   const formLabel = isDemoPage ? 'Gratis demo' : 'Contact'
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
       {isDemoPage ? (
         <Link
           href={formHref}
-          className="h-12 pl-4 pr-5 rounded-full shadow-xl flex items-center gap-2 bg-gradient-to-r from-primary-blue to-primary-violet hover:shadow-primary-blue/30 hover:shadow-2xl transition-all"
+          className="h-11 sm:h-12 pl-3.5 pr-4 sm:pl-4 sm:pr-5 rounded-full shadow-lg flex items-center gap-2 bg-gradient-to-r from-primary-blue to-primary-violet transition-shadow hover:shadow-xl"
           aria-label={formLabel}
         >
           <FileText className="w-4 h-4 text-white flex-shrink-0" />
@@ -33,10 +33,10 @@ export default function FloatingContact() {
       ) : (
         <Link
           href={formHref}
-          className="w-14 h-14 rounded-full shadow-xl flex items-center justify-center bg-gradient-to-r from-primary-blue to-primary-violet hover:shadow-primary-blue/30 hover:shadow-2xl transition-all"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg flex items-center justify-center bg-gradient-to-r from-primary-blue to-primary-violet transition-shadow hover:shadow-xl"
           aria-label={formLabel}
         >
-          <FileText className="w-6 h-6 text-white" />
+          <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         </Link>
       )}
     </div>

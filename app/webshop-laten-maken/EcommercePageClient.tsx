@@ -1,6 +1,7 @@
 'use client'
 
 import { m, animate, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import { useRef } from 'react'
 import HeroSection from '@/components/sections/landing/HeroSection'
 import TechStackBar from '@/components/sections/landing/TechStackBar'
@@ -79,6 +80,7 @@ function AbstractCard({
 }
 
 function ProductShowcase3D() {
+  const reducedAmbient = useReducedAmbient()
   const ref = useRef<HTMLDivElement>(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -115,8 +117,8 @@ function ProductShowcase3D() {
       >
         {/* Card 1 — links-achter, ShoppingCart */}
         <m.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reducedAmbient ? undefined : { y: [0, -10, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           style={{
             transform: 'rotateY(18deg) rotateX(-6deg) translateZ(-60px) translateX(-140px) translateY(-30px)',
             transformStyle: 'preserve-3d',
@@ -132,8 +134,8 @@ function ProductShowcase3D() {
 
         {/* Card 2 — midden, CreditCard (groter, focus) */}
         <m.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+          animate={reducedAmbient ? undefined : { y: [0, 10, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           style={{
             transform: 'rotateY(-4deg) rotateX(2deg) translateZ(40px)',
             transformStyle: 'preserve-3d',
@@ -149,8 +151,8 @@ function ProductShowcase3D() {
 
         {/* Card 3 — rechts-voor, TrendingUp */}
         <m.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+          animate={reducedAmbient ? undefined : { y: [0, -8, 0] }}
+          transition={reducedAmbient ? undefined : { duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
           style={{
             transform: 'rotateY(-22deg) rotateX(4deg) translateZ(90px) translateX(150px) translateY(40px)',
             transformStyle: 'preserve-3d',

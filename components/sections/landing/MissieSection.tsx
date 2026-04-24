@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 export interface FlowDiagramItem {
   icon: LucideIcon
@@ -55,13 +56,14 @@ export default function MissieSection({
   ctaLabel,
   ctaHref,
 }: Props) {
+  const reduced = useReducedAmbient()
   return (
     <section className="py-20 sm:py-28 lg:py-32 relative overflow-hidden">
       <m.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[700px] h-[60vw] max-h-[500px] rounded-full blur-[140px] opacity-40 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[700px] h-[60vw] max-h-[500px] rounded-full blur-[80px] md:blur-[140px] opacity-40 pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.1) 0%, rgba(37,99,235,0.06) 40%, transparent 70%)' }}
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? undefined : { scale: [1, 1.05, 1] }}
+        transition={reduced ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative">

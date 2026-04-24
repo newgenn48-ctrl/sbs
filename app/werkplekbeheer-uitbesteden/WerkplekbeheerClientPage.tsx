@@ -1,6 +1,7 @@
 'use client'
 
 import { m } from 'framer-motion'
+import { useReducedAmbient } from '@/lib/useMobile'
 import HeroSection from '@/components/sections/landing/HeroSection'
 import TechStackBar from '@/components/sections/landing/TechStackBar'
 import BeloftesStatsBar from '@/components/sections/landing/BeloftesStatsBar'
@@ -46,6 +47,7 @@ const techStack = [
 // HERO VISUAL — Werkplek / onboarding ticket mockup
 // ============================================================================
 function WorkplaceMockup() {
+  const reducedAmbient = useReducedAmbient()
   const tickets = [
     { user: 'Nieuwe collega', role: 'Onboarding', status: 'done', icon: UserPlus, color: 'emerald', time: 'dag 1', detail: 'Laptop + M365 geleverd' },
     { user: 'Medewerker', role: 'Support', status: 'progress', icon: Headphones, color: 'blue', time: 'bezig', detail: 'VPN-verbinding fixen' },
@@ -116,8 +118,8 @@ function WorkplaceMockup() {
                     {t.status === 'progress' && (
                       <>
                         <m.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
+                          animate={reducedAmbient ? undefined : { scale: [1, 1.2, 1] }}
+                          transition={reducedAmbient ? undefined : { duration: 1.5, repeat: Infinity }}
                           className="w-2 h-2 rounded-full bg-primary-blue ml-auto mb-1"
                         />
                         <div className="text-[9px] text-primary-blue font-mono font-semibold">{t.time}</div>

@@ -4,6 +4,7 @@ import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckCircle2, Clock, Shield, Users, Phone, Sparkles } from 'lucide-react'
 import Link from 'next/link'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 const benefits = [
   { icon: Clock, text: 'Snel geschakeld' },
@@ -23,20 +24,21 @@ const services = [
 const bottomTexts = ['Geen verplichtingen', 'Direct een plan van aanpak', 'Concrete resultaten']
 
 export default function CTASection() {
+  const reduced = useReducedAmbient()
   return (
     <section className="py-24 relative bg-[#0B1121] overflow-hidden">
-      {/* Animated gradient blobs */}
+      {/* Animated gradient blobs — static op mobile */}
       <m.div
-        className="absolute top-0 right-0 w-[80vw] max-w-[500px] h-[80vw] max-h-[500px] rounded-full blur-[120px] opacity-40"
+        className="absolute top-0 right-0 w-[80vw] max-w-[500px] h-[80vw] max-h-[500px] rounded-full blur-[70px] md:blur-[120px] opacity-40"
         style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }}
-        animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? undefined : { x: [0, 20, 0], y: [0, -15, 0] }}
+        transition={reduced ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
       <m.div
-        className="absolute bottom-0 left-0 w-[70vw] max-w-[400px] h-[70vw] max-h-[400px] rounded-full blur-[100px] opacity-40"
+        className="absolute bottom-0 left-0 w-[70vw] max-w-[400px] h-[70vw] max-h-[400px] rounded-full blur-[60px] md:blur-[100px] opacity-40"
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)' }}
-        animate={{ x: [0, -15, 0], y: [0, 15, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? undefined : { x: [0, -15, 0], y: [0, 15, 0] }}
+        transition={reduced ? undefined : { duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Dot pattern */}

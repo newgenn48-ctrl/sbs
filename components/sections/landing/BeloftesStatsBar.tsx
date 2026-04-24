@@ -3,6 +3,7 @@
 import { m, animate } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import type { LucideIcon } from 'lucide-react'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 export interface StatItem {
   icon: LucideIcon
@@ -44,14 +45,15 @@ interface Props {
  * Gescheiden door gradient hairlines. Hoekige bottom-edge via dark-edge-bottom.
  */
 export default function BeloftesStatsBar({ stats }: Props) {
+  const reduced = useReducedAmbient()
   return (
     <section className="bg-[#0B1121] pt-10 sm:pt-12 pb-14 sm:pb-20 relative overflow-hidden noise-overlay dark-edge-bottom">
       <div className="absolute inset-0 bg-dot-pattern opacity-40" />
       <m.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[500px] h-[60vw] max-h-[500px] rounded-full blur-[120px] opacity-20"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[500px] h-[60vw] max-h-[500px] rounded-full blur-[70px] md:blur-[120px] opacity-20"
         style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.3) 0%, rgba(124,58,237,0.15) 50%, transparent 70%)' }}
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? undefined : { scale: [1, 1.05, 1] }}
+        transition={reduced ? undefined : { duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-20">

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import ScrollTrigger from '@/components/animations/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { AlertCircle, CheckCircle2, Loader2, Mail, Send, Phone } from 'lucide-react'
+import { useReducedAmbient } from '@/lib/useMobile'
 
 function handleCardMouseMove(e: React.MouseEvent<HTMLDivElement>) {
   const rect = e.currentTarget.getBoundingClientRect()
@@ -68,6 +69,7 @@ export default function ContactSection({
   const [website, setWebsite] = useState('') // honeypot
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const reduced = useReducedAmbient()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -101,10 +103,10 @@ export default function ContactSection({
       <div className="divider-hairline absolute top-0 left-0 right-0" />
 
       <m.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[600px] h-[60vw] max-h-[500px] rounded-full blur-[140px] opacity-30 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[600px] h-[60vw] max-h-[500px] rounded-full blur-[80px] md:blur-[140px] opacity-30 pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(124,58,237,0.05) 40%, transparent 70%)' }}
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? undefined : { scale: [1, 1.05, 1] }}
+        transition={reduced ? undefined : { duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-20 relative">
