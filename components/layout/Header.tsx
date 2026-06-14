@@ -61,7 +61,7 @@ export default function Header() {
               className="relative"
             >
               <Image
-                src="/sbs.webp"
+                src="/sbs-v2.webp"
                 alt="Start Beheer Solutions"
                 width={180}
                 height={52}

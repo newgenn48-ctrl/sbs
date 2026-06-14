@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/sbs.webp"
+                src="/sbs-v2.webp"
                 alt="Start Beheer Solutions"
                 width={200}
                 height={58}
